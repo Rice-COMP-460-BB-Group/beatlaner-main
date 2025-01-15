@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cksl0snkck7gc"]
+
+[ext_resource type="Texture2D" uid="uid://cpm2ls1csdjal" path="res://resources/grass_tileset_map.png" id="1_ysyy7"]
+
+[node name="MapScene" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1.00033, 1)
+texture = ExtResource("1_ysyy7")
