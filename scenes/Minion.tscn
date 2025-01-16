@@ -1,3 +1,10 @@
-[gd_scene format=3 uid="uid://d4eaq061ln4fh"]
+[gd_scene load_steps=2 format=3 uid="uid://d4eaq061ln4fh"]
 
-[node name="Minion" type="Node2D"]
+[ext_resource type="Texture2D" uid="uid://b8g3h24iot0yh" path="res://icon.svg" id="1_5up66"]
+
+[node name="Minion" type="CharacterBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_5up66")
