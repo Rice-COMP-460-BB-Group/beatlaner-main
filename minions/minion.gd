@@ -7,7 +7,7 @@ extends CharacterBody2D
 @export var team: int
 
 var speed = 300
-
+enum {BLUE,RED}
 var accel = 5
 
 
@@ -17,9 +17,26 @@ var accel = 5
  # Replace with function body.
 var movement_speed = 50
 
+
+func get_team() -> int:
+	return team
+
+func set_team(is_player: bool):
+	if is_player:
+		team = BLUE
+	else:
+		team = RED
+
+func get_target():
+	return target
+
+func set_target(node: Node2D):
+	target = node
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 @warning_ignore("unused_parameter")
 func _physics_process(delta: float):
+	print(position,"this is my position!")
 	var mouse_pos = get_global_mouse_position()
 	navigation_agent_2d.target_position = mouse_pos
 	
@@ -39,10 +56,8 @@ func _physics_process(delta: float):
 	move_and_slide()
 
 
-func _on_timer_timeout() -> void:
-	@warning_ignore("standalone_expression")
-	navigation_agent_2d.target_position
-	pass # Replace with function body.
+func print_this():
+	print('hello there!')
 
 
 func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:

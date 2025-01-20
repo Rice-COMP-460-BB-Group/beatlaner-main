@@ -15,6 +15,7 @@ func _ready() -> void:
 	print("spawner invoked")
 	for i in get_children():
 		if i is Marker2D:
+			print(i.get_name())
 			spawn_points.append(i)
 	
 		
@@ -34,6 +35,7 @@ func _on_timer_timeout() -> void:
 		var spawnpt = spawn_points[randi() % spawn_points.size()]
 		var minion = minionScene.instantiate()
 		minion.position = spawnpt.position
+		
 		var main = get_parent()
 		main.add_child(minion)
 		minion_count += 1
