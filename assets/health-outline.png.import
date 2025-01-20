@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://535w06j7l81f"
-path="res://.godot/imported/tower_placeholder.png-2e63736b431d03252cab5753a0663d5e.ctex"
+uid="uid://4br11jqpfcag"
+path="res://.godot/imported/health-outline.png-f51bbca823f41de403dea1cc8061f6f9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/tower_placeholder.png"
-dest_files=["res://.godot/imported/tower_placeholder.png-2e63736b431d03252cab5753a0663d5e.ctex"]
+source_file="res://assets/health-outline.png"
+dest_files=["res://.godot/imported/health-outline.png-f51bbca823f41de403dea1cc8061f6f9.ctex"]
 
 [params]
 
