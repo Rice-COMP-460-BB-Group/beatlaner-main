@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://cao1ivxo860t2"]
+
+[ext_resource type="Script" path="res://minions/minion.gd" id="1_ywsbo"]
+[ext_resource type="Texture2D" uid="uid://o7v5qyqq3usn" path="res://assets/minion/east.png" id="2_n2841"]
+[ext_resource type="Script" path="res://minions/health_component.gd" id="3_10nit"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rmvj2"]
+radius = 13.0
+height = 42.0
+
+[node name="Minion" type="CharacterBody2D"]
+script = ExtResource("1_ywsbo")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-0.250001, -0.249999)
+scale = Vector2(0.99, 1)
+texture = ExtResource("2_n2841")
+
+[node name="NavigationHandler" type="Node2D" parent="."]
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="NavigationHandler"]
+path_desired_distance = 5.0
+target_desired_distance = 5.0
+path_postprocessing = 1
+avoidance_enabled = true
+debug_enabled = true
+debug_use_custom = true
+debug_path_custom_color = Color(0.623439, 0.000276439, 0.285134, 1)
+
+[node name="Timer" type="Timer" parent="NavigationHandler"]
+wait_time = 0.106
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_rmvj2")
+
+[node name="HealthComponent" type="Node2D" parent="."]
+script = ExtResource("3_10nit")
+
+[connection signal="velocity_computed" from="NavigationHandler/NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
+[connection signal="timeout" from="NavigationHandler/Timer" to="." method="_on_timer_timeout"]

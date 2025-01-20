@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://bufx6wcek0aj8"]
+
+[ext_resource type="Script" path="res://minions/spawner.gd" id="1_a68u2"]
+
+[node name="Spawner" type="Node2D"]
+script = ExtResource("1_a68u2")
+
+[node name="P1Lower" type="Marker2D" parent="."]
+position = Vector2(944, 3456)
+
+[node name="P2Lower2" type="Marker2D" parent="."]
+position = Vector2(3440, 928)
+
+[node name="P1Upper" type="Marker2D" parent="."]
+position = Vector2(560, 3072)
+
+[node name="P2Upper" type="Marker2D" parent="."]
+position = Vector2(3072, 512)
+
+[node name="P2Mid" type="Marker2D" parent="."]
+position = Vector2(3184, 816)
+
+[node name="P1Mid" type="Marker2D" parent="."]
+position = Vector2(816, 3200)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
