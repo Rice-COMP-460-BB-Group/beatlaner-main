@@ -20,8 +20,7 @@ var movement_speed = 50
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 @warning_ignore("unused_parameter")
 func _physics_process(delta: float):
-	var mouse_pos = get_global_mouse_position()
-	navigation_agent_2d.target_position = mouse_pos
+	navigation_agent_2d.target_position = target.position
 	
 	
 	
