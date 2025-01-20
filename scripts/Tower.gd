@@ -2,13 +2,12 @@ extends Node2D
 
 @export var max_health: int = 100
 var current_health: int
-signal health_changed(current_health, max_health)
 
 func _ready():
 	position = get_viewport_rect().size / 2
 	$Sprite2D.centered = true
 	current_health = max_health
-	health_changed.emit(current_health, max_health)
+	$HealthBar.update(current_health, max_health)
 	
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
@@ -18,4 +17,4 @@ func _input(event):
 
 func take_damage(amount):
 	current_health = max(current_health - amount, 0)
-	health_changed.emit(current_health, max_health)
+	$HealthBar.update(current_health, max_health)
