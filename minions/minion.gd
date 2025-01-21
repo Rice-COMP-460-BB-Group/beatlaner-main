@@ -60,3 +60,7 @@ func print_this():
 
 func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:
 	velocity = safe_velocity
+
+
+func _on_timer_timeout() -> void:
+	pass # Replace with function body.
