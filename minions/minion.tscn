@@ -45,8 +45,6 @@ offset_left = -29.0
 offset_top = 30.0
 offset_right = 28.0
 offset_bottom = 37.0
-texture_under = null
-texture_progress = null
 
 [connection signal="velocity_computed" from="NavigationHandler/NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
 [connection signal="timeout" from="NavigationHandler/Timer" to="." method="_on_timer_timeout"]
