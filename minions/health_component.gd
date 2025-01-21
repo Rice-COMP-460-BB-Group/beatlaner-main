@@ -6,11 +6,9 @@ extends Node2D
 @export var maxHealth: int
 
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
-
+	$HealthBar.update(currentHealth, maxHealth)
 
 
 func get_current_health():
@@ -25,3 +23,5 @@ func decrease_health(amount: int):
 	if currentHealth <= 0:
 		print("health is zero")
 		currentHealth = 0
+		
+	$HealthBar.update(currentHealth, maxHealth)
