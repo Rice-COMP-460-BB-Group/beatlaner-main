@@ -1,0 +1,48 @@
+[gd_scene load_steps=5 format=3 uid="uid://b6mdjbyemb0sr"]
+
+[ext_resource type="Script" path="res://rhythm game/scenes/background.gd" id="1_jjh5w"]
+[ext_resource type="PackedScene" uid="uid://do5hu0dt23mbe" path="res://rhythm game/scenes/mania_keys.tscn" id="1_ykdqm"]
+[ext_resource type="PackedScene" uid="uid://xfxnyk30olx4" path="res://rhythm game/scenes/hud.tscn" id="3_pnkrm"]
+[ext_resource type="AudioStream" uid="uid://c18xb8v33bv4v" path="res://rhythm game/assets/music/test.mp3" id="4_ssfa3"]
+
+[node name="Background" type="Node2D"]
+script = ExtResource("1_jjh5w")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="mania-key" parent="." instance=ExtResource("1_ykdqm")]
+position = Vector2(-141, 292)
+key = "key1"
+
+[node name="mania-key2" parent="." instance=ExtResource("1_ykdqm")]
+position = Vector2(-47, 292)
+key = "key2"
+
+[node name="mania-key3" parent="." instance=ExtResource("1_ykdqm")]
+position = Vector2(47, 292)
+key = "key3"
+
+[node name="mania-key4" parent="." instance=ExtResource("1_ykdqm")]
+position = Vector2(141, 292)
+key = "key4"
+
+[node name="HUD" parent="." instance=ExtResource("3_pnkrm")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 13.0
+offset_top = -112.0
+offset_right = 13.0
+offset_bottom = -112.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_ssfa3")
+volume_db = -8.419
+autoplay = true
+
+[connection signal="hit" from="mania-key" to="." method="_on_maniakey_hit" binds= ["type"]]
+[connection signal="hit" from="mania-key2" to="." method="_on_maniakey_hit" binds= ["type"]]
+[connection signal="hit" from="mania-key3" to="." method="_on_maniakey_hit" binds= ["type"]]
+[connection signal="hit" from="mania-key4" to="." method="_on_maniakey_hit" binds= ["type"]]

@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://do5hu0dt23mbe"]
+
+[ext_resource type="Texture2D" uid="uid://d24lhdrvxye6n" path="res://rhythm game/assets/mania_keys/mania-key1.png" id="1_gwcjy"]
+[ext_resource type="Script" path="res://rhythm game/scenes/mania_keys.gd" id="2_7npj4"]
+[ext_resource type="Texture2D" uid="uid://dew7tdq70hwi0" path="res://rhythm game/assets/mania_keys/mania-key1D.png" id="3_1apjp"]
+[ext_resource type="AudioStream" uid="uid://c5vdqklisvy6p" path="res://rhythm game/assets/mania_keys/drum-hitnormal.wav" id="4_bbpeq"]
+
+[node name="NoteListeners" type="Sprite2D"]
+texture = ExtResource("1_gwcjy")
+script = ExtResource("2_7npj4")
+
+[node name="RandTimer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[node name="ActiveKey" type="Sprite2D" parent="."]
+texture = ExtResource("3_1apjp")
+
+[node name="ActiveKeyTimer" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="Kicksound1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_bbpeq")
+volume_db = -5.153
+
+[connection signal="timeout" from="RandTimer" to="." method="_on_rand_timer_timeout"]
+[connection signal="timeout" from="ActiveKeyTimer" to="." method="_on_active_key_timer_timeout"]
