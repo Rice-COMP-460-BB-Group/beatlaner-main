@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://bf72k84kbxll3"]
+[gd_scene load_steps=3 format=3 uid="uid://bf72k84kbxll3"]
 
 [ext_resource type="Script" path="res://scripts/Main.gd" id="1_ktlqa"]
+[ext_resource type="PackedScene" uid="uid://ttjimvvj2d3a" path="res://main/Tower.tscn" id="2_flut7"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_ktlqa")
+
+[node name="Tower" parent="." instance=ExtResource("2_flut7")]
