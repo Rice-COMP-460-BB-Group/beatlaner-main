@@ -2,6 +2,8 @@ extends Node2D
 
 
 var minionScene = load("res://minions/minion.tscn")
+
+var towerScene = load("res://main/Tower.tscn")
 var minion_count = 0
 var spawn_points = {}
 
@@ -13,6 +15,12 @@ func _ready() -> void:
 		if i is Marker2D:
 			spawn_points[i.name] = i
 	
+	for sp in spawn_points.values():
+		var tower = towerScene.instantiate()
+		tower.position = sp.position
+		var main = get_parent()
+		main.add_child(tower)
+		
 		
 	 # Replace with function body.
 

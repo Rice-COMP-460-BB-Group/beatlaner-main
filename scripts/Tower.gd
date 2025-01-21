@@ -4,7 +4,7 @@ extends Node2D
 var current_health: int
 
 func _ready():
-	position = get_viewport_rect().size / 2
+	
 	$Sprite2D.centered = true
 	current_health = max_health
 	$HealthBar.update(current_health, max_health)
