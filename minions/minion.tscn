@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cao1ivxo860t2"]
+[gd_scene load_steps=5 format=3 uid="uid://cao1ivxo860t2"]
 
 [ext_resource type="Script" path="res://minions/minion.gd" id="1_ywsbo"]
 [ext_resource type="Texture2D" uid="uid://o7v5qyqq3usn" path="res://assets/minion/east.png" id="2_n2841"]
-[ext_resource type="Script" path="res://minions/health_component.gd" id="3_10nit"]
-[ext_resource type="PackedScene" uid="uid://bd5imx0piptlg" path="res://main/HealthBar.tscn" id="4_6nbcw"]
+[ext_resource type="PackedScene" uid="uid://ckytalr2gjoym" path="res://healthbar/health_component.tscn" id="3_qdnh8"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rmvj2"]
 radius = 13.0
@@ -11,8 +10,6 @@ height = 42.0
 
 [node name="Minion" type="CharacterBody2D"]
 script = ExtResource("1_ywsbo")
-team = null
-attack_speed = null
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-0.250001, -0.249999)
@@ -38,16 +35,7 @@ autostart = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_rmvj2")
 
-[node name="HealthComponent" type="Node2D" parent="."]
-script = ExtResource("3_10nit")
-currentHealth = 50
-maxHealth = 50
-
-[node name="HealthBar" parent="HealthComponent" instance=ExtResource("4_6nbcw")]
-offset_left = -29.0
-offset_top = 30.0
-offset_right = 28.0
-offset_bottom = 37.0
+[node name="HealthComponent" parent="." instance=ExtResource("3_qdnh8")]
 
 [node name="AttackTimer" type="Timer" parent="."]
 

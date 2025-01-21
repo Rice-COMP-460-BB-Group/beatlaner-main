@@ -18,6 +18,7 @@ func _ready() -> void:
 	for sp in spawn_points.values():
 		var tower = towerScene.instantiate()
 		tower.position = sp.position
+		tower.team = sp.name.find("P1") != 0
 		var main = get_parent()
 		main.add_child(tower)
 		

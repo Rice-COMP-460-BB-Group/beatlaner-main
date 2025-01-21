@@ -4,7 +4,7 @@ class_name Minion
 
 @export var tower_target: Node2D
 
-var enemy_target: Minion
+var enemy_target: Node2D
 
 enum Team {BLUE, RED}
 
@@ -44,7 +44,7 @@ func set_tower_target(node: Node2D):
 func get_enemy_target():
 	return enemy_target
 
-func set_enemy_target(node: Minion):
+func set_enemy_target(node: Node2D):
 	enemy_target = node
 
 func get_health():
@@ -59,13 +59,15 @@ func _physics_process(delta: float):
 	else:
 		navigation_agent_2d.target_position = enemy_target.global_position
 
-		if enemy_target.get_health() <= 0:
+		var health_component = enemy_target.get_node("HealthComponent")
+
+		if health_component and health_component is HealthComponent and health_component.currentHealth <= 0:
 			enemy_target = null
 			state = State.MOVE
 			print("stopped aggroing")
 		elif global_position.distance_to(enemy_target.global_position) < 75:
 			if attack_timer.is_stopped():
-				print("attacking")
+				print("begin attacking")
 				attack_timer.start()
 	
 	var current_agent_position = global_position
@@ -75,6 +77,7 @@ func _physics_process(delta: float):
 	if state == State.MOVE:
 		var space_state = get_world_2d().direct_space_state
 		var query = PhysicsRayQueryParameters2D.new()
+		query.collide_with_areas = true
 		query.from = global_position
 		query.to = global_position + new_velocity.normalized() * 200
 		query.exclude = [self]
@@ -85,9 +88,13 @@ func _physics_process(delta: float):
 			set_enemy_target(result.collider)
 			state = State.ATTACK
 			return
-	
+		if result and result.collider is Tower and result.collider.team != team:
+			print("tower found")
+			set_enemy_target(result.collider)
+			state = State.ATTACK
+			return
 	if navigation_agent_2d.is_navigation_finished():
-		queue_free()
+		print("reached target")
 		return
 	if state == State.ATTACK and global_position.distance_to(enemy_target.global_position) < 50:
 		new_velocity = Vector2.ZERO
