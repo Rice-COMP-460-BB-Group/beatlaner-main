@@ -1,5 +1,8 @@
 extends Node2D
 
+class_name HealthComponent
+
+signal health_destroyed
 
 @export var currentHealth: int
 
@@ -23,5 +26,6 @@ func decrease_health(amount: int):
 	if currentHealth <= 0:
 		print("health is zero")
 		currentHealth = 0
+		health_destroyed.emit()
 		
 	$HealthBar.update(currentHealth, maxHealth)

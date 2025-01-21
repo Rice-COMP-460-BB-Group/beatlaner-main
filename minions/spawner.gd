@@ -38,13 +38,15 @@ func spawn_minion():
 
 
 func _on_timer_timeout() -> void:
-	print("timeout!")
-	if minion_count < 1:
-		var spawnpt = spawn_points[spawn_points.keys()[randi() % spawn_points.size()]]
-		var minion = minionScene.instantiate()
-		minion.target = get_opposite(spawnpt)
-		minion.position = spawnpt.position
-		
-		var main = get_parent()
-		main.add_child(minion)
-		minion_count += 1
+	var spawnpt = spawn_points[spawn_points.keys()[randi() % spawn_points.size()]]
+	var minion = minionScene.instantiate()
+	if spawnpt.name.find("P1") == 0:
+		minion.set_team(true)
+	else:
+		minion.set_team(false)
+	minion.tower_target = get_opposite(spawnpt)
+	minion.position = spawnpt.position
+
+	var main = get_parent()
+	main.add_child(minion)
+	minion_count += 1
