@@ -42,6 +42,8 @@ stream = ExtResource("4_ssfa3")
 volume_db = -8.419
 autoplay = true
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
 [connection signal="hit" from="mania-key" to="." method="_on_maniakey_hit" binds= ["type"]]
 [connection signal="hit" from="mania-key2" to="." method="_on_maniakey_hit" binds= ["type"]]
 [connection signal="hit" from="mania-key3" to="." method="_on_maniakey_hit" binds= ["type"]]

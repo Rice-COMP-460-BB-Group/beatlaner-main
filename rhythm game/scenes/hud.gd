@@ -28,7 +28,7 @@ func _ready() -> void:
 
 
 func Hit(type: String):
-	%HitStatus.text = type
+	%HitStatus.text = "[center]"+type+"[/center]"
 	if type == "Miss":
 		combo = 0
 	else:
@@ -37,5 +37,5 @@ func Hit(type: String):
 	acc_notes_total += 1
 	acc_notes_sum += accuracy_dict[type]
 	%Accuracy.text = str(acc_notes_sum / acc_notes_total)
-	%Combo.text = str(combo)
+	%Combo.text = "[center]"+str(combo)+"[/center]" if combo else ""
 	%Score.text = str(score)

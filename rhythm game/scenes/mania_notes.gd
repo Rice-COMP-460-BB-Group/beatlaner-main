@@ -6,6 +6,7 @@ func _init():
 
 
 @export var speed = 12.0
+# 12 is best, 8 for casuals
 var init_y = -370.0
 
 var end = 290
