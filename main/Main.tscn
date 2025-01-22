@@ -1,9 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://bf72k84kbxll3"]
+[gd_scene load_steps=4 format=3 uid="uid://bf72k84kbxll3"]
 
 [ext_resource type="Script" path="res://scripts/Main.gd" id="1_ktlqa"]
 [ext_resource type="PackedScene" uid="uid://3l0iahp12xip" path="res://main/Tower.tscn" id="2_flut7"]
+[ext_resource type="PackedScene" uid="uid://bq7b1nef7l6w6" path="res://debug/debugmenu.tscn" id="3_nkcnh"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_ktlqa")
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Debugmenu" parent="CanvasLayer" instance=ExtResource("3_nkcnh")]
+
 [node name="Tower" parent="." instance=ExtResource("2_flut7")]
+
+[connection signal="spawn_wave" from="CanvasLayer/Debugmenu" to="." method="_on_debugmenu_spawn_wave"]

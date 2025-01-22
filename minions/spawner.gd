@@ -86,8 +86,7 @@ func get_opposite(key: StringName) -> Tower:
 	else:
 		return null
 
-func spawn_minion():
-	minionScene.instantiate()
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 
 
@@ -108,3 +107,60 @@ func _on_timer_timeout() -> void:
 	var main = get_parent()
 	main.add_child(minion)
 	minion_count += 1
+
+var num_enemy_upper = 0
+var num_enemy_mid = 0
+var num_enemy_lower = 0
+
+func disable_enemy_spawns():
+	print("pass")
+
+
+func spawn_minion(key: String):
+	var spawnpt = spawn_points[key]
+	if !is_instance_valid(spawnpt):
+		return
+	var minion = minionScene.instantiate()
+	if key.ends_with("Upper"):
+		minion.intermediate_lane = upperThrough
+	elif key.ends_with("Lower"):
+		minion.intermediate_lane = lowerThrough
+	minion.set_team(spawnpt.team == 0)
+	minion.tower_target = get_opposite(key)
+	minion.position = spawnpt.position
+
+	return minion
+	#main.add_child(minion)
+	#minion_count += 1
+	
+
+func spawn_friendly_wave(config: Dictionary) -> void:
+	
+	var topcount = config["top"]
+	
+	var midcount = config["mid"]
+	
+	var bottomcount = config["bottom"]
+	
+	var top_minions = []
+	
+	for i in range(topcount):
+		top_minions.append(spawn_minion("P1Upper"))
+	
+	var mid_minions = []
+	for i in range(midcount):
+		mid_minions.append(spawn_minion("P1Mid"))
+	var bottom_minions = []
+	for i in range(bottomcount):
+		bottom_minions.append(spawn_minion("P1Lower"))
+	var main = get_parent()
+	for m in top_minions:
+		main.addchild(m)
+	
+	for m in mid_minions:
+		main.addchild(m)
+	
+	for m in bottom_minions:
+		main.addchild(m)
+		
+	
