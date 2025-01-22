@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://3l0iahp12xip"]
+[gd_scene load_steps=6 format=3 uid="uid://3l0iahp12xip"]
 
 [ext_resource type="Script" path="res://scripts/Tower.gd" id="1_15l20"]
 [ext_resource type="Texture2D" uid="uid://c6vob683c35dk" path="res://assets/tower.png" id="2_qjxk3"]
 [ext_resource type="PackedScene" uid="uid://ckytalr2gjoym" path="res://healthbar/health_component.tscn" id="3_sstfa"]
+[ext_resource type="AudioStream" uid="uid://d101lyttvr3i3" path="res://assets/shimmer_sound.wav" id="4_astes"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7vd8f"]
 size = Vector2(59, 120)
@@ -19,6 +20,9 @@ shape = SubResource("RectangleShape2D_7vd8f")
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_sstfa")]
 position = Vector2(0, 40)
+
+[node name="DestroySound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_astes")
 
 [connection signal="health_destroyed" from="HealthComponent" to="." method="_on_health_component_health_destroyed"]
 
