@@ -6,6 +6,8 @@ class_name Minion
 
 var enemy_target: Node2D
 
+var intermediate_lane: Node2D
+
 enum Team {BLUE, RED}
 
 @export var team: Team
@@ -21,6 +23,8 @@ enum State {MOVE, ATTACK}
 
 var movement_speed = 250
 @export var attack_speed: float = .5
+
+var visited_intermediate = false
 
 func _ready():
 	attack_timer.wait_time = attack_speed
@@ -69,7 +73,15 @@ func _physics_process(delta: float):
 	if state == State.MOVE || enemy_target == null:
 		if enemy_target == null:
 			state = State.MOVE
-		navigation_agent_2d.target_position = tower_target.position
+			
+		if intermediate_lane and not visited_intermediate:
+			navigation_agent_2d.target_position = intermediate_lane.position
+			if global_position.distance_to(intermediate_lane.position) < 5:
+				visited_intermediate = true
+		else:
+			if tower_target == null:
+				return
+			navigation_agent_2d.target_position = tower_target.position
 	else:
 		navigation_agent_2d.target_position = enemy_target.global_position
 

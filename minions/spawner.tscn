@@ -8,11 +8,17 @@ script = ExtResource("1_a68u2")
 [node name="P1Lower" type="Marker2D" parent="."]
 position = Vector2(944, 3456)
 
+[node name="LowerThrough" type="Marker2D" parent="."]
+position = Vector2(3440, 3456)
+
 [node name="P2Lower" type="Marker2D" parent="."]
 position = Vector2(3440, 928)
 
 [node name="P1Upper" type="Marker2D" parent="."]
 position = Vector2(560, 3072)
+
+[node name="UpperThrough" type="Marker2D" parent="."]
+position = Vector2(560, 512)
 
 [node name="P2Upper" type="Marker2D" parent="."]
 position = Vector2(3072, 512)
