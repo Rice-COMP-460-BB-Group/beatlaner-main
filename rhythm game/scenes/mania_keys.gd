@@ -34,11 +34,12 @@ func _process(delta):
 			active_notes.pop_front()
 			Signals.Hit.emit('Miss')
 
-
+func _ready():
+	var screen_size = get_viewport().size
 	
 func init():
 	var new_note = note.instantiate()
-	get_tree().get_root().call_deferred("add_child", new_note)
+	get_parent().add_child(new_note)
 	new_note.init(position.x)
 	active_notes.push_back(new_note)
 
