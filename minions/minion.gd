@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 class_name Minion
 
-@export var tower_target: Node2D
+@export var tower_target: Tower
 
 var enemy_target: Node2D
 
@@ -52,6 +52,20 @@ func get_health():
 
 @warning_ignore("unused_parameter")
 func _physics_process(delta: float):
+
+	if not is_instance_valid(tower_target):
+		var towers = get_tree().get_nodes_in_group("Towers")
+		var candid = null
+		var min_dist = INF
+		for tower in towers:
+			if tower.team != team:
+				var distance = global_position.distance_to(tower.global_position)
+				if distance < min_dist:
+					min_dist = distance
+					candid = tower
+		print("finding new tower")
+		tower_target = candid
+
 	if state == State.MOVE || enemy_target == null:
 		if enemy_target == null:
 			state = State.MOVE
@@ -83,6 +97,7 @@ func _physics_process(delta: float):
 		query.exclude = [self]
 		
 		var result = space_state.intersect_ray(query)
+		print(result)
 		if result and result.collider is Minion and result.collider.get_team() != team:
 			print("enemy found")
 			set_enemy_target(result.collider)
@@ -106,6 +121,8 @@ func _physics_process(delta: float):
 	move_and_slide()
 
 func _on_attack_timer_timeout():
+	print("attempting attack on enemy")
+	print(is_instance_valid(enemy_target))
 	if is_instance_valid(enemy_target) && global_position.distance_to(enemy_target.global_position) < 75:
 		var health_component = enemy_target.get_node("HealthComponent")
 		if health_component and health_component is HealthComponent:
