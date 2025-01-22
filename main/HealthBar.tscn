@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://bd5imx0piptlg"]
+[gd_scene load_steps=4 format=3 uid="uid://buqgvnli1pepi"]
 
 [ext_resource type="Texture2D" uid="uid://4br11jqpfcag" path="res://assets/health-outline.png" id="1_a51qs"]
 [ext_resource type="Texture2D" uid="uid://bf63vlohnhtk4" path="res://assets/health-mask..png" id="2_60r2c"]

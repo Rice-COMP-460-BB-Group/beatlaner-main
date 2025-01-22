@@ -6,10 +6,12 @@ var spawner_scene = load("res://minions/spawner.tscn")
 
 func _ready():
 	print("game started")
-	var map = map_scene.instantiate()
-	var spawner = spawner_scene.instantiate()
-	add_child(map)
-	add_child(spawner)
+	
+	spawner = get_node("Spawner")
 	
 
+	
+
+
+func _on_debugmenu_send_wave(config: Dictionary, is_friendly: bool) -> void:
 	

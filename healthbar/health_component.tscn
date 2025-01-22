@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cq2vg7sj3kvag"]
+
+[ext_resource type="Script" path="res://minions/health_component.gd" id="1_36lsc"]
+[ext_resource type="PackedScene" uid="uid://bd5imx0piptlg" path="res://healthbar/HealthBar.tscn" id="2_5vfn3"]
+
+[node name="HealthComponent" type="Node2D"]
+script = ExtResource("1_36lsc")
+currentHealth = 50
+maxHealth = 50
+
+[node name="HealthBar" parent="." instance=ExtResource("2_5vfn3")]
+offset_left = -29.0
+offset_top = 30.0
+offset_right = 28.0
+offset_bottom = 37.0
