@@ -1,0 +1,47 @@
+[gd_scene load_steps=2 format=3 uid="uid://xfxnyk30olx4"]
+
+[ext_resource type="Script" path="res://rhythm game/scenes/hud.gd" id="1_swecj"]
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_swecj")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HitStatus" type="RichTextLabel" parent="CanvasLayer"]
+unique_name_in_owner = true
+offset_left = 546.0
+offset_top = 233.0
+offset_right = 620.0
+offset_bottom = 267.0
+bbcode_enabled = true
+
+[node name="Score" type="RichTextLabel" parent="CanvasLayer"]
+unique_name_in_owner = true
+offset_left = 1044.0
+offset_top = 28.0
+offset_right = 1127.0
+offset_bottom = 66.0
+text = "0000000"
+
+[node name="Accuracy" type="RichTextLabel" parent="CanvasLayer"]
+unique_name_in_owner = true
+offset_left = 1066.0
+offset_top = 61.0
+offset_right = 1137.0
+offset_bottom = 101.0
+text = "0.00%"
+
+[node name="Combo" type="RichTextLabel" parent="CanvasLayer"]
+unique_name_in_owner = true
+offset_left = 564.0
+offset_top = 189.0
+offset_right = 604.0
+offset_bottom = 229.0
+bbcode_enabled = true
