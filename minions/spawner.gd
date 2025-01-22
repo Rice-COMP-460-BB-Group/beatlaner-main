@@ -2,6 +2,7 @@ extends Node2D
 
 
 var minionScene = load("res://minions/minion.tscn")
+var mageScene = load("res://minions/mage.tscn")
 
 var towerScene = load("res://main/Tower.tscn")
 var minion_count = 0
@@ -96,7 +97,12 @@ func _on_timer_timeout() -> void:
 	var spawnpt = spawn_points[key]
 	if !is_instance_valid(spawnpt):
 		return
-	var minion = minionScene.instantiate()
+
+	var minion
+	if randi() % 2 == 0:
+		minion = minionScene.instantiate()
+	else:
+		minion = mageScene.instantiate()
 	if key.ends_with("Upper"):
 		minion.intermediate_lane = upperThrough
 	elif key.ends_with("Lower"):

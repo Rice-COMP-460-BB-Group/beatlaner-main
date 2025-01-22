@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://cao1ivxo860t2"]
+[gd_scene load_steps=7 format=3 uid="uid://cao1ivxo860t2"]
 
 [ext_resource type="Script" path="res://minions/minion.gd" id="1_ywsbo"]
+[ext_resource type="PackedScene" uid="uid://c2a3uw6r78k4d" path="res://minions/projectile.tscn" id="2_6tinm"]
 [ext_resource type="Texture2D" uid="uid://o7v5qyqq3usn" path="res://assets/minion/east.png" id="2_n2841"]
 [ext_resource type="PackedScene" uid="uid://ckytalr2gjoym" path="res://healthbar/health_component.tscn" id="3_qdnh8"]
 [ext_resource type="AudioStream" uid="uid://dw8yg35mwh6gu" path="res://assets/beat_hit.wav" id="4_cvsl8"]
@@ -11,6 +12,10 @@ height = 42.0
 
 [node name="Minion" type="CharacterBody2D"]
 script = ExtResource("1_ywsbo")
+ranged = false
+projectile_scene = ExtResource("2_6tinm")
+aggro_range = 100
+attack_range = 50
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-0.250001, -0.249999)

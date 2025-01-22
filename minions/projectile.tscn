@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://c2a3uw6r78k4d"]
+
+[ext_resource type="Texture2D" uid="uid://4be4ksormlgi" path="res://assets/proj.png" id="1_6ng7n"]
+[ext_resource type="Script" path="res://minions/projectile.gd" id="2_765r6"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e41q5"]
+radius = 8.0
+height = 42.0
+
+[node name="Area2D" type="Area2D"]
+collision_layer = 2
+script = ExtResource("2_765r6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_e41q5")
+
+[node name="Projectile" type="Sprite2D" parent="."]
+position = Vector2(3, 1)
+rotation = 3.14159
+scale = Vector2(0.101505, 0.0753483)
+texture = ExtResource("1_6ng7n")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

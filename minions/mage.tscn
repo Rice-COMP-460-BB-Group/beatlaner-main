@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://c266odicko6xv"]
+
+[ext_resource type="PackedScene" uid="uid://cao1ivxo860t2" path="res://minions/minion.tscn" id="1_ng6xl"]
+[ext_resource type="Texture2D" uid="uid://bcgynjrx7c2xf" path="res://assets/mage/mage_east.png" id="2_f5h0w"]
+
+[node name="Minion" instance=ExtResource("1_ng6xl")]
+ranged = true
+aggro_range = 800
+attack_range = 500
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(0.500001, -4.76837e-07)
+scale = Vector2(0.421875, 0.574)
+texture = ExtResource("2_f5h0w")

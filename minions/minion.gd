@@ -12,19 +12,22 @@ enum Team {BLUE, RED}
 
 @export var team: Team
 
-var speed = 300
-var accel = 5
-
 var state: State
 enum State {MOVE, ATTACK}
 
+@export var ranged = true
+
 @onready var navigation_agent_2d: NavigationAgent2D = $NavigationHandler/NavigationAgent2D
 @onready var attack_timer: Timer = $AttackTimer
+@export var projectile_scene: PackedScene
 
-var movement_speed = 250
+@export var movement_speed = 750
 @export var attack_speed: float = .5
 
 var visited_intermediate = false
+
+@export var aggro_range = 300
+@export var attack_range = 300
 
 func _ready():
 	attack_timer.wait_time = attack_speed
@@ -91,7 +94,7 @@ func _physics_process(delta: float):
 			enemy_target = null
 			state = State.MOVE
 			print("stopped aggroing")
-		elif global_position.distance_to(enemy_target.global_position) < 75:
+		elif global_position.distance_to(enemy_target.global_position) < aggro_range:
 			if attack_timer.is_stopped():
 				print("begin attacking")
 				attack_timer.start()
@@ -109,7 +112,7 @@ func _physics_process(delta: float):
 		query.exclude = [self]
 		
 		var result = space_state.intersect_ray(query)
-		print(result)
+
 		if result and result.collider is Minion and result.collider.get_team() != team:
 			print("enemy found")
 			set_enemy_target(result.collider)
@@ -123,7 +126,8 @@ func _physics_process(delta: float):
 	if navigation_agent_2d.is_navigation_finished():
 		print("reached target")
 		return
-	if state == State.ATTACK and global_position.distance_to(enemy_target.global_position) < 50:
+	# stop moving if we are close to the target
+	if state == State.ATTACK and global_position.distance_to(enemy_target.global_position) < attack_range:
 		new_velocity = Vector2.ZERO
 	
 	if navigation_agent_2d.avoidance_enabled:
@@ -135,12 +139,19 @@ func _physics_process(delta: float):
 func _on_attack_timer_timeout():
 	print("attempting attack on enemy")
 	print(is_instance_valid(enemy_target))
-	if is_instance_valid(enemy_target) && global_position.distance_to(enemy_target.global_position) < 75:
-		var health_component = enemy_target.get_node("HealthComponent")
-		if health_component and health_component is HealthComponent:
-			print("attacking")
-			$HitAudio.play()
-			health_component.decrease_health(randfn(10, 1.5))
+	if is_instance_valid(enemy_target) && global_position.distance_to(enemy_target.global_position) < attack_range:
+		if ranged:
+			var projectile = projectile_scene.instantiate()
+			projectile.target = enemy_target
+			projectile.global_position = global_position
+			projectile.source = self
+			get_tree().root.add_child(projectile)
+		else:
+			var health_component = enemy_target.get_node("HealthComponent")
+			if health_component and health_component is HealthComponent:
+				print("attacking")
+				$HitAudio.play()
+				health_component.decrease_health(randfn(10, 1.5))
 
 func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:
 	velocity = safe_velocity
