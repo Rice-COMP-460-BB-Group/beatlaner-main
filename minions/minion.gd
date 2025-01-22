@@ -139,6 +139,7 @@ func _on_attack_timer_timeout():
 		var health_component = enemy_target.get_node("HealthComponent")
 		if health_component and health_component is HealthComponent:
 			print("attacking")
+			$HitAudio.play()
 			health_component.decrease_health(randfn(10, 1.5))
 
 func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:
