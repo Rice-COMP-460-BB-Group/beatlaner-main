@@ -1,5 +1,6 @@
 extends Node2D
 
+@export  var enemy_wave_config: Dictionary = {"top":1,"mid":1,"bottom":1}
 
 var minionScene = load("res://minions/minion.tscn")
 
@@ -9,10 +10,14 @@ var spawn_points = {}
 
 @onready var upperThrough: Marker2D = $UpperThrough
 @onready var lowerThrough: Marker2D = $LowerThrough
-
+@onready var enemySpawnTimer: Timer = $WaveTimer
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	print("spawner invoked")
+	
+		
+		
+func spawner_init() -> void:
 	for sp in get_children():
 		if sp is Marker2D:
 			if sp.name == "UpperThrough" or sp.name == "LowerThrough":
@@ -24,9 +29,6 @@ func _ready() -> void:
 			spawn_points[sp.name] = tower
 			var main = get_parent()
 			main.add_child(tower)
-		
-		
-	 # Replace with function body.
 
 func get_opposite(key: StringName) -> Tower:
 	if key == "P1Lower":
@@ -89,35 +91,29 @@ func get_opposite(key: StringName) -> Tower:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 
+func disable_timer() -> void:
+	print("timer disabled!!")
+	enemySpawnTimer.stop()
+
+func enable_timer() -> void:
+	print("timer enabled!!")
+	enemySpawnTimer.start()
+	
 
 func _on_timer_timeout() -> void:
-	var key = spawn_points.keys()[randi() % spawn_points.size()]
-	var spawnpt = spawn_points[key]
-	if !is_instance_valid(spawnpt):
-		return
-	var minion = minionScene.instantiate()
-	if key.ends_with("Upper"):
-		minion.intermediate_lane = upperThrough
-	elif key.ends_with("Lower"):
-		minion.intermediate_lane = lowerThrough
-	minion.set_team(spawnpt.team == 0)
-	minion.tower_target = get_opposite(key)
-	minion.position = spawnpt.position
+	print("timeout!!!")
+	spawn_friendly_wave(enemy_wave_config,false)
 
-	var main = get_parent()
-	main.add_child(minion)
-	minion_count += 1
+var topcount = 0
+var midcount = 0
+var bottomcount = 0
 
-var num_enemy_upper = 0
-var num_enemy_mid = 0
-var num_enemy_lower = 0
 
-func disable_enemy_spawns():
-	print("pass")
 
 
 func spawn_minion(key: String):
 	var spawnpt = spawn_points[key]
+	print(spawnpt,"heelo")
 	if !is_instance_valid(spawnpt):
 		return
 	var minion = minionScene.instantiate()
@@ -134,33 +130,40 @@ func spawn_minion(key: String):
 	#minion_count += 1
 	
 
-func spawn_friendly_wave(config: Dictionary) -> void:
-	
-	var topcount = config["top"]
-	
-	var midcount = config["mid"]
-	
-	var bottomcount = config["bottom"]
+func spawn_friendly_wave(config: Dictionary,is_friendly: bool) -> void:
+	var player = "P1" if is_friendly else "P2"
+	if "top" in config:
+		
+		topcount = config["top"]
+	if "mid" in config:
+		
+		midcount = config["mid"]
+	if "bottom" in config:
+		bottomcount = config["bottom"]
 	
 	var top_minions = []
 	
 	for i in range(topcount):
-		top_minions.append(spawn_minion("P1Upper"))
+		top_minions.append(spawn_minion(player+"Upper"))
 	
 	var mid_minions = []
+	
 	for i in range(midcount):
-		mid_minions.append(spawn_minion("P1Mid"))
+		
+		mid_minions.append(spawn_minion(player+"Mid"))
 	var bottom_minions = []
 	for i in range(bottomcount):
-		bottom_minions.append(spawn_minion("P1Lower"))
+		bottom_minions.append(spawn_minion(player+"Lower"))
 	var main = get_parent()
 	for m in top_minions:
-		main.addchild(m)
-	
+		main.add_child(m)
+	print("mid minions",mid_minions)
 	for m in mid_minions:
-		main.addchild(m)
+		main.add_child(m)
 	
 	for m in bottom_minions:
-		main.addchild(m)
+		main.add_child(m)
 		
+
+
 	

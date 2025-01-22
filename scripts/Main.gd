@@ -9,21 +9,32 @@ var spawner = null
 func _ready():
 	print("game started")
 	
+	spawner = get_node("Spawner")
+	spawner.spawner_init()
 	
-	var map = map_scene.instantiate()
-	spawner = spawner_scene.instantiate()
-	add_child(map)
-	add_child(spawner)
+	
+	
+	
+	
 	
 	
 
 	
 
 
-func _on_debugmenu_spawn_wave(spawn_request: Dictionary) -> void:
+func _on_debugmenu_spawn_wave(spawn_request: Dictionary,is_friendly: bool) -> void:
 	
 	print(spawn_request,"here from main!")
 	print(spawner)
 	if spawner:
 		
-		spawner.spawn_enemy_wave(spawn_request)
+		spawner.spawn_friendly_wave(spawn_request,is_friendly)
+
+
+func _on_debugmenu_toggle_enemy_wave(state: bool) -> void:
+	
+	if state:
+		spawner.enable_timer()
+	else:
+		spawner.disable_timer()
+	pass # Replace with function body.

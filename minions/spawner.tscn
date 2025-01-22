@@ -29,7 +29,7 @@ position = Vector2(3184, 816)
 [node name="P1Mid" type="Marker2D" parent="."]
 position = Vector2(816, 3200)
 
-[node name="Timer" type="Timer" parent="."]
+[node name="WaveTimer" type="Timer" parent="."]
 wait_time = 5.0
 
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="WaveTimer" to="." method="_on_timer_timeout"]
