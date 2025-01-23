@@ -8,6 +8,7 @@ var low_count = 0
 
 
 signal spawn_wave(spawn_request: Dictionary,is_friendly: bool)
+signal freeze_spell(lane: String, friendly: bool)
 
 signal toggle_enemy_wave(state: bool)
 # Called when the node enters the scene tree for the first time.
@@ -52,3 +53,7 @@ func _on_button_pressed() -> void:
 func _on_low_minion_count_value_changed(value: float) -> void:
 	low_count = int(value)
 	spawner_request["low"] = low_count
+
+
+func _on_button_2_pressed() -> void:
+	freeze_spell.emit("top",true)

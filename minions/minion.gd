@@ -12,16 +12,15 @@ enum Team {BLUE, RED}
 
 @export var team: Team
 
-var speed = 300
-var accel = 5
+
 
 var state: State
-enum State {MOVE, ATTACK}
-
+enum State {MOVE, ATTACK,FROZEN}
+enum BuffState{INCREASE,DECREASE}
 @onready var navigation_agent_2d: NavigationAgent2D = $NavigationHandler/NavigationAgent2D
 @onready var attack_timer: Timer = $AttackTimer
 
-var movement_speed = 250
+var movement_speed = 75
 @export var attack_speed: float = .5
 
 var visited_intermediate = false
@@ -30,6 +29,11 @@ func _ready():
 	attack_timer.wait_time = attack_speed
 	attack_timer.timeout.connect(_on_attack_timer_timeout)
 
+func say_hello():
+	print("hello area manager")
+
+
+	return "Minion"
 func get_team() -> int:
 	return team
 
@@ -56,7 +60,9 @@ func get_health():
 
 @warning_ignore("unused_parameter")
 func _physics_process(delta: float):
-
+	if state == State.FROZEN:
+		print("frozen!")
+		return
 	if not is_instance_valid(tower_target):
 		var towers = get_tree().get_nodes_in_group("Towers")
 		var candid = null
@@ -145,7 +151,26 @@ func _on_attack_timer_timeout():
 func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:
 	velocity = safe_velocity
 
+func process_status(status: String) -> void:
+	print("processing status")
+	if status == "freeze":
+		state = State.FROZEN
+	
+	if status == "mutiny":
+		#idea: random chance -> flip team for a few seconds
+		print("placeholder")
+		
+	var timer: Timer = Timer.new()
+	add_child(timer)
+	timer.one_shot = true
+	timer.autostart = false
+	timer.wait_time = 5.0
+	timer.timeout.connect(_clear_status)
+	timer.start()
+	
 
+func _clear_status():
+	state = State.MOVE
 func _on_timer_timeout() -> void:
 	pass # Replace with function body.
 

@@ -19,5 +19,6 @@ script = ExtResource("1_ktlqa")
 
 [node name="Spawner" parent="." instance=ExtResource("5_cp35u")]
 
+[connection signal="freeze_spell" from="CanvasLayer/Debugmenu" to="." method="_on_debugmenu_freeze_spell"]
 [connection signal="spawn_wave" from="CanvasLayer/Debugmenu" to="." method="_on_debugmenu_spawn_wave"]
 [connection signal="toggle_enemy_wave" from="CanvasLayer/Debugmenu" to="." method="_on_debugmenu_toggle_enemy_wave"]

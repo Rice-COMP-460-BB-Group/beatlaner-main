@@ -21,7 +21,6 @@ Signals="*res://rhythm game/scenes/signals.gd"
 
 [display]
 
-window/size/mode=2
 window/stretch/mode="viewport"
 
 [input]

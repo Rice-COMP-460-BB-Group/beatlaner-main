@@ -1,5 +1,5 @@
 extends Node2D
-
+@onready var lane_manager = $Map/LaneManager
 var map_scene = preload("res://map/Map.tscn")
 
 var spawner_scene = load("res://minions/spawner.tscn")
@@ -14,11 +14,6 @@ func _ready():
 	
 	
 	
-	
-	
-	
-	
-
 	
 
 
@@ -38,3 +33,8 @@ func _on_debugmenu_toggle_enemy_wave(state: bool) -> void:
 	else:
 		spawner.disable_timer()
 	pass # Replace with function body.
+
+
+func _on_debugmenu_freeze_spell(lane: String, friendly: bool) -> void:
+	print("calling freeze")
+	lane_manager.freeze_current_enemies(0,0,0) # Replace with function body.

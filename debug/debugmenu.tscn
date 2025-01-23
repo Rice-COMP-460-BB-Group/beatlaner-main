@@ -79,8 +79,14 @@ ticks_on_borders = true
 layout_mode = 2
 text = "Spawn Wave"
 
+[node name="Button2" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Test Freeze Spell
+"
+
 [connection signal="toggled" from="MarginContainer/VBoxContainer/enable enemy waves" to="." method="_on_check_box_toggled"]
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/TopMinionCount" to="." method="_on_top_minion_count_value_changed"]
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/MidMinionCount" to="." method="_on_mid_minion_count_value_changed"]
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/LowMinionCount" to="." method="_on_low_minion_count_value_changed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Button2" to="." method="_on_button_2_pressed"]
