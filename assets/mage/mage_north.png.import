@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ilrmnyp12jwb"
-path="res://.godot/imported/north.png-ac6debd293964b5fb0622f9163ff2493.ctex"
+uid="uid://dl6iqbfajy0h0"
+path="res://.godot/imported/mage_north.png-137c6b484cabaf2e85da1f38bad10baf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/minion/north.png"
-dest_files=["res://.godot/imported/north.png-ac6debd293964b5fb0622f9163ff2493.ctex"]
+source_file="res://assets/mage/mage_north.png"
+dest_files=["res://.godot/imported/mage_north.png-137c6b484cabaf2e85da1f38bad10baf.ctex"]
 
 [params]
 

@@ -19,6 +19,8 @@ enum State {MOVE, ATTACK}
 
 @onready var navigation_agent_2d: NavigationAgent2D = $NavigationHandler/NavigationAgent2D
 @onready var attack_timer: Timer = $AttackTimer
+@onready var sprite = $AnimatedSprite2D
+
 @export var projectile_scene: PackedScene
 
 @export var movement_speed = 750
@@ -59,6 +61,16 @@ func get_health():
 
 @warning_ignore("unused_parameter")
 func _physics_process(delta: float):
+	var angle = velocity.angle()
+	if abs(angle) <= PI/4:
+		sprite.play("walk_right")
+	elif abs(angle) >= 3*PI/4:
+		sprite.play("walk_left")
+	elif angle < 0:
+		sprite.play("walk_up")
+	else:
+		sprite.play("walk_down")
+
 
 	if not is_instance_valid(tower_target):
 		var towers = get_tree().get_nodes_in_group("Towers")

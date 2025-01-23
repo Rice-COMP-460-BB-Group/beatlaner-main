@@ -1,14 +1,52 @@
-[gd_scene load_steps=3 format=3 uid="uid://c266odicko6xv"]
+[gd_scene load_steps=7 format=3 uid="uid://c266odicko6xv"]
 
 [ext_resource type="PackedScene" uid="uid://cao1ivxo860t2" path="res://minions/minion.tscn" id="1_ng6xl"]
 [ext_resource type="Texture2D" uid="uid://bcgynjrx7c2xf" path="res://assets/mage/mage_east.png" id="2_f5h0w"]
+[ext_resource type="Texture2D" uid="uid://c53s6kbqkmwri" path="res://assets/mage/mage_south.png" id="2_sxn2u"]
+[ext_resource type="Texture2D" uid="uid://dey1chabjstkm" path="res://assets/mage/mage_west.png" id="3_c3ion"]
+[ext_resource type="Texture2D" uid="uid://dl6iqbfajy0h0" path="res://assets/mage/mage_north.png" id="5_sa77u"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_asmhh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_sxn2u")
+}],
+"loop": true,
+"name": &"walk_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_c3ion")
+}],
+"loop": true,
+"name": &"walk_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_f5h0w")
+}],
+"loop": true,
+"name": &"walk_right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_sa77u")
+}],
+"loop": true,
+"name": &"walk_up",
+"speed": 5.0
+}]
 
 [node name="Minion" instance=ExtResource("1_ng6xl")]
 ranged = true
 aggro_range = 800
 attack_range = 500
 
-[node name="Sprite2D" parent="." index="0"]
-position = Vector2(0.500001, -4.76837e-07)
-scale = Vector2(0.421875, 0.574)
-texture = ExtResource("2_f5h0w")
+[node name="AnimatedSprite2D" parent="." index="0"]
+scale = Vector2(0.5, 0.505)
+sprite_frames = SubResource("SpriteFrames_asmhh")
+animation = &"walk_up"

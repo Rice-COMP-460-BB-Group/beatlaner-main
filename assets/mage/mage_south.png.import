@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://o7v5qyqq3usn"
-path="res://.godot/imported/east.png-8247f26a80f71978c2f15669f5d24898.ctex"
+uid="uid://c53s6kbqkmwri"
+path="res://.godot/imported/mage_south.png-d3808930911684f1ad094558e002d7e3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/minion/east.png"
-dest_files=["res://.godot/imported/east.png-8247f26a80f71978c2f15669f5d24898.ctex"]
+source_file="res://assets/mage/mage_south.png"
+dest_files=["res://.godot/imported/mage_south.png-d3808930911684f1ad094558e002d7e3.ctex"]
 
 [params]
 

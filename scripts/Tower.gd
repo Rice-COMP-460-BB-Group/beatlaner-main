@@ -6,14 +6,18 @@ enum Team {BLUE, RED}
 
 @export var team: Team
 @onready var popup_window = $Window
+@onready var surrender_scene = preload("res://map/surrender.tscn")
 
 func _ready():
 	
 	$Sprite2D.centered = true
 
 func _on_health_component_health_destroyed() -> void:
+	var surrender_instance = surrender_scene.instantiate()
+	get_parent().add_child(surrender_instance)
 	$DestroySound.play()
 	await $DestroySound.finished
+	surrender_instance.global_position = global_position
 	queue_free()
 
 func _on_button_pressed() -> void:
