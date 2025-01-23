@@ -47,6 +47,5 @@ aggro_range = 800
 attack_range = 500
 
 [node name="AnimatedSprite2D" parent="." index="0"]
-scale = Vector2(0.5, 0.505)
 sprite_frames = SubResource("SpriteFrames_asmhh")
-animation = &"walk_up"
+animation = &"walk_down"

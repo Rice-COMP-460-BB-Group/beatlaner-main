@@ -7,3 +7,4 @@
 script = ExtResource("1_ktlqa")
 
 [node name="Tower" parent="." instance=ExtResource("2_flut7")]
+team = null

@@ -13,6 +13,11 @@ func _ready():
 	$Sprite2D.centered = true
 
 func _on_health_component_health_destroyed() -> void:
+	var viewport = get_viewport()
+	if $VisibleOnScreenNotifier2D.is_on_screen():
+		var camera = viewport.get_camera_2d()
+		if camera:
+			camera.shake()
 	var surrender_instance = surrender_scene.instantiate()
 	get_parent().add_child(surrender_instance)
 	$DestroySound.play()

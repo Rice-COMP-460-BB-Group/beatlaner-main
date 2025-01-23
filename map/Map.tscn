@@ -22,6 +22,33 @@ func _input(event: InputEvent):
 	if event is InputEventMouseMotion and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		var movement: Vector2 = event.relative
 		position -=movement
+
+@export var starting_intensity = 5
+@export var duration = .5
+var ret_offset = offset
+var intensity = 0
+var shake_timer: Timer
+
+func _ready():
+	shake_timer = Timer.new()
+	add_child(shake_timer)
+	shake_timer.timeout.connect(_on_shake_timer_timeout)
+
+func _process(_delta):
+	if intensity > 0:
+		offset = Vector2(
+			randf_range(-intensity, intensity),
+			randf_range(-intensity, intensity)
+		)
+
+func shake():
+	intensity = starting_intensity
+	shake_timer.start(duration)
+	print(\"start shaking\")
+
+func _on_shake_timer_timeout():
+	intensity = 0
+	offset = ret_offset
 "
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_2gxx2"]

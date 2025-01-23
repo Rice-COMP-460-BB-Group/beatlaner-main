@@ -58,7 +58,7 @@ attack_range = 50
 position = Vector2(-0.250001, -0.249999)
 scale = Vector2(0.5, 0.505)
 sprite_frames = SubResource("SpriteFrames_eqvgy")
-animation = &"walk_right"
+animation = &"walk_left"
 
 [node name="NavigationHandler" type="Node2D" parent="."]
 
