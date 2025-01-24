@@ -3,6 +3,7 @@ extends Node2D
 class_name Tower
 
 signal score
+signal open_rhythm_game
 
 enum Team {BLUE, RED}
 
@@ -17,12 +18,7 @@ func _ready():
 	popup_window.hide()
 	popup_window.size = Vector2(1152, 648)
 
-func _process(delta):
-	if len(popup_window.get_children()) and Input.is_action_just_pressed("escape rhythm game"):
-		var score = rhythm_game_instance.get_score()
-		Signals.Score.emit(score, name)
-		popup_window.remove_child(rhythm_game_instance)
-		popup_window.hide()
+
 
 
 func _on_health_component_health_destroyed() -> void:
@@ -39,9 +35,5 @@ func _on_health_component_health_destroyed() -> void:
 	queue_free()
 
 func _on_button_pressed() -> void:
-	var rhythm_game_scene = load("res://rhythm game/scenes/background.tscn")
-	rhythm_game_instance = rhythm_game_scene.instantiate()
-	print('tower type', name)
-
-	popup_window.add_child(rhythm_game_instance)
-	popup_window.show()
+	Signals.OpenRhythmGame.emit()
+	

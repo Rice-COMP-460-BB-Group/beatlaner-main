@@ -14,16 +14,18 @@ grow_vertical = 2
 script = ExtResource("1_swecj")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 8
 
 [node name="MissSound" type="AudioStreamPlayer" parent="CanvasLayer"]
 stream = ExtResource("2_248el")
 
 [node name="HitStatus" type="RichTextLabel" parent="CanvasLayer"]
 unique_name_in_owner = true
-offset_left = 546.0
-offset_top = 233.0
-offset_right = 620.0
-offset_bottom = 267.0
+offset_left = 749.0
+offset_top = 223.0
+offset_right = 872.0
+offset_bottom = 257.0
+theme_override_font_sizes/normal_font_size = 36
 bbcode_enabled = true
 
 [node name="Score" type="RichTextLabel" parent="CanvasLayer"]
@@ -50,8 +52,9 @@ text = "[right]0.00%[/right]"
 
 [node name="Combo" type="RichTextLabel" parent="CanvasLayer"]
 unique_name_in_owner = true
-offset_left = 564.0
-offset_top = 189.0
-offset_right = 604.0
-offset_bottom = 229.0
+offset_left = 785.0
+offset_top = 180.0
+offset_right = 825.0
+offset_bottom = 220.0
+theme_override_font_sizes/normal_font_size = 36
 bbcode_enabled = true

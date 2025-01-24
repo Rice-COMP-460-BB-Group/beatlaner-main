@@ -9,6 +9,12 @@
 [node name="Main" type="Node2D"]
 script = ExtResource("1_ktlqa")
 
+[node name="RhythmLayer" type="CanvasLayer" parent="."]
+layer = 7
+offset = Vector2(800, 325)
+scale = Vector2(1.01, 1.01)
+transform = Transform2D(1.01, 0, 0, 1.01, 800, 325)
+
 [node name="Map" parent="." instance=ExtResource("2_tonyl")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]

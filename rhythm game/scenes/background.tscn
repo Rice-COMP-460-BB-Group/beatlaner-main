@@ -44,6 +44,14 @@ autoplay = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1
+offset_left = -273.0
+offset_top = -324.0
+offset_right = 573.0
+offset_bottom = 322.0
+color = Color(0, 0, 0, 1)
+
 [connection signal="hit" from="mania-key" to="." method="_on_maniakey_hit" binds= ["type"]]
 [connection signal="hit" from="mania-key2" to="." method="_on_maniakey_hit" binds= ["type"]]
 [connection signal="hit" from="mania-key3" to="." method="_on_maniakey_hit" binds= ["type"]]
