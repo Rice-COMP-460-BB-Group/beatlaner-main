@@ -13,6 +13,7 @@ config_version=5
 config/name="Beatlaner Bozos"
 run/main_scene="res://main/Main.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
+boot_splash/image="res://Beatlaner logwhiteo.png"
 config/icon="res://icon.svg"
 
 [autoload]
@@ -21,7 +22,6 @@ Signals="*res://rhythm game/scenes/signals.gd"
 
 [display]
 
-window/size/mode=2
 window/stretch/mode="viewport"
 
 [input]

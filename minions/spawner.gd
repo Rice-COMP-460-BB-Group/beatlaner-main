@@ -1,5 +1,6 @@
 extends Node2D
 
+@export  var enemy_wave_config: Dictionary = {"top":1,"mid":1,"bottom":1}
 
 var minionScene = load("res://minions/minion.tscn")
 var mageScene = load("res://minions/mage.tscn")
@@ -10,10 +11,14 @@ var spawn_points = {}
 
 @onready var upperThrough: Marker2D = $UpperThrough
 @onready var lowerThrough: Marker2D = $LowerThrough
-
+@onready var enemySpawnTimer: Timer = $WaveTimer
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	print("spawner invoked")
+	
+		
+		
+func spawner_init() -> void:
 	for sp in get_children():
 		if sp is Marker2D:
 			if sp.name == "UpperThrough" or sp.name == "LowerThrough":
@@ -25,9 +30,6 @@ func _ready() -> void:
 			spawn_points[sp.name] = tower
 			var main = get_parent()
 			main.add_child(tower)
-		
-		
-	 # Replace with function body.
 
 func get_opposite(key: StringName) -> Tower:
 	if key == "P1Lower":
@@ -87,14 +89,32 @@ func get_opposite(key: StringName) -> Tower:
 	else:
 		return null
 
-func spawn_minion():
-	minionScene.instantiate()
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 
+func disable_timer() -> void:
+	print("timer disabled!!")
+	enemySpawnTimer.stop()
+
+func enable_timer() -> void:
+	print("timer enabled!!")
+	enemySpawnTimer.start()
+	
 
 func _on_timer_timeout() -> void:
-	var key = spawn_points.keys()[randi() % spawn_points.size()]
+	print("timeout!!!")
+	spawn_friendly_wave(enemy_wave_config,false)
+
+var topcount = 0
+var midcount = 0
+var bottomcount = 0
+
+
+
+
+func spawn_minion(key: String):
 	var spawnpt = spawn_points[key]
+	print(spawnpt,"heelo")
 	if !is_instance_valid(spawnpt):
 		return
 
@@ -111,6 +131,47 @@ func _on_timer_timeout() -> void:
 	minion.tower_target = get_opposite(key)
 	minion.position = spawnpt.position
 
+	return minion
+	#main.add_child(minion)
+	#minion_count += 1
+	
+
+func spawn_friendly_wave(config: Dictionary,is_friendly: bool) -> void:
+	print("config dict is",config)
+	var player = "P1" if is_friendly else "P2"
+	if "top" in config:
+		
+		topcount = config["top"]
+	if "mid" in config:
+		
+		midcount = config["mid"]
+	if "low" in config:
+		bottomcount = config["low"]
+	print(topcount,midcount,bottomcount)
+	var top_minions = []
+	
+	for i in range(topcount):
+		top_minions.append(spawn_minion(player+"Upper"))
+	
+	var mid_minions = []
+	
+	for i in range(midcount):
+		
+		mid_minions.append(spawn_minion(player+"Mid"))
+	var bottom_minions = []
+	for i in range(bottomcount):
+		
+		bottom_minions.append(spawn_minion(player+"Lower"))
 	var main = get_parent()
-	main.add_child(minion)
-	minion_count += 1
+	for m in top_minions:
+		main.add_child(m)
+	
+	for m in mid_minions:
+		main.add_child(m)
+	
+	for m in bottom_minions:
+		main.add_child(m)
+		
+
+
+	

@@ -48,6 +48,8 @@ radius = 13.0
 height = 42.0
 
 [node name="Minion" type="CharacterBody2D"]
+collision_layer = 5
+collision_mask = 0
 script = ExtResource("1_ywsbo")
 ranged = false
 projectile_scene = ExtResource("2_6tinm")
@@ -69,6 +71,7 @@ path_max_distance = 600.0
 path_postprocessing = 1
 simplify_path = true
 simplify_epsilon = 3.542
+avoidance_enabled = true
 debug_use_custom = true
 debug_path_custom_color = Color(0.623439, 0.000276439, 0.285134, 1)
 

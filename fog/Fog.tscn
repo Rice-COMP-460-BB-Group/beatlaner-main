@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://ls62ff1qbdop"]
+
+[ext_resource type="Shader" path="res://fog/Fog.gdshader" id="1_7f8qd"]
+[ext_resource type="Texture2D" uid="uid://w24l3k5ffxjx" path="res://assets/Solid_white.png" id="2_6ll63"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ikr7g"]
+frequency = 0.0291
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_slqjk"]
+width = 16
+height = 16
+in_3d_space = true
+seamless = true
+seamless_blend_skirt = 0.952
+as_normal_map = true
+bump_strength = 13.0
+noise = SubResource("FastNoiseLite_ikr7g")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kwvbe"]
+shader = ExtResource("1_7f8qd")
+shader_parameter/density = 0.941
+shader_parameter/speed = Vector2(0.05, 0.01)
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_slqjk")
+
+[node name="Fog" type="Node2D"]
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+z_index = 1
+material = SubResource("ShaderMaterial_kwvbe")
+position = Vector2(915, -1691)
+scale = Vector2(3.29138, 8.13567)
+color = Color(1, 1, 1, 0.92549)
+texture = ExtResource("2_6ll63")
+polygon = PackedVector2Array(-276.235, 208.363, 1014.16, 210.186, 1014.77, 641.988, -279.518, 632.4)

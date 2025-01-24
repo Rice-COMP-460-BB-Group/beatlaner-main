@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://can4ucahvj8ac"]
+
+[ext_resource type="Texture2D" uid="uid://cplp0vg10jjim" path="res://assets/lantern.png" id="1_cvkhk"]
+[ext_resource type="Texture2D" uid="uid://dvgisd26hm73n" path="res://assets/light_gd.webp" id="2_2it83"]
+
+[node name="Lantern" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_cvkhk")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(0, -5)
+color = Color(0.99487, 0.385049, 0.00012668, 1)
+energy = 1.4
+texture = ExtResource("2_2it83")
+texture_scale = 1.52
