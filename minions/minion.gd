@@ -7,6 +7,7 @@ class_name Minion
 var enemy_target: Node2D
 
 var intermediate_lane: Node2D
+var is_attacking = false
 
 enum Team {BLUE, RED}
 
@@ -67,16 +68,17 @@ func get_health():
 
 @warning_ignore("unused_parameter")
 func _physics_process(delta: float):
-	var anim_suffix = "friendly" if team != Team.BLUE else "enemy"
-	var angle = velocity.angle()
-	if abs(angle) <= PI / 4:
-		sprite.play(anim_suffix + "_walk_right")
-	elif abs(angle) >= 3 * PI / 4:
-		sprite.play(anim_suffix + "_walk_left")
-	elif angle < 0:
-		sprite.play(anim_suffix + "_walk_up")
-	else:
-		sprite.play(anim_suffix + "_walk_down")
+	if not is_attacking:
+		var anim_suffix = "friendly" if team != Team.BLUE else "enemy"
+		var angle = velocity.angle()
+		if abs(angle) <= PI / 4:
+			sprite.play(anim_suffix + "_walk_right")
+		elif abs(angle) >= 3 * PI / 4:
+			sprite.play(anim_suffix + "_walk_left")
+		elif angle < 0:
+			sprite.play(anim_suffix + "_walk_up")
+		else:
+			sprite.play(anim_suffix + "_walk_down")
 
 	if state == State.FROZEN:
 		print("frozen!")
@@ -160,7 +162,10 @@ func _physics_process(delta: float):
 func _on_attack_timer_timeout():
 	print("attempting attack on enemy")
 	print(is_instance_valid(enemy_target))
+	var anim_suffix = "friendly" if team != Team.BLUE else "enemy"
 	if is_instance_valid(enemy_target) && global_position.distance_to(enemy_target.global_position) < attack_range:
+		sprite.play(anim_suffix + "_attack")
+		is_attacking = true
 		if ranged:
 			var projectile = projectile_scene.instantiate()
 			projectile.red = team != Team.RED
@@ -174,6 +179,9 @@ func _on_attack_timer_timeout():
 				print("attacking")
 				$HitAudio.play()
 				health_component.decrease_health(randfn(10, 1.5))
+
+func _on_animated_sprite_2d_animation_changed():
+	is_attacking = false
 
 func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:
 	velocity = safe_velocity

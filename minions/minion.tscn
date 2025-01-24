@@ -213,6 +213,7 @@ position = Vector2(0, -6)
 stream = ExtResource("4_cvsl8")
 volume_db = -5.0
 
+[connection signal="animation_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_changed"]
 [connection signal="velocity_computed" from="NavigationHandler/NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
 [connection signal="timeout" from="NavigationHandler/Timer" to="." method="_on_timer_timeout"]
 [connection signal="health_destroyed" from="HealthComponent" to="." method="_on_health_component_health_destroyed"]
