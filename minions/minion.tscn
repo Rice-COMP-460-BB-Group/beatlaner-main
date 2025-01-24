@@ -46,7 +46,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"enemy_attack",
-"speed": 5.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -57,7 +57,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"enemy_walk_down",
-"speed": 5.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -74,7 +74,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"enemy_walk_left",
-"speed": 5.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -85,7 +85,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"enemy_walk_right",
-"speed": 5.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -96,7 +96,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"enemy_walk_up",
-"speed": 5.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -113,7 +113,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"friendly_attack",
-"speed": 5.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -124,7 +124,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"friendly_walk_down",
-"speed": 5.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -144,7 +144,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"friendly_walk_left",
-"speed": 5.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -155,7 +155,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"friendly_walk_right",
-"speed": 5.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -163,14 +163,14 @@ animations = [{
 }],
 "loop": true,
 "name": &"friendly_walk_up",
-"speed": 5.0
+"speed": 4.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rmvj2"]
 radius = 13.0
 height = 42.0
 
-[node name="Minion" type="CharacterBody2D"]
+[node name="Minion2" type="CharacterBody2D"]
 collision_layer = 5
 collision_mask = 0
 script = ExtResource("1_ywsbo")
@@ -180,10 +180,9 @@ aggro_range = 100
 attack_range = 50
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-0.250001, -0.249999)
-scale = Vector2(0.5, 0.505)
+scale = Vector2(0.6, 0.606)
 sprite_frames = SubResource("SpriteFrames_eqvgy")
-animation = &"enemy_walk_down"
+animation = &"friendly_walk_up"
 
 [node name="NavigationHandler" type="Node2D" parent="."]
 
@@ -206,6 +205,7 @@ autostart = true
 shape = SubResource("CapsuleShape2D_rmvj2")
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_qdnh8")]
+position = Vector2(0, -6)
 
 [node name="AttackTimer" type="Timer" parent="."]
 

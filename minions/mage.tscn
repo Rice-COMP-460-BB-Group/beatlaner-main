@@ -59,7 +59,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"enemy_attack",
-"speed": 5.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -76,7 +76,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"enemy_walk_down",
-"speed": 5.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -93,7 +93,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"enemy_walk_left",
-"speed": 5.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -110,7 +110,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"enemy_walk_right",
-"speed": 5.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -127,7 +127,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"enemy_walk_up",
-"speed": 5.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -144,7 +144,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"friendly_attack",
-"speed": 5.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -161,7 +161,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"friendly_walk_down",
-"speed": 5.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -178,7 +178,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"friendly_walk_left",
-"speed": 5.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -195,7 +195,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"friendly_walk_right",
-"speed": 5.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -212,7 +212,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"friendly_walk_up",
-"speed": 5.0
+"speed": 4.0
 }]
 
 [node name="Minion" instance=ExtResource("1_ng6xl")]
@@ -222,4 +222,4 @@ attack_range = 500
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_asmhh")
-animation = &"friendly_walk_left"
+animation = &"friendly_walk_up"
