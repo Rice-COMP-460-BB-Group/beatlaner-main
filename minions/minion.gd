@@ -163,6 +163,7 @@ func _on_attack_timer_timeout():
 	if is_instance_valid(enemy_target) && global_position.distance_to(enemy_target.global_position) < attack_range:
 		if ranged:
 			var projectile = projectile_scene.instantiate()
+			projectile.red = team != Team.RED
 			projectile.target = enemy_target
 			projectile.global_position = global_position
 			projectile.source = self
