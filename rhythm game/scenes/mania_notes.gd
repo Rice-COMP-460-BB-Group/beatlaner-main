@@ -6,7 +6,7 @@ func _init():
 	set_process(false)
 
 
-@export var speed = 12.0
+@export var speed = 5.00
 # 12 is best, 8 for casuals
 var init_y = -370.0
 

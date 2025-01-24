@@ -16,6 +16,7 @@ script = ExtResource("1_ktlqa")
 [node name="Debugmenu" parent="CanvasLayer" instance=ExtResource("3_nkcnh")]
 
 [node name="Tower" parent="." instance=ExtResource("2_flut7")]
+team = 0
 
 [node name="Spawner" parent="." instance=ExtResource("5_cp35u")]
 

@@ -11,7 +11,6 @@ size = Vector2(59, 120)
 [node name="Tower" type="Area2D" groups=["Towers"]]
 collision_mask = 2
 script = ExtResource("1_15l20")
-team = null
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_qjxk3")

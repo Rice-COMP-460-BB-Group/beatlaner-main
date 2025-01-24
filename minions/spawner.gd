@@ -1,6 +1,7 @@
 extends Node2D
 
 @export  var enemy_wave_config: Dictionary = {"top":1,"mid":1,"bottom":1}
+var to_add: Dictionary = {"top":0,"mid":0,"bottom":0}
 
 var minionScene = load("res://minions/minion.tscn")
 var mageScene = load("res://minions/mage.tscn")
@@ -14,9 +15,17 @@ var spawn_points = {}
 @onready var lowerThrough: Marker2D = $LowerThrough
 @onready var enemySpawnTimer: Timer = $WaveTimer
 
-func Score(new_score: int):
-	to_spawn += new_score / 10000
-	print('to spawn', to_spawn)
+var type_to_config = {
+	"Lower": "bottom",
+	"Mid": "mid",
+	"Upper": "top"
+}
+
+func Score(new_score: int, tower_type: String):
+	print(new_score, tower_type, enemy_wave_config)
+	var key = tower_type.substr(2, tower_type.length()) 
+	to_add[type_to_config[key]] += new_score / 10000
+	print(type_to_config[key], enemy_wave_config)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -34,6 +43,7 @@ func spawner_init() -> void:
 			tower.position = sp.position
 			tower.team = sp.name.find("P1") == 0
 			tower.name = sp.name
+			print(tower.name)
 			spawn_points[sp.name] = tower
 			var main = get_parent()
 			main.add_child(tower)
@@ -155,23 +165,21 @@ func spawn_minion(key: String):
 	if !is_instance_valid(spawnpt):
 		return
 
-	for i in range(to_spawn):
-		var minion
-		if randi() % 2 == 0:
-			minion = minionScene.instantiate()
-		else:
-			minion = mageScene.instantiate()
-		if key.ends_with("Upper"):
-			minion.intermediate_lane = upperThrough
-		elif key.ends_with("Lower"):
-			minion.intermediate_lane = lowerThrough
-		minion.set_team(spawnpt.team == 0)
-		minion.tower_target = get_opposite(key)
-		minion.position = spawnpt.position
-		var main = get_parent()
-		main.add_child(minion)
-		minion_count += to_spawn
-	to_spawn = 1
+	var minion
+	if randi() % 2 == 0:
+		minion = minionScene.instantiate()
+	else:
+		minion = mageScene.instantiate()
+	if key.ends_with("Upper"):
+		minion.intermediate_lane = upperThrough
+	elif key.ends_with("Lower"):
+		minion.intermediate_lane = lowerThrough
+	minion.set_team(spawnpt.team == 0)
+	minion.tower_target = get_opposite(key)
+	minion.position = spawnpt.position
+	var main = get_parent()
+	main.add_child(minion)
+	minion_count += 1
 	#main.add_child(minion)
 	#minion_count += 1
 	
@@ -192,16 +200,23 @@ func spawn_friendly_wave(config: Dictionary,is_friendly: bool) -> void:
 	
 	for i in range(topcount):
 		top_minions.append(spawn_minion(player+"Upper"))
+	for i in range(to_add["top"]):
+		top_minions.append(spawn_minion(player+"Upper"))
 	
 	var mid_minions = []
 	
 	for i in range(midcount):
-		
 		mid_minions.append(spawn_minion(player+"Mid"))
+	for i in range(to_add["mid"]):
+		top_minions.append(spawn_minion(player+"Mid"))
 	var bottom_minions = []
 	for i in range(bottomcount):
-		
 		bottom_minions.append(spawn_minion(player+"Lower"))
+	for i in range(to_add["bottom"]):
+		top_minions.append(spawn_minion(player+"Lower"))
+		
+	# reset how many to add from rhythm game
+	to_add = {"top":0,"mid":0,"bottom":0}
 	var main = get_parent()
 	for m in top_minions:
 		main.add_child(m)
