@@ -7,13 +7,20 @@ var mageScene = load("res://minions/mage.tscn")
 
 var towerScene = load("res://main/Tower.tscn")
 var minion_count = 0
+var to_spawn = 1
 var spawn_points = {}
 
 @onready var upperThrough: Marker2D = $UpperThrough
 @onready var lowerThrough: Marker2D = $LowerThrough
 @onready var enemySpawnTimer: Timer = $WaveTimer
+
+func Score(new_score: int):
+	to_spawn += new_score / 10000
+	print('to spawn', to_spawn)
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	Signals.Score.connect(Score)
 	print("spawner invoked")
 	
 		
@@ -101,6 +108,7 @@ func enable_timer() -> void:
 	enemySpawnTimer.start()
 	
 
+
 func _on_timer_timeout() -> void:
 	print("timeout!!!")
 	spawn_friendly_wave(enemy_wave_config,false)
@@ -118,20 +126,25 @@ func spawn_minion(key: String):
 	if !is_instance_valid(spawnpt):
 		return
 
-	var minion
-	if randi() % 2 == 0:
-		minion = minionScene.instantiate()
-	else:
-		minion = mageScene.instantiate()
-	if key.ends_with("Upper"):
-		minion.intermediate_lane = upperThrough
-	elif key.ends_with("Lower"):
-		minion.intermediate_lane = lowerThrough
-	minion.set_team(spawnpt.team == 0)
-	minion.tower_target = get_opposite(key)
-	minion.position = spawnpt.position
-
-	return minion
+	print('spawning', to_spawn)
+	for i in range(to_spawn):
+		print('spawned', i)
+		var minion
+		if randi() % 2 == 0:
+			minion = minionScene.instantiate()
+		else:
+			minion = mageScene.instantiate()
+		if key.ends_with("Upper"):
+			minion.intermediate_lane = upperThrough
+		elif key.ends_with("Lower"):
+			minion.intermediate_lane = lowerThrough
+		minion.set_team(spawnpt.team == 0)
+		minion.tower_target = get_opposite(key)
+		minion.position = spawnpt.position
+		var main = get_parent()
+		main.add_child(minion)
+		minion_count += to_spawn
+	to_spawn = 1
 	#main.add_child(minion)
 	#minion_count += 1
 	

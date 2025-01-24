@@ -11,17 +11,10 @@ func _process(delta: float) -> void:
 	pass
 
 func _on_maniakey_hit(type: String) -> void:
-	print('received', type)
 	$Status.text = type
 
-
-func _on_maniakey_2_hit(extra_arg_0: String) -> void:
-	pass # Replace with function body.
-
-
-func _on_maniakey_3_hit(extra_arg_0: String) -> void:
-	pass # Replace with function body.
-
-
-func _on_maniakey_4_hit(extra_arg_0: String) -> void:
-	pass # Replace with function body.
+func get_score() -> int:
+	var text = $HUD/CanvasLayer/Score.text
+	var score_text = text.strip_edges()  
+	score_text = score_text.replace("[right]", "").replace("[/right]", "")
+	return int(score_text)

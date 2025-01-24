@@ -2,16 +2,6 @@ extends Sprite2D
 
 
 func _init():
-	# Debug texture and transparency
-	self.modulate.a = 1.0  # Ensure fully opaque
-
-	# Debugging helper for visibility
-	var debug_rect = ColorRect.new()
-	debug_rect.color = Color(1, 0, 0, 0.5)  # Semi-transparent red
-	debug_rect.size = Vector2(50, 50)  # Adjust size to match note
-	add_child(debug_rect)
-	
-
 	# Activate processing
 	set_process(false)
 

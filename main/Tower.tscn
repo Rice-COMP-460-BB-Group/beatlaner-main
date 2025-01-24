@@ -27,13 +27,13 @@ position = Vector2(0, 40)
 stream = ExtResource("4_astes")
 
 [node name="Button" type="Button" parent="."]
-offset_left = -10.0
-offset_top = -18.0
-offset_right = 8.0
-offset_bottom = -1.0
+modulate = Color(1, 1, 1, 0)
+offset_left = -30.0
+offset_top = -56.0
+offset_right = 29.0
+offset_bottom = 64.0
 
 [node name="Window" type="Window" parent="."]
-position = Vector2i(0, 36)
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(3, 10.5)
