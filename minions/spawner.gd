@@ -108,6 +108,35 @@ func enable_timer() -> void:
 	enemySpawnTimer.start()
 	
 
+#func spawn_friendly_wave(config: Dictionary,is_friendly: bool) -> void:
+	#print("config dict is",config)
+	#var player = "P1" if is_friendly else "P2"
+	#if "top" in config:    
+		#topcount = config["top"]
+	#if "mid" in config:
+		#midcount = config["mid"]
+	#if "low" in config:
+		#bottomcount = config["low"]
+	#var top_minions = []
+	#
+	#for i in range(topcount):
+		#top_minions.append(spawn_minion(player+"Upper"))
+	#
+	#var mid_minions = []
+	#
+	#for i in range(midcount):
+		#
+		#mid_minions.append(spawn_minion(player+"Mid"))
+	#var bottom_minions = []
+	#for i in range(bottomcount):    
+		#bottom_minions.append(spawn_minion(player+"Lower"))
+	#var main = get_parent()
+	#for m in top_minions:
+		#main.add_child(m)
+	#for m in mid_minions:
+		#main.add_child(m)
+	#for m in bottom_minions:
+		#main.add_child(m)
 
 func _on_timer_timeout() -> void:
 	print("timeout!!!")
@@ -126,9 +155,7 @@ func spawn_minion(key: String):
 	if !is_instance_valid(spawnpt):
 		return
 
-	print('spawning', to_spawn)
 	for i in range(to_spawn):
-		print('spawned', i)
 		var minion
 		if randi() % 2 == 0:
 			minion = minionScene.instantiate()
