@@ -16,8 +16,8 @@ enum Team {BLUE, RED}
 
 
 var state: State
-enum State {MOVE, ATTACK,FROZEN}
-enum BuffState{INCREASE,DECREASE}
+enum State {MOVE, ATTACK, FROZEN}
+enum BuffState {INCREASE, DECREASE}
 @onready var navigation_agent_2d: NavigationAgent2D = $NavigationHandler/NavigationAgent2D
 @onready var attack_timer: Timer = $AttackTimer
 @onready var sprite = $AnimatedSprite2D
@@ -67,15 +67,16 @@ func get_health():
 
 @warning_ignore("unused_parameter")
 func _physics_process(delta: float):
+	var anim_suffix = "friendly" if team != Team.BLUE else "enemy"
 	var angle = velocity.angle()
-	if abs(angle) <= PI/4:
-		sprite.play("walk_right")
-	elif abs(angle) >= 3*PI/4:
-		sprite.play("walk_left")
+	if abs(angle) <= PI / 4:
+		sprite.play(anim_suffix + "_walk_right")
+	elif abs(angle) >= 3 * PI / 4:
+		sprite.play(anim_suffix + "_walk_left")
 	elif angle < 0:
-		sprite.play("walk_up")
+		sprite.play(anim_suffix + "_walk_up")
 	else:
-		sprite.play("walk_down")
+		sprite.play(anim_suffix + "_walk_down")
 
 	if state == State.FROZEN:
 		print("frozen!")
