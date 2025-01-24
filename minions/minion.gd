@@ -128,24 +128,30 @@ func _physics_process(delta: float):
 	
 	if state == State.MOVE:
 		var space_state = get_world_2d().direct_space_state
-		var query = PhysicsRayQueryParameters2D.new()
-		query.collide_with_areas = true
-		query.from = global_position
-		query.to = global_position + new_velocity.normalized() * 200
-		query.exclude = [self]
+		var query = PhysicsShapeQueryParameters2D.new()
 		
-		var result = space_state.intersect_ray(query)
+		# Set up rectangle shape
+		var shape = RectangleShape2D.new()
+		shape.extents = Vector2(aggro_range, 50)
+		query.shape = shape
+		query.transform = Transform2D(0, global_position)
+		query.exclude = [self]
+		query.collision_mask = 1
+		query.collide_with_bodies = true
+		query.collide_with_areas = true
 
-		if result and result.collider is Minion and result.collider.get_team() != team:
-			print("enemy found")
-			set_enemy_target(result.collider)
-			state = State.ATTACK
-			return
-		if result and result.collider is Tower and result.collider.team != team:
-			print("tower found")
-			set_enemy_target(result.collider)
-			state = State.ATTACK
-			return
+		var results = space_state.intersect_shape(query)
+		for result in results:
+			if result.collider is Minion and result.collider.get_team() != team:
+				print("enemy found")
+				set_enemy_target(result.collider)
+				state = State.ATTACK
+				return
+			if result.collider is Tower and result.collider.team != team:
+				print("tower found")
+				set_enemy_target(result.collider)
+				state = State.ATTACK
+				return
 	if navigation_agent_2d.is_navigation_finished():
 		print("reached target")
 		return
