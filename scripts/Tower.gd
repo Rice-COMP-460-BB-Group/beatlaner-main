@@ -35,5 +35,5 @@ func _on_health_component_health_destroyed() -> void:
 	queue_free()
 
 func _on_button_pressed() -> void:
-	Signals.OpenRhythmGame.emit()
+	Signals.OpenRhythmGame.emit(name)
 	

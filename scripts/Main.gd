@@ -7,6 +7,8 @@ var spawner_scene = load("res://minions/spawner.tscn")
 var spawner = null
 var rhythm_game_instance
 
+var tower_type
+
 
 func _ready():
 	print("game started")
@@ -17,7 +19,8 @@ func _ready():
 	
 	
 	
-func OpenRhythmGame():
+func OpenRhythmGame(tmp_tower_type: String):
+	tower_type = tmp_tower_type
 	var rhythm_game_scene = load("res://rhythm game/scenes/background.tscn")
 	rhythm_game_instance = rhythm_game_scene.instantiate()
 	if not $RhythmLayer.get_children():
@@ -25,7 +28,7 @@ func OpenRhythmGame():
 func _process(delta):
 	if len($RhythmLayer.get_children()) and Input.is_action_just_pressed("escape rhythm game"):
 		var score = rhythm_game_instance.get_score()
-		Signals.Score.emit(score, name)
+		Signals.Score.emit(score, tower_type)
 		$RhythmLayer.remove_child(rhythm_game_instance)
 
 func _on_debugmenu_spawn_wave(spawn_request: Dictionary,is_friendly: bool) -> void:

@@ -24,6 +24,7 @@ var type_to_config = {
 func Score(new_score: int, tower_type: String):
 	print(new_score, tower_type, enemy_wave_config)
 	var key = tower_type.substr(2, tower_type.length()) 
+	print('bruh', new_score, tower_type)
 	to_add[type_to_config[key]] += new_score / 10000
 	print(type_to_config[key], enemy_wave_config)
 
