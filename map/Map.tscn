@@ -617,11 +617,11 @@ pattern_1 = SubResource("TileMapPattern_tm67o")
 [node name="Map" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(678, 3349)
+position = Vector2(1120, 3019)
 limit_left = 250
 limit_top = 250
 limit_right = 3850
-limit_bottom = 3850
+limit_bottom = 3750
 position_smoothing_enabled = true
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
@@ -1178,8 +1178,7 @@ flip_h = true
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
 visible = false
-color = Color(0.984987, 0.585153, 0.757288, 1)
-energy = 1.35
+color = Color(0.978827, 0.853674, 0.808296, 1)
 blend_mode = 1
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]

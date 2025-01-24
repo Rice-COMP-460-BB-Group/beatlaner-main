@@ -131,6 +131,7 @@ func spawn_minion(key: String):
 	
 
 func spawn_friendly_wave(config: Dictionary,is_friendly: bool) -> void:
+	print("config dict is",config)
 	var player = "P1" if is_friendly else "P2"
 	if "top" in config:
 		
@@ -138,8 +139,8 @@ func spawn_friendly_wave(config: Dictionary,is_friendly: bool) -> void:
 	if "mid" in config:
 		
 		midcount = config["mid"]
-	if "bottom" in config:
-		bottomcount = config["bottom"]
+	if "low" in config:
+		bottomcount = config["low"]
 	print(topcount,midcount,bottomcount)
 	var top_minions = []
 	
@@ -161,7 +162,7 @@ func spawn_friendly_wave(config: Dictionary,is_friendly: bool) -> void:
 	
 	for m in mid_minions:
 		main.add_child(m)
-	print(bottom_minions,"bottom")
+	
 	for m in bottom_minions:
 		main.add_child(m)
 		

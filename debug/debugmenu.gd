@@ -8,14 +8,19 @@ var low_count = 0
 
 
 signal spawn_wave(spawn_request: Dictionary,is_friendly: bool)
-signal freeze_spell(lane: String, friendly: bool)
+signal freeze_spell(lane: int, friendly: bool)
 
 signal toggle_enemy_wave(state: bool)
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	
 	pass # Replace with function body.
 
-
+func _input(event: InputEvent):
+	
+	if Input.is_key_pressed(KEY_Q):
+		visible = !visible
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
@@ -26,7 +31,7 @@ func _on_check_box_toggled(toggled_on: bool) -> void:
 	toggle_enemy_wave.emit(toggled_on)
 	pass # Replace with function body.
 
-
+	
 
 
 
@@ -56,4 +61,13 @@ func _on_low_minion_count_value_changed(value: float) -> void:
 
 
 func _on_button_2_pressed() -> void:
-	freeze_spell.emit("top",true)
+	freeze_spell.emit(0,0)
+
+#freeze middle
+func _on_button_3_pressed() -> void:
+	freeze_spell.emit(1,0)
+
+#freeze bottom
+func _on_button_4_pressed() -> void:
+	freeze_spell.emit(2,0)
+	

@@ -35,6 +35,6 @@ func _on_debugmenu_toggle_enemy_wave(state: bool) -> void:
 	pass # Replace with function body.
 
 
-func _on_debugmenu_freeze_spell(lane: String, friendly: bool) -> void:
+func _on_debugmenu_freeze_spell(lane: int, friendly: bool) -> void:
 	print("calling freeze")
-	lane_manager.freeze_current_enemies(0,0,0) # Replace with function body.
+	lane_manager.freeze_current_enemies(lane,0) # Replace with function body.
