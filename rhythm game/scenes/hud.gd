@@ -30,12 +30,15 @@ func _ready() -> void:
 func Hit(type: String):
 	%HitStatus.text = "[center]"+type+"[/center]"
 	if type == "Miss":
+		if combo > 10:
+			$CanvasLayer/MissSound.play()
 		combo = 0
+		
 	else:
 		combo += 1
 		score += combo * points_dict[type]
 	acc_notes_total += 1
 	acc_notes_sum += accuracy_dict[type]
-	%Accuracy.text = str(acc_notes_sum / acc_notes_total)
+	%Accuracy.text = "[right]" + str(float(acc_notes_sum) / acc_notes_total).pad_decimals(2) + "%" + "[/right]"
 	%Combo.text = "[center]"+str(combo)+"[/center]" if combo else ""
-	%Score.text = str(score)
+	%Score.text = "[right]" + str(score) + "[/right]"

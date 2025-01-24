@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bgr2btvy5yevs" path="res://assets/map/grass_tileset_16x16.png" id="1_38v8j"]
 [ext_resource type="Script" path="res://map/lane_manager.gd" id="2_4jb2k"]
 [ext_resource type="Texture2D" uid="uid://rhxtlwdc3r1o" path="res://assets/map/Beatlaner-Sheet.png" id="2_hv50b"]
-[ext_resource type="PackedScene" uid="uid://can4ucahvj8ac" path="res://map/lantern.tscn" id="4_nj2fp"]
+[ext_resource type="PackedScene" path="res://map/lantern.tscn" id="4_nj2fp"]
 [ext_resource type="Texture2D" uid="uid://kn70bf4eeq4o" path="res://assets/forrest.png" id="4_rrlgg"]
 [ext_resource type="Texture2D" uid="uid://c7rbxb71athmq" path="res://assets/forrest2.png" id="5_jq0jo"]
 [ext_resource type="Texture2D" uid="uid://ctx58mmgf2v8a" path="res://assets/mini_forest.png" id="7_edlls"]

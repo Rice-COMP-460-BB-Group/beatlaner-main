@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://xfxnyk30olx4"]
+[gd_scene load_steps=3 format=3 uid="uid://xfxnyk30olx4"]
 
 [ext_resource type="Script" path="res://rhythm game/scenes/hud.gd" id="1_swecj"]
+[ext_resource type="AudioStream" uid="uid://bpsllidgcm5tj" path="res://rhythm game/assets/music/combobreak.wav" id="2_248el"]
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -14,6 +15,9 @@ script = ExtResource("1_swecj")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="MissSound" type="AudioStreamPlayer" parent="CanvasLayer"]
+stream = ExtResource("2_248el")
+
 [node name="HitStatus" type="RichTextLabel" parent="CanvasLayer"]
 unique_name_in_owner = true
 offset_left = 546.0
@@ -24,19 +28,25 @@ bbcode_enabled = true
 
 [node name="Score" type="RichTextLabel" parent="CanvasLayer"]
 unique_name_in_owner = true
-offset_left = 1044.0
-offset_top = 28.0
-offset_right = 1127.0
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -142.0
 offset_bottom = 66.0
-text = "0000000"
+grow_horizontal = 0
+theme_override_font_sizes/normal_font_size = 36
+bbcode_enabled = true
+text = "[right]0000000[/right]"
 
 [node name="Accuracy" type="RichTextLabel" parent="CanvasLayer"]
 unique_name_in_owner = true
-offset_left = 1066.0
+offset_left = 1028.0
 offset_top = 61.0
-offset_right = 1137.0
-offset_bottom = 101.0
-text = "0.00%"
+offset_right = 1152.0
+offset_bottom = 108.0
+theme_override_font_sizes/normal_font_size = 36
+bbcode_enabled = true
+text = "[right]0.00%[/right]"
 
 [node name="Combo" type="RichTextLabel" parent="CanvasLayer"]
 unique_name_in_owner = true
