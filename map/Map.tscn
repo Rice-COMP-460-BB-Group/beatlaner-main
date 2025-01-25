@@ -16,7 +16,7 @@ func _input(event: InputEvent):
 	
 	if event is InputEventMouseButton:
 		var zoom_delta = Vector2(.1,.1)
-		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN and zoom > Vector2(1,1):
+		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN and zoom > Vector2(1.5,1.5):
 			
 			zoom -= zoom_delta
 			print(\"current zoom is\",zoom)
@@ -27,7 +27,7 @@ func _input(event: InputEvent):
 	
 	if event is InputEventMouseMotion and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		var movement: Vector2 = event.relative
-		position -=movement
+		position -= 2*movement
 
 @export var starting_intensity = 5
 @export var duration = .5
