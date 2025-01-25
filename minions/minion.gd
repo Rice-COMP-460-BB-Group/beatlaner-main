@@ -186,8 +186,19 @@ func _on_attack_timer_timeout():
 				$HitAudio.play()
 				health_component.decrease_health(randfn(10, 1.5))
 
-func _on_animated_sprite_2d_animation_changed():
+func _on_animated_sprite_2d_animation_finished():
 	is_attacking = false
+	
+	var anim_suffix = "friendly" if team != Team.BLUE else "enemy"
+	var angle = velocity.angle()
+	if abs(angle) <= PI / 4:
+		sprite.play(anim_suffix + "_walk_right")
+	elif abs(angle) >= 3 * PI / 4:
+		sprite.play(anim_suffix + "_walk_left")
+	elif angle < 0:
+		sprite.play(anim_suffix + "_walk_up")
+	else:
+		sprite.play(anim_suffix + "_walk_down")
 
 func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:
 	velocity = safe_velocity
