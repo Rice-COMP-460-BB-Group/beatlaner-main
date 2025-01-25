@@ -19,5 +19,5 @@ void fragment() {
 	// and clamp it between 0.0 and 1.0 again
 	float fog = clamp(noise * 2.0 - 1.0, 0.0, 1.0);
 	// Apply the fog effect
-	COLOR.a *= noise;
+	COLOR.a *= fog * density;
 }

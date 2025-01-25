@@ -32,7 +32,7 @@ func _process(delta):
 				else:
 					Signals.Hit.emit('Miss')
 
-		if active_notes and active_notes.front().passed:
+		if active_notes and is_instance_valid(active_notes.front()) and active_notes.front().passed:
 			active_notes.pop_front()
 			Signals.Hit.emit('Miss')
 	

@@ -216,17 +216,8 @@ func spawn_friendly_wave(config: Dictionary,is_friendly: bool) -> void:
 	for i in range(to_add["bottom"]):
 		top_minions.append(spawn_minion(player+"Lower"))
 		
-	# reset how many to add from rhythm game
-	to_add = {"top":0,"mid":0,"bottom":0}
-	var main = get_parent()
-	for m in top_minions:
-		main.add_child(m)
 	
-	for m in mid_minions:
-		main.add_child(m)
 	
-	for m in bottom_minions:
-		main.add_child(m)
 		
 
 
