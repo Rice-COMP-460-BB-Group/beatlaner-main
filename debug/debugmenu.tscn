@@ -6,6 +6,7 @@
 bg_color = Color(2.04556e-07, 0.103389, 0.159623, 1)
 
 [node name="Debugmenu" type="Control"]
+visible = false
 layout_mode = 3
 anchors_preset = 14
 anchor_top = 0.5
