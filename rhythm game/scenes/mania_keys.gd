@@ -8,6 +8,9 @@ signal hit
 
 var active_notes = []
 
+func _ready():
+	$ActiveKey.hide()
+
 func _process(delta):
 	
 
