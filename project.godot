@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Beatlaner Bozos"
-run/main_scene="res://main/Main.tscn"
+run/main_scene="res://title/titlescreen.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 boot_splash/image="res://Beatlaner logwhiteo.png"
 config/icon="res://icon.svg"
@@ -23,6 +23,7 @@ Signals="*res://rhythm game/scenes/signals.gd"
 [display]
 
 window/stretch/mode="viewport"
+mouse_cursor/custom_image="res://assets/Cursor.png"
 
 [gui]
 
