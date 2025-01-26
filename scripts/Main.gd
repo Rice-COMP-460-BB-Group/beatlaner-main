@@ -9,6 +9,10 @@ var rhythm_game_instance
 
 var tower_type
 
+enum Team {BLUE, RED}
+
+var red_score = 0
+var blue_score = 0
 
 func _ready():
 	print("game started")
@@ -16,8 +20,19 @@ func _ready():
 	spawner = get_node("Spawner")
 	spawner.spawner_init()
 	Signals.OpenRhythmGame.connect(OpenRhythmGame)
+
+	Signals.TowerDestroyed.connect(on_tower_destroyed)
 	
+func on_tower_destroyed(team: Team):
+	if team == Team.RED:
+		red_score += 1
+	else:
+		blue_score += 1
 	
+	if red_score == 3:
+		get_tree().change_scene_to_file("res://map/game_over.tscn")
+	elif blue_score == 3:
+		get_tree().change_scene_to_file("res://map/game_win.tscn")
 	
 func OpenRhythmGame(tmp_tower_type: String):
 	tower_type = tmp_tower_type
@@ -31,16 +46,13 @@ func _process(delta):
 		Signals.Score.emit(score, tower_type)
 		$RhythmLayer.remove_child(rhythm_game_instance)
 
-func _on_debugmenu_spawn_wave(spawn_request: Dictionary,is_friendly: bool) -> void:
+func _on_debugmenu_spawn_wave(spawn_request: Dictionary, is_friendly: bool) -> void:
 	
-	print(spawn_request,"here from main!")
+	print(spawn_request, "here from main!")
 	print(spawner)
 	if spawner:
 		
-		spawner.spawn_friendly_wave(spawn_request,is_friendly)
-
-
-
+		spawner.spawn_friendly_wave(spawn_request, is_friendly)
 
 
 func _on_debugmenu_toggle_enemy_wave(state: bool) -> void:
@@ -54,4 +66,4 @@ func _on_debugmenu_toggle_enemy_wave(state: bool) -> void:
 
 func _on_debugmenu_freeze_spell(lane: int, friendly: bool) -> void:
 	print("calling freeze")
-	lane_manager.freeze_current_enemies(lane,0) # Replace with function body.
+	lane_manager.freeze_current_enemies(lane, 0) # Replace with function body.
