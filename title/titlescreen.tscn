@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://c3jsflij7fip8"]
+[gd_scene load_steps=6 format=3 uid="uid://c3jsflij7fip8"]
 
 [ext_resource type="Script" path="res://title/titlescreen.gd" id="1_8mkg5"]
 [ext_resource type="Texture2D" uid="uid://c7yvl1kfal3jq" path="res://Beatlaner logwhiteo.png" id="1_acel6"]
+[ext_resource type="Texture2D" uid="uid://dvgifd7ptn6uh" path="res://assets/Background.png" id="2_kbj5k"]
 [ext_resource type="FontFile" uid="uid://cm5q756n5trre" path="res://assets/VT323-Regular.ttf" id="2_o2rih"]
 [ext_resource type="AudioStream" uid="uid://c78mc7nbmrog6" path="res://assets/Intro-Riff.wav" id="4_wt3nm"]
 
@@ -9,6 +10,13 @@
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_8mkg5")
+
+[node name="Nature Art" type="TextureRect" parent="."]
+self_modulate = Color(0.444843, 0.444843, 0.444843, 1)
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 645.0
+texture = ExtResource("2_kbj5k")
 
 [node name="Sprite2D" type="TextureRect" parent="."]
 layout_mode = 0
