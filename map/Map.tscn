@@ -13,21 +13,30 @@ script/source = "extends Camera2D
 
 
 func _input(event: InputEvent):
-	
+	var zoom_delta = Vector2(0.1, 0.1)
+
 	if event is InputEventMouseButton:
-		var zoom_delta = Vector2(.1,.1)
-		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN and zoom > Vector2(1.5,1.5):
-			
+		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN and zoom > Vector2(.5, .5):
 			zoom -= zoom_delta
-			print(\"current zoom is\",zoom)
+			print(\"Wheel down, current zoom:\", zoom)
 		elif event.button_index == MOUSE_BUTTON_WHEEL_UP:
-			print(\"wheel up!\")
 			zoom += zoom_delta
-			print(\"current zoom is\", zoom)
-	
+			print(\"Wheel up, current zoom:\", zoom)
+
+	elif event is InputEventKey:
+		if event.pressed:
+			print(event.keycode)
+			if event.keycode == KEY_MINUS and zoom > Vector2(.5, .5):
+				zoom -= zoom_delta
+				print(\"Minus key pressed, current zoom:\", zoom)
+			elif event.keycode == KEY_EQUAL:
+				zoom += zoom_delta
+				print(\"Plus key pressed, current zoom:\", zoom)
+
 	if event is InputEventMouseMotion and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		var movement: Vector2 = event.relative
-		position -= 2*movement
+		position -= movement * 2
+
 
 @export var starting_intensity = 5
 @export var duration = .5
