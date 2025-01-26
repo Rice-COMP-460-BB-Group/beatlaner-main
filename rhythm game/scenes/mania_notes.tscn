@@ -1,10 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://cibs8e3snxrb3"]
+[gd_scene load_steps=4 format=3 uid="uid://cibs8e3snxrb3"]
 
-[ext_resource type="Texture2D" uid="uid://cdecj65lcbatb" path="res://rhythm game/assets/mania_notes/mania-note1.png" id="1_odg25"]
+[ext_resource type="Texture2D" uid="uid://cupxo25fl3dd3" path="res://rhythm game/assets/mania_notes/Sigil1.png" id="1_d2jr5"]
 [ext_resource type="Script" path="res://rhythm game/scenes/mania_notes.gd" id="2_s4xme"]
+[ext_resource type="Texture2D" uid="uid://dvgisd26hm73n" path="res://assets/light_gd.webp" id="3_00815"]
 
 [node name="mania_notes" type="Sprite2D"]
-texture = ExtResource("1_odg25")
+texture = ExtResource("1_d2jr5")
 script = ExtResource("2_s4xme")
 
 [node name="Timer" type="Timer" parent="."]
@@ -13,5 +14,10 @@ script = ExtResource("2_s4xme")
 wait_time = 2.0
 one_shot = true
 autostart = true
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+visible = false
+energy = 0.7
+texture = ExtResource("3_00815")
 
 [connection signal="timeout" from="GarbageCollector" to="." method="_on_garbage_collector_timeout"]

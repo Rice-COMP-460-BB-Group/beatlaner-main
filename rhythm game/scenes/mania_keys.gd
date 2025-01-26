@@ -8,7 +8,12 @@ signal hit
 
 var active_notes = []
 
+func _ready():
+	$ActiveKey.hide()
+
 func _process(delta):
+	
+
 	if Input.is_action_just_pressed(key):
 		$ActiveKey.show()
 		$ActiveKeyTimer.start()
@@ -38,6 +43,12 @@ func _process(delta):
 	
 func init():
 	var new_note = note.instantiate()
+	if key == "key2":
+		new_note.texture = load("res://rhythm game/assets/mania_notes/Sigil2.png")
+	elif key == "key3":
+		new_note.texture = load("res://rhythm game/assets/mania_notes/Sigil3.png")
+	elif key == "key4":
+		new_note.texture = load("res://rhythm game/assets/mania_notes/Sigil4.png")
 	get_parent().add_child(new_note)
 	new_note.init(position.x)
 	active_notes.push_back(new_note)
@@ -45,9 +56,9 @@ func init():
 
 func _on_rand_timer_timeout() -> void:
 	init()
-	#$RandTimer.wait_time = randf_range(0.1, 0.5) # hard
+	$RandTimer.wait_time = randf_range(0.1, 0.5) # hard
 	#$RandTimer.wait_time = randf_range(0.1, 0.8) # medium
-	$RandTimer.wait_time = randf_range(0.5, 2.0) # easy
+	#$RandTimer.wait_time = randf_range(0.5, 2.0) # easy
 
 	$RandTimer.start()
 

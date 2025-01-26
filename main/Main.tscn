@@ -20,6 +20,7 @@ transform = Transform2D(1.01, 0, 0, 1.01, 800, 325)
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Debugmenu" parent="CanvasLayer" instance=ExtResource("3_nkcnh")]
+visible = true
 
 [node name="Tower" parent="." instance=ExtResource("2_flut7")]
 
