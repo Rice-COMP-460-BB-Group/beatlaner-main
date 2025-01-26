@@ -1,7 +1,7 @@
 extends Node2D
 
-@export  var enemy_wave_config: Dictionary = {"top":1,"mid":1,"bottom":1}
-var to_add: Dictionary = {"top":0,"mid":0,"bottom":0}
+@export var enemy_wave_config: Dictionary = {"top": 1, "mid": 1, "bottom": 1}
+var to_add: Dictionary = {"top": 0, "mid": 0, "bottom": 0}
 
 var minionScene = load("res://minions/minion.tscn")
 var mageScene = load("res://minions/mage.tscn")
@@ -23,7 +23,7 @@ var type_to_config = {
 
 func Score(new_score: int, tower_type: String):
 	print(new_score, tower_type, enemy_wave_config)
-	var key = tower_type.substr(2, tower_type.length()) 
+	var key = tower_type.substr(2, tower_type.length())
 	print('bruh', new_score, tower_type)
 	to_add[type_to_config[key]] += new_score / 10000
 	print(type_to_config[key], enemy_wave_config)
@@ -33,7 +33,6 @@ func _ready() -> void:
 	Signals.Score.connect(Score)
 	print("spawner invoked")
 	
-		
 		
 func spawner_init() -> void:
 	for sp in get_children():
@@ -151,18 +150,16 @@ func enable_timer() -> void:
 
 func _on_timer_timeout() -> void:
 	print("timeout!!!")
-	spawn_friendly_wave(enemy_wave_config,false)
+	spawn_friendly_wave(enemy_wave_config, false)
 
 var topcount = 0
 var midcount = 0
 var bottomcount = 0
 
 
-
-
 func spawn_minion(key: String):
 	var spawnpt = spawn_points[key]
-	print(spawnpt,"heelo")
+	print(spawnpt, "heelo")
 	if !is_instance_valid(spawnpt):
 		return
 
@@ -185,8 +182,8 @@ func spawn_minion(key: String):
 	#minion_count += 1
 	
 
-func spawn_friendly_wave(config: Dictionary,is_friendly: bool) -> void:
-	print("config dict is",config)
+func spawn_friendly_wave(config: Dictionary, is_friendly: bool) -> void:
+	print("config dict is", config)
 	var player = "P1" if is_friendly else "P2"
 	if "top" in config:
 		
@@ -196,29 +193,28 @@ func spawn_friendly_wave(config: Dictionary,is_friendly: bool) -> void:
 		midcount = config["mid"]
 	if "low" in config:
 		bottomcount = config["low"]
-	print(topcount,midcount,bottomcount)
+	print(topcount, midcount, bottomcount)
 	var top_minions = []
 	
 	for i in range(topcount):
-		top_minions.append(spawn_minion(player+"Upper"))
+		top_minions.append(spawn_minion(player + "Upper"))
 	for i in range(to_add["top"]):
-		top_minions.append(spawn_minion(player+"Upper"))
+		top_minions.append(spawn_minion(player + "Upper"))
 	
 	var mid_minions = []
 	
 	for i in range(midcount):
-		mid_minions.append(spawn_minion(player+"Mid"))
+		mid_minions.append(spawn_minion(player + "Mid"))
 	for i in range(to_add["mid"]):
-		top_minions.append(spawn_minion(player+"Mid"))
+		top_minions.append(spawn_minion(player + "Mid"))
 	var bottom_minions = []
 	for i in range(bottomcount):
-		bottom_minions.append(spawn_minion(player+"Lower"))
+		bottom_minions.append(spawn_minion(player + "Lower"))
 	for i in range(to_add["bottom"]):
-		top_minions.append(spawn_minion(player+"Lower"))
+		top_minions.append(spawn_minion(player + "Lower"))
+	to_add = {"top": 0, "mid": 0, "bottom": 0}
 		
 	
-	
-		
-
-
-	
+func _on_wave_timer_timeout() -> void:
+	spawn_friendly_wave(to_add, true)
+	spawn_friendly_wave(enemy_wave_config, false)

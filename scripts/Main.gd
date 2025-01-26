@@ -22,7 +22,7 @@ func _ready():
 	Signals.OpenRhythmGame.connect(OpenRhythmGame)
 
 	Signals.TowerDestroyed.connect(on_tower_destroyed)
-	
+
 func on_tower_destroyed(team: Team):
 	if team == Team.RED:
 		red_score += 1
@@ -45,6 +45,8 @@ func _process(delta):
 		var score = rhythm_game_instance.get_score()
 		Signals.Score.emit(score, tower_type)
 		$RhythmLayer.remove_child(rhythm_game_instance)
+	
+	$"WaveLayer/Wave Spawning/Timer Label".text = "Wave Spawning: " + str(floor($"Wave Timer".time_left)) + "s"
 
 func _on_debugmenu_spawn_wave(spawn_request: Dictionary, is_friendly: bool) -> void:
 	
