@@ -19,16 +19,12 @@ func _ready():
 	popup_window.size = Vector2(1152, 648)
 
 
-
-
 func _on_health_component_health_destroyed() -> void:
 	var viewport = get_viewport()
 	if $VisibleOnScreenNotifier2D.is_on_screen():
 		var camera = viewport.get_camera_2d()
 		if camera:
 			camera.shake()
-	$DestroySound.play()
-	await $DestroySound.finished
 	var surrender_instance = surrender_scene.instantiate()
 	get_parent().add_child(surrender_instance)
 	surrender_instance.global_position = global_position
@@ -36,4 +32,3 @@ func _on_health_component_health_destroyed() -> void:
 
 func _on_button_pressed() -> void:
 	Signals.OpenRhythmGame.emit(name)
-	
