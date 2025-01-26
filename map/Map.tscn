@@ -2298,25 +2298,11 @@ polygon = PackedVector2Array(-1251.7, 1998.2, -1259.9, 1992.7, -1262, 1993.8, -1
 [node name="Map" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(1120, 3019)
+position = Vector2(880, 3261)
 limit_left = 250
 limit_top = 250
 limit_right = 3850
 limit_bottom = 3750
-position_smoothing_enabled = true
-drag_horizontal_enabled = true
-drag_vertical_enabled = true
-editor_draw_limits = true
-editor_draw_drag_margin = true
-script = SubResource("GDScript_n22qh")
-
-[node name="Camera2D2" type="Camera2D" parent="."]
-visible = false
-position = Vector2(678, 3349)
-limit_left = 250
-limit_top = 250
-limit_right = 3850
-limit_bottom = 3850
 position_smoothing_enabled = true
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
