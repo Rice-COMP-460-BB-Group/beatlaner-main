@@ -14,8 +14,9 @@ script = ExtResource("1_8mkg5")
 [node name="Nature Art" type="TextureRect" parent="."]
 self_modulate = Color(0.444843, 0.444843, 0.444843, 1)
 layout_mode = 0
-offset_right = 1152.0
-offset_bottom = 645.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+scale = Vector2(0.599999, 0.599989)
 texture = ExtResource("2_kbj5k")
 
 [node name="Sprite2D" type="TextureRect" parent="."]
