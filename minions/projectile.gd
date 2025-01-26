@@ -9,8 +9,10 @@ var damage = 10
 func _ready():
 	if red:
 		$Projectile.texture = preload("res://assets/proj.png")
+		$PointLight2D.color = Color(1, 0, 0, 1)
 	else:
 		$Projectile.texture = preload("res://assets/proj-enemy.png")
+		$PointLight2D.color = Color(0, 0, 1, 1)
 		
 func _physics_process(delta):
 	if not is_instance_valid(target):

@@ -44,7 +44,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("6_g0clj")
 }],
-"loop": true,
+"loop": false,
 "name": &"enemy_attack",
 "speed": 4.0
 }, {
@@ -111,7 +111,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("18_vymow")
 }],
-"loop": true,
+"loop": false,
 "name": &"friendly_attack",
 "speed": 4.0
 }, {
@@ -182,7 +182,7 @@ attack_range = 50
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.6, 0.606)
 sprite_frames = SubResource("SpriteFrames_eqvgy")
-animation = &"friendly_walk_up"
+animation = &"enemy_attack"
 
 [node name="NavigationHandler" type="Node2D" parent="."]
 
@@ -213,7 +213,7 @@ position = Vector2(0, -6)
 stream = ExtResource("4_cvsl8")
 volume_db = -5.0
 
-[connection signal="animation_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_changed"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="velocity_computed" from="NavigationHandler/NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
 [connection signal="timeout" from="NavigationHandler/Timer" to="." method="_on_timer_timeout"]
 [connection signal="health_destroyed" from="HealthComponent" to="." method="_on_health_component_health_destroyed"]

@@ -132,7 +132,7 @@ func _physics_process(delta: float):
 		
 		# Set up rectangle shape
 		var shape = RectangleShape2D.new()
-		shape.extents = Vector2(aggro_range, 50)
+		shape.extents = Vector2(aggro_range, 100)
 		query.shape = shape
 		query.transform = Transform2D(0, global_position)
 		query.exclude = [self]
@@ -178,6 +178,7 @@ func _on_attack_timer_timeout():
 			projectile.target = enemy_target
 			projectile.global_position = global_position
 			projectile.source = self
+			$HitAudio.play()
 			get_tree().root.add_child(projectile)
 		else:
 			var health_component = enemy_target.get_node("HealthComponent")
@@ -186,8 +187,19 @@ func _on_attack_timer_timeout():
 				$HitAudio.play()
 				health_component.decrease_health(randfn(10, 1.5))
 
-func _on_animated_sprite_2d_animation_changed():
+func _on_animated_sprite_2d_animation_finished():
 	is_attacking = false
+	
+	var anim_suffix = "friendly" if team != Team.BLUE else "enemy"
+	var angle = velocity.angle()
+	if abs(angle) <= PI / 4:
+		sprite.play(anim_suffix + "_walk_right")
+	elif abs(angle) >= 3 * PI / 4:
+		sprite.play(anim_suffix + "_walk_left")
+	elif angle < 0:
+		sprite.play(anim_suffix + "_walk_up")
+	else:
+		sprite.play(anim_suffix + "_walk_down")
 
 func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:
 	velocity = safe_velocity
