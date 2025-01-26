@@ -132,7 +132,7 @@ func _physics_process(delta: float):
 		
 		# Set up rectangle shape
 		var shape = RectangleShape2D.new()
-		shape.extents = Vector2(aggro_range, 50)
+		shape.extents = Vector2(aggro_range, 100)
 		query.shape = shape
 		query.transform = Transform2D(0, global_position)
 		query.exclude = [self]
@@ -178,6 +178,7 @@ func _on_attack_timer_timeout():
 			projectile.target = enemy_target
 			projectile.global_position = global_position
 			projectile.source = self
+			$HitAudio.play()
 			get_tree().root.add_child(projectile)
 		else:
 			var health_component = enemy_target.get_node("HealthComponent")
