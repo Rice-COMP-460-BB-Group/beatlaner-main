@@ -34,6 +34,7 @@ offset_right = 29.0
 offset_bottom = 64.0
 
 [node name="Window" type="Window" parent="."]
+position = Vector2i(0, 36)
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(3, 10.5)

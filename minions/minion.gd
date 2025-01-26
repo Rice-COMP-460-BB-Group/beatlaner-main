@@ -33,6 +33,12 @@ var visited_intermediate = false
 @export var aggro_range = 300
 @export var attack_range = 300
 
+func _enter_tree():
+	if team != Team.BLUE:
+		$HealthComponent.red = false
+	else:
+		$HealthComponent.red = true
+
 func _ready():
 	attack_timer.wait_time = attack_speed
 	attack_timer.timeout.connect(_on_attack_timer_timeout)
