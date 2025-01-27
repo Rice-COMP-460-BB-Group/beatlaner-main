@@ -217,8 +217,9 @@ animations = [{
 
 [node name="Minion" instance=ExtResource("1_ng6xl")]
 ranged = true
-aggro_range = 800
-attack_range = 500
+movement_speed = 75
+aggro_range = 500
+attack_range = 250
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_asmhh")

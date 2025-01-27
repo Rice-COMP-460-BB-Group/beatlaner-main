@@ -140,7 +140,7 @@ func _physics_process(delta: float):
 		var shape = RectangleShape2D.new()
 		shape.extents = Vector2(aggro_range, 100)
 		query.shape = shape
-		query.transform = Transform2D(0, global_position)
+		query.transform = Transform2D(current_agent_position.direction_to(next_path_position).angle(), global_position)
 		query.exclude = [self]
 		query.collision_mask = 1
 		query.collide_with_bodies = true
