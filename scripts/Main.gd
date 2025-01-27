@@ -31,9 +31,9 @@ func on_tower_destroyed(team: Team):
 		blue_score += 1
 	
 	if red_score == 3:
-		get_tree().change_scene_to_file("res://map/game_over.tscn")
+		get_tree().change_scene_to_file.bind("res://map/game_over.tscn").call_deferred()
 	elif blue_score == 3:
-		get_tree().change_scene_to_file("res://map/game_win.tscn")
+		get_tree().change_scene_to_file.bind("res://map/game_win.tscn").call_deferred()
 	
 func OpenRhythmGame(tmp_tower_type: String, tower):
 	tower_type = tmp_tower_type

@@ -6,7 +6,7 @@ func _ready():
 func _on_start_pressed() -> void:
 	$Confirm.play()
 	await $Confirm.finished
-	get_tree().change_scene_to_file("res://main/Main.tscn")
+	get_tree().change_scene_to_file.bind("res://main/Main.tscn").call_deferred()
 
 
 func _on_exit_pressed() -> void:
