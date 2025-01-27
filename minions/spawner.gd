@@ -213,6 +213,7 @@ func spawn_friendly_wave(config: Dictionary, is_friendly: bool) -> void:
 	for i in range(to_add["bottom"]):
 		top_minions.append(spawn_minion(player + "Lower"))
 	to_add = {"top": 0, "mid": 0, "bottom": 0}
+	Signals.WaveSpawned.emit()
 		
 	
 func _on_wave_timer_timeout() -> void:

@@ -8,6 +8,7 @@ var spawner = null
 var rhythm_game_instance
 
 var tower_type
+var current_tower
 
 enum Team {BLUE, RED}
 
@@ -34,16 +35,18 @@ func on_tower_destroyed(team: Team):
 	elif blue_score == 3:
 		get_tree().change_scene_to_file("res://map/game_win.tscn")
 	
-func OpenRhythmGame(tmp_tower_type: String):
+func OpenRhythmGame(tmp_tower_type: String, tower):
 	tower_type = tmp_tower_type
 	var rhythm_game_scene = load("res://rhythm game/scenes/background.tscn")
 	rhythm_game_instance = rhythm_game_scene.instantiate()
+	current_tower = tower
 	if not $RhythmLayer.get_children():
 		$RhythmLayer.add_child(rhythm_game_instance)
 func _process(delta):
 	if len($RhythmLayer.get_children()) and Input.is_action_just_pressed("escape rhythm game"):
 		var score = rhythm_game_instance.get_score()
 		Signals.Score.emit(score, tower_type)
+		current_tower.update_score(score)
 		$RhythmLayer.remove_child(rhythm_game_instance)
 	
 	$"WaveLayer/Wave Spawning/Timer Label".text = "Wave Spawning: " + str(floor($"Wave Timer".time_left)) + "s"

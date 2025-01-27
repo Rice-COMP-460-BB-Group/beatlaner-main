@@ -2,9 +2,6 @@ extends Node2D
 
 class_name Tower
 
-signal score
-signal open_rhythm_game
-
 enum Team {BLUE, RED}
 
 @export var team: Team
@@ -12,11 +9,23 @@ enum Team {BLUE, RED}
 @onready var surrender_scene = preload("res://map/surrender.tscn")
 var rhythm_game_instance
 
+
+func update_score(new_score: int):
+	$MinionCount.text = str(int($MinionCount.text) + int(new_score / 10000))
+	if int($MinionCount.text) :
+		$MinionCount.show()
+	else:
+		$MinionCount.hide()
+
+func WaveSpawned():
+	$MinionCount.hide()
+
 func _ready():
 	
 	$Sprite2D.centered = true
 	popup_window.hide()
 	popup_window.size = Vector2(1152, 648)
+	Signals.Score.connect(WaveSpawned)
 
 
 func _on_health_component_health_destroyed() -> void:
@@ -33,4 +42,4 @@ func _on_health_component_health_destroyed() -> void:
 	queue_free()
 
 func _on_button_pressed() -> void:
-	Signals.OpenRhythmGame.emit(name)
+	Signals.OpenRhythmGame.emit(name, self)

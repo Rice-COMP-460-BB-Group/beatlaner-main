@@ -48,6 +48,11 @@ visible = true
 [node name="Tower" parent="." instance=ExtResource("2_flut7")]
 
 [node name="Spawner" parent="." instance=ExtResource("5_cp35u")]
+enemy_wave_config = {
+"bottom": 1,
+"mid": 1,
+"top": 1
+}
 
 [connection signal="timeout" from="Wave Timer" to="Spawner" method="_on_wave_timer_timeout"]
 [connection signal="freeze_spell" from="CanvasLayer/Debugmenu" to="." method="_on_debugmenu_freeze_spell"]
