@@ -12,7 +12,7 @@
 script = ExtResource("1_ktlqa")
 
 [node name="Wave Timer" type="Timer" parent="."]
-wait_time = 30.0
+wait_time = 60.0
 autostart = true
 
 [node name="WaveLayer" type="CanvasLayer" parent="."]
@@ -47,9 +47,9 @@ transform = Transform2D(1.01, 0, 0, 1.01, 800, 325)
 visible = true
 
 [node name="Tower" parent="." instance=ExtResource("2_flut7")]
-team = null
 
 [node name="Spawner" parent="." instance=ExtResource("5_cp35u")]
+enemy_wave_config = null
 
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_4mng7")
