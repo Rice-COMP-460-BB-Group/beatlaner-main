@@ -11,8 +11,8 @@ var rhythm_game_instance
 
 
 func update_score(new_score: int):
-	$MinionCount.text = str(int($MinionCount.text) + int(new_score / 10000))
-	if int($MinionCount.text) :
+	$MinionCount.text = str(int($MinionCount.text) + int(pow(new_score / 10000.0, 0.5)))
+	if int($MinionCount.text):
 		$MinionCount.show()
 	else:
 		$MinionCount.hide()

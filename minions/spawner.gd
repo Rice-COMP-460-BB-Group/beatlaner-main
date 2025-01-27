@@ -25,7 +25,8 @@ func Score(new_score: int, tower_type: String):
 	print(new_score, tower_type, enemy_wave_config)
 	var key = tower_type.substr(2, tower_type.length())
 	print('bruh', new_score, tower_type)
-	to_add[type_to_config[key]] += new_score / 10000
+	var additional_minions = int(pow(new_score / 10000.0, 0.5))
+	to_add[type_to_config[key]] += additional_minions
 	print(type_to_config[key], enemy_wave_config)
 
 # Called when the node enters the scene tree for the first time.
