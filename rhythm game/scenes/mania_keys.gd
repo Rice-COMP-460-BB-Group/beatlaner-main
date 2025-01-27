@@ -24,7 +24,7 @@ func _process(delta):
 		if active_notes and Input.is_action_just_pressed(key):
 			var front_note = active_notes.front()
 			var distance_at_click = abs(front_note.global_position.y - front_note.end)
-			if distance_at_click < 180:
+			if distance_at_click < 180 and is_instance_valid(active_notes.front()) :
 				active_notes.pop_front()
 				front_note.queue_free()
 				if distance_at_click < 20:

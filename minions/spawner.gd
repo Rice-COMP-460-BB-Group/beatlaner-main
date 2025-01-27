@@ -213,10 +213,10 @@ func spawn_friendly_wave(config: Dictionary, is_friendly: bool) -> void:
 		bottom_minions.append(spawn_minion(player + "Lower"))
 	for i in range(to_add["bottom"]):
 		top_minions.append(spawn_minion(player + "Lower"))
-	to_add = {"top": 0, "mid": 0, "bottom": 0}
 	Signals.WaveSpawned.emit()
 		
 	
 func _on_wave_timer_timeout() -> void:
 	spawn_friendly_wave(to_add, true)
-	spawn_friendly_wave(enemy_wave_config, false)
+	spawn_friendly_wave(to_add, false)
+	to_add = {"top": 0, "mid": 0, "bottom": 0}

@@ -11,13 +11,14 @@ var rhythm_game_instance
 
 
 func update_score(new_score: int):
-	$MinionCount.text = str(int($MinionCount.text) + int(pow(new_score / 10000.0, 0.5)))
+	$MinionCount.text = str(int($MinionCount.text) + int(pow(new_score / 10000.0, 0.8)))
 	if int($MinionCount.text):
 		$MinionCount.show()
 	else:
 		$MinionCount.hide()
 
 func WaveSpawned():
+	$MinionCount.text = str(0)
 	$MinionCount.hide()
 
 func _ready():
@@ -25,7 +26,7 @@ func _ready():
 	$Sprite2D.centered = true
 	popup_window.hide()
 	popup_window.size = Vector2(1152, 648)
-	Signals.Score.connect(WaveSpawned)
+	Signals.WaveSpawned.connect(WaveSpawned)
 
 
 func _on_health_component_health_destroyed() -> void:
