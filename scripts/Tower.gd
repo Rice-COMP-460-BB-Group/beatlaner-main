@@ -12,7 +12,7 @@ var rhythm_game_instance
 var minion_count = 0
 
 func update_score(new_score: int):
-	minion_count += int(pow(new_score / 10000.0, 0.8))
+	minion_count += int(pow(new_score / 10000.0, 0.6))
 	$MinionCount.text = "[center]" + str(minion_count) + "[/center]"
 	if minion_count:
 		$MinionCount.show()

@@ -12,7 +12,7 @@ func _init():
 # 12 is best, 8 for casuals
 var init_y = -370.0
 
-var end = 290
+var end = 280
 var passed = false
 
 

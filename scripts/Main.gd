@@ -36,12 +36,13 @@ func on_tower_destroyed(team: Team):
 		get_tree().change_scene_to_file("res://map/game_win.tscn")
 	
 func OpenRhythmGame(tmp_tower_type: String, tower):
+	if $RhythmLayer.get_children():
+		return
 	tower_type = tmp_tower_type
 	var rhythm_game_scene = load("res://rhythm game/scenes/background.tscn")
 	rhythm_game_instance = rhythm_game_scene.instantiate()
 	current_tower = tower
-	if not $RhythmLayer.get_children():
-		$RhythmLayer.add_child(rhythm_game_instance)
+	$RhythmLayer.add_child(rhythm_game_instance)
 func _process(delta):
 	if len($RhythmLayer.get_children()) and Input.is_action_just_pressed("escape rhythm game"):
 		var score = rhythm_game_instance.get_score()
