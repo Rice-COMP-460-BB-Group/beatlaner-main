@@ -33,6 +33,9 @@ shape = SubResource("RectangleShape2D_7vd8f")
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_sstfa")]
 position = Vector2(0, 40)
+currentHealth = 1000
+maxHealth = 1000
+red = null
 
 [node name="DestroySound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_astes")

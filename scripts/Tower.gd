@@ -38,7 +38,7 @@ func _on_health_component_health_destroyed() -> void:
 	var surrender_instance = surrender_scene.instantiate()
 	get_parent().add_child(surrender_instance)
 	surrender_instance.global_position = global_position
-
+	print("tower destroyed" + str(team))
 	Signals.TowerDestroyed.emit(team)
 	queue_free()
 

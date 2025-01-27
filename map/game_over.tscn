@@ -29,7 +29,7 @@ offset_left = 296.0
 offset_top = 224.0
 offset_right = 853.0
 offset_bottom = 551.0
-theme_override_constants/separation = 80
+theme_override_constants/separation = 40
 
 [node name="Label" type="Label" parent="VBoxContainer"]
 layout_mode = 2
@@ -39,10 +39,17 @@ theme_override_font_sizes/font_size = 72
 text = "Game Over"
 horizontal_alignment = 1
 
+[node name="Main Menu" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_hh0ir")
+theme_override_font_sizes/font_size = 64
+text = "Main Menu"
+
 [node name="Exit" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_hh0ir")
 theme_override_font_sizes/font_size = 64
 text = "Exit"
 
+[connection signal="pressed" from="VBoxContainer/Main Menu" to="." method="_on_main_menu_pressed"]
 [connection signal="pressed" from="VBoxContainer/Exit" to="." method="_on_exit_pressed"]

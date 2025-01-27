@@ -10,6 +10,8 @@ signal health_destroyed
 
 @export var red: bool = true
 
+var dead = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if !red:
@@ -29,7 +31,8 @@ func get_max_health():
 
 func decrease_health(amount: int):
 	currentHealth -= amount
-	if currentHealth <= 0:
+	if currentHealth <= 0 and !dead:
+		dead = true
 		print("health is zero")
 		currentHealth = 0
 		health_destroyed.emit()

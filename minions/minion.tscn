@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://cao1ivxo860t2"]
+[gd_scene load_steps=32 format=3 uid="uid://cao1ivxo860t2"]
 
 [ext_resource type="Script" path="res://minions/minion.gd" id="1_ywsbo"]
 [ext_resource type="PackedScene" uid="uid://c2a3uw6r78k4d" path="res://minions/projectile.tscn" id="2_6tinm"]
@@ -10,7 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://o1bvsnng1rmm" path="res://assets/minion/grunt_east_walk_v2_red-001.png" id="4_t8uty"]
 [ext_resource type="Texture2D" uid="uid://b60l4546y2pso" path="res://assets/minion/grunt_attack_v2_red-002.png" id="5_1opp5"]
 [ext_resource type="Texture2D" uid="uid://b5vroo5d60bxk" path="res://assets/minion/grunt_west_walk_red-000.png" id="5_ckma8"]
-[ext_resource type="Texture2D" uid="uid://bdoegk3hpy3b0" path="res://assets/minion/grunt_north.png" id="5_ik7qy"]
 [ext_resource type="Texture2D" uid="uid://crawmnr5ywfcp" path="res://assets/minion/grunt_attack_v2_red-003.png" id="6_g0clj"]
 [ext_resource type="Texture2D" uid="uid://v7c6ar4qqwi4" path="res://assets/minion/grunt_west_walk_red-001.png" id="6_i3cpu"]
 [ext_resource type="Texture2D" uid="uid://wlkf3jlaplwp" path="res://assets/minion/grunt_west_walk_red-002.png" id="7_6l141"]
@@ -28,6 +27,8 @@
 [ext_resource type="Texture2D" uid="uid://b853whk221yld" path="res://assets/minion/grunt_attack_v2-001.png" id="16_s78jv"]
 [ext_resource type="Texture2D" uid="uid://3p5cptanlt73" path="res://assets/minion/grunt_attack_v2-002.png" id="17_835ow"]
 [ext_resource type="Texture2D" uid="uid://vd88j1f6kv62" path="res://assets/minion/grunt_attack_v2-003.png" id="18_vymow"]
+[ext_resource type="Texture2D" uid="uid://cifc6rrgqtasa" path="res://assets/minion/grunt_north_v2-000.png" id="26_8oryb"]
+[ext_resource type="Texture2D" uid="uid://dbvncu0vfkdbn" path="res://assets/minion/grunt_north_v2-001.png" id="27_pd7dp"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_eqvgy"]
 animations = [{
@@ -159,7 +160,10 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("5_ik7qy")
+"texture": ExtResource("26_8oryb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_pd7dp")
 }],
 "loop": true,
 "name": &"friendly_walk_up",
@@ -176,13 +180,14 @@ collision_mask = 0
 script = ExtResource("1_ywsbo")
 ranged = false
 projectile_scene = ExtResource("2_6tinm")
+movement_speed = 100
 aggro_range = 100
 attack_range = 50
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.6, 0.606)
 sprite_frames = SubResource("SpriteFrames_eqvgy")
-animation = &"enemy_attack"
+animation = &"friendly_walk_up"
 
 [node name="NavigationHandler" type="Node2D" parent="."]
 
@@ -206,6 +211,8 @@ shape = SubResource("CapsuleShape2D_rmvj2")
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_qdnh8")]
 position = Vector2(0, -6)
+currentHealth = 75
+maxHealth = 75
 
 [node name="AttackTimer" type="Timer" parent="."]
 
