@@ -9,16 +9,18 @@ enum Team {BLUE, RED}
 @onready var surrender_scene = preload("res://map/surrender.tscn")
 var rhythm_game_instance
 
+var minion_count = 0
 
 func update_score(new_score: int):
-	$MinionCount.text = str(int($MinionCount.text) + int(pow(new_score / 10000.0, 0.8)))
-	if int($MinionCount.text):
+	minion_count += int(pow(new_score / 10000.0, 0.8))
+	$MinionCount.text = "[center]" + str(minion_count) + "[/center]"
+	if minion_count:
 		$MinionCount.show()
 	else:
 		$MinionCount.hide()
 
 func WaveSpawned():
-	$MinionCount.text = str(0)
+	minion_count = 0
 	$MinionCount.hide()
 
 func _ready():
