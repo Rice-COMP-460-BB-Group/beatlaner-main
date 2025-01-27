@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://do5hu0dt23mbe" path="res://rhythm game/scenes/mania_keys.tscn" id="1_ykdqm"]
 [ext_resource type="Texture2D" uid="uid://bx1o4v6nl7dc6" path="res://rhythm game/assets/mania_notes/Sigil-Gray.png" id="3_2vcog"]
 [ext_resource type="PackedScene" uid="uid://xfxnyk30olx4" path="res://rhythm game/scenes/hud.tscn" id="3_pnkrm"]
-[ext_resource type="AudioStream" uid="uid://c18xb8v33bv4v" path="res://rhythm game/assets/music/test.mp3" id="4_ssfa3"]
+[ext_resource type="AudioStream" uid="uid://dq1cyy24uue51" path="res://assets/Beatmainsong1.wav" id="5_2e1sw"]
 
 [sub_resource type="Gradient" id="Gradient_b4q47"]
 offsets = PackedFloat32Array(0, 0.146104, 1)
@@ -54,8 +54,7 @@ grow_horizontal = 1
 grow_vertical = 1
 
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_ssfa3")
-volume_db = -8.419
+stream = ExtResource("5_2e1sw")
 autoplay = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
