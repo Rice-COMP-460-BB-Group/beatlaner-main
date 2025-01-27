@@ -25,7 +25,8 @@ func _process(delta):
 			var front_note = active_notes.front()
 			var distance_at_click = abs(front_note.global_position.y - front_note.end)
 			if distance_at_click < 180:
-				active_notes.pop_front().queue_free()
+				active_notes.pop_front()
+				front_note.queue_free()
 				if distance_at_click < 20:
 					Signals.Hit.emit('Perfect')
 				elif distance_at_click < 50:
@@ -55,11 +56,13 @@ func init():
 
 
 func _on_rand_timer_timeout() -> void:
-	init()
-	$RandTimer.wait_time = randf_range(0.1, 0.5) # hard
+	if randi_range(0, 2) == 0:
+		init()
+	#$RandTimer.wait_time = randf_range(0.1, 0.5) # hard
 	#$RandTimer.wait_time = randf_range(0.1, 0.8) # medium
 	#$RandTimer.wait_time = randf_range(0.5, 2.0) # easy
-
+	
+	$RandTimer.wait_time = 0.5
 	$RandTimer.start()
 
 func _on_active_key_timer_timeout() -> void:

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bhkcua336umai"
+path="res://.godot/imported/slash-sound.wav-3eec1b013e2ea0df8e954f077d35d296.sample"
+
+[deps]
+
+source_file="res://rhythm game/assets/mania_notes/slash-sound.wav"
+dest_files=["res://.godot/imported/slash-sound.wav-3eec1b013e2ea0df8e954f077d35d296.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

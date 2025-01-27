@@ -41,7 +41,6 @@ transform = Transform2D(1.01, 0, 0, 1.01, 800, 325)
 [node name="Map" parent="." instance=ExtResource("2_tonyl")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="Debugmenu" parent="CanvasLayer" instance=ExtResource("3_nkcnh")]
 visible = true
@@ -49,7 +48,6 @@ visible = true
 [node name="Tower" parent="." instance=ExtResource("2_flut7")]
 
 [node name="Spawner" parent="." instance=ExtResource("5_cp35u")]
-enemy_wave_config = null
 
 [connection signal="timeout" from="Wave Timer" to="Spawner" method="_on_wave_timer_timeout"]
 [connection signal="freeze_spell" from="CanvasLayer/Debugmenu" to="." method="_on_debugmenu_freeze_spell"]
