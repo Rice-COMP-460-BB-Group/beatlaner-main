@@ -6,7 +6,6 @@
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e41q5"]
 radius = 8.0
-height = 42.0
 
 [node name="Area2D" type="Area2D"]
 collision_layer = 2
@@ -23,7 +22,7 @@ scale = Vector2(0.101505, 0.0753483)
 texture = ExtResource("1_6ng7n")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-color = Color(0.882951, 0.744387, 0.16732, 1)
+color = Color(1, 0, 0, 1)
 texture = ExtResource("3_g0wer")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

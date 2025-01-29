@@ -2,15 +2,12 @@ extends Area2D
 
 @export var target: Node2D
 @export var source: Node2D
-@export var red: bool
+@export var red: bool = true
 var speed = 400
 var damage = 10
 
 func _ready():
-	if red:
-		$Projectile.texture = preload("res://assets/proj.png")
-		$PointLight2D.color = Color(1, 0, 0, 1)
-	else:
+	if !red:
 		$Projectile.texture = preload("res://assets/proj-enemy.png")
 		$PointLight2D.color = Color(0, 0, 1, 1)
 		
