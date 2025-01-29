@@ -14,6 +14,8 @@ var points_dict = {
 	"Miss": 0
 }
 
+var powerups = ["freeze", "damage"]
+
 var accuracy_dict = {
 	"Perfect": 100,
 	"Good": 66,
@@ -42,3 +44,8 @@ func Hit(type: String):
 	%Accuracy.text = "[right]" + str(float(acc_notes_sum) / acc_notes_total).pad_decimals(2) + "%" + "[/right]"
 	%Combo.text = "[center]"+str(combo)+"[/center]" if combo else ""
 	%Score.text = "[right]" + str(score) + "[/right]"
+	
+	if combo and not combo % 50:
+		var rand_powerup = powerups[randi_range(0, len(powerups) - 1)]
+		print("attained" + rand_powerup)
+		
