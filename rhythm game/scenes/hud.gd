@@ -14,7 +14,7 @@ var points_dict = {
 	"Miss": 0
 }
 
-var powerups = ["freeze", "damage"]
+var powerups = ["freeze", "damage_powerup"]
 
 var accuracy_dict = {
 	"Perfect": 100,

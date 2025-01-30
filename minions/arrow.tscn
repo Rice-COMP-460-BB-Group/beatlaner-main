@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://b4ss0cc33vrir"]
+[gd_scene load_steps=3 format=3 uid="uid://bqkl7m6s1p5ls"]
 
 [ext_resource type="PackedScene" uid="uid://c2a3uw6r78k4d" path="res://minions/projectile.tscn" id="1_v2l15"]
 [ext_resource type="Texture2D" uid="uid://bqsu5iseam5cv" path="res://assets/particles/arrow.png" id="2_ordww"]

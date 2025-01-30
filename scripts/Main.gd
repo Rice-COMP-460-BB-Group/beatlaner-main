@@ -17,11 +17,11 @@ var blue_score = 0
 
 var player1_powerups = {
 	"freeze": 0,
-	"damage": 0
+	"damage_powerup": 0
 }
 var player2_powerups = {
 	"freeze": 0,
-	"damage": 0
+	"damage_powerup": 0
 }
 
 func _ready():
@@ -69,7 +69,10 @@ func _process(delta):
 		lane_manager.freeze_current_enemies(0, 0)
 		lane_manager.freeze_current_enemies(1, 0)
 		lane_manager.freeze_current_enemies(2, 0)
-
+	if Input.is_action_just_pressed("damage_powerup") and player1_powerups["damage_powerup"] and not len($RhythmLayer.get_children()):
+		print("damage")
+		player1_powerups["damage_powerup"] -= 1
+		lane_manager.damage_powerup(0)
 
 		
 	

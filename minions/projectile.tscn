@@ -6,6 +6,7 @@
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e41q5"]
 radius = 8.0
+height = 42.0
 
 [node name="Area2D" type="Area2D"]
 collision_layer = 2
