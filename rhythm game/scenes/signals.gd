@@ -15,3 +15,5 @@ signal TowerDestroyed(team: Team)
 
 
 signal ScrollSpeedChange(new_speed: float)
+
+signal PowerupGet(player: String, powerup: String)

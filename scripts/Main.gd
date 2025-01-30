@@ -15,6 +15,15 @@ enum Team {BLUE, RED}
 var red_score = 0
 var blue_score = 0
 
+var player1_powerups = {
+	"freeze": 0,
+	"damage": 0
+}
+var player2_powerups = {
+	"freeze": 0,
+	"damage": 0
+}
+
 func _ready():
 	print("game started")
 	
@@ -23,6 +32,16 @@ func _ready():
 	Signals.OpenRhythmGame.connect(OpenRhythmGame)
 
 	Signals.TowerDestroyed.connect(on_tower_destroyed)
+	Signals.PowerupGet.connect(_on_power_get)
+
+
+func _on_power_get(player: String, powerup: String):
+	if player == "player1":
+		player1_powerups[powerup] += 1
+	else:
+		player2_powerups[powerup] += 1
+	print('new powerups', player1_powerups)
+
 
 func on_tower_destroyed(team: Team):
 	if team == Team.RED:
@@ -43,7 +62,17 @@ func OpenRhythmGame(tmp_tower_type: String, tower):
 	rhythm_game_instance = rhythm_game_scene.instantiate()
 	current_tower = tower
 	$RhythmLayer.add_child(rhythm_game_instance)
+	
 func _process(delta):
+	if Input.is_action_just_pressed("freeze") and player1_powerups["freeze"] and not len($RhythmLayer.get_children()):
+		player1_powerups["freeze"] -= 1
+		lane_manager.freeze_current_enemies(0, 0)
+		lane_manager.freeze_current_enemies(1, 0)
+		lane_manager.freeze_current_enemies(2, 0)
+
+
+		
+	
 	if len($RhythmLayer.get_children()) and Input.is_action_just_pressed("escape rhythm game"):
 		var score = rhythm_game_instance.get_score()
 		Signals.Score.emit(score, tower_type)

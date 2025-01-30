@@ -12,7 +12,7 @@
 script = ExtResource("1_ktlqa")
 
 [node name="Wave Timer" type="Timer" parent="."]
-wait_time = 60.0
+wait_time = 10.0
 autostart = true
 
 [node name="WaveLayer" type="CanvasLayer" parent="."]
