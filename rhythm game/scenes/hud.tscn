@@ -58,3 +58,12 @@ offset_right = 868.0
 offset_bottom = 220.0
 theme_override_font_sizes/normal_font_size = 36
 bbcode_enabled = true
+
+[node name="ScrollSpeed" type="RichTextLabel" parent="CanvasLayer"]
+unique_name_in_owner = true
+offset_left = 584.0
+offset_top = 316.0
+offset_right = 1051.0
+offset_bottom = 362.0
+theme_override_font_sizes/normal_font_size = 35
+bbcode_enabled = true
