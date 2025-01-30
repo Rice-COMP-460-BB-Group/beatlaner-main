@@ -3,8 +3,8 @@ extends Area2D
 @export var target: Node2D
 @export var source: Node2D
 @export var red: bool = true
-var speed = 400
-var damage = 10
+@export var speed = 400
+@export var damage = 10
 
 func _ready():
 	if !red:
