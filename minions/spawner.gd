@@ -1,5 +1,5 @@
 extends Node2D
-
+@export var friendly_wave_config: Dictionary = {"top": 1, "mid": 1, "bottom": 1}
 @export var enemy_wave_config: Dictionary = {"top": 1, "mid": 1, "bottom": 1}
 var to_add: Dictionary = {"top": 0, "mid": 0, "bottom": 0}
 
@@ -27,6 +27,7 @@ func Score(new_score: int, tower_type: String):
 	print('bruh', new_score, tower_type)
 	var additional_minions = int(pow(new_score / 10000.0, 0.6))
 	to_add[type_to_config[key]] += additional_minions
+	print("real minion count", to_add[type_to_config[key]])
 	print(type_to_config[key], enemy_wave_config)
 
 # Called when the node enters the scene tree for the first time.
@@ -194,7 +195,7 @@ func spawn_friendly_wave(config: Dictionary, is_friendly: bool) -> void:
 		midcount = config["mid"]
 	if "low" in config:
 		bottomcount = config["low"]
-	print(topcount, midcount, bottomcount)
+	print('config', config)
 	var top_minions = []
 	
 	for i in range(topcount):
@@ -217,6 +218,6 @@ func spawn_friendly_wave(config: Dictionary, is_friendly: bool) -> void:
 		
 	
 func _on_wave_timer_timeout() -> void:
-	spawn_friendly_wave(to_add, true)
-	spawn_friendly_wave(to_add, false)
+	spawn_friendly_wave(friendly_wave_config, true)
+	spawn_friendly_wave(enemy_wave_config, false)
 	to_add = {"top": 0, "mid": 0, "bottom": 0}

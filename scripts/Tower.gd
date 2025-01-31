@@ -17,6 +17,7 @@ var attack_speed = 3
 
 func update_score(new_score: int):
 	minion_count += int(pow(new_score / 10000.0, 0.6))
+	print("fake minion count", minion_count)
 	$MinionCount.text = "[center]" + str(minion_count) + "[/center]"
 	if minion_count:
 		$MinionCount.show()
