@@ -146,8 +146,10 @@ func _process(delta):
 		Signals.Score.emit(score, tower_type)
 		current_tower.update_score(score)
 		$RhythmLayer.remove_child(rhythm_game_instance)
+		
 	
 	$"WaveLayer/Wave Spawning/Timer Label".text = "Wave Spawning: " + str(floor($"Wave Timer".time_left)) + "s"
+	$"WaveLayer/Wave Spawning/Mana".text = "Current Mana:"
 
 func _on_debugmenu_spawn_wave(spawn_request: Dictionary, is_friendly: bool) -> void:
 	

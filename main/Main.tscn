@@ -35,6 +35,12 @@ theme_override_fonts/font = ExtResource("2_poqt5")
 theme_override_font_sizes/font_size = 32
 text = "Wave Spawning"
 
+[node name="Mana" type="Label" parent="WaveLayer/Wave Spawning"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 15.0
+text = "Current Mana:"
+
 [node name="RhythmLayer" type="CanvasLayer" parent="."]
 layer = 7
 offset = Vector2(800, 325)
@@ -51,11 +57,6 @@ visible = true
 [node name="Tower" parent="." instance=ExtResource("2_flut7")]
 
 [node name="Spawner" parent="." instance=ExtResource("5_cp35u")]
-enemy_wave_config = {
-"bottom": 1,
-"mid": 1,
-"top": 1
-}
 
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_4mng7")

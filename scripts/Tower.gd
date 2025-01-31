@@ -17,6 +17,7 @@ var attack_speed = 3
 
 func update_score(new_score: int):
 	minion_count += int(pow(new_score / 10000.0, 0.6))
+	print("fake minion count", minion_count)
 	$MinionCount.text = "[center]" + str(minion_count) + "[/center]"
 	if minion_count:
 		$MinionCount.show()
@@ -63,7 +64,7 @@ func _on_health_component_health_destroyed() -> void:
 	if $VisibleOnScreenNotifier2D.is_on_screen():
 		var camera = viewport.get_camera_2d()
 		if camera:
-			camera.shake()
+			pass
 	var surrender_instance = surrender_scene.instantiate()
 	get_parent().add_child(surrender_instance)
 	surrender_instance.global_position = global_position
