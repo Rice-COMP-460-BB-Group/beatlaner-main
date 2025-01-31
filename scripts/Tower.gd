@@ -64,7 +64,7 @@ func _on_health_component_health_destroyed() -> void:
 	if $VisibleOnScreenNotifier2D.is_on_screen():
 		var camera = viewport.get_camera_2d()
 		if camera:
-			camera.shake()
+			pass
 	var surrender_instance = surrender_scene.instantiate()
 	get_parent().add_child(surrender_instance)
 	surrender_instance.global_position = global_position

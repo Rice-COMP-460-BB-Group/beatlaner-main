@@ -73,3 +73,16 @@ func _on_upper_lane_body_exited(body: Node2D) -> void:
 	if body.name == "TileMapLayer":
 		return
 	print(body.name)
+
+
+func _on_player_wave_request(pos: int, size: int) -> void:
+	var spawner = $"../../Spawner"
+	var config = {"top": 0,"mid":0, "bottom":0}
+	if pos == 0:
+		config["top"] = 5
+	if pos == 1:
+		config["mid"] = 5
+	if pos == 2:
+		config["low"] = 5
+	spawner.spawn_friendly_wave(config, true)
+		
