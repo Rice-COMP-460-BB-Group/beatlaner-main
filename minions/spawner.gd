@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var enemy_wave_config: Dictionary = {"top": 1, "mid": 1, "bottom": 1}
+@export var enemy_wave_config: Dictionary = {"top": 10, "mid": 10, "bottom": 10}
 var to_add: Dictionary = {"top": 0, "mid": 0, "bottom": 0}
 
 var minionScene = load("res://minions/minion.tscn")
