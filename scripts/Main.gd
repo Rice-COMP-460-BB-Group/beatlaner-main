@@ -4,6 +4,12 @@ var map_scene = preload("res://map/Map.tscn")
 
 var spawner_scene = load("res://minions/spawner.tscn")
 
+var destroy_enemy_banner = preload("res://assets/enemy-banner.png")
+var destroy_friendly_banner = preload("res://assets/friendly-banner.png")
+
+var win_banner = preload("res://assets/Victory.png")
+var lose_banner = preload("res://assets/Defeat.png")
+
 var spawner = null
 var rhythm_game_instance
 
@@ -43,16 +49,75 @@ func _on_power_get(player: String, powerup: String):
 	print('new powerups', player1_powerups)
 
 
-func on_tower_destroyed(team: Team):
+func on_tower_destroyed(team: Team, pos: Vector2):
 	if team == Team.RED:
 		red_score += 1
 	else:
 		blue_score += 1
 	
+	var banner = $BannerLayer/Banner
+
 	if red_score == 3:
+		banner.texture = lose_banner
+		banner.modulate.a = 0
+		banner.show()
+
+		var fade_in = banner.create_tween()
+		fade_in.tween_property(banner, "modulate:a", 1, .5)
+		var camera = $Map/Camera2D
+
+		var tween = create_tween()
+		tween.tween_property(camera, "position", pos, 1.0)
+		Engine.time_scale = 0.5
+
+
+		await fade_in.finished
+		await tween.finished
+		await get_tree().create_timer(1.0).timeout
+		Engine.time_scale = 1
+
+		banner.hide()
 		get_tree().change_scene_to_file.bind("res://map/game_over.tscn").call_deferred()
 	elif blue_score == 3:
+		banner.texture = win_banner
+		banner.modulate.a = 0
+		banner.show()
+
+		var fade_in = banner.create_tween()
+		fade_in.tween_property(banner, "modulate:a", 1, .5)
+		var camera = $Map/Camera2D
+
+		var tween = create_tween()
+		tween.tween_property(camera, "position", pos, 1.0)
+		Engine.time_scale = 0.5
+
+		await fade_in.finished
+		await tween.finished
+		await get_tree().create_timer(1.0).timeout
+		Engine.time_scale = 1
+		
+		banner.hide()
 		get_tree().change_scene_to_file.bind("res://map/game_win.tscn").call_deferred()
+	else:
+		if team == Team.RED:
+			banner.texture = win_banner
+		else:
+			banner.texture = destroy_enemy_banner
+		
+		banner.modulate.a = 0
+		banner.show()
+		
+		var fade_in = banner.create_tween()
+		fade_in.tween_property(banner, "modulate:a", 1, .5)
+		await fade_in.finished
+		
+		await get_tree().create_timer(1).timeout
+		
+		var fade_out = banner.create_tween()
+		fade_out.tween_property(banner, "modulate:a", 0, .5)
+		await fade_out.finished
+		
+		banner.hide()
 	
 func OpenRhythmGame(tmp_tower_type: String, tower):
 	if $RhythmLayer.get_children():

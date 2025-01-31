@@ -68,7 +68,7 @@ func _on_health_component_health_destroyed() -> void:
 	get_parent().add_child(surrender_instance)
 	surrender_instance.global_position = global_position
 	print("tower destroyed" + str(team))
-	Signals.TowerDestroyed.emit(team)
+	Signals.TowerDestroyed.emit(team, global_position)
 	queue_free()
 
 func _on_button_pressed() -> void:

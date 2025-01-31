@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bf72k84kbxll3"]
+[gd_scene load_steps=9 format=3 uid="uid://bf72k84kbxll3"]
 
 [ext_resource type="Script" path="res://scripts/Main.gd" id="1_ktlqa"]
 [ext_resource type="PackedScene" uid="uid://3l0iahp12xip" path="res://main/Tower.tscn" id="2_flut7"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bq7b1nef7l6w6" path="res://debug/debugmenu.tscn" id="3_nkcnh"]
 [ext_resource type="PackedScene" uid="uid://bufx6wcek0aj8" path="res://minions/spawner.tscn" id="5_cp35u"]
 [ext_resource type="AudioStream" uid="uid://dq1cyy24uue51" path="res://assets/Beatmainsong1.wav" id="7_4mng7"]
+[ext_resource type="Texture2D" uid="uid://2bx5t4k3vue3" path="res://assets/enemy-banner.png" id="8_ffofp"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_ktlqa")
@@ -16,6 +17,7 @@ wait_time = 10.0
 autostart = true
 
 [node name="WaveLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="Wave Spawning" type="Control" parent="WaveLayer"]
 z_index = 10
@@ -58,6 +60,17 @@ enemy_wave_config = {
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_4mng7")
 autoplay = true
+
+[node name="BannerLayer" type="CanvasLayer" parent="."]
+
+[node name="Banner" type="TextureRect" parent="BannerLayer"]
+visible = false
+offset_left = 384.0
+offset_top = 64.0
+offset_right = 584.0
+offset_bottom = 124.0
+scale = Vector2(2, 2)
+texture = ExtResource("8_ffofp")
 
 [connection signal="timeout" from="Wave Timer" to="Spawner" method="_on_wave_timer_timeout"]
 [connection signal="freeze_spell" from="CanvasLayer/Debugmenu" to="." method="_on_debugmenu_freeze_spell"]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dupwu05mg1a3o"
-path="res://.godot/imported/Surrender.png-4e6cb7948f2e168d5b61aa1b98ea5a0b.ctex"
+uid="uid://2bx5t4k3vue3"
+path="res://.godot/imported/enemy-banner.png-c9b8c08437d961abc29e583eb036bdb9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Surrender.png"
-dest_files=["res://.godot/imported/Surrender.png-4e6cb7948f2e168d5b61aa1b98ea5a0b.ctex"]
+source_file="res://assets/enemy-banner.png"
+dest_files=["res://.godot/imported/enemy-banner.png-c9b8c08437d961abc29e583eb036bdb9.ctex"]
 
 [params]
 

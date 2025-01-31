@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://3l0iahp12xip"]
 
 [ext_resource type="Script" path="res://scripts/Tower.gd" id="1_15l20"]
-[ext_resource type="PackedScene" uid="uid://bqkl7m6s1p5ls" path="res://minions/arrow.tscn" id="2_q6p00"]
+[ext_resource type="PackedScene" uid="uid://b4ss0cc33vrir" path="res://minions/arrow.tscn" id="2_q6p00"]
 [ext_resource type="Texture2D" uid="uid://c6vob683c35dk" path="res://assets/tower.png" id="2_qjxk3"]
 [ext_resource type="PackedScene" uid="uid://ckytalr2gjoym" path="res://healthbar/health_component.tscn" id="3_sstfa"]
 [ext_resource type="AudioStream" uid="uid://d101lyttvr3i3" path="res://assets/shimmer_sound.wav" id="4_astes"]
