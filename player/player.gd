@@ -1,8 +1,14 @@
 extends CharacterBody2D
 
+class_name Player
 
 @export var bpm = 120
 @export var damage = 10
+@export var attack_speed = .5
+@export var team: Team = Team.RED
+enum Team {BLUE = 0, RED = 1}
+
+var last_attack = -attack_speed
 
 const floating_text_scene = preload("res://player/floating_text.tscn")
 const ACCELERATION = 1000
@@ -30,6 +36,7 @@ var animTree_state_keys = [
 func _ready() -> void:
 	$Metronome.wait_time = 60.0 / bpm
 	$Metronome.start()
+	$Slice/SliceAnimation.frame = 4
 
 func move(delta):
 	if is_rhythm_game_open:
@@ -82,12 +89,39 @@ func _physics_process(delta: float) -> void:
 		update_mana(current_score)
 	
 	if Input.is_action_just_pressed("Attack"):
-		var floating_text = floating_text_scene.instantiate()
-		floating_text.text = str(round(damage + damage * falloff_curve()))
-		floating_text.critical = falloff_curve()
-		floating_text.rotation = deg_to_rad(randf_range(-10, 10))
-		$Stats/DamagePosition.add_child(floating_text)
-	
+		if attack_speed < last_attack + attack_speed:
+			return
+		
+		last_attack = 0
+
+		var angle_to_cursor = global_position.angle_to_point(get_global_mouse_position())
+		var slice = $Slice
+		slice.position = Vector2.RIGHT.rotated(angle_to_cursor) * 20
+		slice.rotation = angle_to_cursor
+		$Slice/SliceAnimation.play()
+
+
+		var foundAttack = false
+
+		for body in $Slice/SliceArea.get_overlapping_bodies():
+			if body != self and (body is Minion or body is Player) and body.team != team:
+				if body.has_node("HealthComponent"):
+					foundAttack = true
+					body.get_node("HealthComponent").decrease_health(damage + damage * falloff_curve())
+		
+		for body in $Slice/SliceArea.get_overlapping_areas():
+			if body is Tower and body.team != team:
+				if body.has_node("HealthComponent"):
+					foundAttack = true
+					body.get_node("HealthComponent").decrease_health(damage + damage * falloff_curve())
+		
+		if foundAttack:
+			var floating_text = floating_text_scene.instantiate()
+			floating_text.text = str(round(damage + damage * falloff_curve()))
+			floating_text.critical = falloff_curve()
+			floating_text.rotation = deg_to_rad(randf_range(-10, 10))
+			$Stats/DamagePosition.add_child(floating_text)
+	attack_speed += delta
 	move(delta)
 	
 	animate()

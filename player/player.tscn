@@ -1,10 +1,15 @@
-[gd_scene load_steps=77 format=3 uid="uid://bj3lu7yts43wl"]
+[gd_scene load_steps=84 format=3 uid="uid://bj3lu7yts43wl"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_h04aa"]
 [ext_resource type="Texture2D" uid="uid://3sv7ccy0u7fe" path="res://assets/6369.png" id="1_xd2rp"]
 [ext_resource type="Texture2D" uid="uid://ipb3gv1ks5bp" path="res://assets/Linkyy.png" id="2_ub5xc"]
 [ext_resource type="Texture2D" uid="uid://cwe0lue6yb0pf" path="res://assets/Linky.png" id="2_vro1v"]
+[ext_resource type="Texture2D" uid="uid://cf2nfu6g3yy3f" path="res://assets/slash-000.png" id="6_60335"]
 [ext_resource type="PackedScene" uid="uid://ckytalr2gjoym" path="res://healthbar/health_component.tscn" id="6_wraxi"]
+[ext_resource type="Texture2D" uid="uid://bsp8xj4gv4cay" path="res://assets/slash-001.png" id="7_76oyw"]
+[ext_resource type="Texture2D" uid="uid://cvpirpaujt8m1" path="res://assets/slash-002.png" id="8_txc5s"]
+[ext_resource type="Texture2D" uid="uid://boe1p0ko1l128" path="res://assets/slash-003.png" id="9_edhdg"]
+[ext_resource type="Texture2D" uid="uid://c8rpkuadahmoc" path="res://assets/slash-004.png" id="10_62kya"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xpusc"]
 
@@ -696,7 +701,33 @@ states/Idle/position = Vector2(335.87, 38.7275)
 states/Moving/node = SubResource("AnimationNodeBlendTree_bfare")
 states/Moving/position = Vector2(343.08, 176.5)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_p0j6e"), "Idle", "Moving", SubResource("AnimationNodeStateMachineTransition_qmcw4"), "Moving", "Idle", SubResource("AnimationNodeStateMachineTransition_vdlgp")]
-graph_offset = Vector2(158.16, -22.7249)
+graph_offset = Vector2(7.23001, -30.48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_on213"]
+size = Vector2(80, 80)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8pu2n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_60335")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_76oyw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_txc5s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_edhdg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_62kya")
+}],
+"loop": false,
+"name": &"default",
+"speed": 12.0
+}]
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_h04aa")
@@ -765,3 +796,15 @@ text = "metronome:"
 anchors_preset = 0
 offset_top = -25.0
 offset_bottom = -25.0
+
+[node name="Slice" type="Node2D" parent="."]
+
+[node name="SliceArea" type="Area2D" parent="Slice"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Slice/SliceArea"]
+shape = SubResource("RectangleShape2D_on213")
+
+[node name="SliceAnimation" type="AnimatedSprite2D" parent="Slice"]
+rotation = -1.5708
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_8pu2n")
