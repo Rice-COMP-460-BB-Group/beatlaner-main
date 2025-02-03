@@ -728,12 +728,16 @@ parameters/Moving/BlendSpace2D/blend_position = Vector2(-0.651515, -0.942731)
 parameters/Moving/TimeScale/scale = 1.25
 
 [node name="Metronome" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
 
 [node name="RhythmLayer1" type="CanvasLayer" parent="."]
 offset = Vector2(800, 325)
 transform = Transform2D(1, 0, 0, 1, 800, 325)
 
 [node name="HealthComponent" parent="." instance=ExtResource("6_wraxi")]
+position = Vector2(0, -7)
+red = false
 
 [node name="Stats" type="Control" parent="."]
 layout_mode = 3
@@ -743,6 +747,21 @@ offset_bottom = 40.0
 
 [node name="Mana" type="Label" parent="Stats"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 15.0
+offset_left = -285.0
+offset_top = -160.0
+offset_right = -245.0
+offset_bottom = -145.0
 text = "Mana: 0"
+
+[node name="Metronome" type="Label" parent="Stats"]
+layout_mode = 0
+offset_left = 204.0
+offset_top = -157.0
+offset_right = 265.0
+offset_bottom = -142.0
+text = "metronome:"
+
+[node name="DamagePosition" type="Control" parent="Stats"]
+anchors_preset = 0
+offset_top = -25.0
+offset_bottom = -25.0
