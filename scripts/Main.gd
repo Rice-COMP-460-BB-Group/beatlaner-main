@@ -1,5 +1,6 @@
 extends Node2D
 @onready var lane_manager = $Map/LaneManager
+@onready var minimap = $Map/Player/HUD/Minimap
 var map_scene = preload("res://map/Map.tscn")
 
 var spawner_scene = load("res://minions/spawner.tscn")
@@ -74,4 +75,8 @@ func _on_debugmenu_toggle_enemy_wave(state: bool) -> void:
 
 func _on_debugmenu_freeze_spell(lane: int, friendly: bool) -> void:
 	print("calling freeze")
-	lane_manager.freeze_current_enemies(lane, 0) # Replace with function body.
+	#lane_manager.freeze_current_enemies(lane, 0) # Replace with function body.
+	var cur_map = lane_manager.get_minimap_info()
+	print("from main:",cur_map)
+	minimap.refresh_minimap(cur_map["blue"],cur_map["red"])
+	

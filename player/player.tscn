@@ -5,8 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://ipb3gv1ks5bp" path="res://assets/Linkyy.png" id="2_ub5xc"]
 [ext_resource type="Texture2D" uid="uid://cwe0lue6yb0pf" path="res://assets/Linky.png" id="2_vro1v"]
 [ext_resource type="Texture2D" uid="uid://3ueshbvvsixu" path="res://assets/Minimap.png" id="6_7c3j6"]
+[ext_resource type="Script" path="res://player/hud.gd" id="6_a5lxw"]
 [ext_resource type="PackedScene" uid="uid://ckytalr2gjoym" path="res://healthbar/health_component.tscn" id="6_wraxi"]
-[ext_resource type="Script" path="res://player/mini_map.gd" id="7_isdlw"]
 [ext_resource type="PackedScene" uid="uid://b8jlygfvbd34" path="res://player/weapon.tscn" id="8_n6a7o"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xpusc"]
@@ -702,6 +702,8 @@ transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition
 graph_offset = Vector2(158.16, -22.7249)
 
 [node name="Player" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 4
 script = ExtResource("1_h04aa")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -752,7 +754,7 @@ text = "Mana: 0"
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
-[node name="HUD" type="Control" parent="HUD"]
+[node name="Minimap" type="Control" parent="HUD"]
 layout_mode = 3
 anchor_left = 0.671
 anchor_top = 0.792
@@ -765,9 +767,9 @@ offset_bottom = -169.216
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 8
+script = ExtResource("6_a5lxw")
 
-[node name="MiniMap" type="TextureRect" parent="HUD/HUD"]
-modulate = Color(1, 1, 1, 0.517647)
+[node name="MinimapTexture" type="TextureRect" parent="HUD/Minimap"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -13.965
@@ -780,6 +782,16 @@ offset_right = 465.6
 offset_bottom = 834.999
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_7c3j6")
-script = ExtResource("7_isdlw")
+
+[node name="MinimapIcons" type="Control" parent="HUD/Minimap"]
+layout_mode = 1
+anchor_left = -13.808
+anchor_top = -5.454
+anchor_right = -13.808
+anchor_bottom = -5.454
+offset_left = 26.32
+offset_top = 415.062
+offset_right = 245.32
+offset_bottom = 631.062
 
 [node name="Weapon" parent="." instance=ExtResource("8_n6a7o")]

@@ -3,7 +3,10 @@ extends Node
 @onready var top: Area2D = $"../UpperLane"
 @onready var mid: Area2D = $"../MidLane"
 @onready var lower: Area2D = $"../LowerLane"
+@onready var map: Area2D = $"../MapPosHandler"
 
+
+	
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -73,3 +76,27 @@ func _on_player_wave_request(pos: int, size: int) -> void:
 		config["low"] = 5
 	spawner.spawn_friendly_wave(config, true)
 		
+#retrieves the positions of all minions currently on the map
+func get_minimap_info() ->Dictionary :
+	var current_blue = []
+	
+	var current_red = []
+	var bodies = map.get_overlapping_bodies()
+	print("bodies",bodies)
+	for b in bodies:
+		print("hello from bodies!")
+		if b.name == "Player":
+			current_blue.append(b.position)
+		if b.has_method("get_team"):
+			
+			if b.get_team() == 0:
+				current_blue.append(b.position)
+			if b.get_team() == 1:
+				current_blue.append(b.position)
+				
+	print("current_blue",current_blue,"current_red",current_red)
+	return {"blue":current_blue,"red":current_red}
+	
+	
+	
+	

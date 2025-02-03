@@ -60,6 +60,9 @@ visible = true
 stream = ExtResource("7_4mng7")
 autoplay = true
 
+[node name="map_update_refresh" type="Timer" parent="."]
+wait_time = 5.595
+
 [connection signal="timeout" from="Wave Timer" to="Spawner" method="_on_wave_timer_timeout"]
 [connection signal="freeze_spell" from="CanvasLayer/Debugmenu" to="." method="_on_debugmenu_freeze_spell"]
 [connection signal="spawn_wave" from="CanvasLayer/Debugmenu" to="." method="_on_debugmenu_spawn_wave"]

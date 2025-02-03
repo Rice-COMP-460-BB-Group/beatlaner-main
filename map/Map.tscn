@@ -953,8 +953,11 @@ z_index = 10
 position = Vector2(563, 3433)
 
 [node name="MapPosHandler" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MapPosHandler"]
+polygon = PackedVector2Array(394, 394, 3599, 395, 3605, 3593, 418, 3615)
 
 [connection signal="body_entered" from="UpperLane" to="LaneManager" method="_on_upper_lane_body_entered"]
 [connection signal="body_exited" from="UpperLane" to="LaneManager" method="_on_upper_lane_body_exited"]
