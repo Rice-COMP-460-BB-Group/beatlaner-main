@@ -39,7 +39,7 @@ func _physics_process(delta: float) -> void:
 	if last_attack < 0 or last_attack > attack_speed:
 		var enemy_minions = []
 		for body in $DetectionArea.get_overlapping_bodies():
-			if body is Minion and body.team != team:
+			if (body is Minion or body is Player) and body.team != team:
 				var space_state = get_world_2d().direct_space_state
 				var query = PhysicsRayQueryParameters2D.create(global_position, body.global_position, (1 | 3), [self])
 
@@ -75,7 +75,7 @@ func _on_health_component_health_destroyed() -> void:
 func _on_button_pressed() -> void:
 	Signals.OpenRhythmGame.emit(name, self)
 
-func attack(body: Minion) -> void:
+func attack(body: Node2D) -> void:
 	var laser = laser_scene.instantiate()
 	print("attacking with laser")
 	laser.target = body

@@ -5,7 +5,7 @@ class_name Player
 @export var bpm = 120
 @export var damage = 10
 @export var attack_speed = .5
-@export var team: Team = Team.RED
+@export var team: Team = Team.RED # Change this later
 enum Team {BLUE = 0, RED = 1}
 
 var last_attack = -attack_speed
