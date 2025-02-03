@@ -64,16 +64,16 @@ func on_tower_destroyed(team: Team, pos: Vector2):
 
 		var fade_in = banner.create_tween()
 		fade_in.tween_property(banner, "modulate:a", 1, .5)
-		var camera = $Map/Camera2D
+		var camera = $Map/Player/Camera2D
 
 		var tween = create_tween()
-		tween.tween_property(camera, "position", pos, 1.0)
+		tween.tween_property(camera, "position", camera.to_local(pos), 1.0)
 		Engine.time_scale = 0.5
 
 
 		await fade_in.finished
 		await tween.finished
-		await get_tree().create_timer(1.0).timeout
+		await get_tree().create_timer(.5).timeout
 		Engine.time_scale = 1
 
 		banner.hide()
@@ -85,15 +85,15 @@ func on_tower_destroyed(team: Team, pos: Vector2):
 
 		var fade_in = banner.create_tween()
 		fade_in.tween_property(banner, "modulate:a", 1, .5)
-		var camera = $Map/Camera2D
+		var camera = $Map/Player/Camera2D
 
 		var tween = create_tween()
-		tween.tween_property(camera, "position", pos, 1.0)
+		tween.tween_property(camera, "position", camera.to_local(pos), 1.0)
 		Engine.time_scale = 0.5
 
 		await fade_in.finished
 		await tween.finished
-		await get_tree().create_timer(1.0).timeout
+		await get_tree().create_timer(.5).timeout
 		Engine.time_scale = 1
 		
 		banner.hide()
