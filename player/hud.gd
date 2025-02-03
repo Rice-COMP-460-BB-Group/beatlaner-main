@@ -2,7 +2,13 @@ extends Control
 
 func add_enemy_to_minimap(enemyPos: Vector2,team:bool):
 	var icon = TextureRect.new()
-	icon.texture = preload("res://assets/Blue-Team-Map.png")
+	if team == false:
+		
+		icon.texture = preload("res://assets/Red-Team-Map.png")
+	else:
+		print('team true!')
+		icon.texture = preload("res://assets/Blue-Team-Map.png")
+		
 	icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	icon.custom_minimum_size = Vector2(25, 25)  # Adjust size as needed
 	print(enemyPos,"coordsy")
@@ -28,14 +34,15 @@ func reset_map() -> void:
 	
 func refresh_minimap(blue_team:Array,red_team:Array):
 	reset_map()
+	print("hello from refresh")
 	print("refresh_minimap",blue_team,red_team)
 	for blue_pos in blue_team:
 		var coords = world_to_minimap(blue_pos,Vector2(4096,4096),Vector2(216,216))
 		print(coords,"coords")
-		add_enemy_to_minimap(coords,true)
+		add_enemy_to_minimap(coords,false)
 	for red_pos in red_team:
 		var coords = world_to_minimap(red_pos,Vector2(4096,4096),Vector2(216,216))
-		add_enemy_to_minimap(coords,false)
+		add_enemy_to_minimap(coords,true)
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

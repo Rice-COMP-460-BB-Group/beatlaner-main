@@ -789,9 +789,10 @@ anchor_left = -13.808
 anchor_top = -5.454
 anchor_right = -13.808
 anchor_bottom = -5.454
-offset_left = 26.32
-offset_top = 415.062
-offset_right = 245.32
-offset_bottom = 631.062
+offset_left = 15.32
+offset_top = 401.062
+offset_right = 258.32
+offset_bottom = 632.062
+scale = Vector2(1, 0.997383)
 
 [node name="Weapon" parent="." instance=ExtResource("8_n6a7o")]

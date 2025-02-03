@@ -75,8 +75,14 @@ func _on_debugmenu_toggle_enemy_wave(state: bool) -> void:
 
 func _on_debugmenu_freeze_spell(lane: int, friendly: bool) -> void:
 	print("calling freeze")
-	#lane_manager.freeze_current_enemies(lane, 0) # Replace with function body.
+	lane_manager.freeze_current_enemies(lane, 0) # Replace with function body.
 	var cur_map = lane_manager.get_minimap_info()
-	print("from main:",cur_map)
+
 	minimap.refresh_minimap(cur_map["blue"],cur_map["red"])
 	
+
+
+func _on_map_update_refresh_timeout() -> void:
+	var cur_map = lane_manager.get_minimap_info()
+	print('map timeout!')
+	minimap.refresh_minimap(cur_map["blue"],cur_map["red"])

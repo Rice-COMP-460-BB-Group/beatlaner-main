@@ -86,13 +86,13 @@ func get_minimap_info() ->Dictionary :
 	for b in bodies:
 		print("hello from bodies!")
 		if b.name == "Player":
-			current_blue.append(b.position)
+			current_red.append(b.position)
 		if b.has_method("get_team"):
 			
 			if b.get_team() == 0:
 				current_blue.append(b.position)
 			if b.get_team() == 1:
-				current_blue.append(b.position)
+				current_red.append(b.position)
 				
 	print("current_blue",current_blue,"current_red",current_red)
 	return {"blue":current_blue,"red":current_red}
