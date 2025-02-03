@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=3 uid="uid://bj3lu7yts43wl"]
+[gd_scene load_steps=78 format=3 uid="uid://bj3lu7yts43wl"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_h04aa"]
 [ext_resource type="Texture2D" uid="uid://3sv7ccy0u7fe" path="res://assets/6369.png" id="1_xd2rp"]
@@ -696,7 +696,12 @@ states/Idle/position = Vector2(335.87, 38.7275)
 states/Moving/node = SubResource("AnimationNodeBlendTree_bfare")
 states/Moving/position = Vector2(343.08, 176.5)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_p0j6e"), "Idle", "Moving", SubResource("AnimationNodeStateMachineTransition_qmcw4"), "Moving", "Idle", SubResource("AnimationNodeStateMachineTransition_vdlgp")]
-graph_offset = Vector2(158.16, -22.7249)
+graph_offset = Vector2(171.458, -57.6224)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_fmn6a"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_h04aa")
@@ -746,3 +751,6 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 15.0
 text = "Mana: 0"
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_fmn6a")

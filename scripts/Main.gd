@@ -1,6 +1,10 @@
 extends Node2D
 @onready var lane_manager = $Map/LaneManager
+@export var PlayerScene: PackedScene
+
+
 var map_scene = preload("res://map/Map.tscn")
+
 
 var spawner_scene = load("res://minions/spawner.tscn")
 
@@ -31,8 +35,51 @@ var player2_powerups = {
 }
 
 func _ready():
-	print("game started")
-	
+	print("Main scene _ready() triggered. Instance ID:", self.get_instance_id())
+	#var spawners = get_tree().get_nodes_in_group("PlayerSpawnPoint")
+	#print("game started", spawners)
+	#for spawner in spawners:
+		#print("spawner", spawner.name)
+	#var index = 0
+	##print("players", GameManager.Players)
+	#for i in GameManager.Players:
+		#print("player bruh", i)
+		#var currentPlayer = PlayerScene.instantiate()
+		#currentPlayer.name = str(GameManager.Players[i].id)
+		#add_child(currentPlayer)
+		#
+		## Assign spawn point and immediately increment index
+		##for spawn in :
+			##print(spawn.name + " " + index)
+			##if spawn.name == str(index):
+		#currentPlayer.global_position = spawners[index].global_position
+		#print("idx", index, currentPlayer.global_position)
+				##print('matches', spawn.global_position)
+				##break  # Exit the loop once assigned
+		#
+		#index += 1  # Move to next spawn point after assignment
+	var spawns = get_tree().get_nodes_in_group("PlayerSpawnPoint")
+	for spawn in spawns:
+		print("Spawn:", spawn.name, "Position:", spawn.global_position)
+	var players = []
+	var index = 0
+	for player_data in GameManager.Players.values():  # Iterate properly over dictionary		
+		#if index == 0:
+			#index += 1
+			#continue
+		var currentPlayer = PlayerScene.instantiate()
+		currentPlayer.name = str(player_data.id)
+		add_child(currentPlayer)
+		currentPlayer.visible = true
+		currentPlayer.global_position = spawns[index].global_position
+		players.append(currentPlayer)
+		var sprite = currentPlayer.get_node("AnimatedSprite2D")
+		print("sprite", sprite)
+		print("Assigned player", currentPlayer.name, "to", spawns[index].global_position)
+		print("Player position set to:", currentPlayer.global_position)
+		index += 1
+	for player in players:
+		print("player", player.name, player.global_position)
 	spawner = get_node("Spawner")
 	spawner.spawner_init()
 	Signals.OpenRhythmGame.connect(OpenRhythmGame)

@@ -14,7 +14,7 @@ var is_rhythm_game_open = false
 @onready var animationTree = $AnimationTree
 
 @onready var state_machine = animationTree["parameters/playback"]
-
+@onready var camera = $Camera2D as Camera2D
 
 var blend_position : Vector2 = Vector2.ZERO
 var blend_pos_paths = ["parameters/Idle/id_BlendSpace2D/blend_position","parameters/Moving/BlendSpace2D/blend_position"]
@@ -22,6 +22,14 @@ var current_score = 0
 var animTree_state_keys = [
 	"Idle","Moving"
 ]
+
+func _ready():
+	$MultiplayerSynchronizer.set_multiplayer_authority(str(name).to_int())
+	
+	if $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
+
+		camera.make_current()
+
 
 func move(delta):
 	if is_rhythm_game_open:
@@ -45,36 +53,38 @@ func update_mana(score: int):
 		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed("escape rhythm game"):
-		if is_instance_valid(rhythm_game_instance):
-			
-			var score = rhythm_game_instance.get_score()
-			current_score += int(score / 100)
-			$RhythmLayer1.remove_child(rhythm_game_instance)
-			is_rhythm_game_open = false
+	if $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
+	
+		if Input.is_action_just_pressed("escape rhythm game"):
+			if is_instance_valid(rhythm_game_instance):
+				
+				var score = rhythm_game_instance.get_score()
+				current_score += int(score / 100)
+				$RhythmLayer1.remove_child(rhythm_game_instance)
+				is_rhythm_game_open = false
+				update_mana(current_score)
+		if Input.is_action_just_pressed("toggle_rhythm_game"):
+			handle_rhythm_callback()
+		
+		if Input.is_action_just_pressed("Dispatch_Top") and current_score > 100:
+			current_score -= 100
+			wave_request.emit(0,10)
 			update_mana(current_score)
-	if Input.is_action_just_pressed("toggle_rhythm_game"):
-		handle_rhythm_callback()
-	
-	if Input.is_action_just_pressed("Dispatch_Top") and current_score > 100:
-		current_score -= 100
-		wave_request.emit(0,10)
-		update_mana(current_score)
+			
+		if Input.is_action_just_pressed("Dispatch_Mid") and current_score > 100:
+			current_score -= 100
+			wave_request.emit(1,10)
+			update_mana(current_score)
+			print("s")
+		if Input.is_action_just_pressed("Dispatch_Low") and current_score > 100:
+			current_score -= 100
+			wave_request.emit(2,10)
+			update_mana(current_score)
+			
+			
+		move(delta)
 		
-	if Input.is_action_just_pressed("Dispatch_Mid") and current_score > 100:
-		current_score -= 100
-		wave_request.emit(1,10)
-		update_mana(current_score)
-		print("s")
-	if Input.is_action_just_pressed("Dispatch_Low") and current_score > 100:
-		current_score -= 100
-		wave_request.emit(2,10)
-		update_mana(current_score)
-		
-		
-	move(delta)
-	
-	animate()
+		animate()
 
 
 func handle_rhythm_callback():
