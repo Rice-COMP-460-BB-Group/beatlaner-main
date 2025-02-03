@@ -6,19 +6,24 @@ signal wave_request(pos: int, size: int)
 const FRICTION = 10000
 
 const MAX_SPEED = 180
+const DASH_SPEED = 5000
 
+var dash_timer = 0.0
+var is_dashing = false
 enum {IDLE,WALK}
 
 var state = IDLE
 var is_rhythm_game_open = false
 @onready var animationTree = $AnimationTree
-
+@onready var weapon = $Weapon
 @onready var state_machine = animationTree["parameters/playback"]
 
 
 var blend_position : Vector2 = Vector2.ZERO
 var blend_pos_paths = ["parameters/Idle/id_BlendSpace2D/blend_position","parameters/Moving/BlendSpace2D/blend_position"]
 var current_score = 0
+
+var last_input_direction = Vector2.ZERO
 var animTree_state_keys = [
 	"Idle","Moving"
 ]
@@ -29,15 +34,34 @@ func move(delta):
 		velocity = Vector2.ZERO
 		return
 	var input_vector = Input.get_vector("move_left","move_right","move_up","move_down")
-	if input_vector == Vector2.ZERO:
-		state = IDLE
-		velocity = Vector2.ZERO
+	if Input.is_action_just_pressed("Dash"):
+			start_dash()
+	if is_dashing:
+		velocity = last_input_direction * DASH_SPEED
 	else:
-		input_vector = input_vector.normalized()
-		state = WALK
-		apply_movement(input_vector * MAX_SPEED)
-		blend_position = input_vector
+		
+		if input_vector == Vector2.ZERO:
+			state = IDLE
+			last_input_direction = Vector2.ZERO
+			velocity = Vector2.ZERO
+		
+		else:
+			input_vector = input_vector.normalized()
+			last_input_direction = input_vector
+			state = WALK
+			apply_movement(input_vector * MAX_SPEED)
+			blend_position = input_vector
+		
+		
+	
 	move_and_slide()
+
+func start_dash():
+	if last_input_direction != Vector2.ZERO:
+		is_dashing = true
+		dash_timer = .01
+	
+		
 
 func update_mana(score: int):
 	$Stats/Mana.text = "Mana:" + str(current_score)
@@ -45,6 +69,11 @@ func update_mana(score: int):
 		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
+	
+	if is_dashing:
+		dash_timer -= delta
+		if dash_timer <= 0:
+			is_dashing = false
 	if Input.is_action_just_pressed("escape rhythm game"):
 		if is_instance_valid(rhythm_game_instance):
 			

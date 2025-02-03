@@ -952,6 +952,10 @@ z_index = 10
 [node name="Player" parent="." instance=ExtResource("8_irpw7")]
 position = Vector2(563, 3433)
 
+[node name="MapPosHandler" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MapPosHandler"]
+
 [connection signal="body_entered" from="UpperLane" to="LaneManager" method="_on_upper_lane_body_entered"]
 [connection signal="body_exited" from="UpperLane" to="LaneManager" method="_on_upper_lane_body_exited"]
 [connection signal="body_entered" from="MidLane" to="LaneManager" method="_on_mid_lane_body_entered"]

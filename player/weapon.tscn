@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8jlygfvbd34"]
+
+[ext_resource type="Texture2D" uid="uid://dhewjher4cseh" path="res://assets/Slash.png" id="1_i1sfj"]
+[ext_resource type="Script" path="res://player/area_2d.gd" id="2_i0tck"]
+
+[node name="Weapon" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(20.5, 0)
+scale = Vector2(1.5125, 1)
+texture = ExtResource("1_i1sfj")
+offset = Vector2(5, -1)
+
+[node name="Area2D" type="Area2D" parent="."]
+script = ExtResource("2_i0tck")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(7, 3, 54, 4, 79, 1, 81, -4, 53, -6, 42, -3)
+
+[connection signal="area_entered" from="Area2D" to="Area2D" method="_on_area_entered"]
