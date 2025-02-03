@@ -150,6 +150,11 @@ func _physics_process(delta: float):
 
 		var results = space_state.intersect_shape(query)
 		for result in results:
+			if result.collider is Player and result.collider.team != team:
+				print("player found")
+				set_enemy_target(result.collider)
+				state = State.ATTACK
+				return
 			if result.collider is Minion and result.collider.get_team() != team:
 				print("enemy found")
 				set_enemy_target(result.collider)
@@ -194,7 +199,7 @@ func _on_attack_timer_timeout():
 			if health_component and health_component is HealthComponent:
 				print("attacking")
 				$HitAudio.play()
-				health_component.decrease_health(damage*1.5)
+				health_component.decrease_health(damage * 1.5)
 
 func _on_animated_sprite_2d_animation_finished():
 	is_attacking = false
@@ -244,7 +249,6 @@ func process_damage_powerup():
 	timer.wait_time = 5.0
 	timer.timeout.connect(_reset_damage)
 	timer.start()
-
 
 
 func _reset_damage():
