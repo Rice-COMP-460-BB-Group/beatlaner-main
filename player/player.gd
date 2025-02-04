@@ -35,6 +35,8 @@ var animTree_state_keys = [
 
 func _ready() -> void:
 	$Metronome.wait_time = 60.0 / bpm
+	cycle_duration = 2 * $Metronome.wait_time  # Full cycle duration (1 second)
+	frame_duration = cycle_duration / (total_metronome_frames - 1)  # 1/12 ≈ 0.0833s
 	$Metronome.start()
 	$Slice/SliceAnimation.frame = 4
 
@@ -57,10 +59,35 @@ func move(delta):
 func update_mana(score: int):
 	$Stats/Mana.text = "Mana:" + str(current_score)
 	
+var beat_half_count := 0
+var total_metronome_frames := 13
+const centered_frames := [0, 6]
+var half_beat_duration: float
+var frame_duration: float
+var cycle_duration: float
+
+
+func _on_metronome_timeout():
+	beat_half_count += 1
+
 func _process(delta: float) -> void:
 	$Stats/Metronome.text = "metronome: " + str($Metronome.time_left)
+	
+	var elapsed_in_cycle = (beat_half_count % 2) * $Metronome.wait_time + ($Metronome.wait_time - $Metronome.time_left)
+	var current_frame = int(elapsed_in_cycle / frame_duration)
+	
+	if abs(elapsed_in_cycle - 0.5) < 0.01:
+		current_frame = 6
+	elif abs(elapsed_in_cycle - 1.0) < 0.01:
+		current_frame = 12
+	
+	$Stats/MetronomeContainer/MetronomeAnimation.frame = current_frame % total_metronome_frames
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+	if $Stats/MetronomeContainer/MetronomeAnimation.frame in centered_frames:
+		var tween = create_tween()
+		tween.tween_property($Stats/MetronomeContainer/MetronomeAnimation, "modulate", Color(2, 2, 2, 1), 0.1)
+		tween.tween_property($Stats/MetronomeContainer/MetronomeAnimation, "modulate", Color(1, 1, 1, 1), 0.1)
+
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("escape rhythm game"):
 		if is_instance_valid(rhythm_game_instance):
