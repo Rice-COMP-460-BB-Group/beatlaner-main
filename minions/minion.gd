@@ -35,6 +35,10 @@ var visited_intermediate = false
 
 var damage = 10
 
+var syncPos: Vector2
+var syncVelocity: Vector2 
+var syncState: int
+
 func _enter_tree():
 	if team != Team.BLUE:
 		$HealthComponent.red = false
@@ -73,105 +77,126 @@ func set_enemy_target(node: Node2D):
 
 func get_health():
 	return $HealthComponent.get_current_health()
-
+	
 @warning_ignore("unused_parameter")
 func _physics_process(delta: float):
-	if not is_attacking:
-		var anim_suffix = "friendly" if team != Team.BLUE else "enemy"
-		var angle = velocity.angle()
-		if abs(angle) <= PI / 4:
-			sprite.play(anim_suffix + "_walk_right")
-		elif abs(angle) >= 3 * PI / 4:
-			sprite.play(anim_suffix + "_walk_left")
-		elif angle < 0:
-			sprite.play(anim_suffix + "_walk_up")
+	if multiplayer.is_server():
+		if not is_attacking:
+			var anim_suffix = "friendly" if team != Team.BLUE else "enemy"
+			var angle = velocity.angle()
+			if abs(angle) <= PI / 4:
+				sprite.play(anim_suffix + "_walk_right")
+			elif abs(angle) >= 3 * PI / 4:
+				sprite.play(anim_suffix + "_walk_left")
+			elif angle < 0:
+				sprite.play(anim_suffix + "_walk_up")
+			else:
+				sprite.play(anim_suffix + "_walk_down")
+
+		if state == State.FROZEN:
+			print("frozen!")
+			return
+		if not is_instance_valid(tower_target):
+			var towers = get_tree().get_nodes_in_group("Towers")
+			var candid = null
+			var min_dist = INF
+			for tower in towers:
+				if tower.team != team:
+					var distance = global_position.distance_to(tower.global_position)
+					if distance < min_dist:
+						min_dist = distance
+						candid = tower
+			print("finding new tower")
+			tower_target = candid
+
+		if state == State.MOVE || enemy_target == null:
+			if enemy_target == null:
+				state = State.MOVE
+				
+			if intermediate_lane and not visited_intermediate:
+				navigation_agent_2d.target_position = intermediate_lane.position
+				if global_position.distance_to(intermediate_lane.position) < 5:
+					visited_intermediate = true
+			else:
+				if tower_target == null:
+					return
+				navigation_agent_2d.target_position = tower_target.position
 		else:
-			sprite.play(anim_suffix + "_walk_down")
+			navigation_agent_2d.target_position = enemy_target.global_position
 
-	if state == State.FROZEN:
-		print("frozen!")
-		return
-	if not is_instance_valid(tower_target):
-		var towers = get_tree().get_nodes_in_group("Towers")
-		var candid = null
-		var min_dist = INF
-		for tower in towers:
-			if tower.team != team:
-				var distance = global_position.distance_to(tower.global_position)
-				if distance < min_dist:
-					min_dist = distance
-					candid = tower
-		print("finding new tower")
-		tower_target = candid
+			var health_component = enemy_target.get_node("HealthComponent")
 
-	if state == State.MOVE || enemy_target == null:
-		if enemy_target == null:
-			state = State.MOVE
-			
-		if intermediate_lane and not visited_intermediate:
-			navigation_agent_2d.target_position = intermediate_lane.position
-			if global_position.distance_to(intermediate_lane.position) < 5:
-				visited_intermediate = true
-		else:
-			if tower_target == null:
-				return
-			navigation_agent_2d.target_position = tower_target.position
-	else:
-		navigation_agent_2d.target_position = enemy_target.global_position
-
-		var health_component = enemy_target.get_node("HealthComponent")
-
-		if health_component and health_component is HealthComponent and health_component.currentHealth <= 0:
-			enemy_target = null
-			state = State.MOVE
-			print("stopped aggroing")
-		elif global_position.distance_to(enemy_target.global_position) < aggro_range:
-			if attack_timer.is_stopped():
-				print("begin attacking")
-				attack_timer.start()
-	
-	var current_agent_position = global_position
-	var next_path_position = navigation_agent_2d.get_next_path_position()
-	var new_velocity = current_agent_position.direction_to(next_path_position) * movement_speed
-	
-	if state == State.MOVE:
-		var space_state = get_world_2d().direct_space_state
-		var query = PhysicsShapeQueryParameters2D.new()
+			if health_component and health_component is HealthComponent and health_component.currentHealth <= 0:
+				enemy_target = null
+				state = State.MOVE
+				print("stopped aggroing")
+			elif global_position.distance_to(enemy_target.global_position) < aggro_range:
+				if attack_timer.is_stopped():
+					print("begin attacking")
+					attack_timer.start()
 		
-		# Set up rectangle shape
-		var shape = RectangleShape2D.new()
-		shape.extents = Vector2(aggro_range, 100)
-		query.shape = shape
-		query.transform = Transform2D(current_agent_position.direction_to(next_path_position).angle(), global_position)
-		query.exclude = [self]
-		query.collision_mask = 1
-		query.collide_with_bodies = true
-		query.collide_with_areas = true
+		var current_agent_position = global_position
+		var next_path_position = navigation_agent_2d.get_next_path_position()
+		var new_velocity = current_agent_position.direction_to(next_path_position) * movement_speed
+		
+		if state == State.MOVE:
+			var space_state = get_world_2d().direct_space_state
+			var query = PhysicsShapeQueryParameters2D.new()
+			
+			# Set up rectangle shape
+			var shape = RectangleShape2D.new()
+			shape.extents = Vector2(aggro_range, 100)
+			query.shape = shape
+			query.transform = Transform2D(current_agent_position.direction_to(next_path_position).angle(), global_position)
+			query.exclude = [self]
+			query.collision_mask = 1
+			query.collide_with_bodies = true
+			query.collide_with_areas = true
 
-		var results = space_state.intersect_shape(query)
-		for result in results:
-			if result.collider is Minion and result.collider.get_team() != team:
-				print("enemy found")
-				set_enemy_target(result.collider)
-				state = State.ATTACK
-				return
-			if result.collider is Tower and result.collider.team != team:
-				print("tower found")
-				set_enemy_target(result.collider)
-				state = State.ATTACK
-				return
-	if navigation_agent_2d.is_navigation_finished():
-		print("reached target")
-		return
-	# stop moving if we are close to the target
-	if state == State.ATTACK and global_position.distance_to(enemy_target.global_position) < attack_range:
-		new_velocity = Vector2.ZERO
-	
-	if navigation_agent_2d.avoidance_enabled:
-		navigation_agent_2d.set_velocity(new_velocity)
+			var results = space_state.intersect_shape(query)
+			for result in results:
+				if result.collider is Minion and result.collider.get_team() != team:
+					print("enemy found")
+					set_enemy_target(result.collider)
+					state = State.ATTACK
+					return
+				if result.collider is Tower and result.collider.team != team:
+					print("tower found")
+					set_enemy_target(result.collider)
+					state = State.ATTACK
+					return
+		if navigation_agent_2d.is_navigation_finished():
+			print("reached target")
+			return
+		# stop moving if we are close to the target
+		if state == State.ATTACK and global_position.distance_to(enemy_target.global_position) < attack_range:
+			new_velocity = Vector2.ZERO
+		
+		if navigation_agent_2d.avoidance_enabled:
+			navigation_agent_2d.set_velocity(new_velocity)
+		else:
+			_on_navigation_agent_2d_velocity_computed(new_velocity)
+		move_and_slide()
+		syncPos = position
+		syncVelocity = velocity
+		syncState = state
 	else:
-		_on_navigation_agent_2d_velocity_computed(new_velocity)
-	move_and_slide()
+		position = position.lerp(syncPos, 0.5)
+		velocity = velocity.lerp(syncVelocity, 0.5)
+		state = syncState
+
+@rpc("any_peer","call_local")
+func fire():
+	var projectile = projectile_scene.instantiate()
+	projectile.red = team != Team.RED
+	projectile.target = enemy_target
+	projectile.global_position = global_position
+	projectile.position = position
+	projectile.source = self
+	projectile.damage = damage
+	$HitAudio.play()
+	get_tree().root.add_child(projectile, true)
+	
 
 func _on_attack_timer_timeout():
 	print("attempting attack on enemy")
@@ -181,14 +206,8 @@ func _on_attack_timer_timeout():
 		sprite.play(anim_suffix + "_attack")
 		is_attacking = true
 		if ranged:
-			var projectile = projectile_scene.instantiate()
-			projectile.red = team != Team.RED
-			projectile.target = enemy_target
-			projectile.global_position = global_position
-			projectile.source = self
-			projectile.damage = damage
-			$HitAudio.play()
-			get_tree().root.add_child(projectile)
+			print('firing')
+			fire.rpc()
 		else:
 			var health_component = enemy_target.get_node("HealthComponent")
 			if health_component and health_component is HealthComponent:
@@ -251,6 +270,10 @@ func _reset_damage():
 	damage = 10
 	print("Power-up expired. Damage reset to:", damage)
 	
+@rpc("any_peer", "call_local")
+func die():
+	queue_free()
+
 
 func _on_health_component_health_destroyed() -> void:
-	queue_free()
+	rpc("die")

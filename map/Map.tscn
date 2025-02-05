@@ -949,10 +949,10 @@ texture = ExtResource("6_hk4ok")
 z_index = 10
 
 [node name="0" type="Node2D" parent="." groups=["PlayerSpawnPoint"]]
-position = Vector2(550, 3501)
+position = Vector2(1853, 2031)
 
 [node name="1" type="Node2D" parent="." groups=["PlayerSpawnPoint"]]
-position = Vector2(688, 3506)
+position = Vector2(2032, 2143)
 
 [connection signal="body_entered" from="UpperLane" to="LaneManager" method="_on_upper_lane_body_entered"]
 [connection signal="body_exited" from="UpperLane" to="LaneManager" method="_on_upper_lane_body_exited"]

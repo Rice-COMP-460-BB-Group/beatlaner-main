@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://cao1ivxo860t2"]
+[gd_scene load_steps=33 format=3 uid="uid://cao1ivxo860t2"]
 
 [ext_resource type="Script" path="res://minions/minion.gd" id="1_ywsbo"]
 [ext_resource type="PackedScene" uid="uid://c2a3uw6r78k4d" path="res://minions/projectile.tscn" id="2_6tinm"]
@@ -174,13 +174,30 @@ animations = [{
 radius = 13.0
 height = 42.0
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_u4wih"]
+properties/0/path = NodePath(".:syncPos")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:syncVelocity")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:syncState")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("AnimatedSprite2D:animation")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("AnimatedSprite2D:frame")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+
 [node name="Minion2" type="CharacterBody2D"]
 collision_layer = 5
 collision_mask = 0
 script = ExtResource("1_ywsbo")
 ranged = false
 projectile_scene = ExtResource("2_6tinm")
-movement_speed = 100
+movement_speed = 2000
 aggro_range = 100
 attack_range = 50
 
@@ -219,6 +236,9 @@ maxHealth = 75
 [node name="HitAudio" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_cvsl8")
 volume_db = -5.0
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_u4wih")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="velocity_computed" from="NavigationHandler/NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]

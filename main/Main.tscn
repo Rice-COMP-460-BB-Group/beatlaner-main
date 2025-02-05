@@ -15,7 +15,7 @@ script = ExtResource("1_ktlqa")
 PlayerScene = ExtResource("2_cthj3")
 
 [node name="Wave Timer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 5.0
 autostart = true
 
 [node name="WaveLayer" type="CanvasLayer" parent="."]

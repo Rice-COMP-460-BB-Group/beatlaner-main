@@ -32,6 +32,8 @@ func Score(new_score: int, tower_type: String):
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if not multiplayer.is_server():
+		return
 	Signals.Score.connect(Score)
 	print("spawner invoked")
 	
@@ -150,74 +152,117 @@ func enable_timer() -> void:
 	#for m in bottom_minions:
 		#main.add_child(m)
 
-func _on_timer_timeout() -> void:
-	print("timeout!!!")
-	spawn_friendly_wave(enemy_wave_config, false)
+#func _on_timer_timeout() -> void:
+	#print("timeout!!!")
+	#spawn_friendly_wave(enemy_wave_config, false)
 
 var topcount = 0
 var midcount = 0
 var bottomcount = 0
 
 
-func spawn_minion(key: String):
-	var spawnpt = spawn_points[key]
-	print(spawnpt, "heelo")
-	if !is_instance_valid(spawnpt):
-		return
+#func spawn_minion(key: String):
+	#var spawnpt = spawn_points[key]
+	#print(spawnpt, "heelo")
+	#if !is_instance_valid(spawnpt):
+		#return
+#
+	#var minion
+	#if randi() % 2 == 0:
+		#minion = minionScene.instantiate()
+	#else:
+		#minion = mageScene.instantiate()
+	#if key.ends_with("Upper"):
+		#minion.intermediate_lane = upperThrough
+	#elif key.ends_with("Lower"):
+		#minion.intermediate_lane = lowerThrough
+	#minion.set_team(spawnpt.team == 0)
+	#minion.tower_target = get_opposite(key)
+	#minion.position = spawnpt.position
+	#var main = get_parent()
+	#main.add_child(minion)
+	#minion_count += 1
+	##main.add_child(minion)
+	##minion_count += 1
+	#
 
-	var minion
-	if randi() % 2 == 0:
-		minion = minionScene.instantiate()
-	else:
-		minion = mageScene.instantiate()
+@rpc("authority", "reliable")
+func spawn_minion_on_clients(key: String, minion_type: int, position: Vector2, team: int, tower_target_name: String):
+	# This method is called on clients to spawn minions
+	var minion = minionScene.instantiate() if minion_type == 0 else mageScene.instantiate()
+	
 	if key.ends_with("Upper"):
 		minion.intermediate_lane = upperThrough
 	elif key.ends_with("Lower"):
 		minion.intermediate_lane = lowerThrough
-	minion.set_team(spawnpt.team == 0)
-	minion.tower_target = get_opposite(key)
-	minion.position = spawnpt.position
+
+	minion.set_team(team == 0)
+	
+	# Find the tower target on clients using the stored name
+	var tower_target = null
+	if tower_target_name:
+		tower_target = spawn_points.get(tower_target_name)
+	minion.tower_target = tower_target
+	
+	minion.position = position
+
 	var main = get_parent()
 	main.add_child(minion)
 	minion_count += 1
-	#main.add_child(minion)
-	#minion_count += 1
+
+func _spawn_and_sync(key: String):
+	var spawnpt = spawn_points.get(key, null)
+	if not is_instance_valid(spawnpt):
+		return
+
+	var minion_type = randi() % 2
+	print(spawnpt.position)
+	var team = spawnpt.team
 	
+	# Get the opposite tower's name instead of the tower itself
+	var tower_target_name = ""
+	var opposite_tower = get_opposite(key)
+	if is_instance_valid(opposite_tower):
+		tower_target_name = opposite_tower.name
+
+	# Spawn on server
+	var minion = minionScene.instantiate() if minion_type else mageScene.instantiate()
+	
+	if key.ends_with("Upper"):
+		minion.intermediate_lane = upperThrough
+	elif key.ends_with("Lower"):
+		minion.intermediate_lane = lowerThrough
+
+	minion.set_team(team == 0)
+	minion.tower_target = opposite_tower
+	minion.position = spawnpt.position
+
+	var main = get_parent()
+	main.add_child(minion)
+	minion_count += 1
+
+	# Sync spawn to all clients
+	spawn_minion_on_clients.rpc(key, minion_type, spawnpt.position, team, tower_target_name)
 
 func spawn_friendly_wave(config: Dictionary, is_friendly: bool) -> void:
-	print("config dict is", config)
+	if not multiplayer.is_server():
+		return  # Only the server triggers spawning
+
 	var player = "P1" if is_friendly else "P2"
-	if "top" in config:
-		
-		topcount = config["top"]
-	if "mid" in config:
-		
-		midcount = config["mid"]
-	if "low" in config:
-		bottomcount = config["low"]
-	print('config', config)
-	var top_minions = []
-	
-	for i in range(topcount):
-		top_minions.append(spawn_minion(player + "Upper"))
-	for i in range(to_add["top"]):
-		top_minions.append(spawn_minion(player + "Upper"))
-	
-	var mid_minions = []
-	
-	for i in range(midcount):
-		mid_minions.append(spawn_minion(player + "Mid"))
-	for i in range(to_add["mid"]):
-		top_minions.append(spawn_minion(player + "Mid"))
-	var bottom_minions = []
-	for i in range(bottomcount):
-		bottom_minions.append(spawn_minion(player + "Lower"))
-	for i in range(to_add["bottom"]):
-		top_minions.append(spawn_minion(player + "Lower"))
-	Signals.WaveSpawned.emit()
-		
-	
+
+	for _i in range(config.get("top", 0) + to_add["top"]):
+		_spawn_and_sync(player + "Upper")
+
+	for _i in range(config.get("mid", 0) + to_add["mid"]):
+		_spawn_and_sync(player + "Mid")
+
+	for _i in range(config.get("bottom", 0) + to_add["bottom"]):
+		_spawn_and_sync(player + "Lower")
+@rpc("authority")
 func _on_wave_timer_timeout() -> void:
+	if not multiplayer.is_server():
+		return
+	print('ran')
 	spawn_friendly_wave(friendly_wave_config, true)
 	spawn_friendly_wave(enemy_wave_config, false)
 	to_add = {"top": 0, "mid": 0, "bottom": 0}

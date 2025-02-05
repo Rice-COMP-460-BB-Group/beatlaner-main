@@ -11,6 +11,8 @@ func _ready():
 	multiplayer.peer_disconnected.connect(peer_disconnected)
 	multiplayer.connected_to_server.connect(connected_to_server)
 	multiplayer.connection_failed.connect(connection_failed)
+	if "--server" in OS.get_cmdline_args():
+		hostGame()
 
 func _on_start_pressed() -> void:
 	print('got pressed')
@@ -64,6 +66,10 @@ func SendPlayerInformation(name, id):
 
 @rpc("any_peer","call_local")
 func StartGame():
+	if multiplayer.is_server():
+		print('bruh1')
+	else:
+		print('bruh2')
 	$Confirm.play()
 	await $Confirm.finished
 	#get_tree().change_scene_to_file.bind("res://main/Main.tscn").call_deferred()
@@ -73,7 +79,7 @@ func StartGame():
 	#self.hide()
 	
 	
-func _on_host_button_down():
+func hostGame():
 	peer = ENetMultiplayerPeer.new()
 	var error = peer.create_server(port, 2)
 	if error != OK:
@@ -82,7 +88,10 @@ func _on_host_button_down():
 	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
 	
 	multiplayer.set_multiplayer_peer(peer)
-	print("Waiting for players")
+	print("Waiting For Players!")
+	
+func _on_host_button_down():
+	hostGame()
 	SendPlayerInformation("", multiplayer.get_unique_id())
 	pass # Replace with function body.
 

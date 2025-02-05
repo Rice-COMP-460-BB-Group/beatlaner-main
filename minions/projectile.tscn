@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://c2a3uw6r78k4d"]
+[gd_scene load_steps=6 format=3 uid="uid://c2a3uw6r78k4d"]
 
 [ext_resource type="Texture2D" uid="uid://4be4ksormlgi" path="res://assets/proj.png" id="1_6ng7n"]
 [ext_resource type="Script" path="res://minions/projectile.gd" id="2_765r6"]
@@ -7,6 +7,20 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e41q5"]
 radius = 8.0
 height = 42.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_in8yo"]
+properties/0/path = NodePath(".:syncPos")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:syncRotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:enemy_target")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:syncVelocity")
+properties/3/spawn = true
+properties/3/replication_mode = 1
 
 [node name="Area2D" type="Area2D"]
 collision_layer = 2
@@ -25,6 +39,9 @@ texture = ExtResource("1_6ng7n")
 [node name="PointLight2D" type="PointLight2D" parent="."]
 color = Color(1, 0, 0, 1)
 texture = ExtResource("3_g0wer")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_in8yo")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
