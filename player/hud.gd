@@ -1,12 +1,12 @@
 extends Control
-
-func add_enemy_to_minimap(enemyPos: Vector2,team:bool):
+enum {BLUE,RED}
+func add_minion_to_minimap(enemyPos: Vector2,team:bool):
 	var icon = TextureRect.new()
 	if team == false:
 		
 		icon.texture = preload("res://assets/Red-Team-Map.png")
 	else:
-		print('team true!')
+		
 		icon.texture = preload("res://assets/Blue-Team-Map.png")
 		
 	icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
@@ -39,10 +39,10 @@ func refresh_minimap(blue_team:Array,red_team:Array):
 	for blue_pos in blue_team:
 		var coords = world_to_minimap(blue_pos,Vector2(4096,4096),Vector2(216,216))
 		print(coords,"coords")
-		add_enemy_to_minimap(coords,false)
+		add_minion_to_minimap(coords,false)
 	for red_pos in red_team:
 		var coords = world_to_minimap(red_pos,Vector2(4096,4096),Vector2(216,216))
-		add_enemy_to_minimap(coords,true)
+		add_minion_to_minimap(coords,true)
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
