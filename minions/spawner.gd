@@ -189,7 +189,7 @@ var bottomcount = 0
 @rpc("authority", "reliable")
 func spawn_minion_on_clients(key: String, minion_type: int, position: Vector2, team: int, tower_target_name: String):
 	# This method is called on clients to spawn minions
-	var minion = minionScene.instantiate() if minion_type == 0 else mageScene.instantiate()
+	var minion = minionScene.instantiate() if minion_type else mageScene.instantiate()
 	
 	if key.ends_with("Upper"):
 		minion.intermediate_lane = upperThrough
@@ -216,7 +216,6 @@ func _spawn_and_sync(key: String):
 		return
 
 	var minion_type = randi() % 2
-	print(spawnpt.position)
 	var team = spawnpt.team
 	
 	# Get the opposite tower's name instead of the tower itself
@@ -239,7 +238,6 @@ func _spawn_and_sync(key: String):
 
 	var main = get_parent()
 	main.add_child(minion)
-	minion_count += 1
 
 	# Sync spawn to all clients
 	spawn_minion_on_clients.rpc(key, minion_type, spawnpt.position, team, tower_target_name)

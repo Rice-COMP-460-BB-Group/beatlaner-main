@@ -29,7 +29,13 @@ func get_max_health():
 	return maxHealth
 
 
+@rpc("any_peer", "call_local")
 func decrease_health(amount: int):
+	if has_node("HealthBar"):
+		print("Found HealthBar for", get_parent().name)
+		$HealthBar.update(currentHealth, maxHealth)
+	else:
+		print("HealthBar not found for", get_parent().name)
 	currentHealth -= amount
 	if currentHealth <= 0 and !dead:
 		dead = true

@@ -190,12 +190,11 @@ func fire():
 	var projectile = projectile_scene.instantiate()
 	projectile.red = team != Team.RED
 	projectile.target = enemy_target
-	projectile.global_position = global_position
-	projectile.position = position
+	projectile.global_position = global_position	
 	projectile.source = self
 	projectile.damage = damage
 	$HitAudio.play()
-	get_tree().root.add_child(projectile, true)
+	get_tree().root.add_child(projectile)
 	
 
 func _on_attack_timer_timeout():
@@ -203,17 +202,17 @@ func _on_attack_timer_timeout():
 	print(is_instance_valid(enemy_target))
 	var anim_suffix = "friendly" if team != Team.BLUE else "enemy"
 	if is_instance_valid(enemy_target) && global_position.distance_to(enemy_target.global_position) < attack_range:
+		print("ranged", ranged)
+		
 		sprite.play(anim_suffix + "_attack")
 		is_attacking = true
 		if ranged:
-			print('firing')
 			fire.rpc()
 		else:
 			var health_component = enemy_target.get_node("HealthComponent")
 			if health_component and health_component is HealthComponent:
-				print("attacking")
 				$HitAudio.play()
-				health_component.decrease_health(damage*1.5)
+				health_component.rpc("decrease_health", damage*1.5)
 
 func _on_animated_sprite_2d_animation_finished():
 	is_attacking = false
