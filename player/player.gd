@@ -4,13 +4,13 @@ class_name Player
 
 @export var bpm = 120
 @export var damage = 10
-@export var attack_speed = .5
+@export var attack_speed = .35
 @export var team: Team = Team.RED # Change this later
 @export var respawn_position: Vector2
 
 enum Team {BLUE = 0, RED = 1}
 
-var last_attack = -attack_speed
+var last_attack = attack_speed
 
 const floating_text_scene = preload("res://player/floating_text.tscn")
 const ACCELERATION = 1000
@@ -81,7 +81,7 @@ func _process(delta: float) -> void:
 	$Stats/Metronome.text = "metronome: " + str($Metronome.time_left)
 	
 	var elapsed_in_cycle = (beat_half_count % 2) * $Metronome.wait_time + ($Metronome.wait_time - $Metronome.time_left)
-	var current_frame = int(elapsed_in_cycle / frame_duration)
+	var current_frame = int(round(elapsed_in_cycle / frame_duration))
 	
 	if abs(elapsed_in_cycle - 0.5) < 0.01:
 		current_frame = 6
@@ -91,6 +91,7 @@ func _process(delta: float) -> void:
 	$Stats/MetronomeContainer/MetronomeAnimation.frame = current_frame % total_metronome_frames
 
 	if $Stats/MetronomeContainer/MetronomeAnimation.frame in centered_frames:
+		print("fall off", falloff_curve(), " ", $Stats/MetronomeContainer/MetronomeAnimation.frame)
 		var tween = create_tween()
 		tween.tween_property($Stats/MetronomeContainer/MetronomeAnimation, "modulate", Color(2, 2, 2, 1), 0.1)
 		tween.tween_property($Stats/MetronomeContainer/MetronomeAnimation, "modulate", Color(1, 1, 1, 1), 0.1)
@@ -123,7 +124,7 @@ func _physics_process(delta: float) -> void:
 		update_mana(current_score)
 	
 	if Input.is_action_just_pressed("Attack"):
-		if attack_speed < last_attack + attack_speed:
+		if last_attack < attack_speed:
 			return
 		
 		last_attack = 0
@@ -174,7 +175,7 @@ func _physics_process(delta: float) -> void:
 			floating_text.critical = falloff_curve()
 			floating_text.rotation = deg_to_rad(randf_range(-10, 10))
 			$Stats/DamagePosition.add_child(floating_text)
-	attack_speed += delta
+	last_attack += delta
 	move(delta)
 	
 	animate()
@@ -245,7 +246,7 @@ func respawn() -> void:
 	var alpha_tween = create_tween()
 	alpha_tween.tween_property($AnimatedSprite2D, "modulate:a", 1.0, 0.5)
 	await alpha_tween.finished
-	
+
 	# Restore player
 	$Stats/Respawning.visible = false
 
