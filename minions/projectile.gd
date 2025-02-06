@@ -7,7 +7,7 @@ extends Area2D
 @export var damage = 10
 
 var syncPos: Vector2
-var syncRotation: int
+var syncRotation: float
 
 func _ready():
 	if !red:
@@ -26,11 +26,12 @@ func _physics_process(delta):
 		var direction = (target.global_position - global_position).normalized()
 		position += direction * speed * delta
 		rotation = direction.angle()
+		print("direction host", direction, rotation)
 		syncPos = position
 		syncRotation = rotation
 	else:
 		position = lerp(position, syncPos, 0.5)
-		rotation = syncRotation
+		rotation = lerpf(rotation, syncRotation, 0.5)
 
 func _on_body_entered(body):
 	if multiplayer.is_server():
@@ -45,7 +46,6 @@ func destroy_bullet():
 
 func _on_area_entered(area: Area2D) -> void:
 	if multiplayer.is_server():
-
 		if area == target:
 			if target.has_node("HealthComponent"):
 				target.get_node("HealthComponent").rpc("decrease_health", damage)
