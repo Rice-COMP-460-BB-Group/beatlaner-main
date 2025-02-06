@@ -64,7 +64,7 @@ func move(delta):
 	move_and_slide()
 
 func update_mana(score: int):
-	$Stats/Mana.text = "Mana:" + str(current_score)
+	$ManaBar.set_mana(score)
 	
 var beat_half_count := 0
 var total_metronome_frames := 13
