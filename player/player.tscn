@@ -884,6 +884,7 @@ text = "Respawning...
 horizontal_alignment = 1
 
 [node name="ManaBar" parent="Stats" instance=ExtResource("19_w14c3")]
+layout_mode = 0
 offset_left = -288.0
 offset_top = -162.0
 offset_right = -82.0

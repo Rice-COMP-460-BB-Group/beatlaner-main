@@ -1,6 +1,6 @@
 extends HFlowContainer
 
-@export var mana = 0
+@export var mana = 100
 @export var max_mana = 300.0
 
 # Called when the node enters the scene tree for the first time.
@@ -13,6 +13,7 @@ func _ready() -> void:
 	set_manabar(mana)
 
 func set_manabar(mana: int) -> void:
+	mana = min(mana, max_mana)
 	self.mana = mana
 	var draft_mana = mana
 	for child in self.get_children():
