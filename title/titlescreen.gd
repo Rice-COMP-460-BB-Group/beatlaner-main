@@ -103,8 +103,3 @@ func _on_join_button_down():
 	multiplayer.set_multiplayer_peer(peer)	
 	
 	pass # Replace with function body.
-
-
-func _on_start_game_button_down():
-	StartGame.rpc()
-	pass # Replace with function body.
