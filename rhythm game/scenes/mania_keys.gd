@@ -8,12 +8,20 @@ signal hit
 
 var active_notes = []
 
+@export var speed = 8
+
 func _ready():
 	$ActiveKey.hide()
 
 func _process(delta):
-	
+	if Input.is_action_just_pressed("notes_faster"):
+		speed = min(speed + 1, 20)
+		Signals.ScrollSpeedChange.emit(speed)
+	if Input.is_action_just_pressed("notes_slower"):
+		speed = max(speed - 1, 6)
+		Signals.ScrollSpeedChange.emit(speed)
 
+	
 	if Input.is_action_just_pressed(key):
 		$ActiveKey.show()
 		$ActiveKeyTimer.start()
@@ -51,7 +59,7 @@ func init():
 	elif key == "key4":
 		new_note.texture = load("res://rhythm game/assets/mania_notes/Sigil4.png")
 	get_parent().add_child(new_note)
-	new_note.init(position.x)
+	new_note.init(position.x, speed)
 	active_notes.push_back(new_note)
 
 
@@ -62,7 +70,7 @@ func _on_rand_timer_timeout() -> void:
 	#$RandTimer.wait_time = randf_range(0.1, 0.8) # medium
 	#$RandTimer.wait_time = randf_range(0.5, 2.0) # easy
 	
-	$RandTimer.wait_time = 0.5
+	$RandTimer.wait_time = 0.125
 	$RandTimer.start()
 
 func _on_active_key_timer_timeout() -> void:

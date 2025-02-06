@@ -10,6 +10,7 @@ height = 42.0
 
 [node name="Area2D" type="Area2D"]
 collision_layer = 2
+collision_mask = 5
 script = ExtResource("2_765r6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -23,7 +24,7 @@ scale = Vector2(0.101505, 0.0753483)
 texture = ExtResource("1_6ng7n")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-color = Color(0.882951, 0.744387, 0.16732, 1)
+color = Color(1, 0, 0, 1)
 texture = ExtResource("3_g0wer")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

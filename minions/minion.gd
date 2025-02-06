@@ -33,6 +33,8 @@ var visited_intermediate = false
 @export var aggro_range = 300
 @export var attack_range = 300
 
+var damage = 10
+
 func _enter_tree():
 	if team != Team.BLUE:
 		$HealthComponent.red = false
@@ -142,12 +144,16 @@ func _physics_process(delta: float):
 		query.shape = shape
 		query.transform = Transform2D(current_agent_position.direction_to(next_path_position).angle(), global_position)
 		query.exclude = [self]
-		query.collision_mask = 1
 		query.collide_with_bodies = true
 		query.collide_with_areas = true
 
 		var results = space_state.intersect_shape(query)
 		for result in results:
+			if result.collider is Player and result.collider.team != team:
+				print("player found")
+				set_enemy_target(result.collider)
+				state = State.ATTACK
+				return
 			if result.collider is Minion and result.collider.get_team() != team:
 				print("enemy found")
 				set_enemy_target(result.collider)
@@ -184,6 +190,7 @@ func _on_attack_timer_timeout():
 			projectile.target = enemy_target
 			projectile.global_position = global_position
 			projectile.source = self
+			projectile.damage = damage
 			$HitAudio.play()
 			get_tree().root.add_child(projectile)
 		else:
@@ -191,7 +198,7 @@ func _on_attack_timer_timeout():
 			if health_component and health_component is HealthComponent:
 				print("attacking")
 				$HitAudio.play()
-				health_component.decrease_health(randfn(10, 1.5))
+				health_component.decrease_health(damage * 1.5)
 
 func _on_animated_sprite_2d_animation_finished():
 	is_attacking = false
@@ -214,7 +221,6 @@ func process_status(status: String) -> void:
 	print("processing status")
 	if status == "freeze":
 		state = State.FROZEN
-	
 	if status == "mutiny":
 		#idea: random chance -> flip team for a few seconds
 		print("placeholder")
@@ -232,6 +238,22 @@ func _clear_status():
 	state = State.MOVE
 func _on_timer_timeout() -> void:
 	pass # Replace with function body.
+	
+func process_damage_powerup():
+	damage *= 2
+	var timer: Timer = Timer.new()
+	add_child(timer)
+	timer.one_shot = true
+	timer.autostart = false
+	timer.wait_time = 5.0
+	timer.timeout.connect(_reset_damage)
+	timer.start()
+
+
+func _reset_damage():
+	damage = 10
+	print("Power-up expired. Damage reset to:", damage)
+	
 
 func _on_health_component_health_destroyed() -> void:
 	queue_free()

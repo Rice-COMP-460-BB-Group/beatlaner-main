@@ -34,6 +34,19 @@ func freeze_current_enemies(lane: int,team: int) ->void:
 					
 					b.process_status("freeze")
 	
+func damage_powerup(team: int) ->void:
+	
+	var bodies = top.get_overlapping_bodies()
+	bodies += mid.get_overlapping_bodies()
+	bodies += lower.get_overlapping_bodies()
+	print("here are bodies:",bodies)
+	for b in bodies:
+		if b.has_method("process_damage_powerup") and b.has_method("get_team"):
+			print("a minoiin!",b.get_team())
+			if b.get_team() == 1:
+				
+				b.process_damage_powerup()
+					
 func _on_lower_lane_body_entered(body: Node2D) -> void:
 	if body.name == "TileMapLayer":
 		return 
