@@ -33,12 +33,16 @@ var animTree_state_keys = [
 	"Idle", "Moving"
 ]
 
+var old_collision_size
+
 func _ready() -> void:
 	$Metronome.wait_time = 60.0 / bpm
-	cycle_duration = 2 * $Metronome.wait_time  # Full cycle duration (1 second)
-	frame_duration = cycle_duration / (total_metronome_frames - 1)  # 1/12 ≈ 0.0833s
+	cycle_duration = 2 * $Metronome.wait_time # Full cycle duration (1 second)
+	frame_duration = cycle_duration / (total_metronome_frames - 1) # 1/12 ≈ 0.0833s
 	$Metronome.start()
 	$Slice/SliceAnimation.frame = 4
+
+	old_collision_size = $Slice/SliceArea/CollisionShape2D.shape.size
 
 func move(delta):
 	if is_rhythm_game_open:
@@ -125,6 +129,25 @@ func _physics_process(delta: float) -> void:
 		var slice = $Slice
 		slice.position = Vector2.RIGHT.rotated(angle_to_cursor) * 20
 		slice.rotation = angle_to_cursor
+
+		var white = Color(1, 1, 1, 1)
+		var yellow = Color(1, 1, 0, 1)
+		var orange = Color(1, 0.5, 0, 1)
+		var red = Color(1, 0, 0, 1)
+
+		var critical = falloff_curve()
+		var final_color
+		if critical < 0.5:
+			final_color = white.lerp(yellow, critical * 2)
+		elif critical < 0.75:
+			final_color = yellow.lerp(orange, (critical - 0.5) * 4)
+		else:
+			final_color = orange.lerp(red, (critical - 0.75) * 4)
+		
+		slice.scale = Vector2(1.0 + critical, 1.0 + critical)
+		slice.modulate = final_color
+
+		$Slice/SliceArea/CollisionShape2D.shape.size = old_collision_size * (1.0 + critical)
 		$Slice/SliceAnimation.play()
 
 

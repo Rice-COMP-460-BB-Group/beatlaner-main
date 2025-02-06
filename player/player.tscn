@@ -871,6 +871,7 @@ light_mask = 2
 sprite_frames = SubResource("SpriteFrames_81lh5")
 
 [node name="Slice" type="Node2D" parent="."]
+z_index = 5
 
 [node name="SliceArea" type="Area2D" parent="Slice"]
 
