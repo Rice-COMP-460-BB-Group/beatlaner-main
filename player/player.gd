@@ -96,16 +96,19 @@ func _process(delta: float) -> void:
 		tween.tween_property($Stats/MetronomeContainer/MetronomeAnimation, "modulate", Color(2, 2, 2, 1), 0.1)
 		tween.tween_property($Stats/MetronomeContainer/MetronomeAnimation, "modulate", Color(1, 1, 1, 1), 0.1)
 
+func escape_rhythm_game():
+	if is_instance_valid(rhythm_game_instance):
+		var score = rhythm_game_instance.get_score()
+		current_score += int(score / 100)
+		$RhythmLayer1.remove_child(rhythm_game_instance)
+		is_rhythm_game_open = false
+		update_mana(current_score)
+
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("escape rhythm game"):
-		if is_instance_valid(rhythm_game_instance):
-			
-			var score = rhythm_game_instance.get_score()
-			current_score += int(score / 100)
-			$RhythmLayer1.remove_child(rhythm_game_instance)
-			is_rhythm_game_open = false
-			update_mana(current_score)
-	if Input.is_action_just_pressed("toggle_rhythm_game"):
+		escape_rhythm_game();
+
+	if Input.is_action_just_pressed("toggle_rhythm_game") and $HealthComponent.currentHealth > 0:
 		handle_rhythm_callback()
 	
 	if Input.is_action_just_pressed("Dispatch_Top") and current_score > 100:
@@ -124,7 +127,7 @@ func _physics_process(delta: float) -> void:
 		update_mana(current_score)
 	
 	if Input.is_action_just_pressed("Attack"):
-		if last_attack < attack_speed:
+		if $HealthComponent.currentHealth <= 0 or last_attack < attack_speed:
 			return
 		
 		last_attack = 0
@@ -235,7 +238,7 @@ func respawn() -> void:
 	$AnimatedSprite2D.visible = false
 	$CollisionShape2D.disabled = true
 	$Stats/Respawning.visible = true
-
+	escape_rhythm_game();
 
 	var tween = create_tween()
 	tween.tween_property(self, "global_position", respawn_position, 4.5)
