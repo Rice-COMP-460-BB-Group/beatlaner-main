@@ -38,3 +38,8 @@ func decrease_health(amount: int):
 		health_destroyed.emit()
 		
 	$HealthBar.update(currentHealth, maxHealth)
+
+func reset_health():
+	currentHealth = maxHealth
+	dead = false
+	$HealthBar.update(currentHealth, maxHealth)

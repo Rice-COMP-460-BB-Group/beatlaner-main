@@ -1,4 +1,4 @@
-[gd_scene load_steps=97 format=3 uid="uid://bj3lu7yts43wl"]
+[gd_scene load_steps=98 format=3 uid="uid://bj3lu7yts43wl"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_h04aa"]
 [ext_resource type="Texture2D" uid="uid://3sv7ccy0u7fe" path="res://assets/6369.png" id="1_xd2rp"]
@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://bpbx63c4ld1l7" path="res://assets/Metronome-009.png" id="15_umc4n"]
 [ext_resource type="Texture2D" uid="uid://cjel352fixcg" path="res://assets/Metronome-010.png" id="16_s4mf8"]
 [ext_resource type="Texture2D" uid="uid://cxggkjevi7j0k" path="res://assets/Metronome-011.png" id="17_eajn3"]
+[ext_resource type="FontFile" uid="uid://cm5q756n5trre" path="res://assets/VT323-Regular.ttf" id="18_86px8"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xpusc"]
 
@@ -824,8 +825,6 @@ transform = Transform2D(1, 0, 0, 1, 800, 325)
 
 [node name="HealthComponent" parent="." instance=ExtResource("6_wraxi")]
 position = Vector2(0, -7)
-currentHealth = 10000
-maxHealth = 10000
 red = false
 
 [node name="Stats" type="Control" parent="."]
@@ -870,6 +869,18 @@ offset_bottom = 164.0
 light_mask = 2
 sprite_frames = SubResource("SpriteFrames_81lh5")
 
+[node name="Respawning" type="Label" parent="Stats"]
+visible = false
+layout_mode = 0
+offset_left = -42.0
+offset_top = -49.0
+offset_right = 42.0
+offset_bottom = -12.0
+theme_override_fonts/font = ExtResource("18_86px8")
+text = "Respawning...
+"
+horizontal_alignment = 1
+
 [node name="Slice" type="Node2D" parent="."]
 z_index = 5
 
@@ -884,3 +895,4 @@ scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_8pu2n")
 
 [connection signal="timeout" from="Metronome" to="." method="_on_metronome_timeout"]
+[connection signal="health_destroyed" from="HealthComponent" to="." method="_on_health_component_health_destroyed"]

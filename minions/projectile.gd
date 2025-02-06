@@ -12,7 +12,7 @@ func _ready():
 		$PointLight2D.color = Color(0, 0, 1, 1)
 		
 func _physics_process(delta):
-	if not is_instance_valid(target):
+	if not is_instance_valid(target) or (target.has_node("HealthComponent") and target.get_node("HealthComponent").dead):
 		queue_free()
 		return
 		

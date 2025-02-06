@@ -7,7 +7,6 @@
 script = ExtResource("1_36lsc")
 currentHealth = 50
 maxHealth = 50
-red = null
 
 [node name="HealthBar" parent="." instance=ExtResource("2_5vfn3")]
 z_index = 3

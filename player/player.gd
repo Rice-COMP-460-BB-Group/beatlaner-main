@@ -6,6 +6,8 @@ class_name Player
 @export var damage = 10
 @export var attack_speed = .5
 @export var team: Team = Team.RED # Change this later
+@export var respawn_position: Vector2
+
 enum Team {BLUE = 0, RED = 1}
 
 var last_attack = -attack_speed
@@ -43,6 +45,7 @@ func _ready() -> void:
 	$Slice/SliceAnimation.frame = 4
 
 	old_collision_size = $Slice/SliceArea/CollisionShape2D.shape.size
+	respawn_position = global_position
 
 func move(delta):
 	if is_rhythm_game_open:
@@ -225,3 +228,31 @@ func falloff_curve():
 	print("Extra Damage:", extra_damage)
 
 	return extra_damage
+
+func respawn() -> void:
+	$HealthComponent.visible = false
+	$AnimatedSprite2D.visible = false
+	$CollisionShape2D.disabled = true
+	$Stats/Respawning.visible = true
+
+
+	var tween = create_tween()
+	tween.tween_property(self, "global_position", respawn_position, 4.5)
+	await tween.finished
+
+	$AnimatedSprite2D.modulate.a = 0
+	$AnimatedSprite2D.visible = true
+	var alpha_tween = create_tween()
+	alpha_tween.tween_property($AnimatedSprite2D, "modulate:a", 1.0, 0.5)
+	await alpha_tween.finished
+	
+	# Restore player
+	$Stats/Respawning.visible = false
+
+	$HealthComponent.reset_health()
+	$HealthComponent.visible = true
+
+	$CollisionShape2D.disabled = false
+
+func _on_health_component_health_destroyed() -> void:
+	respawn()
