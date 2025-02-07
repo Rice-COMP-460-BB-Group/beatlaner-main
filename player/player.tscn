@@ -26,7 +26,7 @@
 [ext_resource type="Texture2D" uid="uid://cjel352fixcg" path="res://assets/Metronome-010.png" id="16_s4mf8"]
 [ext_resource type="Texture2D" uid="uid://cxggkjevi7j0k" path="res://assets/Metronome-011.png" id="17_eajn3"]
 [ext_resource type="FontFile" uid="uid://cm5q756n5trre" path="res://assets/VT323-Regular.ttf" id="18_86px8"]
-[ext_resource type="PackedScene" path="res://player/ManaBar.tscn" id="19_w14c3"]
+[ext_resource type="PackedScene" uid="uid://b2h8ppy4k7dko" path="res://player/ManaBar.tscn" id="19_w14c3"]
 [ext_resource type="Script" path="res://player/afterimage.gd" id="28_i8vw6"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xpusc"]
