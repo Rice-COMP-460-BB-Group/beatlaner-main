@@ -32,11 +32,13 @@ func Score(new_score: int, tower_type: String):
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	$MultiplayerSpawner.spawn_function = spawn
+
 	if not multiplayer.is_server():
 		return
 	Signals.Score.connect(Score)
 	print("spawner invoked")
-	$MultiplayerSpawner.set_spawn_function(spawn)
+	# $MultiplayerSpawner.set_spawn_function(spawn)
 		
 func spawner_init() -> void:
 	for sp in get_children():

@@ -12,6 +12,7 @@ func _ready():
 	multiplayer.connected_to_server.connect(connected_to_server)
 	multiplayer.connection_failed.connect(connection_failed)
 	if "--server" in OS.get_cmdline_args():
+		DisplayServer.window_set_title("Beatlaner Server")
 		hostGame()
 
 func _on_start_pressed() -> void:
@@ -27,8 +28,6 @@ func _on_exit_pressed() -> void:
 
 func _on_button_focus_entered() -> void:
 	$Focus.play()
-
-
 
 
 func peer_connected(id):
@@ -54,9 +53,9 @@ func connection_failed():
 @rpc("any_peer")
 func SendPlayerInformation(name, id):
 	if !GameManager.Players.has(id):
-		GameManager.Players[id] ={
-			"name" : name,
-			"id" : id,
+		GameManager.Players[id] = {
+			"name": name,
+			"id": id,
 			"score": 0
 		}
 	
@@ -64,7 +63,7 @@ func SendPlayerInformation(name, id):
 		for i in GameManager.Players:
 			SendPlayerInformation.rpc(GameManager.Players[i].name, i)
 
-@rpc("any_peer","call_local")
+@rpc("any_peer", "call_local")
 func StartGame():
 	if multiplayer.is_server():
 		print('bruh1')
@@ -100,6 +99,6 @@ func _on_join_button_down():
 	peer = ENetMultiplayerPeer.new()
 	peer.create_client(Address, port)
 	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
-	multiplayer.set_multiplayer_peer(peer)	
+	multiplayer.set_multiplayer_peer(peer)
 	
 	pass # Replace with function body.
