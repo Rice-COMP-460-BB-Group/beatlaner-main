@@ -1,9 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://do5hu0dt23mbe"]
+[gd_scene load_steps=10 format=3 uid="uid://do5hu0dt23mbe"]
 
 [ext_resource type="Script" path="res://rhythm game/scenes/mania_keys.gd" id="2_7npj4"]
 [ext_resource type="Texture2D" uid="uid://cowv6stbwfo4t" path="res://rhythm game/assets/mania_notes/Sigil-White.png" id="3_csyqq"]
 [ext_resource type="AudioStream" uid="uid://bhkcua336umai" path="res://rhythm game/assets/mania_notes/slash-sound.wav" id="4_2qinh"]
 [ext_resource type="Texture2D" uid="uid://dvgisd26hm73n" path="res://assets/light_gd.webp" id="5_8nggk"]
+[ext_resource type="AudioStream" uid="uid://10k6tg83f014" path="res://assets/OOT_Notes_Ocarina_D_short.wav" id="5_phl54"]
+[ext_resource type="AudioStream" uid="uid://c8jtltfxe17qb" path="res://assets/OOT_Notes_Ocarina_F_short.wav" id="6_68emk"]
+[ext_resource type="AudioStream" uid="uid://cv3mwvddogj76" path="res://assets/OOT_Notes_Ocarina_A_short.wav" id="7_hjs2y"]
+[ext_resource type="AudioStream" uid="uid://bc0y00e645hfk" path="res://assets/OOT_Notes_Ocarina_B_short.wav" id="8_wkqk1"]
+[ext_resource type="AudioStream" uid="uid://cmacd30548487" path="res://assets/OOT_Notes_Ocarina_D2_short.wav" id="9_jcq46"]
 
 [node name="NoteListeners" type="Sprite2D"]
 script = ExtResource("2_7npj4")
@@ -23,6 +28,21 @@ wait_time = 0.1
 
 [node name="Kicksound1" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_2qinh")
+
+[node name="Dlow" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_phl54")
+
+[node name="F" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_68emk")
+
+[node name="A" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_hjs2y")
+
+[node name="B" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_wkqk1")
+
+[node name="Dhi" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_jcq46")
 
 [connection signal="timeout" from="RandTimer" to="." method="_on_rand_timer_timeout"]
 [connection signal="timeout" from="ActiveKeyTimer" to="." method="_on_active_key_timer_timeout"]

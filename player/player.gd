@@ -26,8 +26,8 @@ var is_rhythm_game_open = false
 @onready var animationTree = $AnimationTree
 
 @onready var state_machine = animationTree["parameters/playback"]
-
-
+@onready var background_music = $BackgroundMusic
+@onready var rhythm_background  = $RhythmGameBackground
 var blend_position: Vector2 = Vector2.ZERO
 var blend_pos_paths = ["parameters/Idle/id_BlendSpace2D/blend_position", "parameters/Moving/BlendSpace2D/blend_position"]
 var current_score = 0
@@ -109,6 +109,7 @@ func _physics_process(delta: float) -> void:
 		escape_rhythm_game();
 
 	if Input.is_action_just_pressed("toggle_rhythm_game") and $HealthComponent.currentHealth > 0:
+		
 		handle_rhythm_callback()
 	
 	if Input.is_action_just_pressed("Dispatch_Top") and current_score > 100:
@@ -188,7 +189,11 @@ func handle_rhythm_callback():
 	if is_rhythm_game_open:
 		$RhythmLayer1.remove_child(rhythm_game_instance)
 		is_rhythm_game_open = false
+		background_music.volume_db = 0.0
+		rhythm_background.volume_db = -100.0
 	else:
+		background_music.volume_db = -100.0;
+		rhythm_background.volume_db = 0.0
 		var rhythm_game_scene = load("res://rhythm game/scenes/background.tscn")
 		rhythm_game_instance = rhythm_game_scene.instantiate()
 	

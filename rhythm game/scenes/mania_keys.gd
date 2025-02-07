@@ -3,9 +3,14 @@ extends Sprite2D
 signal hit
 
 @onready var note = preload("res://rhythm game/scenes/mania_notes.tscn")
+@onready var dnote = $Dlow
+@onready var fnote = $F
+@onready var anote = $A
+@onready var bnote = $B
+@onready var dnote2 = $Dhi
 
 @export var key = ""
-
+@onready var playable_keys = [dnote,fnote,anote,bnote,dnote2]
 var active_notes = []
 
 @export var speed = 8
@@ -25,7 +30,8 @@ func _process(delta):
 	if Input.is_action_just_pressed(key):
 		$ActiveKey.show()
 		$ActiveKeyTimer.start()
-		$Kicksound1.play()
+		var note_idx = randi() % 5
+		playable_keys[note_idx].play()
 		
 	
 	if active_notes:
@@ -67,10 +73,10 @@ func _on_rand_timer_timeout() -> void:
 	if randi_range(0, 2) == 0:
 		init()
 	#$RandTimer.wait_time = randf_range(0.1, 0.5) # hard
-	#$RandTimer.wait_time = randf_range(0.1, 0.8) # medium
-	#$RandTimer.wait_time = randf_range(0.5, 2.0) # easy
+	$RandTimer.wait_time = randf_range(0.1, 0.8) # medium
+	#RandTimer.wait_time = randf_range(0.5, 2.0) # easy
 	
-	$RandTimer.wait_time = 0.125
+	#$RandTimer.wait_time = 0.125
 	$RandTimer.start()
 
 func _on_active_key_timer_timeout() -> void:

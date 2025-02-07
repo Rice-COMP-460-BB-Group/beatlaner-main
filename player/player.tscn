@@ -1,4 +1,4 @@
-[gd_scene load_steps=99 format=3 uid="uid://bj3lu7yts43wl"]
+[gd_scene load_steps=101 format=3 uid="uid://bj3lu7yts43wl"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_h04aa"]
 [ext_resource type="Texture2D" uid="uid://3sv7ccy0u7fe" path="res://assets/6369.png" id="1_xd2rp"]
@@ -24,6 +24,8 @@
 [ext_resource type="Texture2D" uid="uid://cxggkjevi7j0k" path="res://assets/Metronome-011.png" id="17_eajn3"]
 [ext_resource type="FontFile" uid="uid://cm5q756n5trre" path="res://assets/VT323-Regular.ttf" id="18_86px8"]
 [ext_resource type="PackedScene" uid="uid://b2h8ppy4k7dko" path="res://player/ManaBar.tscn" id="19_w14c3"]
+[ext_resource type="AudioStream" uid="uid://dq1cyy24uue51" path="res://assets/Beatmainsong1.wav" id="25_07gx8"]
+[ext_resource type="AudioStream" uid="uid://n7t7lbhpnjtd" path="res://assets/Rbackground.wav" id="26_gxkax"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xpusc"]
 
@@ -890,8 +892,6 @@ offset_top = -162.0
 offset_right = -82.0
 offset_bottom = -57.0
 scale = Vector2(0.5, 0.5)
-mana = 0
-max_mana = 300.0
 
 [node name="Slice" type="Node2D" parent="."]
 z_index = 5
@@ -905,6 +905,15 @@ shape = SubResource("RectangleShape2D_on213")
 rotation = -1.5708
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_8pu2n")
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("25_07gx8")
+autoplay = true
+
+[node name="RhythmGameBackground" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("26_gxkax")
+volume_db = -80.0
+autoplay = true
 
 [connection signal="timeout" from="Metronome" to="." method="_on_metronome_timeout"]
 [connection signal="health_destroyed" from="HealthComponent" to="." method="_on_health_component_health_destroyed"]
