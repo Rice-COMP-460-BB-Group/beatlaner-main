@@ -1,4 +1,4 @@
-[gd_scene load_steps=102 format=3 uid="uid://bj3lu7yts43wl"]
+[gd_scene load_steps=103 format=3 uid="uid://bj3lu7yts43wl"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_h04aa"]
 [ext_resource type="Texture2D" uid="uid://3sv7ccy0u7fe" path="res://assets/6369.png" id="1_xd2rp"]
@@ -27,6 +27,7 @@
 [ext_resource type="Texture2D" uid="uid://cxggkjevi7j0k" path="res://assets/Metronome-011.png" id="17_eajn3"]
 [ext_resource type="FontFile" uid="uid://cm5q756n5trre" path="res://assets/VT323-Regular.ttf" id="18_86px8"]
 [ext_resource type="PackedScene" path="res://player/ManaBar.tscn" id="19_w14c3"]
+[ext_resource type="Script" path="res://player/afterimage.gd" id="28_i8vw6"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xpusc"]
 
@@ -953,6 +954,9 @@ shape = SubResource("RectangleShape2D_on213")
 rotation = -1.5708
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_8pu2n")
+
+[node name="AfterImage" type="Sprite2D" parent="."]
+script = ExtResource("28_i8vw6")
 
 [connection signal="timeout" from="Metronome" to="." method="_on_metronome_timeout"]
 [connection signal="health_destroyed" from="HealthComponent" to="." method="_on_health_component_health_destroyed"]

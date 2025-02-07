@@ -84,9 +84,9 @@ func move(delta):
 func start_dash():
 	if last_input_direction != Vector2.ZERO:
 		is_dashing = true
-		dash_timer = .01
-	self.collision_mask
-	self.collision_mask = (self.collision_mask & ~(1 << 2))
+		dash_timer = .02
+		self.collision_mask = (self.collision_mask & ~(1 << 2))
+		create_afterimage()
 	#print("new collision layer", self.collision_layer)
 		
 
@@ -130,14 +130,42 @@ func escape_rhythm_game():
 		$RhythmLayer1.remove_child(rhythm_game_instance)
 		is_rhythm_game_open = false
 		update_mana(current_score)
+func create_afterimage():
+	var jump_duration = 0.5  # How long the jump lasts (adjust as needed)
+	var num_afterimages = 3  # Number of afterimages you want to create
+	var interval = jump_duration / num_afterimages  # Time between afterimages during jump
 
+	var base_interval = 0.05  # Adjust for how frequently afterimages appear
+
+	for i in range(num_afterimages):
+		# Fixed delay between afterimage creation
+		await get_tree().create_timer(base_interval)
+
+		var afterimage = AnimatedSprite2D.new()
+		afterimage.sprite_frames = $AnimatedSprite2D.sprite_frames
+		afterimage.animation = $AnimatedSprite2D.animation
+		afterimage.frame = $AnimatedSprite2D.frame
+		afterimage.global_position = global_position
+		afterimage.flip_h = $AnimatedSprite2D.flip_h
+		afterimage.modulate = Color(1, 1, 1, 0.5)
+
+		get_parent().add_child(afterimage)
+
+		# Quadratic fade-out duration (first afterimages last longer)
+		var fade_duration = 0.1  # Adjusted timing formula
+
+		var tween = afterimage.create_tween()
+		tween.tween_property(afterimage, "modulate:a", 0, fade_duration)
+
+		await tween.finished
+		afterimage.queue_free()
 func _physics_process(delta: float) -> void:
 	
 	if is_dashing:
 		dash_timer -= delta
 		if dash_timer <= 0:
 			is_dashing = false
-			self.collision_mask |= (1 << 2)
+			self.collision_mask |= (1 << 2)	
 
 	if Input.is_action_just_pressed("escape rhythm game"):
 		escape_rhythm_game();
