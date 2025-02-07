@@ -65,8 +65,8 @@ stream = ExtResource("6_0wtu3")
 stream = ExtResource("7_as5so")
 
 [connection signal="focus_entered" from="VBoxContainer/Start" to="." method="_on_button_focus_entered"]
-[connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_start_pressed"]
 [connection signal="focus_entered" from="VBoxContainer/Exit" to="." method="_on_button_focus_entered"]
-[connection signal="pressed" from="VBoxContainer/Exit" to="." method="_on_exit_pressed"]
 [connection signal="pressed" from="VBoxContainer/Exit" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Exit" to="." method="_on_exit_pressed"]

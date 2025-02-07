@@ -72,8 +72,8 @@ func _on_health_component_health_destroyed() -> void:
 	Signals.TowerDestroyed.emit(team, global_position)
 	queue_free()
 
-func _on_button_pressed() -> void:
-	Signals.OpenRhythmGame.emit(name, self)
+#func _on_button_pressed() -> void:
+	#Signals.OpenRhythmGame.emit(name, self)
 
 func attack(body: Node2D) -> void:
 	var laser = laser_scene.instantiate()

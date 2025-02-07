@@ -62,6 +62,7 @@ func move(delta):
 			start_dash()
 	if is_dashing:
 		velocity = last_input_direction * DASH_SPEED
+
 	else:
 		
 		if input_vector == Vector2.ZERO:
@@ -84,7 +85,9 @@ func start_dash():
 	if last_input_direction != Vector2.ZERO:
 		is_dashing = true
 		dash_timer = .01
-	
+	self.collision_mask
+	self.collision_mask = (self.collision_mask & ~(1 << 2))
+	#print("new collision layer", self.collision_layer)
 		
 
 func update_mana(score: int):
@@ -134,6 +137,8 @@ func _physics_process(delta: float) -> void:
 		dash_timer -= delta
 		if dash_timer <= 0:
 			is_dashing = false
+			self.collision_mask |= (1 << 2)
+
 	if Input.is_action_just_pressed("escape rhythm game"):
 		escape_rhythm_game();
 
