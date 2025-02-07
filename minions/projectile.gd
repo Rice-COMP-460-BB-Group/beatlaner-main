@@ -13,10 +13,11 @@ func _ready():
 	if !red:
 		$Projectile.texture = preload("res://assets/proj-enemy.png")
 		$PointLight2D.color = Color(0, 0, 1, 1)
-	if not multiplayer.is_server():
-		syncPos = position
-		syncRotation = rotation
-		
+	var direction = (target.global_position - global_position).normalized()
+	rotation = direction.angle()
+
+	syncPos = position
+	syncRotation = rotation
 func _physics_process(delta):
 	if multiplayer.is_server():
 		if not is_instance_valid(target):
@@ -30,8 +31,9 @@ func _physics_process(delta):
 		syncPos = position
 		syncRotation = rotation
 	else:
-		position = lerp(position, syncPos, 0.5)
-		rotation = lerpf(rotation, syncRotation, 0.5)
+		if position.distance_to(syncPos) > 1:
+			position = lerp(position, syncPos, 0.5)
+			rotation = lerpf(rotation, syncRotation, 0.5)
 
 func _on_body_entered(body):
 	if multiplayer.is_server():

@@ -22,7 +22,6 @@ enum BuffState {INCREASE, DECREASE}
 @onready var navigation_agent_2d: NavigationAgent2D = $NavigationHandler/NavigationAgent2D
 @onready var attack_timer: Timer = $AttackTimer
 @onready var sprite = $AnimatedSprite2D
-
 @export var projectile_scene: PackedScene
 
 @export var movement_speed = 75
@@ -48,6 +47,11 @@ func _enter_tree():
 func _ready():
 	attack_timer.wait_time = attack_speed
 	attack_timer.timeout.connect(_on_attack_timer_timeout)
+	$MultiplayerSpawner.spawn_function = fire
+	$MultiplayerSpawner.spawn_path = get_parent().get_path()
+	syncPos = position
+	syncVelocity = velocity
+	syncState = state
 
 func say_hello():
 	print("hello area manager")
@@ -181,22 +185,23 @@ func _physics_process(delta: float):
 		syncVelocity = velocity
 		syncState = state
 	else:
-		position = position.lerp(syncPos, 0.5)
-		velocity = velocity.lerp(syncVelocity, 0.5)
-		state = syncState
+		if position.distance_to(syncPos) > 1:
+			position = position.lerp(syncPos, 0.5)
+			velocity = velocity.lerp(syncVelocity, 0.5)
+			state = syncState
 
-@rpc("any_peer","call_local")
-func fire():
+func fire(dict):
+	print('FIRED')
 	var projectile = projectile_scene.instantiate()
 	projectile.red = team != Team.RED
 	projectile.target = enemy_target
-	projectile.global_position = global_position	
+	projectile.global_position = global_position
 	projectile.source = self
 	projectile.damage = damage
 	$HitAudio.play()
-	get_tree().root.add_child(projectile)
+	return projectile
 	
-
+@rpc("authority")
 func _on_attack_timer_timeout():
 	print("attempting attack on enemy")
 	print(is_instance_valid(enemy_target))
@@ -207,7 +212,10 @@ func _on_attack_timer_timeout():
 		sprite.play(anim_suffix + "_attack")
 		is_attacking = true
 		if ranged:
-			fire.rpc()
+			print('spawning')
+			print("MultiplayerSpawner function set to:", $MultiplayerSpawner.spawn_function)
+			$MultiplayerSpawner.spawn({"dummy": true})
+			#fire.rpc()
 		else:
 			var health_component = enemy_target.get_node("HealthComponent")
 			if health_component and health_component is HealthComponent:
