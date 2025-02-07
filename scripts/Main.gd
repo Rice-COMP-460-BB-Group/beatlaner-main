@@ -59,14 +59,9 @@ func _ready():
 		#
 		#index += 1  # Move to next spawn point after assignment
 	var spawns = get_tree().get_nodes_in_group("PlayerSpawnPoint")
-	for spawn in spawns:
-		print("Spawn:", spawn.name, "Position:", spawn.global_position)
 	var players = []
 	var index = 0
 	for player_data in GameManager.Players.values():  # Iterate properly over dictionary		
-		#if index == 0:
-			#index += 1
-			#continue
 		var currentPlayer = PlayerScene.instantiate()
 		currentPlayer.name = str(player_data.id)
 		add_child(currentPlayer)
@@ -74,12 +69,7 @@ func _ready():
 		currentPlayer.global_position = spawns[index].global_position
 		players.append(currentPlayer)
 		var sprite = currentPlayer.get_node("AnimatedSprite2D")
-		print("sprite", sprite)
-		print("Assigned player", currentPlayer.name, "to", spawns[index].global_position)
-		print("Player position set to:", currentPlayer.global_position)
 		index += 1
-	for player in players:
-		print("player", player.name, player.global_position)
 	spawner = get_node("Spawner")
 	spawner.spawner_init()
 	Signals.OpenRhythmGame.connect(OpenRhythmGame)
@@ -93,7 +83,6 @@ func _on_power_get(player: String, powerup: String):
 		player1_powerups[powerup] += 1
 	else:
 		player2_powerups[powerup] += 1
-	print('new powerups', player1_powerups)
 
 
 func on_tower_destroyed(team: Team, pos: Vector2):

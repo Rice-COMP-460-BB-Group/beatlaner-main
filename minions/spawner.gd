@@ -5,7 +5,7 @@ var to_add: Dictionary = {"top": 0, "mid": 0, "bottom": 0}
 
 var minionScene = load("res://minions/minion.tscn")
 var mageScene = load("res://minions/mage.tscn")
-
+@onready var multiplayer_spawner = get_parent().get_node("MultiplayerSpawner")  # Access sibling
 var towerScene = load("res://main/Tower.tscn")
 var minion_count = 0
 var to_spawn = 1
@@ -36,7 +36,7 @@ func _ready() -> void:
 		return
 	Signals.Score.connect(Score)
 	print("spawner invoked")
-	
+	$MultiplayerSpawner.set_spawn_function(spawn)
 		
 func spawner_init() -> void:
 	for sp in get_children():
@@ -185,37 +185,16 @@ var bottomcount = 0
 	##main.add_child(minion)
 	##minion_count += 1
 	#
-
-@rpc("authority", "reliable")
-func spawn_minion_on_clients(key: String, minion_type: int, position: Vector2, team: int, tower_target_name: String):
-	# This method is called on clients to spawn minions
-	var minion = minionScene.instantiate() if minion_type else mageScene.instantiate()
 	
-	if key.ends_with("Upper"):
-		minion.intermediate_lane = upperThrough
-	elif key.ends_with("Lower"):
-		minion.intermediate_lane = lowerThrough
-
-	minion.set_team(team == 0)
-	
-	# Find the tower target on clients using the stored name
-	var tower_target = null
-	if tower_target_name:
-		tower_target = spawn_points.get(tower_target_name)
-	minion.tower_target = tower_target
-	
-	minion.position = position
-
-	var main = get_parent()
-	main.add_child(minion)
-	minion_count += 1
-
-func _spawn_and_sync(key: String):
+func spawn(dict):
+	print("id: ", multiplayer.get_unique_id(), multiplayer.get_remote_sender_id())
+	var key = dict["key"]
+	var minion_type = dict["minion_type"]
+	print('SPAWNING COPE', key, minion_type)
 	var spawnpt = spawn_points.get(key, null)
 	if not is_instance_valid(spawnpt):
 		return
 
-	var minion_type = randi() % 2
 	var team = spawnpt.team
 	
 	# Get the opposite tower's name instead of the tower itself
@@ -236,11 +215,18 @@ func _spawn_and_sync(key: String):
 	minion.tower_target = opposite_tower
 	minion.position = spawnpt.position
 
-	var main = get_parent()
-	main.add_child(minion)
+	return minion
 
+#func spawn_minion_on_clients(key: String, minion_type: int, position: Vector2, team: int, tower_target_name: String):
+	# This method is called on clients to spawn minions
+	#$MultiplayerSpawner.spawn(spawn(key, position, minion_type))
+func _spawn_and_sync(key: String):
 	# Sync spawn to all clients
-	spawn_minion_on_clients.rpc(key, minion_type, spawnpt.position, team, tower_target_name)
+	var minion_type = randi() % 2
+	print("cope vope spawn", multiplayer.get_unique_id())
+	
+	$MultiplayerSpawner.spawn({"key": key, "minion_type": minion_type})
+	#spawn_minion_on_clients.rpc(key, minion_type, spawnpt.position, team, tower_target_name)
 
 func spawn_friendly_wave(config: Dictionary, is_friendly: bool) -> void:
 	if not multiplayer.is_server():

@@ -32,4 +32,8 @@ position = Vector2(1854, 2226)
 [node name="WaveTimer" type="Timer" parent="."]
 wait_time = 15.0
 
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://minions/minion.tscn", "res://minions/mage.tscn")
+spawn_path = NodePath("..")
+
 [connection signal="timeout" from="WaveTimer" to="." method="_on_timer_timeout"]
