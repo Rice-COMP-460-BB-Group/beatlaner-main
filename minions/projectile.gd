@@ -13,8 +13,10 @@ func _ready():
 	if !red:
 		$Projectile.texture = preload("res://assets/proj-enemy.png")
 		$PointLight2D.color = Color(0, 0, 1, 1)
-	var direction = (target.global_position - global_position).normalized()
-	rotation = direction.angle()
+	if is_instance_valid(target):
+
+		var direction = (target.global_position - global_position).normalized()
+		rotation = direction.angle()
 
 	syncPos = position
 	syncRotation = rotation
