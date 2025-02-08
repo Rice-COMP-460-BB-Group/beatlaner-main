@@ -29,7 +29,7 @@ var is_rhythm_game_open = false
 @onready var animationTree = $AnimationTree
 @onready var weapon = $Weapon
 @onready var state_machine = animationTree["parameters/playback"]
-
+@onready var camera = $Camera2D as Camera2D
 
 var blend_position: Vector2 = Vector2.ZERO
 var blend_pos_paths = ["parameters/Idle/id_BlendSpace2D/blend_position", "parameters/Moving/BlendSpace2D/blend_position"]
@@ -51,6 +51,11 @@ func _ready() -> void:
 
 	old_collision_size = $Slice/SliceArea/CollisionShape2D.shape.size
 	respawn_position = global_position
+
+	$MultiplayerSynchronizer.set_multiplayer_authority(str(name).to_int())
+	if $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
+
+		camera.make_current()
 
 func move(delta):
 	if is_rhythm_game_open:
@@ -160,90 +165,91 @@ func create_afterimage():
 		await tween.finished
 		afterimage.queue_free()
 func _physics_process(delta: float) -> void:
-	
-	if is_dashing:
-		dash_timer -= delta
-		if dash_timer <= 0:
-			is_dashing = false
-			self.collision_mask |= (1 << 2)	
+	if $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
 
-	if Input.is_action_just_pressed("escape rhythm game"):
-		escape_rhythm_game();
+		if is_dashing:
+			dash_timer -= delta
+			if dash_timer <= 0:
+				is_dashing = false
+				self.collision_mask |= (1 << 2)	
 
-	if Input.is_action_just_pressed("toggle_rhythm_game") and $HealthComponent.currentHealth > 0:
-		handle_rhythm_callback()
-	
-	if Input.is_action_just_pressed("Dispatch_Top") and current_score > 100:
-		current_score -= 100
-		wave_request.emit(0, 10)
-		update_mana(current_score)
+		if Input.is_action_just_pressed("escape rhythm game"):
+			escape_rhythm_game();
+
+		if Input.is_action_just_pressed("toggle_rhythm_game") and $HealthComponent.currentHealth > 0:
+			handle_rhythm_callback()
 		
-	if Input.is_action_just_pressed("Dispatch_Mid") and current_score > 100:
-		current_score -= 100
-		wave_request.emit(1, 10)
-		update_mana(current_score)
-		print("s")
-	if Input.is_action_just_pressed("Dispatch_Low") and current_score > 100:
-		current_score -= 100
-		wave_request.emit(2, 10)
-		update_mana(current_score)
-	
-	if Input.is_action_just_pressed("Attack"):
-		if $HealthComponent.currentHealth <= 0 or last_attack < attack_speed:
-			return
+		if Input.is_action_just_pressed("Dispatch_Top") and current_score > 100:
+			current_score -= 100
+			wave_request.emit(0, 10)
+			update_mana(current_score)
+			
+		if Input.is_action_just_pressed("Dispatch_Mid") and current_score > 100:
+			current_score -= 100
+			wave_request.emit(1, 10)
+			update_mana(current_score)
+			print("s")
+		if Input.is_action_just_pressed("Dispatch_Low") and current_score > 100:
+			current_score -= 100
+			wave_request.emit(2, 10)
+			update_mana(current_score)
 		
-		last_attack = 0
+		if Input.is_action_just_pressed("Attack"):
+			if $HealthComponent.currentHealth <= 0 or last_attack < attack_speed:
+				return
+			
+			last_attack = 0
 
-		var angle_to_cursor = global_position.angle_to_point(get_global_mouse_position())
-		var slice = $Slice
-		slice.position = Vector2.RIGHT.rotated(angle_to_cursor) * 20
-		slice.rotation = angle_to_cursor
+			var angle_to_cursor = global_position.angle_to_point(get_global_mouse_position())
+			var slice = $Slice
+			slice.position = Vector2.RIGHT.rotated(angle_to_cursor) * 20
+			slice.rotation = angle_to_cursor
 
-		var white = Color(1, 1, 1, 1)
-		var yellow = Color(1, 1, 0, 1)
-		var orange = Color(1, 0.5, 0, 1)
-		var red = Color(1, 0, 0, 1)
+			var white = Color(1, 1, 1, 1)
+			var yellow = Color(1, 1, 0, 1)
+			var orange = Color(1, 0.5, 0, 1)
+			var red = Color(1, 0, 0, 1)
 
-		var critical = falloff_curve()
-		var final_color
-		if critical < 0.5:
-			final_color = white.lerp(yellow, critical * 2)
-		elif critical < 0.75:
-			final_color = yellow.lerp(orange, (critical - 0.5) * 4)
-		else:
-			final_color = orange.lerp(red, (critical - 0.75) * 4)
+			var critical = falloff_curve()
+			var final_color
+			if critical < 0.5:
+				final_color = white.lerp(yellow, critical * 2)
+			elif critical < 0.75:
+				final_color = yellow.lerp(orange, (critical - 0.5) * 4)
+			else:
+				final_color = orange.lerp(red, (critical - 0.75) * 4)
+			
+			slice.scale = Vector2(1.0 + critical, 1.0 + critical)
+			slice.modulate = final_color
+
+			$Slice/SliceArea/CollisionShape2D.shape.size = old_collision_size * (1.0 + critical)
+			$Slice/SliceAnimation.play()
+
+
+			var foundAttack = false
+
+			for body in $Slice/SliceArea.get_overlapping_bodies():
+				if body != self and (body is Minion or body is Player) and body.team != team:
+					if body.has_node("HealthComponent"):
+						foundAttack = true
+						body.get_node("HealthComponent").decrease_health(damage + damage * falloff_curve())
+			
+			for body in $Slice/SliceArea.get_overlapping_areas():
+				if body is Tower and body.team != team:
+					if body.has_node("HealthComponent"):
+						foundAttack = true
+						body.get_node("HealthComponent").decrease_health(damage + damage * falloff_curve())
+			
+			if foundAttack:
+				var floating_text = floating_text_scene.instantiate()
+				floating_text.text = str(round(damage + damage * falloff_curve()))
+				floating_text.critical = falloff_curve()
+				floating_text.rotation = deg_to_rad(randf_range(-10, 10))
+				$Stats/DamagePosition.add_child(floating_text)
+		last_attack += delta
+		move(delta)
 		
-		slice.scale = Vector2(1.0 + critical, 1.0 + critical)
-		slice.modulate = final_color
-
-		$Slice/SliceArea/CollisionShape2D.shape.size = old_collision_size * (1.0 + critical)
-		$Slice/SliceAnimation.play()
-
-
-		var foundAttack = false
-
-		for body in $Slice/SliceArea.get_overlapping_bodies():
-			if body != self and (body is Minion or body is Player) and body.team != team:
-				if body.has_node("HealthComponent"):
-					foundAttack = true
-					body.get_node("HealthComponent").decrease_health(damage + damage * falloff_curve())
-		
-		for body in $Slice/SliceArea.get_overlapping_areas():
-			if body is Tower and body.team != team:
-				if body.has_node("HealthComponent"):
-					foundAttack = true
-					body.get_node("HealthComponent").decrease_health(damage + damage * falloff_curve())
-		
-		if foundAttack:
-			var floating_text = floating_text_scene.instantiate()
-			floating_text.text = str(round(damage + damage * falloff_curve()))
-			floating_text.critical = falloff_curve()
-			floating_text.rotation = deg_to_rad(randf_range(-10, 10))
-			$Stats/DamagePosition.add_child(floating_text)
-	last_attack += delta
-	move(delta)
-	
-	animate()
+		animate()
 
 
 func handle_rhythm_callback():

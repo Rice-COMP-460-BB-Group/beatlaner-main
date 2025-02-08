@@ -790,6 +790,21 @@ animations = [{
 "name": &"default",
 "speed": 12.0
 }]
+graph_offset = Vector2(171.458, -57.6224)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_fmn6a"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("AnimatedSprite2D:animation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("AnimatedSprite2D:frame")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:current_score")
+properties/3/spawn = true
+properties/3/replication_mode = 1
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 4
@@ -960,3 +975,5 @@ script = ExtResource("28_i8vw6")
 
 [connection signal="timeout" from="Metronome" to="." method="_on_metronome_timeout"]
 [connection signal="health_destroyed" from="HealthComponent" to="." method="_on_health_component_health_destroyed"]
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_fmn6a")
