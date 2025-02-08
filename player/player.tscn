@@ -1,4 +1,4 @@
-[gd_scene load_steps=103 format=3 uid="uid://bj3lu7yts43wl"]
+[gd_scene load_steps=104 format=3 uid="uid://bj3lu7yts43wl"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_h04aa"]
 [ext_resource type="Texture2D" uid="uid://3sv7ccy0u7fe" path="res://assets/6369.png" id="1_xd2rp"]
@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://bsp8xj4gv4cay" path="res://assets/slash-001.png" id="7_76oyw"]
 [ext_resource type="Texture2D" uid="uid://deyvtt4hy8yff" path="res://assets/Metronome-001.png" id="7_l82ru"]
 [ext_resource type="Texture2D" uid="uid://cs6m1cpa0dywa" path="res://assets/Metronome-002.png" id="8_mhfkm"]
-[ext_resource type="PackedScene" uid="uid://b8jlygfvbd34" path="res://player/weapon.tscn" id="8_n6a7o"]
+[ext_resource type="PackedScene" path="res://player/weapon.tscn" id="8_n6a7o"]
 [ext_resource type="Texture2D" uid="uid://cvpirpaujt8m1" path="res://assets/slash-002.png" id="8_txc5s"]
 [ext_resource type="Texture2D" uid="uid://boe1p0ko1l128" path="res://assets/slash-003.png" id="9_edhdg"]
 [ext_resource type="Texture2D" uid="uid://1r3m5wq8wgyt" path="res://assets/Metronome-003.png" id="9_yimr5"]
@@ -26,7 +26,7 @@
 [ext_resource type="Texture2D" uid="uid://cjel352fixcg" path="res://assets/Metronome-010.png" id="16_s4mf8"]
 [ext_resource type="Texture2D" uid="uid://cxggkjevi7j0k" path="res://assets/Metronome-011.png" id="17_eajn3"]
 [ext_resource type="FontFile" uid="uid://cm5q756n5trre" path="res://assets/VT323-Regular.ttf" id="18_86px8"]
-[ext_resource type="PackedScene" uid="uid://b2h8ppy4k7dko" path="res://player/ManaBar.tscn" id="19_w14c3"]
+[ext_resource type="PackedScene" path="res://player/ManaBar.tscn" id="19_w14c3"]
 [ext_resource type="Script" path="res://player/afterimage.gd" id="28_i8vw6"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xpusc"]
@@ -790,7 +790,6 @@ animations = [{
 "name": &"default",
 "speed": 12.0
 }]
-graph_offset = Vector2(171.458, -57.6224)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_fmn6a"]
 properties/0/path = NodePath(".:position")
@@ -973,7 +972,8 @@ sprite_frames = SubResource("SpriteFrames_8pu2n")
 [node name="AfterImage" type="Sprite2D" parent="."]
 script = ExtResource("28_i8vw6")
 
-[connection signal="timeout" from="Metronome" to="." method="_on_metronome_timeout"]
-[connection signal="health_destroyed" from="HealthComponent" to="." method="_on_health_component_health_destroyed"]
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_fmn6a")
+
+[connection signal="timeout" from="Metronome" to="." method="_on_metronome_timeout"]
+[connection signal="health_destroyed" from="HealthComponent" to="." method="_on_health_component_health_destroyed"]

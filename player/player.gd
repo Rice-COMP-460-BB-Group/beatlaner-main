@@ -64,7 +64,8 @@ func move(delta):
 		return
 	var input_vector = Input.get_vector("move_left","move_right","move_up","move_down")
 	if Input.is_action_just_pressed("Dash"):
-			start_dash()
+		print('dashing')
+		start_dash()
 	if is_dashing:
 		velocity = last_input_direction * DASH_SPEED
 
