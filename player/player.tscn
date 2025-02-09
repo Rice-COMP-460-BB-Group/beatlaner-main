@@ -843,6 +843,8 @@ transform = Transform2D(1, 0, 0, 1, 800, 325)
 
 [node name="HealthComponent" parent="." instance=ExtResource("6_wraxi")]
 position = Vector2(0, -7)
+currentHealth = 200
+maxHealth = 200
 red = false
 
 [node name="Stats" type="Control" parent="."]

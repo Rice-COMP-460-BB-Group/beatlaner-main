@@ -91,76 +91,53 @@ func _on_power_get(player: String, powerup: String):
 		player2_powerups[powerup] += 1
 
 
+# Add this near the top of your script
+@rpc("any_peer", "call_local")
+func show_victory():
+	var banner = $BannerLayer/Banner
+	banner.texture = win_banner
+	banner.modulate.a = 0
+	banner.show()
+
+	var fade_in = banner.create_tween()
+	fade_in.tween_property(banner, "modulate:a", 1, .5)
+	await fade_in.finished
+	await get_tree().create_timer(2).timeout
+	get_tree().change_scene_to_file("res://map/game_win.tscn")
+
+@rpc("any_peer", "call_local")
+func show_defeat():
+	var banner = $BannerLayer/Banner
+	banner.texture = lose_banner
+	banner.modulate.a = 0
+	banner.show()
+
+	var fade_in = banner.create_tween()
+	fade_in.tween_property(banner, "modulate:a", 1, .5)
+	await fade_in.finished
+	await get_tree().create_timer(2).timeout
+	get_tree().change_scene_to_file("res://map/game_over.tscn")
+
 func on_tower_destroyed(team: Team, pos: Vector2):
 	if team == Team.RED:
 		red_score += 1
 	else:
 		blue_score += 1
-	
-	var banner = $BannerLayer/Banner
 
 	if red_score == 3:
-		banner.texture = lose_banner
-		banner.modulate.a = 0
-		banner.show()
-
-		var fade_in = banner.create_tween()
-		fade_in.tween_property(banner, "modulate:a", 1, .5)
-		var camera = $Map/Player/Camera2D
-
-		var tween = create_tween()
-		tween.tween_property(camera, "position", camera.to_local(pos), 1.0)
-		Engine.time_scale = 0.5
-
-
-		await fade_in.finished
-		await tween.finished
-		await get_tree().create_timer(.5).timeout
-		Engine.time_scale = 1
-
-		banner.hide()
-		get_tree().change_scene_to_file.bind("res://map/game_over.tscn").call_deferred()
+		# Notify all players
+		for player in players:
+			if player.team == Team.BLUE:
+				show_defeat.rpc_id(player.get_instance_id())  # Notify RED team (loss)
+			else:
+				show_victory.rpc_id(player.get_instance_id())  # Notify BLUE team (win)
 	elif blue_score == 3:
-		banner.texture = win_banner
-		banner.modulate.a = 0
-		banner.show()
-
-		var fade_in = banner.create_tween()
-		fade_in.tween_property(banner, "modulate:a", 1, .5)
-		var camera = $Map/Player/Camera2D
-
-		var tween = create_tween()
-		tween.tween_property(camera, "position", camera.to_local(pos), 1.0)
-		Engine.time_scale = 0.5
-
-		await fade_in.finished
-		await tween.finished
-		await get_tree().create_timer(.5).timeout
-		Engine.time_scale = 1
-		
-		banner.hide()
-		get_tree().change_scene_to_file.bind("res://map/game_win.tscn").call_deferred()
-	else:
-		if team == Team.RED:
-			banner.texture = win_banner
-		else:
-			banner.texture = destroy_enemy_banner
-		
-		banner.modulate.a = 0
-		banner.show()
-		
-		var fade_in = banner.create_tween()
-		fade_in.tween_property(banner, "modulate:a", 1, .5)
-		await fade_in.finished
-		
-		await get_tree().create_timer(1).timeout
-		
-		var fade_out = banner.create_tween()
-		fade_out.tween_property(banner, "modulate:a", 0, .5)
-		await fade_out.finished
-		
-		banner.hide()
-	
+		# Notify all players
+		for player in players:
+			if player.team == Team.RED:
+				show_defeat.rpc_id(player.get_instance_id())  # Notify BLUE team (loss)
+			else:
+				show_victory.rpc_id(player.get_instance_id())  # Notify RED team (win)
 func OpenRhythmGame(tmp_tower_type: String, tower):
 	if $RhythmLayer.get_children():
 		return

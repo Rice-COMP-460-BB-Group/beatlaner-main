@@ -58,9 +58,9 @@ func _ready() -> void:
 	old_collision_size = $Slice/SliceArea/CollisionShape2D.shape.size
 	if team == Team.RED:
 		print("team", team)
-		respawn_position = Vector2(816, 3200)
+		respawn_position = Vector2(651, 3379)
 	else:
-		respawn_position = Vector2(3184, 816)
+		respawn_position = Vector2(3401, 600)
 
 	print("respawn pos", respawn_position, team)
 	$Stats.hide()
@@ -152,7 +152,8 @@ func _process(delta: float) -> void:
 func escape_rhythm_game():
 	if is_instance_valid(rhythm_game_instance):
 		var score = rhythm_game_instance.get_score()
-		current_score += int(score / 100)
+		print("rhythm score", score)
+		current_score = min(current_score + int(score / 3000), 300)
 		$RhythmLayer1.remove_child(rhythm_game_instance)
 		is_rhythm_game_open = false
 		update_mana(current_score)
@@ -204,21 +205,21 @@ func _physics_process(delta: float) -> void:
 
 		if Input.is_action_just_pressed("toggle_rhythm_game") and $HealthComponent.currentHealth > 0:
 			handle_rhythm_callback()
-		
-		if Input.is_action_just_pressed("Dispatch_Top") and current_score > 500:
-			current_score -= 500
-			request_wave_spawn.rpc(0, 5, team)
-			update_mana(current_score)
-			
-		if Input.is_action_just_pressed("Dispatch_Mid") and current_score > 500:
-			current_score -= 500
-			request_wave_spawn.rpc(1, 5, team)
-			update_mana(current_score)
+		if current_score >= 10:
+			if Input.is_action_just_pressed("Dispatch_Top"):
+				current_score -= 10
+				request_wave_spawn.rpc(0, 5, team)
+				update_mana(current_score)
+				
+			if Input.is_action_just_pressed("Dispatch_Mid"):
+				current_score -= 10
+				request_wave_spawn.rpc(1, 5, team)
+				update_mana(current_score)
 
-		if Input.is_action_just_pressed("Dispatch_Low") and current_score > 500:
-			current_score -= 500
-			request_wave_spawn.rpc(2, 5, team)
-			update_mana(current_score)
+			if Input.is_action_just_pressed("Dispatch_Low") :
+				current_score -= 10
+				request_wave_spawn.rpc(2, 5, team)
+				update_mana(current_score)
 				
 		if Input.is_action_just_pressed("Attack"):
 			if $HealthComponent.currentHealth <= 0 or last_attack < attack_speed:
