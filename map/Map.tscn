@@ -953,6 +953,7 @@ z_index = 10
 position = Vector2(1853, 2031)
 
 [node name="Player" parent="." instance=ExtResource("8_irpw7")]
+position = Vector2(-339, -155)
 
 [node name="1" type="Node2D" parent="." groups=["PlayerSpawnPoint"]]
 position = Vector2(2032, 2143)

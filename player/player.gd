@@ -51,6 +51,7 @@ func _ready() -> void:
 
 	old_collision_size = $Slice/SliceArea/CollisionShape2D.shape.size
 	respawn_position = global_position
+	print(respawn_position)
 
 	$MultiplayerSynchronizer.set_multiplayer_authority(str(name).to_int())
 	if $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
@@ -174,27 +175,27 @@ func _physics_process(delta: float) -> void:
 				is_dashing = false
 				self.collision_mask |= (1 << 2)	
 
-		if Input.is_action_just_pressed("escape rhythm game"):
-			escape_rhythm_game();
-
 		if Input.is_action_just_pressed("toggle_rhythm_game") and $HealthComponent.currentHealth > 0:
 			handle_rhythm_callback()
 		
 		if Input.is_action_just_pressed("Dispatch_Top") and current_score > 100:
-			current_score -= 100
-			wave_request.emit(0, 10)
+			current_score -= 500
+			#wave_request.emit(0, 10)
+			rpc("request_wave", 0, 5)
 			update_mana(current_score)
 			
 		if Input.is_action_just_pressed("Dispatch_Mid") and current_score > 100:
-			current_score -= 100
-			wave_request.emit(1, 10)
+			current_score -= 500
+			#wave_request.emit(1, 10)
+			rpc("request_wave", 1, 5)
 			update_mana(current_score)
 			print("s")
 		if Input.is_action_just_pressed("Dispatch_Low") and current_score > 100:
-			current_score -= 100
-			wave_request.emit(2, 10)
+			current_score -= 500
+			#wave_request.emit(2, 10)
+			rpc("request_wave", 2, 5)
 			update_mana(current_score)
-		
+			
 		if Input.is_action_just_pressed("Attack"):
 			if $HealthComponent.currentHealth <= 0 or last_attack < attack_speed:
 				return
