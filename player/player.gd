@@ -112,7 +112,7 @@ func start_dash():
 			is_dashing = true
 			sync_is_dashing = true
 			dash_timer = .02
-			self.collision_mask = (self.collision_mask & ~(1 << 2))
+			self.collision_mask = (self.collision_mask & ~(1 << 3))
 			create_afterimage()
 	#print("new collision layer", self.collision_layer)
 		
@@ -204,7 +204,7 @@ func _physics_process(delta: float) -> void:
 			if dash_timer <= 0:
 				is_dashing = false
 				sync_is_dashing = false
-				self.collision_mask |= (1 << 2)
+				self.collision_mask |= (1 << 3)
 
 		if Input.is_action_just_pressed("toggle_rhythm_game") and $HealthComponent.currentHealth > 0:
 			handle_rhythm_callback()
