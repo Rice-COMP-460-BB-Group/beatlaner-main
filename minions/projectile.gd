@@ -23,7 +23,7 @@ func _ready():
 	syncRotation = rotation
 func _physics_process(delta):
 	if multiplayer.is_server():
-		if not is_instance_valid(target):
+		if not is_instance_valid(target) or ( is_instance_valid(target)  and target.has_node("HealthComponent") and target.get_node("HealthComponent").get_current_health() <= 0):
 			rpc("destroy_bullet")
 			return
 			

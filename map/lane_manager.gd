@@ -77,10 +77,9 @@ func _on_upper_lane_body_exited(body: Node2D) -> void:
 		return
 	print(body.name)
 
-@rpc("any_peer", "call_local")
-func wave_request(pos: int, size: int) -> void:
-	print("wave request")
-	var spawner = $"../../Spawner"
+func wave_request(pos: int, size: int, team: bool) -> void:
+	print("wave request", pos, size, team)
+	var spawner = $"/root/Main/Spawner"
 	var config = {"top": 0, "mid": 0, "bottom": 0}
 	
 	if pos == 0:
@@ -90,7 +89,7 @@ func wave_request(pos: int, size: int) -> void:
 	elif pos == 2:
 		config["bottom"] = size
 	
-	spawner.spawn_friendly_wave(config, true)
+	spawner.spawn_friendly_wave(config, team)
 
 func _on_player_wave_request(pos: int, size: int) -> void:
 	print("wave request")

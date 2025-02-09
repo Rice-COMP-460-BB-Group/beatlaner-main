@@ -62,11 +62,15 @@ func _ready():
 	var spawns = get_tree().get_nodes_in_group("PlayerSpawnPoint")
 	var players = []
 	var index = 0
+	var curr_team = Team.RED
 	for player_data in GameManager.Players.values():  # Iterate properly over dictionary		
 		var currentPlayer = PlayerScene.instantiate()
 		currentPlayer.name = str(player_data.id)
+		currentPlayer.team = curr_team
 		add_child(currentPlayer)
 		currentPlayer.visible = true
+		curr_team = not curr_team
+		print("playuers team", currentPlayer.team)
 		currentPlayer.global_position = spawns[index].global_position
 		players.append(currentPlayer)
 		var sprite = currentPlayer.get_node("AnimatedSprite2D")
@@ -178,11 +182,11 @@ func _process(delta):
 
 		
 	
-	if len($RhythmLayer.get_children()) and Input.is_action_just_pressed("escape rhythm game"):
-		var score = rhythm_game_instance.get_score()
-		Signals.Score.emit(score, tower_type)
-		current_tower.update_score(score)
-		$RhythmLayer.remove_child(rhythm_game_instance)
+	#if len($RhythmLayer.get_children()) and Input.is_action_just_pressed("escape rhythm game"):
+		#var score = rhythm_game_instance.get_score()
+		#Signals.Score.emit(score, tower_type)
+		#current_tower.update_score(score)
+		#$RhythmLayer.remove_child(rhythm_game_instance)
 		
 	
 	$"WaveLayer/Wave Spawning/Timer Label".text = "Wave Spawning: " + str(floor($"Wave Timer".time_left)) + "s"

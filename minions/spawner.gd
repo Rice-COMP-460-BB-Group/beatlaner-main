@@ -231,6 +231,7 @@ func _spawn_and_sync(key: String):
 	#spawn_minion_on_clients.rpc(key, minion_type, spawnpt.position, team, tower_target_name)
 
 func spawn_friendly_wave(config: Dictionary, is_friendly: bool) -> void:
+	print("spawning spawning", config)
 	if not multiplayer.is_server():
 		return  # Only the server triggers spawning
 

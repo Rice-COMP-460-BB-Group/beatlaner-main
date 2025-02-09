@@ -5,7 +5,7 @@ class_name Player
 @export var bpm = 120
 @export var damage = 10
 @export var attack_speed = .35
-@export var team: Team = Team.RED # Change this later
+@export var team: Team
 @export var respawn_position: Vector2
 
 enum Team {BLUE = 0, RED = 1}
@@ -40,25 +40,38 @@ var animTree_state_keys = [
 	"Idle", "Moving"
 ]
 
+var sync_velocity := Vector2.ZERO
+var sync_is_dashing := false
+
 var old_collision_size
 
 func _ready() -> void:
-	$Metronome.wait_time = 60.0 / bpm
+	$Metronome.wait_time = 0.5
 	cycle_duration = 2 * $Metronome.wait_time # Full cycle duration (1 second)
 	frame_duration = cycle_duration / (total_metronome_frames - 1) # 1/12 ≈ 0.0833s
 	$Metronome.start()
 	$Slice/SliceAnimation.frame = 4
+	
+	
 
 	old_collision_size = $Slice/SliceArea/CollisionShape2D.shape.size
-	respawn_position = global_position
-	print(respawn_position)
+	if team == Team.RED:
+		print("team", team)
+		respawn_position = Vector2(1854, 2226)
+	else:
+		respawn_position = Vector2(2309, 1764)
 
+	print("respawn pos", respawn_position, team)
+	$Stats.hide()
+	$HUD.hide()
 	$MultiplayerSynchronizer.set_multiplayer_authority(str(name).to_int())
-	if $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
+	if $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id() and not multiplayer.is_server():
 
 		camera.make_current()
-
+		$Stats.show()
+		$HUD.show()
 func move(delta):
+	print('moving')
 	if is_rhythm_game_open:
 		state = IDLE
 		velocity = Vector2.ZERO
@@ -66,10 +79,10 @@ func move(delta):
 	var input_vector = Input.get_vector("move_left","move_right","move_up","move_down")
 	if Input.is_action_just_pressed("Dash"):
 		print('dashing')
-		start_dash()
+		start_dash.rpc()
 	if is_dashing:
-		velocity = last_input_direction * DASH_SPEED
-
+		sync_velocity = last_input_direction * DASH_SPEED
+		velocity = sync_velocity
 	else:
 		
 		if input_vector == Vector2.ZERO:
@@ -87,13 +100,16 @@ func move(delta):
 		
 	
 	move_and_slide()
-
+@rpc("any_peer", "call_local")
 func start_dash():
-	if last_input_direction != Vector2.ZERO:
-		is_dashing = true
-		dash_timer = .02
-		self.collision_mask = (self.collision_mask & ~(1 << 2))
-		create_afterimage()
+	print("dashing")
+	if $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
+		if last_input_direction != Vector2.ZERO:
+			is_dashing = true
+			sync_is_dashing = true
+			dash_timer = .02
+			self.collision_mask = (self.collision_mask & ~(1 << 2))
+			create_afterimage()
 	#print("new collision layer", self.collision_layer)
 		
 
@@ -166,6 +182,13 @@ func create_afterimage():
 
 		await tween.finished
 		afterimage.queue_free()
+		
+@rpc("any_peer", "call_local", "reliable")
+func request_wave_spawn(pos: int, size: int, team: bool):
+	if multiplayer.is_server():
+		LaneManager.wave_request(pos, size, team)
+
+
 func _physics_process(delta: float) -> void:
 	if $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
 
@@ -173,27 +196,25 @@ func _physics_process(delta: float) -> void:
 			dash_timer -= delta
 			if dash_timer <= 0:
 				is_dashing = false
+				sync_is_dashing = false
 				self.collision_mask |= (1 << 2)	
 
 		if Input.is_action_just_pressed("toggle_rhythm_game") and $HealthComponent.currentHealth > 0:
 			handle_rhythm_callback()
 		
-		if Input.is_action_just_pressed("Dispatch_Top") and current_score > 100:
+		if Input.is_action_just_pressed("Dispatch_Top") and current_score > 500:
 			current_score -= 500
-			#wave_request.emit(0, 10)
-			rpc("request_wave", 0, 5)
+			request_wave_spawn.rpc(0, 5, team)
 			update_mana(current_score)
 			
-		if Input.is_action_just_pressed("Dispatch_Mid") and current_score > 100:
+		if Input.is_action_just_pressed("Dispatch_Mid") and current_score > 500:
 			current_score -= 500
-			#wave_request.emit(1, 10)
-			rpc("request_wave", 1, 5)
+			request_wave_spawn.rpc(1, 5, team)
 			update_mana(current_score)
-			print("s")
-		if Input.is_action_just_pressed("Dispatch_Low") and current_score > 100:
+
+		if Input.is_action_just_pressed("Dispatch_Low") and current_score > 500:
 			current_score -= 500
-			#wave_request.emit(2, 10)
-			rpc("request_wave", 2, 5)
+			request_wave_spawn.rpc(2, 5, team)
 			update_mana(current_score)
 			
 		if Input.is_action_just_pressed("Attack"):
@@ -258,6 +279,7 @@ func handle_rhythm_callback():
 	if is_rhythm_game_open:
 		$RhythmLayer1.remove_child(rhythm_game_instance)
 		is_rhythm_game_open = false
+		escape_rhythm_game()
 	else:
 		var rhythm_game_scene = load("res://rhythm game/scenes/background.tscn")
 		rhythm_game_instance = rhythm_game_scene.instantiate()
