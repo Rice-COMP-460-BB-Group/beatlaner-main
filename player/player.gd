@@ -278,6 +278,9 @@ func _physics_process(delta: float) -> void:
 	else:
 		$AnimatedSprite2D.animation = "IdleRight"
 
+func get_minimap():
+	return $HUD/Minimap
+
 func handle_rhythm_callback():
 	if is_rhythm_game_open:
 		$RhythmLayer1.remove_child(rhythm_game_instance)

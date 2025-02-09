@@ -22,6 +22,8 @@ var tower_type
 var current_tower
 
 enum Team {BLUE, RED}
+var players = []
+
 
 var red_score = 0
 var blue_score = 0
@@ -60,7 +62,6 @@ func _ready():
 		#
 		#index += 1  # Move to next spawn point after assignment
 	var spawns = get_tree().get_nodes_in_group("PlayerSpawnPoint")
-	var players = []
 	var index = 0
 	var curr_team = Team.RED
 	for player_data in GameManager.Players.values():  # Iterate properly over dictionary		
@@ -222,4 +223,5 @@ func _on_debugmenu_freeze_spell(lane: int, friendly: bool) -> void:
 func _on_map_update_refresh_timeout() -> void:
 	var cur_map = lane_manager.get_minimap_info()
 	print('map timeout!')
-	minimap.refresh_minimap(cur_map["blue"],cur_map["red"])
+	for player in players:
+		player.get_minimap().refresh_minimap(cur_map["blue"],cur_map["red"])
