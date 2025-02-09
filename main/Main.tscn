@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dcm1avlkgfcd7" path="res://map/Map.tscn" id="2_tonyl"]
 [ext_resource type="PackedScene" uid="uid://bq7b1nef7l6w6" path="res://debug/debugmenu.tscn" id="3_nkcnh"]
 [ext_resource type="PackedScene" uid="uid://bufx6wcek0aj8" path="res://minions/spawner.tscn" id="5_cp35u"]
-[ext_resource type="AudioStream" uid="uid://dq1cyy24uue51" path="res://assets/Beatmainsong1.wav" id="7_4mng7"]
+[ext_resource type="AudioStream" uid="uid://d32ssvi08rbiw" path="res://assets/Beat of Battle (1).mp3" id="7_w87xc"]
 [ext_resource type="Texture2D" uid="uid://2bx5t4k3vue3" path="res://assets/enemy-banner.png" id="8_ffofp"]
 
 [node name="Main" type="Node2D"]
@@ -58,8 +58,7 @@ visible = true
 [node name="Spawner" parent="." instance=ExtResource("5_cp35u")]
 
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("7_4mng7")
-autoplay = true
+stream = ExtResource("7_w87xc")
 
 [node name="map_update_refresh" type="Timer" parent="."]
 wait_time = 0.851

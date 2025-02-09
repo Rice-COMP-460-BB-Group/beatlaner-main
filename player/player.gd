@@ -71,6 +71,7 @@ func _ready() -> void:
 		camera.make_current()
 		$Stats.show()
 		$HUD.show()
+
 func move(delta):
 	if not $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
 		return

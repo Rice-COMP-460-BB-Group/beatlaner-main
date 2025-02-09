@@ -82,8 +82,11 @@ func _ready():
 
 	Signals.TowerDestroyed.connect(on_tower_destroyed)
 	Signals.PowerupGet.connect(_on_power_get)
-
-
+	$BackgroundMusic.connect("finished", Callable(self,"_on_loop_sound").bind($BackgroundMusic))
+	$BackgroundMusic.play()
+func _on_loop_sound(player):
+	$BackgroundMusic.stream_paused = false
+	$BackgroundMusic.play()
 func _on_power_get(player: String, powerup: String):
 	if player == "player1":
 		player1_powerups[powerup] += 1
