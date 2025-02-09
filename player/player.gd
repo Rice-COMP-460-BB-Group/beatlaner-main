@@ -71,6 +71,8 @@ func _ready() -> void:
 		$Stats.show()
 		$HUD.show()
 func move(delta):
+	if not $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
+		return
 	print('moving')
 	if is_rhythm_game_open:
 		state = IDLE
@@ -197,7 +199,7 @@ func _physics_process(delta: float) -> void:
 			if dash_timer <= 0:
 				is_dashing = false
 				sync_is_dashing = false
-				self.collision_mask |= (1 << 2)	
+				self.collision_mask |= (1 << 2)
 
 		if Input.is_action_just_pressed("toggle_rhythm_game") and $HealthComponent.currentHealth > 0:
 			handle_rhythm_callback()
