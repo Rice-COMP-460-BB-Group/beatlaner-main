@@ -190,7 +190,7 @@ func request_wave_spawn(pos: int, size: int, team: bool):
 
 
 func _physics_process(delta: float) -> void:
-	if $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
+	if $MultiplayerSynchronizer.is_multiplayer_authority():
 
 		if is_dashing:
 			dash_timer -= delta
@@ -273,7 +273,8 @@ func _physics_process(delta: float) -> void:
 		move(delta)
 		
 		animate()
-
+	else:
+		$AnimatedSprite2D.animation = "IdleRight"
 
 func handle_rhythm_callback():
 	if is_rhythm_game_open:
@@ -298,12 +299,20 @@ func apply_movement(amount) -> void:
 	
 	velocity += amount
 	velocity = velocity.limit_length(MAX_SPEED)
-	
-		
+
+@rpc("any_peer")
+func sync_animation(state, blend_position) -> void:
+	state_machine.travel(animTree_state_keys[state])
+	animationTree.set(blend_pos_paths[state], blend_position)
+
+
 func animate() -> void:
 	
 	state_machine.travel(animTree_state_keys[state])
 	animationTree.set(blend_pos_paths[state], blend_position)
+
+	print("auth", is_multiplayer_authority(), multiplayer.get_unique_id())
+	sync_animation.rpc(state, blend_position)
 var rhythm_game_instance
 func OpenRhythmGame(tmp_tower_type: String, tower):
 	if $RhythmLayer1.get_children():
