@@ -152,12 +152,11 @@ func _process(delta: float) -> void:
 
 func escape_rhythm_game():
 	if is_instance_valid(rhythm_game_instance):
-		var score = rhythm_game_instance.get_score()
-		print("rhythm score", score)
-		current_score = min(current_score + int(score / 3000), 300)
 		$RhythmLayer1.remove_child(rhythm_game_instance)
-		is_rhythm_game_open = false
+		var score = rhythm_game_instance.get_score()
+		current_score = min(current_score + int(score / 3000), 300)
 		update_mana(current_score)
+		is_rhythm_game_open = false
 func create_afterimage():
 	var jump_duration = 0.5  # How long the jump lasts (adjust as needed)
 	var num_afterimages = 3  # Number of afterimages you want to create
@@ -196,7 +195,10 @@ func request_wave_spawn(pos: int, size: int, team: bool):
 
 func _physics_process(delta: float) -> void:
 	if $MultiplayerSynchronizer.is_multiplayer_authority():
-
+		if is_rhythm_game_open:
+			var score = rhythm_game_instance.get_score()
+			var tmp_score = min(current_score + int(score / 3000), 300)
+			update_mana(tmp_score)
 		if is_dashing:
 			dash_timer -= delta
 			if dash_timer <= 0:

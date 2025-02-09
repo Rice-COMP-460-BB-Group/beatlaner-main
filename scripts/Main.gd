@@ -151,11 +151,7 @@ func OpenRhythmGame(tmp_tower_type: String, tower):
 	$RhythmLayer.add_child(rhythm_game_instance)
 	
 func _process(delta):
-	if Input.is_action_just_pressed("freeze") and player1_powerups["freeze"] and not len($RhythmLayer.get_children()):
-		player1_powerups["freeze"] -= 1
-		lane_manager.freeze_current_enemies(0, 0)
-		lane_manager.freeze_current_enemies(1, 0)
-		lane_manager.freeze_current_enemies(2, 0)
+	
 	if Input.is_action_just_pressed("damage_powerup") and player1_powerups["damage_powerup"] and not len($RhythmLayer.get_children()):
 		print("damage")
 		player1_powerups["damage_powerup"] -= 1
