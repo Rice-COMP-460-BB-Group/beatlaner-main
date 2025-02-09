@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 class_name Player
 
-@export var bpm = 120
+@export var bpm = 175
 @export var damage = 10
 @export var attack_speed = .35
 @export var team: Team

@@ -52,6 +52,8 @@ func connection_failed():
 
 @rpc("any_peer")
 func SendPlayerInformation(name, id):
+	if GameManager.Players.has(id): 
+		return
 	if !GameManager.Players.has(id):
 		GameManager.Players[id] = {
 			"name": name,
@@ -65,10 +67,9 @@ func SendPlayerInformation(name, id):
 
 @rpc("any_peer", "call_local")
 func StartGame():
-	if multiplayer.is_server():
-		print('bruh1')
-	else:
-		print('bruh2')
+	if GameManager.Players.size() < 2:
+		print("Not enough players to start!")
+		return # Stop if there are less than 2 players
 	$Confirm.play()
 	await $Confirm.finished
 	#get_tree().change_scene_to_file.bind("res://main/Main.tscn").call_deferred()
@@ -96,6 +97,10 @@ func _on_host_button_down():
 
 
 func _on_join_button_down():
+	if peer and peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTED:
+		print("Already connected!")
+		return  
+
 	peer = ENetMultiplayerPeer.new()
 	peer.create_client(Address, port)
 	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
