@@ -950,14 +950,14 @@ texture = ExtResource("6_hk4ok")
 z_index = 10
 
 [node name="0" type="Node2D" parent="." groups=["PlayerSpawnPoint"]]
-position = Vector2(1853, 2031)
+position = Vector2(651, 3379)
 
 [node name="Player" parent="." instance=ExtResource("8_irpw7")]
 visible = false
 position = Vector2(2001, 2019)
 
 [node name="1" type="Node2D" parent="." groups=["PlayerSpawnPoint"]]
-position = Vector2(2032, 2143)
+position = Vector2(3401, 600)
 
 [node name="MapPosHandler" type="Area2D" parent="."]
 collision_layer = 0

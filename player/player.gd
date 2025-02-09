@@ -51,15 +51,16 @@ func _ready() -> void:
 	frame_duration = cycle_duration / (total_metronome_frames - 1) # 1/12 ≈ 0.0833s
 	$Metronome.start()
 	$Slice/SliceAnimation.frame = 4
+	$HealthComponent.red = team == Team.RED
 	
 	
 
 	old_collision_size = $Slice/SliceArea/CollisionShape2D.shape.size
 	if team == Team.RED:
 		print("team", team)
-		respawn_position = Vector2(1854, 2226)
+		respawn_position = Vector2(816, 3200)
 	else:
-		respawn_position = Vector2(2309, 1764)
+		respawn_position = Vector2(3184, 816)
 
 	print("respawn pos", respawn_position, team)
 	$Stats.hide()
@@ -218,7 +219,7 @@ func _physics_process(delta: float) -> void:
 			current_score -= 500
 			request_wave_spawn.rpc(2, 5, team)
 			update_mana(current_score)
-			
+				
 		if Input.is_action_just_pressed("Attack"):
 			if $HealthComponent.currentHealth <= 0 or last_attack < attack_speed:
 				return
