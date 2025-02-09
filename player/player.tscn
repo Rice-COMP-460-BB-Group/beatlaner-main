@@ -1,4 +1,4 @@
-[gd_scene load_steps=104 format=3 uid="uid://bj3lu7yts43wl"]
+[gd_scene load_steps=106 format=3 uid="uid://bj3lu7yts43wl"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_h04aa"]
 [ext_resource type="Texture2D" uid="uid://3sv7ccy0u7fe" path="res://assets/6369.png" id="1_xd2rp"]
@@ -28,6 +28,8 @@
 [ext_resource type="FontFile" uid="uid://cm5q756n5trre" path="res://assets/VT323-Regular.ttf" id="18_86px8"]
 [ext_resource type="PackedScene" uid="uid://b2h8ppy4k7dko" path="res://player/ManaBar.tscn" id="19_w14c3"]
 [ext_resource type="Script" path="res://player/afterimage.gd" id="28_i8vw6"]
+[ext_resource type="AudioStream" uid="uid://crwiggodkgtsr" path="res://assets/sword-slash.wav" id="28_rydyj"]
+[ext_resource type="AudioStream" uid="uid://b3dde5dhicjf3" path="res://assets/blink sound.wav" id="30_oggmt"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xpusc"]
 
@@ -771,16 +773,16 @@ size = Vector2(80, 80)
 [sub_resource type="SpriteFrames" id="SpriteFrames_8pu2n"]
 animations = [{
 "frames": [{
-"duration": 1.0,
+"duration": 0.5,
 "texture": ExtResource("6_60335")
 }, {
-"duration": 1.0,
+"duration": 0.5,
 "texture": ExtResource("7_76oyw")
 }, {
-"duration": 1.0,
+"duration": 0.5,
 "texture": ExtResource("8_txc5s")
 }, {
-"duration": 1.0,
+"duration": 0.5,
 "texture": ExtResource("9_edhdg")
 }, {
 "duration": 1.0,
@@ -788,7 +790,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"default",
-"speed": 12.0
+"speed": 30.0
 }]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_fmn6a"]
@@ -968,11 +970,20 @@ rotation = -1.5708
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_8pu2n")
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Slice"]
+stream = ExtResource("28_rydyj")
+volume_db = 8.605
+pitch_scale = 0.95
+
 [node name="AfterImage" type="Sprite2D" parent="."]
 script = ExtResource("28_i8vw6")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_fmn6a")
+
+[node name="DashSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("30_oggmt")
+pitch_scale = 0.78
 
 [connection signal="timeout" from="Metronome" to="." method="_on_metronome_timeout"]
 [connection signal="health_destroyed" from="HealthComponent" to="." method="_on_health_component_health_destroyed"]

@@ -83,6 +83,7 @@ func move(delta):
 	var input_vector = Input.get_vector("move_left","move_right","move_up","move_down")
 	if Input.is_action_just_pressed("Dash"):
 		print('dashing')
+		$DashSound.play()
 		start_dash.rpc()
 	if is_dashing:
 		sync_velocity = last_input_direction * DASH_SPEED
@@ -153,6 +154,7 @@ func _process(delta: float) -> void:
 func escape_rhythm_game():
 	if is_instance_valid(rhythm_game_instance):
 		$RhythmLayer1.remove_child(rhythm_game_instance)
+		
 		var score = rhythm_game_instance.get_score()
 		current_score = min(current_score + int(score / 3000), 300)
 		update_mana(current_score)
@@ -207,6 +209,7 @@ func _physics_process(delta: float) -> void:
 				self.collision_mask |= (1 << 3)
 
 		if Input.is_action_just_pressed("toggle_rhythm_game") and $HealthComponent.currentHealth > 0:
+			$DashSound.play()
 			handle_rhythm_callback()
 		if current_score >= 10:
 			if Input.is_action_just_pressed("Dispatch_Top"):
@@ -254,7 +257,7 @@ func _physics_process(delta: float) -> void:
 
 			$Slice/SliceArea/CollisionShape2D.shape.size = old_collision_size * (1.0 + critical)
 			$Slice/SliceAnimation.play()
-
+			$Slice/AudioStreamPlayer.play()
 
 			var foundAttack = false
 
