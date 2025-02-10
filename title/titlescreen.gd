@@ -1,7 +1,7 @@
 extends Control
 
-@export var Address = "168.5.34.158"
-#@export var Address = "127.0.0.1"
+#@export var Address = "168.5.34.158"
+@export var Address = "127.0.0.1"
 
 @export var port = 8910
 var peer
@@ -33,7 +33,8 @@ func _on_button_focus_entered() -> void:
 
 
 func peer_connected(id):
-	print("Player Connected " + str(id))
+	if multiplayer.is_server():
+		print("Player Connected " + str(id))
 	
 # this get called on the server and clients
 func peer_disconnected(id):
@@ -69,9 +70,9 @@ func SendPlayerInformation(name, id):
 
 @rpc("any_peer", "call_local")
 func StartGame():
-	#if GameManager.Players.size() < 2:
-		#print("Not enough players to start!")
-		#return # Stop if there are less than 2 players
+	if GameManager.Players.size() < 2:
+		print("Not enough players to start!")
+		return # Stop if there are less than 2 players
 	$Confirm.play()
 	await $Confirm.finished
 	#get_tree().change_scene_to_file.bind("res://main/Main.tscn").call_deferred()
