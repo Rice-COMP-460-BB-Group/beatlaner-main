@@ -339,13 +339,13 @@ func _physics_process(delta: float) -> void:
 				if body != self and (body is Minion or body is Player) and body.team != team:
 					if body.has_node("HealthComponent"):
 						foundAttack = true
-						body.get_node("HealthComponent").decrease_health(damage + damage * falloff_curve())
+						body.get_node("HealthComponent").decrease_health.rpc(damage + damage * falloff_curve())
 			
 			for body in $Slice/SliceArea.get_overlapping_areas():
 				if body is Tower and body.team != team:
 					if body.has_node("HealthComponent"):
 						foundAttack = true
-						body.get_node("HealthComponent").decrease_health(damage + damage * falloff_curve())
+						body.get_node("HealthComponent").decrease_health.rpc(damage + damage * falloff_curve())
 			
 			if foundAttack:
 				var floating_text = floating_text_scene.instantiate()
