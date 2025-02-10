@@ -9,11 +9,7 @@ var map_scene = preload("res://map/Map.tscn")
 
 var spawner_scene = load("res://minions/spawner.tscn")
 
-var destroy_enemy_banner = preload("res://assets/enemy-banner.png")
-var destroy_friendly_banner = preload("res://assets/friendly-banner.png")
 
-var win_banner = preload("res://assets/Victory.png")
-var lose_banner = preload("res://assets/Defeat.png")
 
 var spawner = null
 var rhythm_game_instance
@@ -25,8 +21,6 @@ enum Team {BLUE, RED}
 var players = []
 
 
-var red_score = 0
-var blue_score = 0
 
 
 
@@ -73,7 +67,6 @@ func _ready():
 	spawner.spawner_init()
 	Signals.OpenRhythmGame.connect(OpenRhythmGame)
 
-	Signals.TowerDestroyed.connect(on_tower_destroyed)
 	#Signals.PowerupGet.connect(_on_power_get)
 	$BackgroundMusic.connect("finished", Callable(self,"_on_loop_sound").bind($BackgroundMusic))
 	$BackgroundMusic.play()
@@ -83,53 +76,7 @@ func _on_loop_sound(player):
 
 
 
-# Add this near the top of your script
-@rpc("any_peer", "call_local")
-func show_victory():
-	var banner = $BannerLayer/Banner
-	banner.texture = win_banner
-	banner.modulate.a = 0
-	banner.show()
 
-	var fade_in = banner.create_tween()
-	fade_in.tween_property(banner, "modulate:a", 1, .5)
-	await fade_in.finished
-	await get_tree().create_timer(2).timeout
-	get_tree().change_scene_to_file("res://map/game_win.tscn")
-
-@rpc("any_peer", "call_local")
-func show_defeat():
-	var banner = $BannerLayer/Banner
-	banner.texture = lose_banner
-	banner.modulate.a = 0
-	banner.show()
-
-	var fade_in = banner.create_tween()
-	fade_in.tween_property(banner, "modulate:a", 1, .5)
-	await fade_in.finished
-	await get_tree().create_timer(2).timeout
-	get_tree().change_scene_to_file("res://map/game_over.tscn")
-
-func on_tower_destroyed(team: Team, pos: Vector2):
-	if team == Team.RED:
-		red_score += 1
-	else:
-		blue_score += 1
-
-	if red_score == 3:
-		# Notify all players
-		for player in players:
-			if player.team == Team.BLUE:
-				show_defeat.rpc_id(player.get_instance_id())  # Notify RED team (loss)
-			else:
-				show_victory.rpc_id(player.get_instance_id())  # Notify BLUE team (win)
-	elif blue_score == 3:
-		# Notify all players
-		for player in players:
-			if player.team == Team.RED:
-				show_defeat.rpc_id(player.get_instance_id())  # Notify BLUE team (loss)
-			else:
-				show_victory.rpc_id(player.get_instance_id())  # Notify RED team (win)
 func OpenRhythmGame(tmp_tower_type: String, tower):
 	if $RhythmLayer.get_children():
 		return

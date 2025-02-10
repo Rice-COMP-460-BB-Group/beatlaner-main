@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://3l0iahp12xip"]
+[gd_scene load_steps=9 format=3 uid="uid://3l0iahp12xip"]
 
 [ext_resource type="Script" path="res://scripts/Tower.gd" id="1_15l20"]
 [ext_resource type="PackedScene" uid="uid://bqkl7m6s1p5ls" path="res://minions/arrow.tscn" id="2_q6p00"]
@@ -11,6 +11,11 @@ size = Vector2(59, 120)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cwyrc"]
 radius = 250.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_yp15l"]
+properties/0/path = NodePath("HealthComponent:currentHealth")
+properties/0/spawn = true
+properties/0/replication_mode = 1
 
 [node name="Tower" type="Area2D" groups=["Towers"]]
 script = ExtResource("1_15l20")
@@ -63,6 +68,9 @@ collision_mask = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
 shape = SubResource("CircleShape2D_cwyrc")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_yp15l")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="health_destroyed" from="HealthComponent" to="." method="_on_health_component_health_destroyed"]

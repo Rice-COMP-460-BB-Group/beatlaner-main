@@ -60,7 +60,8 @@ func _ready() -> void:
 	$Metronome.start()
 	$Slice/SliceAnimation.frame = 4
 	$HealthComponent.red = team == Team.RED
-	
+	Signals.TowerDestroyed.connect(on_tower_destroyed)
+
 	
 
 	old_collision_size = $Slice/SliceArea/CollisionShape2D.shape.size
@@ -121,7 +122,7 @@ func start_dash():
 			is_dashing = true
 			sync_is_dashing = true
 			dash_timer = .02
-			self.collision_mask = (self.collision_mask & ~(1 << 3))
+			self.collision_mask = (self.collision_mask & ~(1 << 2))
 			create_afterimage()
 	#print("new collision layer", self.collision_layer)
 		
@@ -136,7 +137,75 @@ var half_beat_duration: float
 var frame_duration: float
 var cycle_duration: float
 
+var destroy_enemy_banner = preload("res://assets/enemy-banner.png")
+var destroy_friendly_banner = preload("res://assets/friendly-banner.png")
 
+var win_banner = preload("res://assets/Victory.png")
+var lose_banner = preload("res://assets/Defeat.png")
+
+
+
+
+# Add this near the top of your script
+func show_victory():	
+	print("showing victory", team)
+
+	var banner = $"/root/Main/BannerLayer/Banner"
+	banner.texture = win_banner
+	banner.modulate.a = 0
+	banner.show()
+
+	var fade_in = banner.create_tween()
+	fade_in.tween_property(banner, "modulate:a", 1, .5)
+	await fade_in.finished
+	await get_tree().create_timer(2).timeout
+	#var scene = load("res://map/game_win.tscn").instantiate()
+	var scene = load("res://map/game_win.tscn").instantiate()
+	get_tree().root.add_child(scene)
+	get_tree().current_scene.queue_free()
+	#get_tree().current_scene.change_scene_to_file("res://map/game_win.tscn")
+
+func show_defeat():
+	print("showing defeat", team)
+	var banner = $"/root/Main/BannerLayer/Banner"
+	banner.texture = lose_banner
+	banner.modulate.a = 0
+	banner.show()
+
+	var fade_in = banner.create_tween()
+	fade_in.tween_property(banner, "modulate:a", 1, .5)
+	await fade_in.finished
+	await get_tree().create_timer(2).timeout
+	#get_tree().current_scene.change_scene_to_file("res://map/game_over.tscn")
+	var scene = load("res://map/game_win.tscn").instantiate()
+	get_tree().root.add_child(scene)
+	get_tree().current_scene.queue_free()
+	#var scene = load("res://map/game_over.tscn").instantiate()
+	#get_tree().change_scene_to(scene)
+
+
+var red_score = 0
+var blue_score = 0
+func on_tower_destroyed(tower_team: Team, pos: Vector2):
+	if multiplayer.is_server():
+		return
+	print("team", team, red_score, blue_score)
+	if tower_team == Team.RED:
+		red_score += 1
+	else:
+		blue_score += 1
+	if red_score == 3:
+		# Notify all players
+		if team == Team.RED:
+			show_defeat()
+		else:
+			show_victory()
+	elif blue_score == 3:
+		if team == Team.BLUE:
+			show_defeat()
+		else:
+			show_victory()
+			
 func _on_metronome_timeout():
 	beat_half_count += 1
 
@@ -221,7 +290,7 @@ func _physics_process(delta: float) -> void:
 			if dash_timer <= 0:
 				is_dashing = false
 				sync_is_dashing = false
-				self.collision_mask |= (1 << 3)
+				self.collision_mask |= (1 << 2	)
 
 		if Input.is_action_just_pressed("toggle_rhythm_game") and $HealthComponent.currentHealth > 0:
 			$DashSound.play()

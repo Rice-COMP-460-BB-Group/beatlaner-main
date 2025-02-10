@@ -1,7 +1,7 @@
 extends Control
 
-#@export var Address = "168.4.70.21"
-@export var Address = "127.0.0.1"
+@export var Address = "168.4.70.21"
+#@export var Address = "127.0.0.1"
 
 @export var port = 8910
 var peer
