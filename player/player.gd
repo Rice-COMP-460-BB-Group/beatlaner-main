@@ -331,31 +331,7 @@ func _physics_process(delta: float) -> void:
 			
 			last_attack = 0
 
-			var angle_to_cursor = global_position.angle_to_point(get_global_mouse_position())
-			var slice = $Slice
-			slice.position = Vector2.RIGHT.rotated(angle_to_cursor) * 20
-			slice.rotation = angle_to_cursor
-
-			var white = Color(1, 1, 1, 1)
-			var yellow = Color(1, 1, 0, 1)
-			var orange = Color(1, 0.5, 0, 1)
-			var red = Color(1, 0, 0, 1)
-
-			var critical = falloff_curve()
-			var final_color
-			if critical < 0.5:
-				final_color = white.lerp(yellow, critical * 2)
-			elif critical < 0.75:
-				final_color = yellow.lerp(orange, (critical - 0.5) * 4)
-			else:
-				final_color = orange.lerp(red, (critical - 0.75) * 4)
-			
-			slice.scale = Vector2(1.0 + critical, 1.0 + critical)
-			slice.modulate = final_color
-
-			$Slice/SliceArea/CollisionShape2D.shape.size = old_collision_size * (1.0 + critical)
-			$Slice/SliceAnimation.play()
-			$Slice/AudioStreamPlayer.play()
+			play_slice_anim.rpc()
 
 			var foundAttack = false
 
@@ -383,6 +359,34 @@ func _physics_process(delta: float) -> void:
 		animate()
 	else:
 		$AnimatedSprite2D.animation = "IdleRight"
+
+@rpc("any_peer", "call_local")
+func play_slice_anim():
+	var angle_to_cursor = global_position.angle_to_point(get_global_mouse_position())
+	var slice = $Slice
+	slice.position = Vector2.RIGHT.rotated(angle_to_cursor) * 20
+	slice.rotation = angle_to_cursor
+
+	var white = Color(1, 1, 1, 1)
+	var yellow = Color(1, 1, 0, 1)
+	var orange = Color(1, 0.5, 0, 1)
+	var red = Color(1, 0, 0, 1)
+
+	var critical = falloff_curve()
+	var final_color
+	if critical < 0.5:
+		final_color = white.lerp(yellow, critical * 2)
+	elif critical < 0.75:
+		final_color = yellow.lerp(orange, (critical - 0.5) * 4)
+	else:
+		final_color = orange.lerp(red, (critical - 0.75) * 4)
+	
+	slice.scale = Vector2(1.0 + critical, 1.0 + critical)
+	slice.modulate = final_color
+
+	$Slice/SliceArea/CollisionShape2D.shape.size = old_collision_size * (1.0 + critical)
+	$Slice/SliceAnimation.play()
+	$Slice/AudioStreamPlayer.play()
 
 func get_minimap():
 	return $HUD/Minimap
