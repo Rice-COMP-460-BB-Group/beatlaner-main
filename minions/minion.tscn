@@ -241,8 +241,8 @@ stream = ExtResource("4_cvsl8")
 volume_db = -5.0
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_interval = 0.1
-delta_interval = 0.1
+replication_interval = 0.05
+delta_interval = 0.05
 replication_config = SubResource("SceneReplicationConfig_u4wih")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
