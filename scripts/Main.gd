@@ -28,14 +28,7 @@ var players = []
 var red_score = 0
 var blue_score = 0
 
-var player1_powerups = {
-	"freeze": 0,
-	"damage_powerup": 0
-}
-var player2_powerups = {
-	"freeze": 0,
-	"damage_powerup": 0
-}
+
 
 func _ready():
 	print("Main scene _ready() triggered. Instance ID:", self.get_instance_id())
@@ -81,17 +74,13 @@ func _ready():
 	Signals.OpenRhythmGame.connect(OpenRhythmGame)
 
 	Signals.TowerDestroyed.connect(on_tower_destroyed)
-	Signals.PowerupGet.connect(_on_power_get)
+	#Signals.PowerupGet.connect(_on_power_get)
 	$BackgroundMusic.connect("finished", Callable(self,"_on_loop_sound").bind($BackgroundMusic))
 	$BackgroundMusic.play()
 func _on_loop_sound(player):
 	$BackgroundMusic.stream_paused = false
 	$BackgroundMusic.play()
-func _on_power_get(player: String, powerup: String):
-	if player == "player1":
-		player1_powerups[powerup] += 1
-	else:
-		player2_powerups[powerup] += 1
+
 
 
 # Add this near the top of your script
@@ -151,11 +140,7 @@ func OpenRhythmGame(tmp_tower_type: String, tower):
 	$RhythmLayer.add_child(rhythm_game_instance)
 	
 func _process(delta):
-	
-	if Input.is_action_just_pressed("damage_powerup") and player1_powerups["damage_powerup"] and not len($RhythmLayer.get_children()):
-		print("damage")
-		player1_powerups["damage_powerup"] -= 1
-		lane_manager.damage_powerup(0)
+	pass
 
 		
 	

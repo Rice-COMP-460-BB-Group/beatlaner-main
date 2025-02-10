@@ -10,6 +10,14 @@ class_name Player
 
 enum Team {BLUE = 0, RED = 1}
 
+var player_powerups = {
+	"freeze": 0,
+	"damage_powerup": 0
+}
+
+var powerups = ["freeze", "damage_powerup"]
+
+
 var last_attack = attack_speed
 
 const floating_text_scene = preload("res://player/floating_text.tscn")
@@ -194,10 +202,17 @@ func request_wave_spawn(pos: int, size: int, team: bool):
 	if multiplayer.is_server():
 		LaneManager.wave_request(pos, size, team)
 
+var last_combo = 0
 
 func _physics_process(delta: float) -> void:
 	if $MultiplayerSynchronizer.is_multiplayer_authority():
 		if is_rhythm_game_open:
+			var combo = rhythm_game_instance.get_combo()
+			if combo and not combo % 10 and combo > last_combo:
+				var rand_powerup = powerups[randi_range(0, len(powerups) - 1)]
+				player_powerups[rand_powerup] += 1
+			last_combo = combo
+			
 			var score = rhythm_game_instance.get_score()
 			var tmp_score = min(current_score + int(score / 3000), 300)
 			update_mana(tmp_score)
@@ -226,7 +241,19 @@ func _physics_process(delta: float) -> void:
 				current_score -= 10
 				request_wave_spawn.rpc(2, 5, team)
 				update_mana(current_score)
-				
+		if Input.is_action_just_pressed("freeze") and player_powerups["freeze"]:
+			print("freeze")
+			player_powerups["freeze"] -= 1
+			LaneManager.	freeze_current_enemies.rpc(0, team)
+			LaneManager.freeze_current_enemies.rpc(1, team)
+			LaneManager.freeze_current_enemies.rpc(2, team)
+
+
+		if Input.is_action_just_pressed("damage_powerup") and player_powerups["damage_powerup"]:
+			print("damage")
+			player_powerups["damage_powerup"] -= 1
+			LaneManager.damage_powerup.rpc(team)
+			
 		if Input.is_action_just_pressed("Attack"):
 			if $HealthComponent.currentHealth <= 0 or last_attack < attack_speed:
 				return

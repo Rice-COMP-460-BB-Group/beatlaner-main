@@ -70,8 +70,3 @@ offset_top = -330.0
 offset_right = 582.0
 offset_bottom = 333.0
 texture = SubResource("GradientTexture1D_w2eji")
-
-[connection signal="hit" from="mania-key" to="." method="_on_maniakey_hit" binds= ["type"]]
-[connection signal="hit" from="mania-key2" to="." method="_on_maniakey_hit" binds= ["type"]]
-[connection signal="hit" from="mania-key3" to="." method="_on_maniakey_hit" binds= ["type"]]
-[connection signal="hit" from="mania-key4" to="." method="_on_maniakey_hit" binds= ["type"]]

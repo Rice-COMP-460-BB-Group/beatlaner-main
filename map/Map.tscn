@@ -678,7 +678,6 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LowerLane"]
-visible = false
 polygon = PackedVector2Array(961, 3320, 964, 3593, 3293, 3595, 3298, 3616, 3615, 3616, 3613, 3293, 3596, 3295, 3592, 918, 3316, 919, 3317, 3297, 3297, 3298, 3296, 3318)
 
 [node name="LaneManager" type="Node" parent="."]

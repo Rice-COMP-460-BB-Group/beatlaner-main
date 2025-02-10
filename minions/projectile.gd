@@ -16,9 +16,8 @@ func _ready():
 		$PointLight2D.color = Color(0, 0, 1, 1)
 	if is_instance_valid(target):
 
-		var direction = (target.global_position - global_position).normalized()
+		direction = (target.global_position - global_position).normalized()
 		rotation = direction.angle()
-
 	syncPos = position
 	syncRotation = rotation
 func _physics_process(delta):
@@ -27,7 +26,6 @@ func _physics_process(delta):
 			rpc("destroy_bullet")
 			return
 			
-		var direction = (target.global_position - global_position).normalized()
 
 		if target is not Player:
 			direction = (target.global_position - global_position).normalized()
@@ -51,6 +49,7 @@ func _on_body_entered(body):
 
 @rpc("any_peer", "call_local")
 func destroy_bullet():
+	print("destroyed")
 	queue_free()
 
 func _on_area_entered(area: Area2D) -> void:

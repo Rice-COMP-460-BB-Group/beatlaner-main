@@ -18,3 +18,8 @@ func get_score() -> int:
 	var score_text = text.strip_edges()  
 	score_text = score_text.replace("[right]", "").replace("[/right]", "")
 	return int(score_text)
+	
+func get_combo() -> int:
+	return $HUD.combo
+	
+	

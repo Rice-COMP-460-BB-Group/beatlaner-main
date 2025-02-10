@@ -14,7 +14,6 @@ var points_dict = {
 	"Miss": 0
 }
 
-var powerups = ["freeze", "damage_powerup"]
 
 var accuracy_dict = {
 	"Perfect": 100,
@@ -64,8 +63,3 @@ func Hit(type: String):
 	%Combo.text = "[center]"+str(combo)+"[/center]" if combo else ""
 	%Score.text = "[right]" + str(score) + "[/right]"
 	
-	if combo and not combo % 10:
-		var rand_powerup = powerups[randi_range(0, len(powerups) - 1)]
-		print("attained" + rand_powerup)
-		Signals.PowerupGet.emit("player1", rand_powerup)
-		
