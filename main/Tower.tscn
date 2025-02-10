@@ -72,6 +72,9 @@ shape = SubResource("CircleShape2D_cwyrc")
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_yp15l")
 
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("..")
+
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="health_destroyed" from="HealthComponent" to="." method="_on_health_component_health_destroyed"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

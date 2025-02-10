@@ -75,11 +75,14 @@ func _ready() -> void:
 	$Stats.hide()
 	$HUD.hide()
 	$MultiplayerSynchronizer.set_multiplayer_authority(str(name).to_int())
-	if $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id() and not multiplayer.is_server():
+	if $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
 
 		camera.make_current()
 		$Stats.show()
 		$HUD.show()
+	if multiplayer.is_server():
+		camera.make_current()
+
 
 func move(delta):
 	if not $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():

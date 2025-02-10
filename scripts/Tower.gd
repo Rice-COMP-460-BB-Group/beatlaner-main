@@ -27,10 +27,23 @@ func update_score(new_score: int):
 func WaveSpawned():
 	minion_count = 0
 	$MinionCount.hide()
+	
+func fire(dict):
+	print('FIRED', multiplayer.is_server())
+	var body_id = dict["body"]
+	var body = instance_from_id(body_id)
+	var laser = laser_scene.instantiate()
+	print("attacking with laser")
+	laser.target = body
+	laser.source = self
+	laser.global_position = global_position
+	return laser
 
 func _ready():
 	
 	$Sprite2D.centered = true
+	$MultiplayerSpawner.spawn_function = fire
+	$MultiplayerSpawner.spawn_path = get_parent().get_path()
 	popup_window.hide()
 	popup_window.size = Vector2(1152, 648)
 	Signals.WaveSpawned.connect(WaveSpawned)
@@ -55,7 +68,8 @@ func _physics_process(delta: float) -> void:
 				return distance_b - distance_a
 			)
 			last_attack = 0
-			attack(enemy_minions[0])
+			
+			attack.rpc(enemy_minions[0])
 	else:
 		last_attack += delta
 
@@ -74,11 +88,8 @@ func _on_health_component_health_destroyed() -> void:
 
 #func _on_button_pressed() -> void:
 	#Signals.OpenRhythmGame.emit(name, self)
-
+@rpc("any_peer", "call_local")
 func attack(body: Node2D) -> void:
-	var laser = laser_scene.instantiate()
-	print("attacking with laser")
-	laser.target = body
-	laser.source = self
-	laser.global_position = global_position
-	get_tree().root.add_child(laser)
+	print("is server", multiplayer.is_server())
+	var body_id = body.get_instance_id()
+	$MultiplayerSpawner.spawn({"body": body_id})
