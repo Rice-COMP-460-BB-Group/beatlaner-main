@@ -125,7 +125,7 @@ func start_dash():
 			sync_is_dashing = true
 			dash_timer = .02
 			self.collision_mask = (self.collision_mask & ~(1 << 2))
-			create_afterimage()
+			create_afterimage.rpc()
 	#print("new collision layer", self.collision_layer)
 		
 
@@ -238,6 +238,8 @@ func escape_rhythm_game():
 		current_score = min(current_score + int(score / 3000), 300)
 		update_mana(current_score)
 		is_rhythm_game_open = false
+
+@rpc("any_peer", "call_local")
 func create_afterimage():
 	var jump_duration = 0.5  # How long the jump lasts (adjust as needed)
 	var num_afterimages = 3  # Number of afterimages you want to create
