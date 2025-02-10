@@ -1,6 +1,6 @@
 extends Control
 
-@export var Address = "168.4.134.121"
+@export var Address = "168.5.34.158"
 #@export var Address = "127.0.0.1"
 
 @export var port = 8910
@@ -69,9 +69,9 @@ func SendPlayerInformation(name, id):
 
 @rpc("any_peer", "call_local")
 func StartGame():
-	if GameManager.Players.size() < 2:
-		print("Not enough players to start!")
-		return # Stop if there are less than 2 players
+	#if GameManager.Players.size() < 2:
+		#print("Not enough players to start!")
+		#return # Stop if there are less than 2 players
 	$Confirm.play()
 	await $Confirm.finished
 	#get_tree().change_scene_to_file.bind("res://main/Main.tscn").call_deferred()

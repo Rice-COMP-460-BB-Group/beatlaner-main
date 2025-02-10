@@ -90,8 +90,7 @@ func move(delta):
 		velocity = Vector2.ZERO
 		return
 	var input_vector = Input.get_vector("move_left","move_right","move_up","move_down")
-	if Input.is_action_just_pressed("Dash"):
-		print('dashing')
+	if velocity and Input.is_action_just_pressed("Dash") and not $Stats/Respawning.visible:
 		$DashSound.play()
 		start_dash.rpc()
 	if is_dashing:
@@ -298,17 +297,17 @@ func _physics_process(delta: float) -> void:
 		if current_score >= 10:
 			if Input.is_action_just_pressed("Dispatch_Top"):
 				current_score -= 10
-				request_wave_spawn.rpc(0, 5, team)
+				request_wave_spawn.rpc(0, 3, team)
 				update_mana(current_score)
 				
 			if Input.is_action_just_pressed("Dispatch_Mid"):
 				current_score -= 10
-				request_wave_spawn.rpc(1, 5, team)
+				request_wave_spawn.rpc(1, 3, team)
 				update_mana(current_score)
 
 			if Input.is_action_just_pressed("Dispatch_Low") :
 				current_score -= 10
-				request_wave_spawn.rpc(2, 5, team)
+				request_wave_spawn.rpc(2, 3, team)
 				update_mana(current_score)
 		if Input.is_action_just_pressed("freeze") and player_powerups["freeze"]:
 			print("freeze")
