@@ -2,7 +2,8 @@ extends Node2D
 @onready var lane_manager = $Map/LaneManager
 @onready var minimap = $Map/Player/HUD/Minimap
 @export var PlayerScene: PackedScene
-
+@export var current_difficulty = Difficulty.EASY
+enum Difficulty {EASY, MEDIUM, HARD}
 
 var map_scene = preload("res://map/Map.tscn")
 
@@ -51,7 +52,11 @@ func _ready():
 	var spawns = get_tree().get_nodes_in_group("PlayerSpawnPoint")
 	var index = 0
 	var curr_team = Team.RED
-	for player_data in GameManager.Players.values():  # Iterate properly over dictionary		
+	# Create a sorted array of player data based on id
+	var sorted_players = GameManager.Players.values()
+	sorted_players.sort_custom(func(a, b): return a.id < b.id)
+	
+	for player_data in sorted_players:
 		var currentPlayer = PlayerScene.instantiate()
 		currentPlayer.name = str(player_data.id)
 		currentPlayer.team = curr_team

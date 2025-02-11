@@ -78,7 +78,18 @@ func StartGame():
 	await $Confirm.finished
 	#get_tree().change_scene_to_file.bind("res://main/Main.tscn").call_deferred()
 	print("players, ", GameManager.Players)
-	var scene = load("res://main/Main.tscn").instantiate()
+	var scene = load("res://title/difficulty_selector.tscn").instantiate()
+	
+	var lowest_id = multiplayer.get_unique_id()
+	for player_id in GameManager.Players.keys():
+		if player_id < lowest_id:
+			lowest_id = player_id
+
+	if multiplayer.get_unique_id() == lowest_id:
+		scene.team = 1
+	else:
+		scene.team = 0
+	self.hide()
 	get_tree().root.add_child(scene)
 	#self.hide()
 	
