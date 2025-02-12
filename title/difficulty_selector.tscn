@@ -1,15 +1,15 @@
 [gd_scene load_steps=11 format=3 uid="uid://d6545vm5efxc"]
 
 [ext_resource type="FontFile" uid="uid://cm5q756n5trre" path="res://assets/VT323-Regular.ttf" id="1_2ytti"]
-[ext_resource type="Texture2D" uid="uid://c27e48dug45ow" path="res://assets/tile000.png" id="1_gp7b0"]
 [ext_resource type="Script" path="res://title/difficulty_selector.gd" id="1_h4s06"]
 [ext_resource type="Texture2D" uid="uid://c0bdluppfl1xj" path="res://assets/Vote-Blue.png" id="2_6qv7q"]
-[ext_resource type="Texture2D" uid="uid://c3m2r74a2fybj" path="res://assets/tile002.png" id="2_vj7v2"]
 [ext_resource type="Texture2D" uid="uid://b5crc7to5j2h5" path="res://assets/Vote-Red.png" id="3_xmu1h"]
-[ext_resource type="Texture2D" uid="uid://bfrjt0nlrn5cf" path="res://assets/tile004.png" id="3_yh50j"]
 [ext_resource type="Texture2D" uid="uid://4jck6k2hu7ch" path="res://assets/Timer-Outline.png" id="5_08lim"]
-[ext_resource type="ButtonGroup" uid="uid://cqkp66trbjtsj" path="res://assets/vote_button_group.tres" id="5_m6g3w"]
+[ext_resource type="ButtonGroup" uid="uid://dgq6lewe03v68" path="res://assets/vote_button_group.tres" id="5_m6g3w"]
+[ext_resource type="Texture2D" uid="uid://hjng7wjykxpu" path="res://assets/easy.png" id="6_boceg"]
 [ext_resource type="Texture2D" uid="uid://bujnoqtv8aml4" path="res://assets/Timer-Mask.png" id="6_i5jcp"]
+[ext_resource type="Texture2D" uid="uid://daplhhm4hc6id" path="res://assets/medium.png" id="7_o8y2o"]
+[ext_resource type="Texture2D" uid="uid://2dgvhjpeslq6" path="res://assets/hard.png" id="8_rjmgr"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -25,15 +25,17 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -2.0
-offset_top = 212.0
-offset_right = -2.0
-offset_bottom = -180.0
+offset_left = -489.0
+offset_top = -69.0
+offset_right = 271.0
+offset_bottom = -23.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1.25, 1.25)
 size_flags_vertical = 4
 theme_override_constants/separation = 128
 alignment = 1
+metadata/_edit_group_ = true
 
 [node name="Easy" type="VBoxContainer" parent="DifficultySelector"]
 layout_mode = 2
@@ -61,7 +63,7 @@ toggle_mode = true
 button_group = ExtResource("5_m6g3w")
 text = "Easy
 "
-icon = ExtResource("1_gp7b0")
+icon = ExtResource("6_boceg")
 icon_alignment = 1
 vertical_icon_alignment = 0
 
@@ -90,7 +92,7 @@ theme_override_font_sizes/font_size = 32
 toggle_mode = true
 button_group = ExtResource("5_m6g3w")
 text = "Medium"
-icon = ExtResource("2_vj7v2")
+icon = ExtResource("7_o8y2o")
 icon_alignment = 1
 vertical_icon_alignment = 0
 
@@ -119,7 +121,7 @@ theme_override_font_sizes/font_size = 32
 toggle_mode = true
 button_group = ExtResource("5_m6g3w")
 text = "Hard"
-icon = ExtResource("3_yh50j")
+icon = ExtResource("8_rjmgr")
 icon_alignment = 1
 vertical_icon_alignment = 0
 
