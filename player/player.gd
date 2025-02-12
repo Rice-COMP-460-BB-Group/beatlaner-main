@@ -30,7 +30,7 @@ const DASH_SPEED = 5000
 
 var dash_timer = 0.0
 var is_dashing = false
-enum {IDLE,WALK}
+enum {IDLE, WALK}
 
 var state = IDLE
 var is_rhythm_game_open = false
@@ -38,6 +38,8 @@ var is_rhythm_game_open = false
 @onready var weapon = $Weapon
 @onready var state_machine = animationTree["parameters/playback"]
 @onready var camera = $Camera2D as Camera2D
+# horrendous use of absolute path
+@onready var LaneManager = get_node("/root/Main/Map/LaneManager")
 
 var blend_position: Vector2 = Vector2.ZERO
 var blend_pos_paths = ["parameters/Idle/id_BlendSpace2D/blend_position", "parameters/Moving/BlendSpace2D/blend_position"]
@@ -63,7 +65,6 @@ func _ready() -> void:
 	Signals.TowerDestroyed.connect(on_tower_destroyed)
 
 	
-
 	old_collision_size = $Slice/SliceArea/CollisionShape2D.shape.size
 	if team == Team.RED:
 		print("team", team)
@@ -92,7 +93,7 @@ func move(delta):
 		state = IDLE
 		velocity = Vector2.ZERO
 		return
-	var input_vector = Input.get_vector("move_left","move_right","move_up","move_down")
+	var input_vector = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	if velocity and Input.is_action_just_pressed("Dash") and not $Stats/Respawning.visible:
 		$DashSound.play()
 		start_dash.rpc()
@@ -114,7 +115,6 @@ func move(delta):
 			blend_position = input_vector
 		
 		
-	
 	move_and_slide()
 @rpc("any_peer", "call_local")
 func start_dash():
@@ -146,10 +146,8 @@ var win_banner = preload("res://assets/Victory.png")
 var lose_banner = preload("res://assets/Defeat.png")
 
 
-
-
 # Add this near the top of your script
-func show_victory():	
+func show_victory():
 	print("showing victory", team)
 
 	var banner = $"/root/Main/BannerLayer/Banner"
@@ -241,11 +239,11 @@ func escape_rhythm_game():
 
 @rpc("any_peer", "call_local")
 func create_afterimage():
-	var jump_duration = 0.5  # How long the jump lasts (adjust as needed)
-	var num_afterimages = 3  # Number of afterimages you want to create
-	var interval = jump_duration / num_afterimages  # Time between afterimages during jump
+	var jump_duration = 0.5 # How long the jump lasts (adjust as needed)
+	var num_afterimages = 3 # Number of afterimages you want to create
+	var interval = jump_duration / num_afterimages # Time between afterimages during jump
 
-	var base_interval = 0.05  # Adjust for how frequently afterimages appear
+	var base_interval = 0.05 # Adjust for how frequently afterimages appear
 
 	for i in range(num_afterimages):
 		# Fixed delay between afterimage creation
@@ -262,7 +260,7 @@ func create_afterimage():
 		get_parent().add_child(afterimage)
 
 		# Quadratic fade-out duration (first afterimages last longer)
-		var fade_duration = 0.1  # Adjusted timing formula
+		var fade_duration = 0.1 # Adjusted timing formula
 
 		var tween = afterimage.create_tween()
 		tween.tween_property(afterimage, "modulate:a", 0, fade_duration)
@@ -294,7 +292,7 @@ func _physics_process(delta: float) -> void:
 			if dash_timer <= 0:
 				is_dashing = false
 				sync_is_dashing = false
-				self.collision_mask |= (1 << 2	)
+				self.collision_mask |= (1 << 2)
 
 		if Input.is_action_just_pressed("toggle_rhythm_game") and $HealthComponent.currentHealth > 0:
 			$DashSound.play()
@@ -310,14 +308,14 @@ func _physics_process(delta: float) -> void:
 				request_wave_spawn.rpc(1, 3, team)
 				update_mana(current_score)
 
-			if Input.is_action_just_pressed("Dispatch_Low") :
+			if Input.is_action_just_pressed("Dispatch_Low"):
 				current_score -= 10
 				request_wave_spawn.rpc(2, 3, team)
 				update_mana(current_score)
 		if Input.is_action_just_pressed("freeze") and player_powerups["freeze"]:
 			print("freeze")
 			player_powerups["freeze"] -= 1
-			LaneManager.	freeze_current_enemies.rpc(0, team)
+			LaneManager.freeze_current_enemies.rpc(0, team)
 			LaneManager.freeze_current_enemies.rpc(1, team)
 			LaneManager.freeze_current_enemies.rpc(2, team)
 
