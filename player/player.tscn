@@ -915,6 +915,7 @@ scale = Vector2(0.5, 0.5)
 [node name="HUD" type="CanvasLayer" parent="."]
 
 [node name="Minimap" type="Control" parent="HUD"]
+modulate = Color(1, 1, 1, 0.5)
 layout_mode = 3
 anchor_left = 0.671
 anchor_top = 0.792
