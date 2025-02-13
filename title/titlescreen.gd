@@ -1,8 +1,8 @@
 extends Control
 
 @export var port = 8910
-var peer
-
+var peer = null
+var dedicated_server = false
 
 func _ready():
 	#$VBoxContainer/Start.grab_focus()
@@ -12,12 +12,22 @@ func _ready():
 	multiplayer.connection_failed.connect(connection_failed)
 
 	if "--server" in OS.get_cmdline_args():
+		dedicated_server = true
 		DisplayServer.window_set_title("Beatlaner Server")
 		hostGame()
+		$VBoxContainer/Start.text = "Start"
 
 func _on_start_pressed() -> void:
 	print('got pressed')
-	StartGame.rpc()
+	# nobody has joined yet
+	if peer == null:
+		hostGame()
+		if !dedicated_server:
+			SendPlayerInformation("", multiplayer.get_unique_id())
+		$VBoxContainer/Start.text = "Start"
+	else:
+		StartGame.rpc()
+	# StartGame.rpc()
 
 
 func _on_exit_pressed() -> void:
@@ -48,10 +58,14 @@ func peer_disconnected(id):
 func connected_to_server():
 	print("connected To Sever!")
 	SendPlayerInformation.rpc_id(1, "", multiplayer.get_unique_id())
+	$VBoxContainer/Join.text = "Disconnect"
+	$VBoxContainer/Start.disabled = true
 
 # called only from clients
 func connection_failed():
-	print("Couldnt Connect")
+	print("Connection Failed!")
+	$ErrorDialog.dialog_text = "Failed to connect to server %s" % ($JoinIP/VBoxContainer/IPInput.text)
+	$ErrorDialog.popup()
 
 @rpc("any_peer")
 func SendPlayerInformation(name, id):
@@ -73,6 +87,8 @@ func SendPlayerInformation(name, id):
 func StartGame():
 	if GameManager.Players.size() < 2:
 		print("Not enough players to start!")
+		$ErrorDialog.dialog_text = "Not enough players to start!"
+		$ErrorDialog.popup()
 		return # Stop if there are less than 2 players
 	$Confirm.play()
 	await $Confirm.finished
@@ -100,7 +116,7 @@ func hostGame():
 	peer = ENetMultiplayerPeer.new()
 	var error = peer.create_server(port, 4)
 	if error != OK:
-		print("cannot host: " + error)
+		print("cannot host: " + str(error))
 		return
 	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
 	
@@ -114,6 +130,12 @@ func _on_host_button_down():
 
 
 func _on_join_pressed():
+	if peer and peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTED:
+		peer.close()
+		multiplayer.set_multiplayer_peer(null)
+		$VBoxContainer/Join.text = "Join"
+		$VBoxContainer/Start.disabled = false
+		return
 	$JoinIP.show()
 
 func _on_join_ip_confirmed() -> void:

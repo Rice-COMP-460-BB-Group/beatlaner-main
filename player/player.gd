@@ -81,7 +81,8 @@ func _ready() -> void:
 		camera.make_current()
 		$Stats.show()
 		$HUD.show()
-	if multiplayer.is_server():
+	
+	if "--server" in OS.get_cmdline_args():
 		camera.make_current()
 
 
