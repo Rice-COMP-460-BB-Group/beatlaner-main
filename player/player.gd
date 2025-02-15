@@ -332,7 +332,7 @@ func _physics_process(delta: float) -> void:
 			
 			last_attack = 0
 
-			play_slice_anim.rpc()
+			play_slice_anim.rpc(global_position.angle_to_point(get_global_mouse_position()))
 
 			var foundAttack = false
 
@@ -362,8 +362,7 @@ func _physics_process(delta: float) -> void:
 		$AnimatedSprite2D.animation = "IdleRight"
 
 @rpc("any_peer", "call_local")
-func play_slice_anim():
-	var angle_to_cursor = global_position.angle_to_point(get_global_mouse_position())
+func play_slice_anim(angle_to_cursor):
 	var slice = $Slice
 	slice.position = Vector2.RIGHT.rotated(angle_to_cursor) * 20
 	slice.rotation = angle_to_cursor
