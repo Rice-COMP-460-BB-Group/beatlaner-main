@@ -10,6 +10,9 @@ var active_notes = []
 
 @export var speed = 8
 
+var difficulty
+enum Difficulty {EASY, MEDIUM, HARD}
+
 func _ready():
 	$ActiveKey.hide()
 
@@ -69,8 +72,15 @@ func _on_rand_timer_timeout() -> void:
 	#$RandTimer.wait_time = randf_range(0.1, 0.5) # hard
 	#$RandTimer.wait_time = randf_range(0.1, 0.8) # medium
 	#$RandTimer.wait_time = randf_range(0.5, 2.0) # easy
-	
-	$RandTimer.wait_time = 0.3428571428
+	var to_divide = 1.0
+	if difficulty == Difficulty.EASY:
+		to_divide = 0.5
+		speed = 6
+	elif difficulty == Difficulty.HARD:
+		to_divide = 2.0
+		speed = 12
+	print("to_divide", to_divide)
+	$RandTimer.wait_time = 0.3428571428/to_divide
 	$RandTimer.start()
 
 func _on_active_key_timer_timeout() -> void:

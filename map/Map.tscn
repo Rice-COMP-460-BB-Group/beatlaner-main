@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://map/lane_manager.gd" id="2_4jb2k"]
 [ext_resource type="Texture2D" uid="uid://rhxtlwdc3r1o" path="res://assets/map/Beatlaner-Sheet.png" id="2_hv50b"]
 [ext_resource type="Texture2D" uid="uid://dc5tcawpn2c2x" path="res://assets/BeatlanerTiles copy.png" id="4_c402s"]
-[ext_resource type="PackedScene" uid="uid://can4ucahvj8ac" path="res://map/lantern.tscn" id="4_nj2fp"]
+[ext_resource type="PackedScene" path="res://map/lantern.tscn" id="4_nj2fp"]
 [ext_resource type="Texture2D" uid="uid://ik4vtfosenor" path="res://assets/BEATLANERFOREST2 Copy.png" id="6_hk4ok"]
 [ext_resource type="PackedScene" uid="uid://ls62ff1qbdop" path="res://fog/Fog.tscn" id="8_6i0wg"]
 

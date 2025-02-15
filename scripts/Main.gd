@@ -60,6 +60,7 @@ func _ready():
 		var currentPlayer = PlayerScene.instantiate()
 		currentPlayer.name = str(player_data.id)
 		currentPlayer.team = curr_team
+		currentPlayer.difficulty = current_difficulty
 		add_child(currentPlayer)
 		currentPlayer.visible = true
 		curr_team = not curr_team
@@ -88,6 +89,8 @@ func OpenRhythmGame(tmp_tower_type: String, tower):
 	tower_type = tmp_tower_type
 	var rhythm_game_scene = load("res://rhythm game/scenes/background.tscn")
 	rhythm_game_instance = rhythm_game_scene.instantiate()
+
+
 	current_tower = tower
 	$RhythmLayer.add_child(rhythm_game_instance)
 	

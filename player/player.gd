@@ -10,6 +10,9 @@ class_name Player
 
 enum Team {BLUE = 0, RED = 1}
 
+var difficulty
+enum Difficulty {EASY, MEDIUM, HARD}
+
 var player_powerups = {
 	"freeze": 0,
 	"damage_powerup": 0
@@ -399,7 +402,9 @@ func handle_rhythm_callback():
 	else:
 		var rhythm_game_scene = load("res://rhythm game/scenes/background.tscn")
 		rhythm_game_instance = rhythm_game_scene.instantiate()
-	
+		print("set diff", difficulty)
+		rhythm_game_instance.difficulty = difficulty
+		print("new diff", rhythm_game_instance.difficulty)
 		$RhythmLayer1.add_child(rhythm_game_instance)
 		is_rhythm_game_open = true
 		

@@ -1,8 +1,17 @@
 extends Node2D
 
+var difficulty
+enum Difficulty {EASY, MEDIUM, HARD}
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	print("DIFF rhythm", difficulty)
+	$"mania-key2".difficulty = difficulty
+	$"mania-key3".difficulty = difficulty
+	$"mania-key".difficulty = difficulty
+	$"mania-key4".difficulty = difficulty
 	pass # Replace with function body.
 
 
