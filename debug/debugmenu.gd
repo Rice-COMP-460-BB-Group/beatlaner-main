@@ -27,7 +27,7 @@ func _process(delta: float) -> void:
 
 # Disables enemy waves from spawning
 func _on_check_box_toggled(toggled_on: bool) -> void:
-	print("checked on!", toggled_on)
+	print("[debugmenu.gd]","checked on!", toggled_on)
 	toggle_enemy_wave.emit(toggled_on)
 	pass # Replace with function body.
 
@@ -45,7 +45,7 @@ func _on_mid_minion_count_value_changed(value: float) -> void:
 
 #submitting a request for spawn waves
 func _on_button_pressed() -> void:
-	print("here's the request!", spawner_request)
+	
 	spawn_wave.emit(spawner_request, true)
 
 

@@ -58,19 +58,20 @@ func _ready():
 	
 	for player_data in sorted_players:
 		var currentPlayer = PlayerScene.instantiate()
+		currentPlayer.game_difficulty = current_difficulty
 		currentPlayer.name = str(player_data.id)
 		currentPlayer.team = curr_team
 		add_child(currentPlayer)
 		currentPlayer.visible = true
 		curr_team = not curr_team
-		print("playuers team", currentPlayer.team)
+		
 		currentPlayer.global_position = spawns[index].global_position
 		players.append(currentPlayer)
 		var sprite = currentPlayer.get_node("AnimatedSprite2D")
 		index += 1
 	spawner = get_node("Spawner")
 	spawner.spawner_init()
-	Signals.OpenRhythmGame.connect(OpenRhythmGame)
+	#Signals.OpenRhythmGame.connect(OpenRhythmGame)
 
 	#Signals.PowerupGet.connect(_on_power_get)
 	$BackgroundMusic.connect("finished", Callable(self,"_on_loop_sound").bind($BackgroundMusic))
@@ -82,15 +83,7 @@ func _on_loop_sound(player):
 
 
 
-func OpenRhythmGame(tmp_tower_type: String, tower):
-	if $RhythmLayer.get_children():
-		return
-	tower_type = tmp_tower_type
-	var rhythm_game_scene = load("res://rhythm game/scenes/background.tscn")
-	rhythm_game_instance = rhythm_game_scene.instantiate()
-	current_tower = tower
-	$RhythmLayer.add_child(rhythm_game_instance)
-	
+
 func _process(delta):
 	pass
 

@@ -17,25 +17,25 @@ script = ExtResource("1_jjh5w")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="mania-key" parent="." instance=ExtResource("1_ykdqm")]
+[node name="ManiaKey" parent="." instance=ExtResource("1_ykdqm")]
 position = Vector2(-141, 260)
 scale = Vector2(0.9, 0.9)
 texture = ExtResource("3_2vcog")
 key = "key1"
 
-[node name="mania-key2" parent="." instance=ExtResource("1_ykdqm")]
+[node name="ManiaKey2" parent="." instance=ExtResource("1_ykdqm")]
 position = Vector2(-47, 260)
 scale = Vector2(0.9, 0.9)
 texture = ExtResource("3_2vcog")
 key = "key2"
 
-[node name="mania-key3" parent="." instance=ExtResource("1_ykdqm")]
+[node name="ManiaKey3" parent="." instance=ExtResource("1_ykdqm")]
 position = Vector2(47, 260)
 scale = Vector2(0.9, 0.9)
 texture = ExtResource("3_2vcog")
 key = "key3"
 
-[node name="mania-key4" parent="." instance=ExtResource("1_ykdqm")]
+[node name="ManiaKey4" parent="." instance=ExtResource("1_ykdqm")]
 position = Vector2(141, 260)
 scale = Vector2(0.9, 0.9)
 texture = ExtResource("3_2vcog")

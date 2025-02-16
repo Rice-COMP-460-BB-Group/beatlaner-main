@@ -11,9 +11,9 @@ func add_minion_to_minimap(enemyPos: Vector2,team:bool):
 		
 	icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	icon.custom_minimum_size = Vector2(25, 25)  # Adjust size as needed
-	print(enemyPos,"coordsy")
+	
 	icon.position = enemyPos
-	print("added")
+	
 	$MinimapIcons.add_child(icon)
 
 func world_to_minimap(world_pos: Vector2, world_size: Vector2, minimap_size: Vector2) -> Vector2:
@@ -34,8 +34,7 @@ func reset_map() -> void:
 	
 func refresh_minimap(blue_team:Array,red_team:Array):
 	reset_map()
-	print("hello from refresh")
-	print("refresh_minimap",blue_team,red_team)
+	
 	for blue_pos in blue_team:
 		var coords = world_to_minimap(blue_pos,Vector2(4096,4096),Vector2(216,216))
 		print(coords,"coords")

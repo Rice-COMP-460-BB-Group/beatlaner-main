@@ -56,10 +56,10 @@ func damage_powerup(team: int) ->void:
 	var bodies = top.get_overlapping_bodies()
 	bodies += mid.get_overlapping_bodies()
 	bodies += lower.get_overlapping_bodies()
-	print("here are bodies:",bodies)
+	
 	for b in bodies:
 		if b.has_method("process_damage_powerup") and b.has_method("get_team"):
-			print("a minoiin!",b.get_team())
+			
 			if b.get_team() == 1:
 				
 				b.process_damage_powerup()
@@ -77,25 +77,25 @@ func _on_lower_lane_body_exited(body: Node2D) -> void:
 func _on_mid_lane_body_entered(body: Node2D) -> void:
 	if body.name == "TileMapLayer":
 		return # Replace with function body.
-	print(body.name)
+	
 
 func _on_mid_lane_body_exited(body: Node2D) -> void:
 	if body.name == "TileMapLayer":
 		return# Replace with function body.
-	print(body.name)
+	
 
 func _on_upper_lane_body_entered(body: Node2D) -> void:
 	if body.name == "TileMapLayer":
 		return # Replace with function body.
-	print(body.name)
+	
 
 func _on_upper_lane_body_exited(body: Node2D) -> void:
 	if body.name == "TileMapLayer":
 		return
-	print(body.name)
+	
 
 func wave_request(pos: int, size: int, team: bool) -> void:
-	print("wave request", pos, size, team)
+	
 	var spawner = $"/root/Main/Spawner"
 	var config = {"top": 0, "mid": 0, "bottom": 0}
 	

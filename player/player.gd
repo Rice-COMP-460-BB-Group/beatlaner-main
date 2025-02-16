@@ -7,14 +7,16 @@ class_name Player
 @export var attack_speed = .35
 @export var team: Team
 @export var respawn_position: Vector2
-
+@onready var rhythm_game_scene = preload("res://rhythm game/scenes/background.tscn");
+@export var game_difficulty: Difficulty
+enum Difficulty {EASY = 0,MEDIUM = 1, HARD = 2}
 enum Team {BLUE = 0, RED = 1}
 
 var player_powerups = {
 	"freeze": 0,
 	"damage_powerup": 0
 }
-
+var rhythm_game_instance= null
 var powerups = ["freeze", "damage_powerup"]
 
 
@@ -62,6 +64,12 @@ func _ready() -> void:
 	$Metronome.start()
 	$Slice/SliceAnimation.frame = 4
 	$HealthComponent.red = team == Team.RED
+	rhythm_game_instance = rhythm_game_scene.instantiate()
+	rhythm_game_instance.set_difficulty(game_difficulty)
+	$RhythmLayer1.add_child(rhythm_game_instance)
+	
+	rhythm_game_instance.hide()
+	rhythm_game_instance.disable()
 	Signals.TowerDestroyed.connect(on_tower_destroyed)
 
 	
@@ -75,6 +83,7 @@ func _ready() -> void:
 	print("respawn pos", respawn_position, team)
 	$Stats.hide()
 	$HUD.hide()
+	
 	$MultiplayerSynchronizer.set_multiplayer_authority(str(name).to_int())
 	if $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
 
@@ -125,7 +134,7 @@ func start_dash():
 			is_dashing = true
 			sync_is_dashing = true
 			dash_timer = .02
-			self.collision_mask = (self.collision_mask & ~(1 << 2))
+			#self.collision_mask = (self.collision_mask & ~(1 << 2))
 			create_afterimage.rpc()
 	#print("new collision layer", self.collision_layer)
 		
@@ -231,9 +240,10 @@ func _process(delta: float) -> void:
 
 func escape_rhythm_game():
 	if is_instance_valid(rhythm_game_instance):
-		$RhythmLayer1.remove_child(rhythm_game_instance)
+		#$RhythmLayer1.remove_child(rhythm_game_instance)
 		
 		var score = rhythm_game_instance.get_score()
+		rhythm_game_instance.reset_score()
 		current_score = min(current_score + int(score / 3000), 300)
 		update_mana(current_score)
 		is_rhythm_game_open = false
@@ -293,7 +303,7 @@ func _physics_process(delta: float) -> void:
 			if dash_timer <= 0:
 				is_dashing = false
 				sync_is_dashing = false
-				self.collision_mask |= (1 << 2)
+				#self.collision_mask |= (1 << 2)
 
 		if Input.is_action_just_pressed("toggle_rhythm_game") and $HealthComponent.currentHealth > 0:
 			$DashSound.play()
@@ -393,22 +403,19 @@ func get_minimap():
 
 func handle_rhythm_callback():
 	if is_rhythm_game_open:
-		$RhythmLayer1.remove_child(rhythm_game_instance)
+		#$RhythmLayer1.remove_child(rhythm_game_instance)
+		rhythm_game_instance.disable()
+		rhythm_game_instance.hide()
 		is_rhythm_game_open = false
 		escape_rhythm_game()
 	else:
-		var rhythm_game_scene = load("res://rhythm game/scenes/background.tscn")
-		rhythm_game_instance = rhythm_game_scene.instantiate()
+		
 	
-		$RhythmLayer1.add_child(rhythm_game_instance)
+		rhythm_game_instance.show()
+		rhythm_game_instance.enable()
 		is_rhythm_game_open = true
 		
-func apply_friction(amount) -> void:
-	
-	if velocity.length() > amount:
-		velocity -= velocity.normalized() * amount
-	else:
-		velocity = Vector2.ZERO
+
 
 func apply_movement(amount) -> void:
 	
@@ -428,16 +435,8 @@ func animate() -> void:
 
 	print("auth", is_multiplayer_authority(), multiplayer.get_unique_id())
 	sync_animation.rpc(state, blend_position)
-var rhythm_game_instance
-func OpenRhythmGame(tmp_tower_type: String, tower):
-	if $RhythmLayer1.get_children():
-		$RhythmLayer1.remove_child(rhythm_game_instance)
-		return
-	
-	var rhythm_game_scene = load("res://rhythm game/scenes/background.tscn")
-	rhythm_game_instance = rhythm_game_scene.instantiate()
-	
-	$RhythmLayer1.add_child(rhythm_game_instance)
+
+
 
 func falloff_curve():
 	var closest = min($Metronome.time_left, (60.0 / bpm) - $Metronome.time_left)

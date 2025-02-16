@@ -5,14 +5,18 @@ signal hit
 @onready var note = preload("res://rhythm game/scenes/mania_notes.tscn")
 
 @export var key = ""
-
+@export var is_enabled:bool =false
 var active_notes = []
 
 @export var speed = 8
 
+
 func _ready():
 	$ActiveKey.hide()
 
+
+enum difficulty_level {EASY,MEDIUM,HARD}
+@export var difficulty: difficulty_level
 func _process(delta):
 	if Input.is_action_just_pressed("notes_faster"):
 		speed = min(speed + 1, 20)
@@ -22,7 +26,7 @@ func _process(delta):
 		Signals.ScrollSpeedChange.emit(speed)
 
 	
-	if Input.is_action_just_pressed(key):
+	if Input.is_action_just_pressed(key) and is_enabled:
 		$ActiveKey.show()
 		$ActiveKeyTimer.start()
 		$Kicksound1.play()
@@ -64,13 +68,27 @@ func init():
 
 
 func _on_rand_timer_timeout() -> void:
+	var wait_time = 0.3428571428
+	
+	if difficulty == difficulty_level.EASY:
+		wait_time *=2 
+	elif difficulty == difficulty_level.MEDIUM:
+		wait_time*=1
+	elif difficulty == difficulty_level.HARD:
+		wait_time *=.5
+		
 	if randi_range(0, 2) == 0:
-		init()
+		if is_enabled:
+			print("[background.gd]","I am enabled")
+			
+			init()
+		else:
+			print("[background.gd]","I am not enabled")
 	#$RandTimer.wait_time = randf_range(0.1, 0.5) # hard
 	#$RandTimer.wait_time = randf_range(0.1, 0.8) # medium
 	#$RandTimer.wait_time = randf_range(0.5, 2.0) # easy
 	
-	$RandTimer.wait_time = 0.3428571428
+	$RandTimer.wait_time = wait_time
 	$RandTimer.start()
 
 func _on_active_key_timer_timeout() -> void:

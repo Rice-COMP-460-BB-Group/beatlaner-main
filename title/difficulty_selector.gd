@@ -63,6 +63,7 @@ func _on_hard_toggled(toggled_on: bool) -> void:
 
 func _on_vote_time_timeout() -> void:
 	if multiplayer.is_server():
+		print("hi from here?")
 		var selected_difficulty = determine_difficulty()
 		move_to_game.rpc(selected_difficulty)
 
@@ -88,6 +89,7 @@ func move_to_game(selected_difficulty: Difficulty) -> void:
 	self.hide()
 
 func determine_difficulty() -> Difficulty:
+	print(easy_votes,medium_votes,hard_votes)
 	if easy_votes + medium_votes + hard_votes == 0:
 		return Difficulty.values()[randi() % 3]
 

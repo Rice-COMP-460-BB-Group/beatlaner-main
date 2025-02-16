@@ -5,7 +5,7 @@ var score = 0
 var acc_notes_sum = 0
 var acc_notes_total = 0
 var combo = 0
-
+@export var enabled = false
 var points_dict = {
 	"Perfect": 300,
 	"Good": 200,
@@ -24,7 +24,14 @@ var accuracy_dict = {
 }
 
 var tween = null
-
+func reset():
+	acc_notes_sum = 0
+	acc_notes_total = 0
+	combo = 0
+	score = 0
+	%Accuracy.text = "[right]" + str(float(acc_notes_sum) / acc_notes_total).pad_decimals(2) + "%" + "[/right]"
+	%Combo.text = "[center]"+str(combo)+"[/center]" if combo else ""
+	%Score.text = "[right]" + str(score) + "[/right]"
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Signals.Hit.connect(Hit)
@@ -50,7 +57,7 @@ func Hit(type: String):
 	fade_out(%HitStatus, 0.2)
 
 	if type == "Miss":
-		if combo > 10:
+		if combo > 10 and enabled:
 			$CanvasLayer/MissSound.play()
 		combo = 0
 		
