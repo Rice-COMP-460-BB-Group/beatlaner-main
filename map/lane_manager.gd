@@ -31,8 +31,6 @@ func _process(delta: float) -> void:
 #
 @rpc("any_peer", "call_local")
 func freeze_current_enemies(lane: int,team: int) ->void:
-	if not multiplayer.is_server():
-		return
 	var bodies = []
 	if lane == 0:
 		bodies = top.get_overlapping_bodies()
@@ -45,14 +43,12 @@ func freeze_current_enemies(lane: int,team: int) ->void:
 	for b in bodies:
 			if b.has_method("process_status") and b.has_method("get_team"):
 				print("a minoiin!",b.get_team())
-				if b.get_team() == 0:
+				if b.get_team() != team:
 					
 					b.process_status("freeze")
 	
 @rpc("any_peer", "call_local")
 func damage_powerup(team: int) ->void:
-	if not multiplayer.is_server():
-		return
 	var bodies = top.get_overlapping_bodies()
 	bodies += mid.get_overlapping_bodies()
 	bodies += lower.get_overlapping_bodies()
@@ -60,7 +56,7 @@ func damage_powerup(team: int) ->void:
 	for b in bodies:
 		if b.has_method("process_damage_powerup") and b.has_method("get_team"):
 			print("a minoiin!",b.get_team())
-			if b.get_team() == 1:
+			if b.get_team() == team:
 				
 				b.process_damage_powerup()
 					
