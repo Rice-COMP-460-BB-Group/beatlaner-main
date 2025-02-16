@@ -7,6 +7,7 @@ var minionScene = load("res://minions/minion.tscn")
 var mageScene = load("res://minions/mage.tscn")
 @onready var multiplayer_spawner = get_parent().get_node("MultiplayerSpawner")  # Access sibling
 var towerScene = load("res://main/Tower.tscn")
+var nexusScene = load("res://nexus/nexus.tscn")
 var minion_count = 0
 var to_spawn = 1
 var spawn_points = {}
@@ -49,6 +50,21 @@ func _ready() -> void:
 func spawner_init() -> void:
 	for sp in get_children():
 		if sp is Marker2D:
+			if sp.name == "P1Nexus":
+				var nx: Nexus = nexusScene.instantiate()
+				nx.position = sp.position
+				nx.set_team(1)
+				var main = get_parent()
+				main.add_child(nx)
+				continue
+			elif sp.name == "P2Nexus":
+				var nx: Nexus = nexusScene.instantiate()
+				nx.position = sp.position
+				nx.set_team(0)
+				var main = get_parent()
+				main.add_child(nx)
+				continue
+				
 			if sp.name == "UpperThrough" or sp.name == "LowerThrough":
 				continue
 			var tower = towerScene.instantiate()
@@ -194,11 +210,11 @@ var bottomcount = 0
 	##minion_count += 1
 	#
 	
-func spawn(dict):
-	print("id: ", multiplayer.get_unique_id(), multiplayer.get_remote_sender_id())
+func spawn(dict:Dictionary):
+	print("[spawner.gd] id: ", multiplayer.get_unique_id(), multiplayer.get_remote_sender_id())
 	var key = dict["key"]
 	var minion_type = dict["minion_type"]
-	print('SPAWNING COPE', key, minion_type)
+	print("[spawner.gd]",'SPAWNING COPE', key, minion_type)
 	var spawnpt = spawn_points.get(key, null)
 	if not is_instance_valid(spawnpt):
 		return
@@ -222,21 +238,21 @@ func spawn(dict):
 	minion.set_team(team == 0)
 	minion.tower_target = opposite_tower
 	minion.position = spawnpt.position
-
+	minion.set_level(dict["level"])
 	return minion
 
 #func spawn_minion_on_clients(key: String, minion_type: int, position: Vector2, team: int, tower_target_name: String):
 	# This method is called on clients to spawn minions
 	#$MultiplayerSpawner.spawn(spawn(key, position, minion_type))
-func _spawn_and_sync(key: String):
+func _spawn_and_sync(key: String,level:int):
 	# Sync spawn to all clients
 	var minion_type = randi() % 2
 	print("cope vope spawn", multiplayer.get_unique_id())
 	
-	$MultiplayerSpawner.spawn({"key": key, "minion_type": minion_type})
+	$MultiplayerSpawner.spawn({"key": key, "minion_type": minion_type,"level":level})
 	#spawn_minion_on_clients.rpc(key, minion_type, spawnpt.position, team, tower_target_name)
 
-func spawn_friendly_wave(config: Dictionary, is_friendly: bool) -> void:
+func spawn_friendly_wave(config: Dictionary, is_friendly: bool,level:int) -> void:
 	print("spawning spawning", config)
 	if not multiplayer.is_server():
 		return  # Only the server triggers spawning
@@ -244,18 +260,18 @@ func spawn_friendly_wave(config: Dictionary, is_friendly: bool) -> void:
 	var player = "P1" if is_friendly else "P2"
 
 	for _i in range(config.get("top", 0) + to_add["top"]):
-		_spawn_and_sync(player + "Upper")
+		_spawn_and_sync(player + "Upper",level)
 
 	for _i in range(config.get("mid", 0) + to_add["mid"]):
-		_spawn_and_sync(player + "Mid")
+		_spawn_and_sync(player + "Mid",level)
 
 	for _i in range(config.get("bottom", 0) + to_add["bottom"]):
-		_spawn_and_sync(player + "Lower")
+		_spawn_and_sync(player + "Lower",level)
 @rpc("authority")
 func _on_wave_timer_timeout() -> void:
 	if not multiplayer.is_server():
 		return
 	print('ran')
-	spawn_friendly_wave(friendly_wave_config, true)
-	spawn_friendly_wave(enemy_wave_config, false)
+	spawn_friendly_wave(friendly_wave_config, true,1)
+	spawn_friendly_wave(enemy_wave_config, false,1)
 	to_add = {"top": 0, "mid": 0, "bottom": 0}

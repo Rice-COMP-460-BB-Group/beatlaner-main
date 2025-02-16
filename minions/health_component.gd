@@ -27,7 +27,8 @@ func get_current_health():
 
 func get_max_health():
 	return maxHealth
-
+func increase_max_health(amt:int)-> void:
+	maxHealth += amt
 
 @rpc("any_peer", "call_local")
 func decrease_health(amount: int):

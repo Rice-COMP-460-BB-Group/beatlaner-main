@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://vrm8h4oj4f3j"]
+
+[ext_resource type="Script" path="res://nexus/nexus.gd" id="1_8s1ey"]
+[ext_resource type="Texture2D" uid="uid://dp1k4bb5d7g3b" path="res://rhythm game/assets/mania_notes/Sigil3.png" id="2_a1f14"]
+[ext_resource type="PackedScene" uid="uid://ckytalr2gjoym" path="res://healthbar/health_component.tscn" id="3_d3luj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qlort"]
+radius = 161.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3q36i"]
+radius = 49.4975
+
+[node name="Nexus" type="Area2D"]
+script = ExtResource("1_8s1ey")
+
+[node name="DetectionArea" type="Area2D" parent="."]
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("CircleShape2D_qlort")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.0352941, 0.027451, 1, 1)
+texture = ExtResource("2_a1f14")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_3q36i")
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_d3luj")]
+currentHealth = 10000
+maxHealth = 10000
+
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]

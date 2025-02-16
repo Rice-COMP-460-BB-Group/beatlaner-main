@@ -24,10 +24,16 @@ position = Vector2(560, 512)
 position = Vector2(3072, 512)
 
 [node name="P2Mid" type="Marker2D" parent="."]
-position = Vector2(3184, 816)
+position = Vector2(3172, 783)
 
 [node name="P1Mid" type="Marker2D" parent="."]
 position = Vector2(816, 3200)
+
+[node name="P1Nexus" type="Marker2D" parent="."]
+position = Vector2(563, 3443)
+
+[node name="P2Nexus" type="Marker2D" parent="."]
+position = Vector2(3432, 514)
 
 [node name="WaveTimer" type="Timer" parent="."]
 wait_time = 15.0

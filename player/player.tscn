@@ -913,6 +913,16 @@ offset_right = -82.0
 offset_bottom = -57.0
 scale = Vector2(0.5, 0.5)
 
+[node name="ToolTip" type="Label" parent="Stats"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -1.125
+anchor_top = -1.1
+anchor_right = -1.125
+anchor_bottom = -1.1
+offset_right = 95.0
+offset_bottom = 19.0
+
 [node name="HUD" type="CanvasLayer" parent="."]
 
 [node name="Minimap" type="Control" parent="HUD"]

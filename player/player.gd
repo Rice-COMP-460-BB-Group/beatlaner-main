@@ -9,6 +9,10 @@ class_name Player
 @export var respawn_position: Vector2
 @onready var rhythm_game_scene = preload("res://rhythm game/scenes/background.tscn");
 @export var game_difficulty: Difficulty
+@export var can_use_nexus: bool
+
+var player_level = 0
+var minion_level = 0
 enum Difficulty {EASY = 0,MEDIUM = 1, HARD = 2}
 enum Team {BLUE = 0, RED = 1}
 
@@ -24,7 +28,7 @@ var last_attack = attack_speed
 
 const floating_text_scene = preload("res://player/floating_text.tscn")
 const ACCELERATION = 1000
-signal wave_request(pos: int, size: int)
+signal wave_request(pos: int, size: int,team:bool,level:int)
 const FRICTION = 10000
 
 const MAX_SPEED = 180
@@ -58,7 +62,7 @@ var sync_is_dashing := false
 var old_collision_size
 
 func _ready() -> void:
-	$Metronome.wait_time = 0.5
+	$Metronome.wait_time = 0.25
 	cycle_duration = 2 * $Metronome.wait_time # Full cycle duration (1 second)
 	frame_duration = cycle_duration / (total_metronome_frames - 1) # 1/12 ≈ 0.0833s
 	$Metronome.start()
@@ -94,7 +98,15 @@ func _ready() -> void:
 	if "--server" in OS.get_cmdline_args():
 		camera.make_current()
 
-
+func show_tooltip(msg:String):
+	print("[player.gd]","show tooltip")
+	$Stats/ToolTip.text = msg
+	$Stats/ToolTip.show()
+func hide_tooltip():
+	print($Stats/Tooltip)
+	$Stats/ToolTip.hide()
+	
+	
 func move(delta):
 	if not $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
 		return
@@ -280,12 +292,15 @@ func create_afterimage():
 		afterimage.queue_free()
 		
 @rpc("any_peer", "call_local", "reliable")
-func request_wave_spawn(pos: int, size: int, team: bool):
+func request_wave_spawn(pos: int, size: int, team: bool,level:int):
 	if multiplayer.is_server():
-		LaneManager.wave_request(pos, size, team)
+		LaneManager.wave_request(pos, size, team,level)
 
 var last_combo = 0
 
+func upgrade_player() -> void:
+	damage = damage + 1
+	$HealthComponent.increase_max_health(20)
 func _physics_process(delta: float) -> void:
 	if $MultiplayerSynchronizer.is_multiplayer_authority():
 		if is_rhythm_game_open:
@@ -311,17 +326,17 @@ func _physics_process(delta: float) -> void:
 		if current_score >= 10:
 			if Input.is_action_just_pressed("Dispatch_Top"):
 				current_score -= 10
-				request_wave_spawn.rpc(0, 3, team)
+				request_wave_spawn.rpc(0, 3, team,minion_level)
 				update_mana(current_score)
 				
 			if Input.is_action_just_pressed("Dispatch_Mid"):
 				current_score -= 10
-				request_wave_spawn.rpc(1, 3, team)
+				request_wave_spawn.rpc(1, 3, team,minion_level)
 				update_mana(current_score)
 
 			if Input.is_action_just_pressed("Dispatch_Low"):
 				current_score -= 10
-				request_wave_spawn.rpc(2, 3, team)
+				request_wave_spawn.rpc(2, 3, team,minion_level)
 				update_mana(current_score)
 		if Input.is_action_just_pressed("freeze") and player_powerups["freeze"]:
 			print("freeze")
@@ -350,14 +365,22 @@ func _physics_process(delta: float) -> void:
 				if body != self and (body is Minion or body is Player) and body.team != team:
 					if body.has_node("HealthComponent"):
 						foundAttack = true
-						body.get_node("HealthComponent").decrease_health.rpc(damage + damage * falloff_curve())
+						body.get_node("HealthComponent").decrease_health.rpc((damage + player_level) + (damage + player_level) * falloff_curve())
+						if body.get_node("HealthComponent").get_current_health() <= 0:
+							
+							$Stats/ManaBar.increase_mana(5)
 			
 			for body in $Slice/SliceArea.get_overlapping_areas():
 				if body is Tower and body.team != team:
 					if body.has_node("HealthComponent"):
 						foundAttack = true
 						body.get_node("HealthComponent").decrease_health.rpc(damage + damage * falloff_curve())
-			
+			for body in $Slice/SliceArea.get_overlapping_areas():
+				if body is Nexus and body.team != team:
+					print("[player.gd]","nexus hit!")
+					if body.has_node("HealthComponent"):
+						foundAttack = true
+						body.get_node("HealthComponent").decrease_health.rpc(damage + damage * falloff_curve())
 			if foundAttack:
 				var floating_text = floating_text_scene.instantiate()
 				floating_text.text = str(round(damage + damage * falloff_curve()))
@@ -366,8 +389,21 @@ func _physics_process(delta: float) -> void:
 				$Stats/DamagePosition.add_child(floating_text)
 		last_attack += delta
 		move(delta)
-		
+		if Input.is_action_just_pressed("upgrade_minions"):
+			print('s')
+			if current_score >=100 and can_use_nexus:
+				minion_level += 1
+				current_score -= 100
+				update_mana(current_score)
+		if Input.is_action_just_pressed("upgrade_player"):
+			if current_score >= 100 and can_use_nexus:
+				player_level += 1
+				current_score -= 100
+				update_mana(current_score)
+				
+			
 		animate()
+		
 	else:
 		$AnimatedSprite2D.animation = "IdleRight"
 

@@ -18,6 +18,7 @@ properties/0/spawn = true
 properties/0/replication_mode = 1
 
 [node name="Tower" type="Area2D" groups=["Towers"]]
+collision_mask = 5
 script = ExtResource("1_15l20")
 laser_scene = ExtResource("2_q6p00")
 
@@ -59,6 +60,7 @@ offset_bottom = 64.0
 position = Vector2i(0, 36)
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+visible = false
 position = Vector2(3, 10.5)
 scale = Vector2(4.1, 6.85)
 

@@ -53,11 +53,7 @@ func _ready():
 	syncVelocity = velocity
 	syncState = state
 
-func say_hello():
-	print("hello area manager")
 
-
-	return "Minion"
 func get_team() -> int:
 	return team
 
@@ -79,6 +75,12 @@ func get_enemy_target():
 func set_enemy_target(node: Node2D):
 	enemy_target = node
 
+
+func set_level(level:int):
+	print("[minion.gd]","level invoked")
+	$HealthComponent.increase_max_health(10 * level)
+	$HealthComponent.currentHealth = $HealthComponent.maxHealth
+	damage += ceil((level * 1.5))
 func get_health():
 	return $HealthComponent.get_current_health()
 	
@@ -170,6 +172,11 @@ func _physics_process(delta: float):
 						return
 					if result.collider is Tower and result.collider.team != team:
 						print("tower found")
+						set_enemy_target(result.collider)
+						state = State.ATTACK
+						return
+					if result.collider is Nexus and result.collider.team != team:
+						print("[minion.gd] nexus found")
 						set_enemy_target(result.collider)
 						state = State.ATTACK
 						return
