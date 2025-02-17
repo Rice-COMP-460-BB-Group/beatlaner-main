@@ -338,9 +338,11 @@ func _physics_process(delta: float) -> void:
 				current_score -= 10
 				request_wave_spawn.rpc(2, 3, team,minion_level)
 				update_mana(current_score)
-		if Input.is_action_just_pressed("freeze") and player_powerups["freeze"]:
-			print("freeze")
-			player_powerups["freeze"] -= 1
+		if Input.is_action_just_pressed("freeze") and current_score >= 250:
+			current_score -= 250
+			update_mana(current_score)
+			print("[player.gd]freeze")
+			
 			LaneManager.freeze_current_enemies.rpc(0, team)
 			LaneManager.freeze_current_enemies.rpc(1, team)
 			LaneManager.freeze_current_enemies.rpc(2, team)

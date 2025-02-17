@@ -31,6 +31,7 @@ func _process(delta: float) -> void:
 #
 @rpc("any_peer", "call_local")
 func freeze_current_enemies(lane: int,team: int) ->void:
+	print("[lane_manager.gd] got team",team)
 	if not multiplayer.is_server():
 		return
 	var bodies = []
@@ -43,9 +44,9 @@ func freeze_current_enemies(lane: int,team: int) ->void:
 		bodies = lower.get_overlapping_bodies()
 	print("here are bodies:",bodies)
 	for b in bodies:
-			if b.has_method("process_status") and b.has_method("get_team"):
-				print("a minoiin!",b.get_team())
-				if b.get_team() == 0:
+			if b is Minion:
+				
+				if b.get_team() != team:
 					
 					b.process_status("freeze")
 	
