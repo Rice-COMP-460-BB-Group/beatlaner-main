@@ -61,7 +61,7 @@ func damage_powerup(team: int) ->void:
 	for b in bodies:
 		if b.has_method("process_damage_powerup") and b.has_method("get_team"):
 			
-			if b.get_team() == 1:
+			if b.get_team() != team:
 				
 				b.process_damage_powerup()
 					
