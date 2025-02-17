@@ -13,6 +13,13 @@ var active_notes = []
 
 func _ready():
 	$ActiveKey.hide()
+	
+	if difficulty == difficulty_level.EASY:
+		speed = 8
+	elif difficulty == difficulty_level.MEDIUM:
+		speed = 12
+	elif difficulty == difficulty_level.HARD:
+		speed = 17
 
 
 enum difficulty_level {EASY,MEDIUM,HARD}
@@ -62,6 +69,7 @@ func init():
 		new_note.texture = load("res://rhythm game/assets/mania_notes/Sigil3.png")
 	elif key == "key4":
 		new_note.texture = load("res://rhythm game/assets/mania_notes/Sigil4.png")
+	add_to_group("mania_note_instance")
 	get_parent().add_child(new_note)
 	new_note.init(position.x, speed)
 	active_notes.push_back(new_note)
