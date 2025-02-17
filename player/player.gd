@@ -250,15 +250,7 @@ func _process(delta: float) -> void:
 		tween.tween_property($Stats/MetronomeContainer/MetronomeAnimation, "modulate", Color(2, 2, 2, 1), 0.1)
 		tween.tween_property($Stats/MetronomeContainer/MetronomeAnimation, "modulate", Color(1, 1, 1, 1), 0.1)
 
-func escape_rhythm_game():
-	if is_instance_valid(rhythm_game_instance):
-		#$RhythmLayer1.remove_child(rhythm_game_instance)
-		
-		var score = rhythm_game_instance.get_score()
-		rhythm_game_instance.reset_score()
-		current_score = min(current_score + int(score / 3000), 300)
-		update_mana(current_score)
-		is_rhythm_game_open = false
+
 
 @rpc("any_peer", "call_local")
 func create_afterimage():
@@ -436,7 +428,15 @@ func play_slice_anim(angle_to_cursor):
 	$Slice/SliceArea/CollisionShape2D.shape.size = old_collision_size * (1.0 + critical)
 	$Slice/SliceAnimation.play()
 	$Slice/AudioStreamPlayer.play()
-
+func escape_rhythm_game():
+	if is_instance_valid(rhythm_game_instance):
+		#$RhythmLayer1.remove_child(rhythm_game_instance)
+	
+		var score = rhythm_game_instance.get_score()
+		rhythm_game_instance.reset_score()
+		current_score = min(current_score + int(score / 3000), 300)
+		update_mana(current_score)
+		is_rhythm_game_open = false
 func get_minimap():
 	return $HUD/Minimap
 
