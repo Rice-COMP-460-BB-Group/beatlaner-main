@@ -15,11 +15,11 @@ func _ready():
 	$ActiveKey.hide()
 	
 	if difficulty == difficulty_level.EASY:
-		speed = 8
+		speed = 6
 	elif difficulty == difficulty_level.MEDIUM:
-		speed = 12
+		speed = 8
 	elif difficulty == difficulty_level.HARD:
-		speed = 17
+		speed = 12
 
 
 enum difficulty_level {EASY,MEDIUM,HARD}

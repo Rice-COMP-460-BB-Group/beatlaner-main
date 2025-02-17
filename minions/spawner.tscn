@@ -15,7 +15,7 @@ position = Vector2(3440, 3456)
 position = Vector2(3440, 928)
 
 [node name="P1Upper" type="Marker2D" parent="."]
-position = Vector2(560, 3072)
+position = Vector2(563, 3072)
 
 [node name="UpperThrough" type="Marker2D" parent="."]
 position = Vector2(560, 512)

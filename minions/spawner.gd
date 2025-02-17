@@ -237,7 +237,12 @@ func spawn(dict:Dictionary):
 
 	minion.set_team(team == 0)
 	minion.tower_target = opposite_tower
-	minion.position = spawnpt.position
+	if team == 1:
+		minion.position = Vector2(563, 3443)
+	else:
+		minion.position = Vector2(3432, 514)
+
+		
 	minion.set_level(dict["level"])
 	return minion
 
