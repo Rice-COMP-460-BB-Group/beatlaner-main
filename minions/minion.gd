@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 class_name Minion
 
-@export var tower_target: Tower
+@export var tower_target: Node2D
 
 var enemy_target: Node2D
 
@@ -109,6 +109,9 @@ func _physics_process(delta: float):
 				return
 			if not is_instance_valid(tower_target):
 				var towers = get_tree().get_nodes_in_group("Towers")
+				var nexus = get_tree().get_nodes_in_group("Nexus")
+				for i in nexus:
+					towers.append(i)
 				var candid = null
 				var min_dist = INF
 				for tower in towers:

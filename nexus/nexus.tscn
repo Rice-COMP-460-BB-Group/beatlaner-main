@@ -19,7 +19,7 @@ properties/0/path = NodePath("HealthComponent:currentHealth")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
-[node name="Nexus" type="Area2D"]
+[node name="Nexus" type="Area2D" groups=["Nexus"]]
 script = ExtResource("1_8s1ey")
 laser_scene = ExtResource("2_ok7j0")
 
