@@ -62,7 +62,7 @@ var sync_is_dashing := false
 var old_collision_size
 
 func _ready() -> void:
-	$Metronome.wait_time = 0.25
+	$Metronome.wait_time = (60.0 / bpm)
 	cycle_duration = 2 * $Metronome.wait_time # Full cycle duration (1 second)
 	frame_duration = cycle_duration / (total_metronome_frames - 1) # 1/12 ≈ 0.0833s
 	$Metronome.start()
