@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://0n265vc7dy8m"]
+
+[ext_resource type="PackedScene" uid="uid://bqkl7m6s1p5ls" path="res://minions/arrow.tscn" id="1_sh500"]
+[ext_resource type="Texture2D" uid="uid://bge0hs07i3uf5" path="res://assets/star.png" id="2_s1el8"]
+
+[node name="Area2D" instance=ExtResource("1_sh500")]
+
+[node name="Projectile" parent="." index="1"]
+texture = ExtResource("2_s1el8")
