@@ -17,6 +17,8 @@ enum Team {BLUE, RED}
 
 
 var state: State
+var level: int
+
 enum State {MOVE, ATTACK, FROZEN}
 enum BuffState {INCREASE, DECREASE}
 @onready var navigation_agent_2d: NavigationAgent2D = $NavigationHandler/NavigationAgent2D
@@ -57,6 +59,8 @@ func _ready():
 func get_team() -> int:
 	return team
 
+
+
 func set_team(is_player: bool):
 	if is_player:
 		team = Team.BLUE
@@ -80,6 +84,7 @@ func set_level(level:int):
 	print("[minion.gd]","level invoked")
 	$HealthComponent.increase_max_health(10 * level)
 	$HealthComponent.currentHealth = $HealthComponent.maxHealth
+	$HealthComponent.display_level(level)
 	damage += ceil((level * 1.5))
 func get_health():
 	return $HealthComponent.get_current_health()

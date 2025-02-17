@@ -21,7 +21,8 @@ func _ready() -> void:
 	
 	$HealthBar.update(currentHealth, maxHealth)
 
-
+func display_level(level: int):
+	$Level.text = str(level)
 func get_current_health():
 	return currentHealth
 

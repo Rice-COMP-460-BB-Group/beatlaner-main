@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://vrm8h4oj4f3j"]
+[gd_scene load_steps=9 format=3 uid="uid://vrm8h4oj4f3j"]
 
 [ext_resource type="Script" path="res://nexus/nexus.gd" id="1_8s1ey"]
-[ext_resource type="Texture2D" uid="uid://dp1k4bb5d7g3b" path="res://rhythm game/assets/mania_notes/Sigil3.png" id="2_a1f14"]
+[ext_resource type="PackedScene" uid="uid://bqkl7m6s1p5ls" path="res://minions/arrow.tscn" id="2_8sg14"]
+[ext_resource type="Texture2D" uid="uid://3r86y452fli1" path="res://assets/candidate2.png" id="2_ksxnc"]
 [ext_resource type="PackedScene" uid="uid://ckytalr2gjoym" path="res://healthbar/health_component.tscn" id="3_d3luj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qlort"]
@@ -10,8 +11,17 @@ radius = 161.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_3q36i"]
 radius = 49.4975
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_bncu5"]
+radius = 982.008
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_14t81"]
+properties/0/path = NodePath("HealthComponent:currentHealth")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
 [node name="Nexus" type="Area2D"]
 script = ExtResource("1_8s1ey")
+laser_scene = ExtResource("2_8sg14")
 
 [node name="DetectionArea" type="Area2D" parent="."]
 collision_mask = 4
@@ -20,8 +30,9 @@ collision_mask = 4
 shape = SubResource("CircleShape2D_qlort")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0.0352941, 0.027451, 1, 1)
-texture = ExtResource("2_a1f14")
+position = Vector2(0.25, 0.5)
+scale = Vector2(3, 3.03)
+texture = ExtResource("2_ksxnc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_3q36i")
@@ -29,6 +40,18 @@ shape = SubResource("CircleShape2D_3q36i")
 [node name="HealthComponent" parent="." instance=ExtResource("3_d3luj")]
 currentHealth = 10000
 maxHealth = 10000
+
+[node name="EnemyDetectArea" type="Area2D" parent="."]
+collision_mask = 5
+
+[node name="EnemyDetectCollision" type="CollisionShape2D" parent="EnemyDetectArea"]
+shape = SubResource("CircleShape2D_bncu5")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("..")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_14t81")
 
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
