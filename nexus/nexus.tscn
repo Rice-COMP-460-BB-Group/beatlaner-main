@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://vrm8h4oj4f3j"]
 
 [ext_resource type="Script" path="res://nexus/nexus.gd" id="1_8s1ey"]
-[ext_resource type="PackedScene" uid="uid://bqkl7m6s1p5ls" path="res://minions/arrow.tscn" id="2_8sg14"]
 [ext_resource type="Texture2D" uid="uid://3r86y452fli1" path="res://assets/candidate2.png" id="2_ksxnc"]
+[ext_resource type="PackedScene" uid="uid://0n265vc7dy8m" path="res://nexus/laser.tscn" id="2_ok7j0"]
 [ext_resource type="PackedScene" uid="uid://ckytalr2gjoym" path="res://healthbar/health_component.tscn" id="3_d3luj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qlort"]
@@ -21,7 +21,7 @@ properties/0/replication_mode = 1
 
 [node name="Nexus" type="Area2D" groups=["Nexus"]]
 script = ExtResource("1_8s1ey")
-laser_scene = ExtResource("2_8sg14")
+laser_scene = ExtResource("2_ok7j0")
 
 [node name="DetectionArea" type="Area2D" parent="."]
 collision_mask = 4
