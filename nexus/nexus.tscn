@@ -38,8 +38,8 @@ texture = ExtResource("2_ksxnc")
 shape = SubResource("CircleShape2D_3q36i")
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_d3luj")]
-currentHealth = 10000
-maxHealth = 10000
+currentHealth = 10
+maxHealth = 10
 
 [node name="EnemyDetectArea" type="Area2D" parent="."]
 collision_mask = 5
@@ -55,3 +55,4 @@ replication_config = SubResource("SceneReplicationConfig_14t81")
 
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
+[connection signal="health_destroyed" from="HealthComponent" to="." method="_on_health_component_health_destroyed"]

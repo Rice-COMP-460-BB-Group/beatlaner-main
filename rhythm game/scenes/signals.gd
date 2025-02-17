@@ -12,6 +12,7 @@ signal WaveSpawned()
 
 enum Team {BLUE, RED}
 signal TowerDestroyed(tower: Team, pos: Vector2)
+signal NexusDestroyed(tower: Team)
 
 
 signal ScrollSpeedChange(new_speed: float)

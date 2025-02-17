@@ -10,7 +10,7 @@ var attack_speed = .15
 func _ready() -> void:
 	$MultiplayerSpawner.spawn_function = fire
 	$MultiplayerSpawner.spawn_path = get_parent().get_path()
-	pass # Replace with function body.
+
 
 
 func set_team(new_team:Team):
@@ -67,6 +67,13 @@ func _on_detection_area_body_entered(body: Node2D) -> void:
 			 
 			body.can_use_nexus = true
 			body.show_tooltip("M:upgrade minions\nN:upgrade yourself")
+
+func _on_health_component_health_destroyed() -> void:
+
+	print("nexus destroyed" + str(team))
+	Signals.NexusDestroyed.emit(team)
+	queue_free()
+
 
 
 func _on_detection_area_body_exited(body: Node2D) -> void:

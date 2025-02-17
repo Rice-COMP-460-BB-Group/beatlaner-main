@@ -74,7 +74,7 @@ func _ready() -> void:
 	
 	rhythm_game_instance.hide()
 	rhythm_game_instance.disable()
-	Signals.TowerDestroyed.connect(on_tower_destroyed)
+	Signals.NexusDestroyed.connect(on_nexus_destroyed)
 
 	
 	old_collision_size = $Slice/SliceArea/CollisionShape2D.shape.size
@@ -208,25 +208,34 @@ func show_defeat():
 
 var red_score = 0
 var blue_score = 0
-func on_tower_destroyed(tower_team: Team, pos: Vector2):
+func on_nexus_destroyed(nexus_destroyed_team: Team):
 	if multiplayer.is_server():
 		return
-	print("team", team, red_score, blue_score)
-	if tower_team == Team.RED:
-		red_score += 1
+	if nexus_destroyed_team == team:
+		show_defeat()
 	else:
-		blue_score += 1
-	if red_score == 3:
-		# Notify all players
-		if team == Team.RED:
-			show_defeat()
-		else:
-			show_victory()
-	elif blue_score == 3:
-		if team == Team.BLUE:
-			show_defeat()
-		else:
-			show_victory()
+		show_victory()
+		
+		
+#func on_tower_destroyed(tower_team: Team, pos: Vector2):
+	#if multiplayer.is_server():
+		#return
+	#print("team", team, red_score, blue_score)
+	#if tower_team == Team.RED:
+		#red_score += 1
+	#else:
+		#blue_score += 1
+	#if red_score == 3:
+		## Notify all players
+		#if team == Team.RED:
+			#show_defeat()
+		#else:
+			#show_victory()
+	#elif blue_score == 3:
+		#if team == Team.BLUE:
+			#show_defeat()
+		#else:
+			#show_victory()
 			
 func _on_metronome_timeout():
 	beat_half_count += 1
