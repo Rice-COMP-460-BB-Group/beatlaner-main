@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 class_name Minion
 
-@export var tower_target: Tower
+@export var tower_target: Node2D
 
 var enemy_target: Node2D
 
