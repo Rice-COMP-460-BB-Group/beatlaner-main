@@ -348,9 +348,10 @@ func _physics_process(delta: float) -> void:
 			LaneManager.freeze_current_enemies.rpc(2, team)
 
 
-		if Input.is_action_just_pressed("damage_powerup") and player_powerups["damage_powerup"]:
+		if Input.is_action_just_pressed("damage_powerup") and current_score >= 250:
 			print("damage")
-			player_powerups["damage_powerup"] -= 1
+			current_score -= 250
+			
 			LaneManager.damage_powerup.rpc(team)
 			
 		if Input.is_action_just_pressed("Attack"):
