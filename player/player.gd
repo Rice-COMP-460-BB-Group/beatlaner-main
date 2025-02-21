@@ -199,15 +199,13 @@ func show_defeat():
 	await fade_in.finished
 	await get_tree().create_timer(2).timeout
 	#get_tree().current_scene.change_scene_to_file("res://map/game_over.tscn")
-	var scene = load("res://map/game_win.tscn").instantiate()
+	var scene = load("res://map/game_over.tscn").instantiate()
 	get_tree().root.add_child(scene)
 	get_tree().current_scene.queue_free()
 	#var scene = load("res://map/game_over.tscn").instantiate()
 	#get_tree().change_scene_to(scene)
 
 
-var red_score = 0
-var blue_score = 0
 func on_nexus_destroyed(nexus_destroyed_team: Team):
 	if multiplayer.is_server():
 		return
@@ -306,6 +304,9 @@ func _physics_process(delta: float) -> void:
 			if combo and not combo % 10 and combo > last_combo:
 				var rand_powerup = powerups[randi_range(0, len(powerups) - 1)]
 				player_powerups[rand_powerup] += 1
+				update_powerup_counts()
+
+
 			last_combo = combo
 			
 			var score = rhythm_game_instance.get_score()
@@ -336,22 +337,31 @@ func _physics_process(delta: float) -> void:
 				current_score -= 10
 				request_wave_spawn.rpc(2, 3, team,minion_level)
 				update_mana(current_score)
-		if Input.is_action_just_pressed("freeze") and current_score >= 250:
-			current_score -= 250
-			update_mana(current_score)
-			print("[player.gd]freeze")
-			
+		if Input.is_action_just_pressed("freeze") and (player_powerups["freeze"] or  current_score >= 150):
+			if player_powerups["freeze"]:
+				player_powerups["freeze"] -= 1
+				update_powerup_counts()
+			elif current_score >= 150:
+				current_score -= 150
+				update_mana(current_score)
+						
 			LaneManager.freeze_current_enemies.rpc(0, team)
 			LaneManager.freeze_current_enemies.rpc(1, team)
 			LaneManager.freeze_current_enemies.rpc(2, team)
+			$FreezePowerupSound.play()
 
 
-		if Input.is_action_just_pressed("damage_powerup") and current_score >= 250:
-			print("damage")
-			current_score -= 250
-			
+		if Input.is_action_just_pressed("damage_powerup") and (player_powerups["damage_powerup"] or  current_score >= 200):
+			print('using damage powerup')
+			if player_powerups["damage_powerup"]:
+				player_powerups["damage_powerup"] -= 1
+				update_powerup_counts()
+			elif current_score >= 200:
+				current_score -= 200
+				update_mana(current_score)			
 			LaneManager.damage_powerup.rpc(team)
-			
+			$DamagePowerupSound.play()
+
 		if Input.is_action_just_pressed("Attack"):
 			if $HealthComponent.currentHealth <= 0 or last_attack < attack_speed:
 				return
@@ -450,6 +460,21 @@ func escape_rhythm_game():
 func get_minimap():
 	return $HUD/Minimap
 
+
+func add_powerup(powerup):
+	player_powerups[powerup] += 1
+	update_powerup_counts()
+
+func reset_powerups():
+	player_powerups = {
+		"freeze": 0,
+		"damage_powerup": 0
+	}
+
+func update_powerup_counts():
+	$Stats/FreezeCount.text = str(player_powerups["freeze"])
+	$Stats/DamageCount.text = str(player_powerups["damage_powerup"])
+
 func handle_rhythm_callback():
 	if is_rhythm_game_open:
 		#$RhythmLayer1.remove_child(rhythm_game_instance)
@@ -498,6 +523,7 @@ func falloff_curve():
 	return extra_damage
 
 func respawn() -> void:
+	reset_powerups()
 	$HealthComponent.visible = false
 	$AnimatedSprite2D.visible = false
 	$CollisionShape2D.disabled = true

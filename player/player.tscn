@@ -1,4 +1,4 @@
-[gd_scene load_steps=107 format=3 uid="uid://bj3lu7yts43wl"]
+[gd_scene load_steps=111 format=3 uid="uid://bj3lu7yts43wl"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_h04aa"]
 [ext_resource type="Texture2D" uid="uid://3sv7ccy0u7fe" path="res://assets/6369.png" id="1_xd2rp"]
@@ -27,10 +27,14 @@
 [ext_resource type="Texture2D" uid="uid://cxggkjevi7j0k" path="res://assets/Metronome-011.png" id="17_eajn3"]
 [ext_resource type="FontFile" uid="uid://cm5q756n5trre" path="res://assets/VT323-Regular.ttf" id="18_86px8"]
 [ext_resource type="PackedScene" path="res://player/ManaBar.tscn" id="19_w14c3"]
+[ext_resource type="Texture2D" uid="uid://chyxxyuvstpn0" path="res://assets/freeze.png" id="20_hmv4o"]
+[ext_resource type="Texture2D" uid="uid://dnoewolfky8m1" path="res://assets/damage.png" id="21_heyin"]
 [ext_resource type="Texture2D" uid="uid://dvgisd26hm73n" path="res://assets/light_gd.webp" id="28_bqyr1"]
 [ext_resource type="Script" path="res://player/afterimage.gd" id="28_i8vw6"]
 [ext_resource type="AudioStream" uid="uid://crwiggodkgtsr" path="res://assets/sword-slash.wav" id="28_rydyj"]
 [ext_resource type="AudioStream" uid="uid://b3dde5dhicjf3" path="res://assets/blink sound.wav" id="30_oggmt"]
+[ext_resource type="AudioStream" uid="uid://cfjdfbdye2oyn" path="res://assets/FreezeSoundEffect.mp3" id="34_tllr5"]
+[ext_resource type="AudioStream" uid="uid://bh1aqvgr4h38x" path="res://assets/DamagePowerupSoundEffect.mp3" id="35_k4mhr"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xpusc"]
 
@@ -805,7 +809,7 @@ properties/2/path = NodePath(".:velocity")
 properties/2/spawn = true
 properties/2/replication_mode = 1
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_h04aa")
@@ -923,6 +927,32 @@ anchor_bottom = -1.1
 offset_right = 95.0
 offset_bottom = 19.0
 
+[node name="FreezeCount" type="Label" parent="Stats"]
+layout_mode = 0
+offset_left = -249.0
+offset_top = -84.0
+offset_right = -209.0
+offset_bottom = -69.0
+text = "0"
+
+[node name="DamageCount" type="Label" parent="Stats"]
+layout_mode = 0
+offset_left = -249.0
+offset_top = -46.0
+offset_right = -209.0
+offset_bottom = -31.0
+text = "0"
+
+[node name="Freeze" type="Sprite2D" parent="Stats"]
+position = Vector2(-273, -75)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("20_hmv4o")
+
+[node name="Damage" type="Sprite2D" parent="Stats"]
+position = Vector2(-273, -42)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("21_heyin")
+
 [node name="HUD" type="CanvasLayer" parent="."]
 
 [node name="Minimap" type="Control" parent="HUD"]
@@ -1005,6 +1035,14 @@ replication_config = SubResource("SceneReplicationConfig_fmn6a")
 stream = ExtResource("30_oggmt")
 volume_db = -3.681
 pitch_scale = 0.38
+
+[node name="FreezePowerupSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("34_tllr5")
+volume_db = 6.0
+
+[node name="DamagePowerupSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("35_k4mhr")
+volume_db = 12.0
 
 [connection signal="timeout" from="Metronome" to="." method="_on_metronome_timeout"]
 [connection signal="health_destroyed" from="HealthComponent" to="." method="_on_health_component_health_destroyed"]
