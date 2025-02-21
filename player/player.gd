@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 class_name Player
 
-@export var bpm = 175
+var bpm = 175
 @export var damage = 10
 @export var attack_speed = .35
 @export var team: Team
@@ -460,8 +460,9 @@ func escape_rhythm_game():
 func get_minimap():
 	return $HUD/Minimap
 
-
+@rpc("any_peer", "call_local")
 func add_powerup(powerup):
+	print("Adding powerup:", powerup, "to", name)
 	player_powerups[powerup] += 1
 	update_powerup_counts()
 

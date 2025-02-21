@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://rhxtlwdc3r1o" path="res://assets/map/Beatlaner-Sheet.png" id="2_hv50b"]
 [ext_resource type="Texture2D" uid="uid://dc5tcawpn2c2x" path="res://assets/BeatlanerTiles copy.png" id="4_c402s"]
 [ext_resource type="Texture2D" uid="uid://dycrx7dvdmgnw" path="res://assets/NewTree..png" id="4_lk05n"]
-[ext_resource type="PackedScene" uid="uid://can4ucahvj8ac" path="res://map/lantern.tscn" id="4_nj2fp"]
+[ext_resource type="PackedScene" path="res://map/lantern.tscn" id="4_nj2fp"]
 [ext_resource type="Texture2D" uid="uid://ik4vtfosenor" path="res://assets/BEATLANERFOREST2 Copy.png" id="6_hk4ok"]
 [ext_resource type="PackedScene" uid="uid://ls62ff1qbdop" path="res://fog/Fog.tscn" id="8_6i0wg"]
 [ext_resource type="PackedScene" uid="uid://cjrs5vdwvwxb8" path="res://player/Powerup.tscn" id="8_w655y"]

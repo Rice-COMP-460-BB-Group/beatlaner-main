@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://nexus/nexus.gd" id="1_8s1ey"]
 [ext_resource type="Texture2D" uid="uid://3r86y452fli1" path="res://assets/candidate2.png" id="2_ksxnc"]
-[ext_resource type="PackedScene" uid="uid://0n265vc7dy8m" path="res://nexus/laser.tscn" id="2_ok7j0"]
+[ext_resource type="PackedScene" path="res://nexus/laser.tscn" id="2_ok7j0"]
 [ext_resource type="PackedScene" uid="uid://ckytalr2gjoym" path="res://healthbar/health_component.tscn" id="3_d3luj"]
 [ext_resource type="Texture2D" uid="uid://2gnyj68758bf" path="res://assets/nexusB-Sheet.png" id="5_1dn10"]
 [ext_resource type="Texture2D" uid="uid://b5x7nvg2qydq0" path="res://assets/Nexus2-Sheet copy.png" id="6_jj4cj"]
