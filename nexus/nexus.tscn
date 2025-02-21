@@ -38,8 +38,8 @@ texture = ExtResource("2_ksxnc")
 shape = SubResource("CircleShape2D_3q36i")
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_d3luj")]
-currentHealth = 10
-maxHealth = 10
+currentHealth = 3000
+maxHealth = 3000
 
 [node name="EnemyDetectArea" type="Area2D" parent="."]
 collision_mask = 5

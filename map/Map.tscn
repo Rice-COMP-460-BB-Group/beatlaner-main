@@ -966,11 +966,23 @@ position = Vector2(557, 3153)
 scale = Vector2(0.3, 0.3)
 
 [node name="Powerup2" parent="." instance=ExtResource("8_w655y")]
-position = Vector2(938, 3483)
+position = Vector2(858, 3484)
 scale = Vector2(0.3, 0.3)
 
 [node name="Powerup3" parent="." instance=ExtResource("8_w655y")]
 position = Vector2(764, 3232)
+scale = Vector2(0.3, 0.3)
+
+[node name="Powerup4" parent="." instance=ExtResource("8_w655y")]
+position = Vector2(3116, 548)
+scale = Vector2(0.3, 0.3)
+
+[node name="Powerup5" parent="." instance=ExtResource("8_w655y")]
+position = Vector2(3473, 912)
+scale = Vector2(0.3, 0.3)
+
+[node name="Powerup6" parent="." instance=ExtResource("8_w655y")]
+position = Vector2(3253, 783)
 scale = Vector2(0.3, 0.3)
 
 [connection signal="body_entered" from="UpperLane" to="LaneManager" method="_on_upper_lane_body_entered"]

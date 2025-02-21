@@ -1,4 +1,4 @@
-[gd_scene load_steps=111 format=3 uid="uid://bj3lu7yts43wl"]
+[gd_scene load_steps=112 format=3 uid="uid://bj3lu7yts43wl"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_h04aa"]
 [ext_resource type="Texture2D" uid="uid://3sv7ccy0u7fe" path="res://assets/6369.png" id="1_xd2rp"]
@@ -809,10 +809,19 @@ properties/2/path = NodePath(".:velocity")
 properties/2/spawn = true
 properties/2/replication_mode = 1
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j3yhm"]
+
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_h04aa")
+bpm = null
+damage = null
+attack_speed = null
+team = null
+respawn_position = null
+game_difficulty = null
+can_use_nexus = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_xpusc")
@@ -1043,6 +1052,22 @@ volume_db = 6.0
 [node name="DamagePowerupSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("35_k4mhr")
 volume_db = 12.0
+
+[node name="DamageVignette" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0.607843)
+material = SubResource("ShaderMaterial_j3yhm")
+offset_left = -289.0
+offset_top = -161.0
+offset_right = 287.0
+offset_bottom = 162.0
+color = Color(0.523657, 0, 0.000180683, 1)
 
 [connection signal="timeout" from="Metronome" to="." method="_on_metronome_timeout"]
 [connection signal="health_destroyed" from="HealthComponent" to="." method="_on_health_component_health_destroyed"]

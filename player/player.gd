@@ -310,7 +310,7 @@ func _physics_process(delta: float) -> void:
 			last_combo = combo
 			
 			var score = rhythm_game_instance.get_score()
-			var tmp_score = min(current_score + int(score / 3000), 300)
+			var tmp_score = min(current_score + int(score / 3000) + 50, 300)
 			update_mana(tmp_score)
 		if is_dashing:
 			dash_timer -= delta
@@ -454,7 +454,7 @@ func escape_rhythm_game():
 		#print("notes", notes)
 		#for note in notes:
 			#note.queue_free()
-		current_score = min(current_score + int(score / 3000), 300)
+		current_score = min(current_score + int(score / 3000) + 50, 300)
 		update_mana(current_score)
 		is_rhythm_game_open = false
 func get_minimap():
