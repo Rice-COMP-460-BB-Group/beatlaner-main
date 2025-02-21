@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c7yvl1kfal3jq" path="res://Beatlaner logwhiteo.png" id="1_acel6"]
 [ext_resource type="Texture2D" uid="uid://dvgifd7ptn6uh" path="res://assets/Background.png" id="2_kbj5k"]
 [ext_resource type="FontFile" uid="uid://cm5q756n5trre" path="res://assets/VT323-Regular.ttf" id="2_o2rih"]
-[ext_resource type="AudioStream" uid="uid://c78mc7nbmrog6" path="res://assets/Intro-Riff.wav" id="4_wt3nm"]
+[ext_resource type="AudioStream" uid="uid://ykv52swm6j34" path="res://assets/Digital Shadows.mp3" id="5_jgl1m"]
 [ext_resource type="AudioStream" uid="uid://bn85ku10tp2ma" path="res://assets/menu-select.wav" id="6_0wtu3"]
 [ext_resource type="AudioStream" uid="uid://dc2ox0b4yyblh" path="res://assets/menu-confirm.wav" id="7_as5so"]
 
@@ -65,7 +65,7 @@ text = "Exit"
 
 [node name="Background" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(576, 320)
-stream = ExtResource("4_wt3nm")
+stream = ExtResource("5_jgl1m")
 autoplay = true
 max_distance = 5000.0
 

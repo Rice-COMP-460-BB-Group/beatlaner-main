@@ -1,13 +1,15 @@
-[gd_scene load_steps=9 format=3 uid="uid://3l0iahp12xip"]
+[gd_scene load_steps=28 format=3 uid="uid://3l0iahp12xip"]
 
 [ext_resource type="Script" path="res://scripts/Tower.gd" id="1_15l20"]
 [ext_resource type="PackedScene" uid="uid://bqkl7m6s1p5ls" path="res://minions/arrow.tscn" id="2_q6p00"]
 [ext_resource type="Texture2D" uid="uid://c6vob683c35dk" path="res://assets/tower.png" id="2_qjxk3"]
 [ext_resource type="PackedScene" uid="uid://ckytalr2gjoym" path="res://healthbar/health_component.tscn" id="3_sstfa"]
 [ext_resource type="AudioStream" uid="uid://d101lyttvr3i3" path="res://assets/shimmer_sound.wav" id="4_astes"]
+[ext_resource type="Texture2D" uid="uid://davkpf2avp85f" path="res://assets/tower_anim-Sheet.png" id="6_h2md8"]
+[ext_resource type="Texture2D" uid="uid://wp7882q4hbwa" path="res://assets/tower-anim_red-Sheet.png" id="7_k6ryy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7vd8f"]
-size = Vector2(59, 120)
+size = Vector2(123.75, 131.75)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cwyrc"]
 radius = 250.0
@@ -17,14 +19,140 @@ properties/0/path = NodePath("HealthComponent:currentHealth")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ou8of"]
+atlas = ExtResource("6_h2md8")
+region = Rect2(0, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lskbp"]
+atlas = ExtResource("6_h2md8")
+region = Rect2(512, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d44ui"]
+atlas = ExtResource("6_h2md8")
+region = Rect2(1024, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dj43e"]
+atlas = ExtResource("6_h2md8")
+region = Rect2(1536, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_myejd"]
+atlas = ExtResource("6_h2md8")
+region = Rect2(2048, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gqtqp"]
+atlas = ExtResource("6_h2md8")
+region = Rect2(2560, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3fk5v"]
+atlas = ExtResource("6_h2md8")
+region = Rect2(3072, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e87qa"]
+atlas = ExtResource("6_h2md8")
+region = Rect2(3584, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jaou0"]
+atlas = ExtResource("7_k6ryy")
+region = Rect2(0, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jlcm8"]
+atlas = ExtResource("7_k6ryy")
+region = Rect2(512, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7tjrb"]
+atlas = ExtResource("7_k6ryy")
+region = Rect2(1024, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ca0j4"]
+atlas = ExtResource("7_k6ryy")
+region = Rect2(1536, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m3xhn"]
+atlas = ExtResource("7_k6ryy")
+region = Rect2(2048, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_md2xr"]
+atlas = ExtResource("7_k6ryy")
+region = Rect2(2560, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_68qa6"]
+atlas = ExtResource("7_k6ryy")
+region = Rect2(3072, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yaqqo"]
+atlas = ExtResource("7_k6ryy")
+region = Rect2(3584, 0, 512, 512)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3vb0v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ou8of")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lskbp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d44ui")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dj43e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_myejd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gqtqp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3fk5v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e87qa")
+}],
+"loop": true,
+"name": &"anim_blue",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jaou0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jlcm8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7tjrb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ca0j4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m3xhn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_md2xr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_68qa6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yaqqo")
+}],
+"loop": true,
+"name": &"anim_red",
+"speed": 5.0
+}]
+
 [node name="Tower" type="Area2D" groups=["Towers"]]
-collision_layer = 5
-collision_mask = 5
+collision_layer = 15
+collision_mask = 15
 collision_priority = 2.0
 script = ExtResource("1_15l20")
 laser_scene = ExtResource("2_q6p00")
 
 [node name="MinionCount" type="RichTextLabel" parent="."]
+visible = false
 z_index = 100
 offset_left = -24.0
 offset_top = 5.0
@@ -34,13 +162,14 @@ theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
 z_index = 2
 position = Vector2(0, 6)
 scale = Vector2(1.2, 1)
 texture = ExtResource("2_qjxk3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, 4)
+position = Vector2(2, 1)
 shape = SubResource("RectangleShape2D_7vd8f")
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_sstfa")]
@@ -49,9 +178,11 @@ currentHealth = 1500
 maxHealth = 1500
 
 [node name="DestroySound" type="AudioStreamPlayer2D" parent="."]
+visible = false
 stream = ExtResource("4_astes")
 
 [node name="Button" type="Button" parent="."]
+visible = false
 modulate = Color(1, 1, 1, 0)
 offset_left = -30.0
 offset_top = -56.0
@@ -60,6 +191,7 @@ offset_bottom = 64.0
 
 [node name="Window" type="Window" parent="."]
 position = Vector2i(0, 36)
+visible = false
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 visible = false
@@ -71,6 +203,7 @@ collision_layer = 0
 collision_mask = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+position = Vector2(1, 2)
 shape = SubResource("CircleShape2D_cwyrc")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
@@ -78,6 +211,13 @@ replication_config = SubResource("SceneReplicationConfig_yp15l")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 spawn_path = NodePath("..")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 11
+y_sort_enabled = true
+position = Vector2(21, -95)
+sprite_frames = SubResource("SpriteFrames_3vb0v")
+animation = &"anim_blue"
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="health_destroyed" from="HealthComponent" to="." method="_on_health_component_health_destroyed"]

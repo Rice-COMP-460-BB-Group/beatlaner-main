@@ -70,6 +70,7 @@ func spawner_init() -> void:
 			var tower = towerScene.instantiate()
 			tower.position = sp.position
 			tower.team = sp.name.find("P1") == 0
+			tower.set_team(sp.name.find("P1") == 0)
 			tower.name = sp.name
 			print(tower.name)
 			spawn_points[sp.name] = tower
