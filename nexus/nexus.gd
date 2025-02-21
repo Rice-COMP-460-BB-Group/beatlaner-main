@@ -10,11 +10,18 @@ var attack_speed = .15
 func _ready() -> void:
 	$MultiplayerSpawner.spawn_function = fire
 	$MultiplayerSpawner.spawn_path = get_parent().get_path()
-
+	$AnimatedSprite2D.play()
 
 
 func set_team(new_team:Team):
 	team = new_team
+	if (team == Team.RED):
+		$AnimatedSprite2D.animation = "anim_blue"
+		$PointLight2D.color = Color(0,0,255)
+	else:
+		$AnimatedSprite2D.animation = "anim_red"
+		$PointLight2D.color = Color(255,0,0)
+	$AnimatedSprite2D.play()
 
 func get_team()-> Team:
 	return team

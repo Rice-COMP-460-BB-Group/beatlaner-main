@@ -15,6 +15,7 @@ var minion_count = 0
 var last_attack = -1
 var attack_speed = 3
 
+	
 func update_score(new_score: int):
 	minion_count += int(pow(new_score / 10000.0, 0.6))
 	print("fake minion count", minion_count)
@@ -27,7 +28,12 @@ func update_score(new_score: int):
 func WaveSpawned():
 	minion_count = 0
 	$MinionCount.hide()
-	
+func set_team(team):
+	if int(team) == Team.BLUE:
+		$AnimatedSprite2D.animation = "anim_red"
+	else:
+		$AnimatedSprite2D.animation = "anim_blue"
+	$AnimatedSprite2D.play()
 func fire(dict):
 	print('FIRED', multiplayer.is_server())
 	var body_id = dict["body"]
@@ -44,6 +50,7 @@ func _ready():
 	$Sprite2D.centered = true
 	$MultiplayerSpawner.spawn_function = fire
 	$MultiplayerSpawner.spawn_path = get_parent().get_path()
+	$AnimatedSprite2D.play()
 	popup_window.hide()
 	popup_window.size = Vector2(1152, 648)
 	Signals.WaveSpawned.connect(WaveSpawned)

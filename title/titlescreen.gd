@@ -26,6 +26,7 @@ func _on_start_pressed() -> void:
 			SendPlayerInformation("", multiplayer.get_unique_id())
 		$VBoxContainer/Start.text = "Start"
 	else:
+		$Background.stop()
 		StartGame.rpc()
 	# StartGame.rpc()
 
@@ -94,6 +95,7 @@ func StartGame():
 	await $Confirm.finished
 	#get_tree().change_scene_to_file.bind("res://main/Main.tscn").call_deferred()
 	print("players, ", GameManager.Players)
+	$Background.stop()
 	var scene = load("res://title/difficulty_selector.tscn").instantiate()
 	
 	var lowest_id = multiplayer.get_unique_id()

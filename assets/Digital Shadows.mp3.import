@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ykv52swm6j34"
+path="res://.godot/imported/Digital Shadows.mp3-73daba64ca08dbac7f9e5b143b59e6c0.mp3str"
+
+[deps]
+
+source_file="res://assets/Digital Shadows.mp3"
+dest_files=["res://.godot/imported/Digital Shadows.mp3-73daba64ca08dbac7f9e5b143b59e6c0.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

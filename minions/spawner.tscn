@@ -6,34 +6,34 @@
 script = ExtResource("1_a68u2")
 
 [node name="P1Lower" type="Marker2D" parent="."]
-position = Vector2(944, 3456)
+position = Vector2(1056, 3455)
 
 [node name="LowerThrough" type="Marker2D" parent="."]
 position = Vector2(3440, 3456)
 
 [node name="P2Lower" type="Marker2D" parent="."]
-position = Vector2(3440, 928)
+position = Vector2(3468, 1000)
 
 [node name="P1Upper" type="Marker2D" parent="."]
-position = Vector2(563, 3072)
+position = Vector2(561, 2988)
 
 [node name="UpperThrough" type="Marker2D" parent="."]
 position = Vector2(560, 512)
 
 [node name="P2Upper" type="Marker2D" parent="."]
-position = Vector2(3072, 512)
+position = Vector2(2933, 493)
 
 [node name="P2Mid" type="Marker2D" parent="."]
-position = Vector2(3172, 783)
+position = Vector2(3038, 918)
 
 [node name="P1Mid" type="Marker2D" parent="."]
-position = Vector2(816, 3200)
+position = Vector2(946, 3077)
 
 [node name="P1Nexus" type="Marker2D" parent="."]
-position = Vector2(563, 3443)
+position = Vector2(595, 3406)
 
 [node name="P2Nexus" type="Marker2D" parent="."]
-position = Vector2(3432, 514)
+position = Vector2(3537, 485)
 
 [node name="WaveTimer" type="Timer" parent="."]
 wait_time = 15.0
