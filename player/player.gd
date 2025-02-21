@@ -172,38 +172,38 @@ var lose_banner = preload("res://assets/Defeat.png")
 func show_victory():
 	print("showing victory", team)
 
-	var banner = $"/root/Main/BannerLayer/Banner"
-	banner.texture = win_banner
-	banner.modulate.a = 0
-	banner.show()
+	#var banner = $"/root/Main/BannerLayer/Banner"
+	#banner.texture = win_banner
+	#banner.modulate.a = 0
+	#banner.show()
 
-	var fade_in = banner.create_tween()
-	fade_in.tween_property(banner, "modulate:a", 1, .5)
-	await fade_in.finished
-	await get_tree().create_timer(2).timeout
+	#var fade_in = banner.create_tween()
+	#fade_in.tween_property(banner, "modulate:a", 1, .5)
+	#await fade_in.finished
+	#await get_tree().create_timer(2).timeout
+	##var scene = load("res://map/game_win.tscn").instantiate()
 	#var scene = load("res://map/game_win.tscn").instantiate()
-	var scene = load("res://map/game_win.tscn").instantiate()
-	get_tree().root.add_child(scene)
-	get_tree().current_scene.queue_free()
-	#get_tree().current_scene.change_scene_to_file("res://map/game_win.tscn")
+	#get_tree().root.add_child(scene)
+	#get_tree().current_scene.queue_free()
+	get_tree().current_scene.change_scene_to_file("res://map/game_win.tscn")
 
 func show_defeat():
 	print("showing defeat", team)
-	var banner = $"/root/Main/BannerLayer/Banner"
-	banner.texture = lose_banner
-	banner.modulate.a = 0
-	banner.show()
-
-	var fade_in = banner.create_tween()
-	fade_in.tween_property(banner, "modulate:a", 1, .5)
-	await fade_in.finished
-	await get_tree().create_timer(2).timeout
-	#get_tree().current_scene.change_scene_to_file("res://map/game_over.tscn")
-	var scene = load("res://map/game_over.tscn").instantiate()
-	get_tree().root.add_child(scene)
-	get_tree().current_scene.queue_free()
+	#var banner = $"/root/Main/BannerLayer/Banner"
+	#banner.texture = lose_banner
+	#banner.modulate.a = 0
+	#banner.show()
+#
+	#var fade_in = banner.create_tween()
+	#fade_in.tween_property(banner, "modulate:a", 1, .5)
+	#await fade_in.finished
+	#await get_tree().create_timer(2).timeout
+	##get_tree().current_scene.change_scene_to_file("res://map/game_over.tscn")
 	#var scene = load("res://map/game_over.tscn").instantiate()
-	#get_tree().change_scene_to(scene)
+	#get_tree().root.add_child(scene)
+	#get_tree().current_scene.queue_free()
+	var scene = load("res://map/game_over.tscn").instantiate()
+	get_tree().change_scene_to(scene)
 
 
 func on_nexus_destroyed(nexus_destroyed_team: Team):
@@ -525,6 +525,7 @@ func falloff_curve():
 
 func respawn() -> void:
 	reset_powerups()
+	update_powerup_counts()
 	$HealthComponent.visible = false
 	$AnimatedSprite2D.visible = false
 	$CollisionShape2D.disabled = true
