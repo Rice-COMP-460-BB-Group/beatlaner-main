@@ -202,8 +202,8 @@ func show_defeat():
 	#var scene = load("res://map/game_over.tscn").instantiate()
 	#get_tree().root.add_child(scene)
 	#get_tree().current_scene.queue_free()
-	var scene = load("res://map/game_over.tscn").instantiate()
-	get_tree().change_scene_to(scene)
+	get_tree().current_scene.change_scene_to_file("res://map/game_over.tscn")
+
 
 
 func on_nexus_destroyed(nexus_destroyed_team: Team):
@@ -324,25 +324,25 @@ func _physics_process(delta: float) -> void:
 			handle_rhythm_callback()
 		if current_score >= 10:
 			if Input.is_action_just_pressed("Dispatch_Top"):
-				current_score -= 10
+				current_score = max(current_score - 10, 0)
 				request_wave_spawn.rpc(0, 3, team,minion_level)
 				update_mana(current_score)
 				
 			if Input.is_action_just_pressed("Dispatch_Mid"):
-				current_score -= 10
+				current_score = max(current_score - 10, 0)
 				request_wave_spawn.rpc(1, 3, team,minion_level)
 				update_mana(current_score)
 
 			if Input.is_action_just_pressed("Dispatch_Low"):
-				current_score -= 10
+				current_score= max(current_score - 10, 0)
 				request_wave_spawn.rpc(2, 3, team,minion_level)
 				update_mana(current_score)
 		if Input.is_action_just_pressed("freeze") and (player_powerups["freeze"] or  current_score >= 150):
 			if player_powerups["freeze"]:
 				player_powerups["freeze"] -= 1
 				update_powerup_counts()
-			elif current_score >= 150:
-				current_score -= 150
+			else:
+				current_score = max(current_score - 150, 0)
 				update_mana(current_score)
 						
 			LaneManager.freeze_current_enemies.rpc(0, team)
@@ -356,8 +356,8 @@ func _physics_process(delta: float) -> void:
 			if player_powerups["damage_powerup"]:
 				player_powerups["damage_powerup"] -= 1
 				update_powerup_counts()
-			elif current_score >= 200:
-				current_score -= 200
+			else:
+				current_score = max(current_score - 200, 0)
 				update_mana(current_score)			
 			LaneManager.damage_powerup.rpc(team)
 			$DamagePowerupSound.play()
@@ -407,9 +407,9 @@ func _physics_process(delta: float) -> void:
 				current_score -= 100
 				update_mana(current_score)
 		if Input.is_action_just_pressed("upgrade_player"):
-			if current_score >= 100 and can_use_nexus:
+			if current_score >= 50 and can_use_nexus:
 				player_level += 1
-				current_score -= 100
+				current_score -= 50
 				update_mana(current_score)
 				
 			
