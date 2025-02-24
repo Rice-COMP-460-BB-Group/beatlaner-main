@@ -10,6 +10,10 @@ var bpm = 175
 @onready var rhythm_game_scene = preload("res://rhythm game/scenes/background.tscn");
 @export var game_difficulty: Difficulty
 @export var can_use_nexus: bool
+
+@onready var damage_icon = $HUD/Stats/Control/Damage
+@onready var freeze_icon = $HUD/Stats/Control/Freeze
+
 var disable_movement = false
 var player_level = 1
 var minion_level = 1
@@ -20,6 +24,9 @@ var player_powerups = {
 	"freeze": 0,
 	"damage_powerup": 0
 }
+
+var player_powerup = null
+
 var rhythm_game_instance= null
 var powerups = ["freeze", "damage_powerup"]
 
@@ -62,6 +69,9 @@ var sync_is_dashing := false
 var old_collision_size
 
 func _ready() -> void:
+	
+	freeze_icon.hide()
+	damage_icon.hide()
 	$Metronome.wait_time = (60.0 / bpm)
 	cycle_duration = 2 * $Metronome.wait_time # Full cycle duration (1 second)
 	frame_duration = cycle_duration / (total_metronome_frames - 1) # 1/12 ≈ 0.0833s
@@ -172,6 +182,7 @@ var destroy_friendly_banner = preload("res://assets/friendly-banner.png")
 
 var win_banner = preload("res://assets/Victory.png")
 var lose_banner = preload("res://assets/Defeat.png")
+
 
 
 # Add this near the top of your script
@@ -331,10 +342,14 @@ func _physics_process(delta: float) -> void:
 	if $MultiplayerSynchronizer.is_multiplayer_authority():
 		if is_rhythm_game_open:
 			var combo = rhythm_game_instance.get_combo()
-			if combo and not combo % 10 and combo > last_combo:
+			if combo and not combo % 100 and combo > last_combo and player_powerup == null:
 				var rand_powerup = powerups[randi_range(0, len(powerups) - 1)]
-				player_powerups[rand_powerup] += 1
-				update_powerup_counts()
+				#player_powerups[rand_powerup] += 1
+				player_powerup = rand_powerup
+				if rand_powerup == "freeze":
+					freeze_icon.show()
+				elif rand_powerup == "damage_powerup":
+					damage_icon.show()
 
 
 			last_combo = combo
@@ -371,10 +386,12 @@ func _physics_process(delta: float) -> void:
 				current_score= max(current_score - 10, 0)
 				request_wave_spawn.rpc(2, 3, team,minion_level)
 				update_mana(current_score)
-		if Input.is_action_just_pressed("freeze") and (player_powerups["freeze"] or  current_score >= 150):
-			if player_powerups["freeze"]:
-				player_powerups["freeze"] -= 1
-				update_powerup_counts()
+		
+		if Input.is_action_just_pressed("freeze") and (player_powerup == "freeze" or  current_score >= 150):
+			if player_powerup == "freeze":
+				#player_powerups["freeze"] -= 1
+				freeze_icon.hide()
+				player_powerup = null
 			else:
 				current_score = max(current_score - 150, 0)
 				update_mana(current_score)
@@ -385,11 +402,13 @@ func _physics_process(delta: float) -> void:
 			$FreezePowerupSound.play()
 
 
-		if Input.is_action_just_pressed("damage_powerup") and (player_powerups["damage_powerup"] or  current_score >= 200):
+		if Input.is_action_just_pressed("damage_powerup") and (player_powerup == "damage_powerup" or  current_score >= 200):
 			print('using damage powerup')
 			if player_powerups["damage_powerup"]:
+				damage_icon.hide()
+
 				player_powerups["damage_powerup"] -= 1
-				update_powerup_counts()
+			
 			else:
 				current_score = max(current_score - 200, 0)
 				update_mana(current_score)			
@@ -487,7 +506,7 @@ func escape_rhythm_game():
 		#print("notes", notes)
 		#for note in notes:
 			#note.queue_free()
-		current_score = min(current_score + int(score / 3000) + 50, 300)
+		current_score = min(current_score + int(score / 3000), 300)
 		update_mana(current_score)
 		is_rhythm_game_open = false
 func get_minimap():
@@ -495,19 +514,20 @@ func get_minimap():
 
 @rpc("any_peer", "call_local")
 func add_powerup(powerup):
-	print("Adding powerup:", powerup, "to", name)
-	player_powerups[powerup] += 1
-	update_powerup_counts()
+	if player_powerup == null:
+		if powerup == "freeze":
+			freeze_icon.show()
+			player_powerup = "freeze"
+		elif powerup == "damage_powerup":
+			damage_icon.show()
+			player_powerup = "damage_powerup"
+	
 
 func reset_powerups():
 	player_powerups = {
 		"freeze": 0,
 		"damage_powerup": 0
 	}
-
-func update_powerup_counts():
-	$HUD/Stats/FreezeCount.text = str(player_powerups["freeze"])
-	$HUD/Stats/DamageCount.text = str(player_powerups["damage_powerup"])
 
 func handle_rhythm_callback():
 	if is_rhythm_game_open:
@@ -558,7 +578,6 @@ func falloff_curve():
 
 func respawn() -> void:
 	reset_powerups()
-	update_powerup_counts()
 	$HealthComponent.visible = false
 	$AnimatedSprite2D.visible = false
 	$CollisionShape2D.disabled = true
