@@ -135,6 +135,7 @@ func move(delta):
 	if velocity and Input.is_action_just_pressed("Dash") and not $HUD/Stats/Respawning.visible:
 		$DashSound.play()
 		start_dash.rpc()
+		update_mana(current_score - 1)
 	if is_dashing:
 		sync_velocity = last_input_direction * DASH_SPEED
 		velocity = sync_velocity
@@ -406,8 +407,8 @@ func _physics_process(delta: float) -> void:
 			print('using damage powerup')
 			if player_powerups["damage_powerup"]:
 				damage_icon.hide()
-
-				player_powerups["damage_powerup"] -= 1
+				player_powerup = null
+				#player_powerups["damage_powerup"] -= 1
 			
 			else:
 				current_score = max(current_score - 200, 0)

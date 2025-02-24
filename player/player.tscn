@@ -26,7 +26,7 @@
 [ext_resource type="Texture2D" uid="uid://cjel352fixcg" path="res://assets/Metronome-010.png" id="16_s4mf8"]
 [ext_resource type="Texture2D" uid="uid://cxggkjevi7j0k" path="res://assets/Metronome-011.png" id="17_eajn3"]
 [ext_resource type="FontFile" uid="uid://cm5q756n5trre" path="res://assets/VT323-Regular.ttf" id="18_86px8"]
-[ext_resource type="PackedScene" path="res://player/ManaBar.tscn" id="19_w14c3"]
+[ext_resource type="PackedScene" uid="uid://4hslt1vgftg6" path="res://player/ManaBar.tscn" id="19_w14c3"]
 [ext_resource type="Texture2D" uid="uid://chyxxyuvstpn0" path="res://assets/freeze.png" id="20_hmv4o"]
 [ext_resource type="Texture2D" uid="uid://dnoewolfky8m1" path="res://assets/damage.png" id="21_heyin"]
 [ext_resource type="Texture2D" uid="uid://2bx5t4k3vue3" path="res://assets/enemy-banner.png" id="22_25x0m"]
@@ -950,10 +950,10 @@ texture = ExtResource("22_25x0m")
 
 [node name="Control" type="Control" parent="HUD/Stats"]
 anchors_preset = 0
-offset_left = 240.5
-offset_top = -155.5
-offset_right = 280.5
-offset_bottom = -115.5
+offset_left = -150.5
+offset_top = 114.0
+offset_right = -110.5
+offset_bottom = 154.0
 scale = Vector2(0.3, 0.3)
 
 [node name="Frame" type="TextureRect" parent="HUD/Stats/Control"]
@@ -971,6 +971,7 @@ offset_bottom = 110.5
 texture = ExtResource("20_hmv4o")
 
 [node name="Damage" type="TextureRect" parent="HUD/Stats/Control"]
+layout_mode = 0
 offset_left = 16.6666
 offset_top = 16.6667
 offset_right = 112.667

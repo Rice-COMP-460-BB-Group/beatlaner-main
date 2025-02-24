@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://b2h8ppy4k7dko"]
+[gd_scene load_steps=5 format=3 uid="uid://4hslt1vgftg6"]
 
 [ext_resource type="Script" path="res://player/mana_bar.gd" id="1_a4os7"]
 [ext_resource type="Texture2D" uid="uid://brnuy0g6qyt75" path="res://assets/Mana-Frame.png" id="1_mvb4q"]
@@ -14,6 +14,7 @@ alignment = 1
 script = ExtResource("1_a4os7")
 
 [node name="ManaText" type="Label" parent="."]
+visible = false
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_sf7p6")
 theme_override_font_sizes/font_size = 20
