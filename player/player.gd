@@ -3,7 +3,7 @@ extends CharacterBody2D
 class_name Player
 
 var bpm = 175
-@export var damage = 10
+@export var damage = 50
 @export var attack_speed = .35
 @export var team: Team
 @export var respawn_position: Vector2
@@ -431,8 +431,7 @@ func _physics_process(delta: float) -> void:
 		last_attack += delta
 		move(delta)
 		if Input.is_action_just_pressed("upgrade_minions"):
-			print('s')
-			if current_score >=100 and can_use_nexus:
+			if current_score >= 100 and can_use_nexus:
 				minion_level += 1
 				current_score -= 100
 				update_mana(current_score)
