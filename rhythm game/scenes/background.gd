@@ -13,6 +13,11 @@ func _process(delta: float) -> void:
 func _on_maniakey_hit(type: String) -> void:
 	$Status.text = type
 
+func is_dead():
+	$HUD.is_dead = true
+func is_alive():
+	$HUD.is_dead = false
+
 func get_score() -> int:
 	var text = $HUD/CanvasLayer/Score.text
 	var score_text = text.strip_edges()  
@@ -28,14 +33,15 @@ func disable() -> void:
 	$ManiaKey4.is_enabled = false
 	$HUD/CanvasLayer.hide()
 	$HUD.enabled = false
+
 func enable() -> void:
 	$ManiaKey.is_enabled = true
-	
 	$ManiaKey2.is_enabled = true
 	$ManiaKey3.is_enabled = true
 	$ManiaKey4.is_enabled = true
 	$HUD/CanvasLayer.show()
 	$HUD.enabled = true
+
 func set_difficulty(d: diff) -> void:
 	$ManiaKey.difficulty = d
 	

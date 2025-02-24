@@ -3,7 +3,7 @@ extends CharacterBody2D
 class_name Player
 
 var bpm = 175
-@export var damage = 50
+@export var damage = 30
 @export var attack_speed = .35
 @export var team: Team
 @export var respawn_position: Vector2
@@ -11,8 +11,8 @@ var bpm = 175
 @export var game_difficulty: Difficulty
 @export var can_use_nexus: bool
 var disable_movement = false
-var player_level = 0
-var minion_level = 0
+var player_level = 1
+var minion_level = 1
 enum Difficulty {EASY = 0,MEDIUM = 1, HARD = 2}
 enum Team {BLUE = 0, RED = 1}
 
@@ -340,7 +340,11 @@ func _physics_process(delta: float) -> void:
 			last_combo = combo
 			
 			var score = rhythm_game_instance.get_score()
-			var tmp_score = min(current_score + int(score / 3000) + 50, 300)
+			var tmp_score: float
+			#if $HealthComponent.currentHealth > 0:
+
+			tmp_score = min(current_score + int(score / 3000), 300)
+
 			update_mana(tmp_score)
 		if is_dashing:
 			dash_timer -= delta
@@ -349,7 +353,7 @@ func _physics_process(delta: float) -> void:
 				sync_is_dashing = false
 				#self.collision_mask |= (1 << 2)
 
-		if Input.is_action_just_pressed("toggle_rhythm_game") and $HealthComponent.currentHealth > 0:
+		if Input.is_action_just_pressed("toggle_rhythm_game"):
 			$DashSound.play()
 			handle_rhythm_callback()
 		if current_score >= 10:
@@ -560,9 +564,10 @@ func respawn() -> void:
 	$CollisionShape2D.disabled = true
 	$HUD/Stats/Respawning.visible = true
 	escape_rhythm_game();
+	rhythm_game_instance.is_dead()
 
 	var tween = create_tween()
-	tween.tween_property(self, "global_position", respawn_position, 4.5)
+	tween.tween_property(self, "global_position", respawn_position, player_level * 2 + 8)
 	await tween.finished
 
 	$AnimatedSprite2D.modulate.a = 0
@@ -573,6 +578,7 @@ func respawn() -> void:
 
 	# Restore player
 	$HUD/Stats/Respawning.visible = false
+	rhythm_game_instance.is_alive()
 
 	$HealthComponent.reset_health()
 	$HealthComponent.visible = true
