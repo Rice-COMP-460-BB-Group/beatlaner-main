@@ -23,6 +23,8 @@ var accuracy_dict = {
 	"Miss": 0
 }
 
+var is_dead = false
+
 var tween = null
 func reset():
 	acc_notes_sum = 0
@@ -63,7 +65,7 @@ func Hit(type: String):
 		
 	else:
 		combo += 1
-		score += combo * points_dict[type]
+		score += combo * points_dict[type] / (1 + int(is_dead))
 	acc_notes_total += 1
 	acc_notes_sum += accuracy_dict[type]
 	%Accuracy.text = "[right]" + str(float(acc_notes_sum) / acc_notes_total).pad_decimals(2) + "%" + "[/right]"
