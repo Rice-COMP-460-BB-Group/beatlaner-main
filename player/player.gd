@@ -10,7 +10,7 @@ var bpm = 175
 @onready var rhythm_game_scene = preload("res://rhythm game/scenes/background.tscn");
 @export var game_difficulty: Difficulty
 @export var can_use_nexus: bool
-
+var disable_movement = false
 var player_level = 1
 var minion_level = 1
 enum Difficulty {EASY = 0,MEDIUM = 1, HARD = 2}
@@ -74,8 +74,10 @@ func _ready() -> void:
 	
 	rhythm_game_instance.hide()
 	rhythm_game_instance.disable()
-	Signals.NexusDestroyed.connect(on_nexus_destroyed)
-	Signals.TowerDestroyed.connect(on_tower_destroyed)
+	if not Signals.NexusDestroyed.is_connected(on_nexus_destroyed):
+		Signals.NexusDestroyed.connect(on_nexus_destroyed)
+	if not Signals.TowerDestroyed.is_connected(on_tower_destroyed): 
+		Signals.TowerDestroyed.connect(on_tower_destroyed)
 
 	
 	old_collision_size = $Slice/SliceArea/CollisionShape2D.shape.size
@@ -86,14 +88,14 @@ func _ready() -> void:
 		respawn_position = Vector2(3401, 600)
 
 	print("respawn pos", respawn_position, team)
-	$Stats.hide()
+	$HUD/Stats.hide()
 	$HUD.hide()
 	
 	$MultiplayerSynchronizer.set_multiplayer_authority(str(name).to_int())
 	if $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
 
 		camera.make_current()
-		$Stats.show()
+		$HUD/Stats.show()
 		$HUD.show()
 	
 	if "--server" in OS.get_cmdline_args():
@@ -101,15 +103,18 @@ func _ready() -> void:
 
 func show_tooltip(msg:String):
 	print("[player.gd]","show tooltip")
-	$Stats/ToolTip.text = msg
-	$Stats/ToolTip.show()
+	$HUD/Stats/ToolTip.text = msg
+	$HUD/Stats/ToolTip.show()
+
 func hide_tooltip():
-	print($Stats/Tooltip)
-	$Stats/ToolTip.hide()
+	print($HUD/Stats/Tooltip)
+	$HUD/Stats/ToolTip.hide()
 	
 	
 func move(delta):
 	if not $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
+		return
+	if disable_movement:
 		return
 	print('moving')
 	if is_rhythm_game_open:
@@ -117,7 +122,7 @@ func move(delta):
 		velocity = Vector2.ZERO
 		return
 	var input_vector = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	if velocity and Input.is_action_just_pressed("Dash") and not $Stats/Respawning.visible:
+	if velocity and Input.is_action_just_pressed("Dash") and not $HUD/Stats/Respawning.visible:
 		$DashSound.play()
 		start_dash.rpc()
 	if is_dashing:
@@ -153,7 +158,7 @@ func start_dash():
 		
 
 func update_mana(score: int):
-	$Stats/ManaBar.set_manabar(score)
+	$HUD/Stats/ManaBar.set_manabar(score)
 	
 var beat_half_count := 0
 var total_metronome_frames := 13
@@ -171,9 +176,11 @@ var lose_banner = preload("res://assets/Defeat.png")
 
 # Add this near the top of your script
 func show_victory(pos: Vector2):
-	print("showing victory", team)
+	print("showing victory", team, multiplayer.get_unique_id())
+	$AnimationTree.active = false
+	disable_movement = true
 
-	var banner = $"/root/Main/BannerLayer/Banner"
+	var banner = $HUD/Stats/Banner
 	banner.texture = win_banner
 	banner.modulate.a = 0
 	banner.show()
@@ -183,23 +190,28 @@ func show_victory(pos: Vector2):
 	var camera = $Camera2D
 
 	var tween = create_tween()
-	tween.tween_property(camera, "position", pos, 1.0)
-	Engine.time_scale = 0.5
-
+	tween.tween_property(camera, "global_position", pos, 1.0)
 
 	await fade_in.finished
 	await tween.finished
 	await get_tree().create_timer(1.0).timeout
-	Engine.time_scale = 1
 
 	banner.hide()
-	#get_tree().change_scene_to_file("res://map/game_win.tscn")
+	print("changing scene")
+	var children = get_tree().get_root().get_children()
+	var scene = load("res://map/game_win.tscn").instantiate()
+	get_tree().root.add_child(scene)
+
+	for child in children:
+		child.call_deferred("queue_free")
 
 func show_defeat(pos: Vector2):
-	print("showing defeat", team)
-
-	var banner = $"/root/Main/BannerLayer/Banner"
-	banner.texture = win_banner
+	print("showing defeat", team, multiplayer.get_unique_id())
+	$AnimationTree.active = false
+	disable_movement = true
+	
+	var banner = $HUD/Stats/Banner
+	banner.texture = lose_banner
 	banner.modulate.a = 0
 	banner.show()
 
@@ -208,31 +220,33 @@ func show_defeat(pos: Vector2):
 	var camera = $Camera2D
 
 	var tween = create_tween()
-	tween.tween_property(camera, "position", pos, 1.0)
-	Engine.time_scale = 0.5
-
+	tween.tween_property(camera, "global_position", pos, 1.0)
 
 	await fade_in.finished
 	await tween.finished
 	await get_tree().create_timer(1.0).timeout
-	Engine.time_scale = 1
 
 	banner.hide()
-	#get_tree().change_scene_to_file("res://map/game_over.tscn")
+	print("changing scene")
+	var children = get_tree().get_root().get_children()
+	var scene = load("res://map/game_over.tscn").instantiate()
+	get_tree().root.add_child(scene)
+
+	for child in children:
+		child.call_deferred("queue_free")
 
 
 
 func on_nexus_destroyed(nexus_destroyed_team: Team, pos: Vector2):
-	if multiplayer.is_server():
-		return
-	if nexus_destroyed_team == team:
-		show_defeat(pos)
-	else:
-		show_victory(pos)
+	if $MultiplayerSynchronizer.is_multiplayer_authority():
+		if team == nexus_destroyed_team:
+			show_defeat(pos)
+		else:
+			show_victory(pos)
 		
 		
 func on_tower_destroyed(tower_team: Team, pos: Vector2):
-	var banner = $"/root/Main/BannerLayer/Banner"
+	var banner = $HUD/Stats/Banner
 	if tower_team == team:
 		banner.texture = destroy_friendly_banner
 	else:
@@ -257,8 +271,6 @@ func _on_metronome_timeout():
 	beat_half_count += 1
 
 func _process(delta: float) -> void:
-	$Stats/Metronome.text = "metronome: " + str($Metronome.time_left)
-	
 	var elapsed_in_cycle = (beat_half_count % 2) * $Metronome.wait_time + ($Metronome.wait_time - $Metronome.time_left)
 	var current_frame = int(round(elapsed_in_cycle / frame_duration))
 	
@@ -267,13 +279,13 @@ func _process(delta: float) -> void:
 	elif abs(elapsed_in_cycle - 1.0) < 0.01:
 		current_frame = 12
 	
-	$Stats/MetronomeContainer/MetronomeAnimation.frame = current_frame % total_metronome_frames
+	$HUD/Stats/MetronomeContainer/MetronomeAnimation.frame = current_frame % total_metronome_frames
 
-	if $Stats/MetronomeContainer/MetronomeAnimation.frame in centered_frames:
-		print("fall off", falloff_curve(), " ", $Stats/MetronomeContainer/MetronomeAnimation.frame)
+	if $HUD/Stats/MetronomeContainer/MetronomeAnimation.frame in centered_frames:
+		print("fall off", falloff_curve(), " ", $HUD/Stats/MetronomeContainer/MetronomeAnimation.frame)
 		var tween = create_tween()
-		tween.tween_property($Stats/MetronomeContainer/MetronomeAnimation, "modulate", Color(2, 2, 2, 1), 0.1)
-		tween.tween_property($Stats/MetronomeContainer/MetronomeAnimation, "modulate", Color(1, 1, 1, 1), 0.1)
+		tween.tween_property($HUD/Stats/MetronomeContainer/MetronomeAnimation, "modulate", Color(2, 2, 2, 1), 0.1)
+		tween.tween_property($HUD/Stats/MetronomeContainer/MetronomeAnimation, "modulate", Color(1, 1, 1, 1), 0.1)
 @rpc("any_peer", "call_local")
 func create_afterimage():
 	var jump_duration = 0.5 # How long the jump lasts (adjust as needed)
@@ -401,7 +413,7 @@ func _physics_process(delta: float) -> void:
 						body.get_node("HealthComponent").decrease_health.rpc((damage + player_level) + (damage + player_level) * falloff_curve())
 						if body.get_node("HealthComponent").get_current_health() <= 0:
 							
-							$Stats/ManaBar.increase_mana(5)
+							$HUD/Stats/ManaBar.increase_mana(5)
 			
 			for body in $Slice/SliceArea.get_overlapping_areas():
 				if body is Tower and body.team != team:
@@ -419,7 +431,7 @@ func _physics_process(delta: float) -> void:
 				floating_text.text = str(round(damage + damage * falloff_curve()))
 				floating_text.critical = falloff_curve()
 				floating_text.rotation = deg_to_rad(randf_range(-10, 10))
-				$Stats/DamagePosition.add_child(floating_text)
+				$HUD/Stats/DamagePosition.add_child(floating_text)
 		last_attack += delta
 		move(delta)
 		if Input.is_action_just_pressed("upgrade_minions"):
@@ -494,8 +506,8 @@ func reset_powerups():
 	}
 
 func update_powerup_counts():
-	$Stats/FreezeCount.text = str(player_powerups["freeze"])
-	$Stats/DamageCount.text = str(player_powerups["damage_powerup"])
+	$HUD/Stats/FreezeCount.text = str(player_powerups["freeze"])
+	$HUD/Stats/DamageCount.text = str(player_powerups["damage_powerup"])
 
 func handle_rhythm_callback():
 	if is_rhythm_game_open:
@@ -550,7 +562,7 @@ func respawn() -> void:
 	$HealthComponent.visible = false
 	$AnimatedSprite2D.visible = false
 	$CollisionShape2D.disabled = true
-	$Stats/Respawning.visible = true
+	$HUD/Stats/Respawning.visible = true
 	escape_rhythm_game();
 	rhythm_game_instance.is_dead()
 
@@ -565,7 +577,7 @@ func respawn() -> void:
 	await alpha_tween.finished
 
 	# Restore player
-	$Stats/Respawning.visible = false
+	$HUD/Stats/Respawning.visible = false
 	rhythm_game_instance.is_alive()
 
 	$HealthComponent.reset_health()
