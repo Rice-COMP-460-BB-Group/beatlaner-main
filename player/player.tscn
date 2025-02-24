@@ -28,8 +28,8 @@
 [ext_resource type="FontFile" uid="uid://cm5q756n5trre" path="res://assets/VT323-Regular.ttf" id="18_86px8"]
 [ext_resource type="PackedScene" uid="uid://dd7pknkkclu6u" path="res://player/ManaBar.tscn" id="19_w14c3"]
 [ext_resource type="Texture2D" uid="uid://chyxxyuvstpn0" path="res://assets/freeze.png" id="20_hmv4o"]
-[ext_resource type="Texture2D" uid="uid://dnoewolfky8m1" path="res://assets/damage.png" id="21_heyin"]
 [ext_resource type="Texture2D" uid="uid://2bx5t4k3vue3" path="res://assets/enemy-banner.png" id="22_25x0m"]
+[ext_resource type="Texture2D" uid="uid://5vh7vt04qm1a" path="res://assets/frame-powerup.png" id="23_akk2i"]
 [ext_resource type="Texture2D" uid="uid://dvgisd26hm73n" path="res://assets/light_gd.webp" id="28_bqyr1"]
 [ext_resource type="Script" path="res://player/afterimage.gd" id="28_i8vw6"]
 [ext_resource type="AudioStream" uid="uid://crwiggodkgtsr" path="res://assets/sword-slash.wav" id="28_rydyj"]
@@ -938,32 +938,6 @@ anchor_bottom = -1.1
 offset_right = 95.0
 offset_bottom = 19.0
 
-[node name="FreezeCount" type="Label" parent="HUD/Stats"]
-layout_mode = 0
-offset_left = -249.0
-offset_top = -84.0
-offset_right = -209.0
-offset_bottom = -69.0
-text = "0"
-
-[node name="DamageCount" type="Label" parent="HUD/Stats"]
-layout_mode = 0
-offset_left = -249.0
-offset_top = -46.0
-offset_right = -209.0
-offset_bottom = -31.0
-text = "0"
-
-[node name="Freeze" type="Sprite2D" parent="HUD/Stats"]
-position = Vector2(-273, -75)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("20_hmv4o")
-
-[node name="Damage" type="Sprite2D" parent="HUD/Stats"]
-position = Vector2(-273, -42)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("21_heyin")
-
 [node name="Banner" type="TextureRect" parent="HUD/Stats"]
 visible = false
 layout_mode = 0
@@ -973,8 +947,30 @@ offset_right = 99.0
 offset_bottom = -92.0
 texture = ExtResource("22_25x0m")
 
+[node name="Control" type="Control" parent="HUD/Stats"]
+anchors_preset = 0
+offset_left = -134.5
+offset_top = -142.5
+offset_right = -94.5
+offset_bottom = -102.5
+scale = Vector2(0.3, 0.3)
+
+[node name="Frame" type="TextureRect" parent="HUD/Stats/Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("23_akk2i")
+
+[node name="Powerup" type="TextureRect" parent="HUD/Stats/Control"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 14.5
+offset_right = 112.0
+offset_bottom = 110.5
+texture = ExtResource("20_hmv4o")
+
 [node name="Minimap" type="Control" parent="HUD"]
-modulate = Color(1, 1, 1, 0.5)
+modulate = Color(1, 1, 1, 0.752941)
 layout_mode = 3
 anchor_left = 0.671
 anchor_top = 0.792
