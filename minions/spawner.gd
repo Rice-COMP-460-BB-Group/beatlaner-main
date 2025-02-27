@@ -304,17 +304,19 @@ func _on_wave_timer_timeout() -> void:
 	spawn_friendly_wave(enemy_wave_config, false,1)
 	to_add = {"top": 0, "mid": 0, "bottom": 0}
 
+var idxpower = 0
 @rpc("authority")
 func _on_powerup_timer_timeout() -> void:
 	for node in get_tree().get_nodes_in_group("Powerup"):
 		if node.isLaneNode:
 			node.queue_free()
+	idxpower += 1
 	
 	for lane in [upperLaneChild, midLaneChild, lowerLaneChild]:
 
 		
 		var rand_pos = get_random_point(lane)
-		print('spawning for lane', lane.name)
+		print('spawning for lane', lane.name, idxpower)
 		$PowerupSpawner.spawn({"position": rand_pos})
 		
 
