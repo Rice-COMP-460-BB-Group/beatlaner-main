@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://4hslt1vgftg6"]
+[gd_scene load_steps=5 format=3 uid="uid://dd7pknkkclu6u"]
 
 [ext_resource type="Script" path="res://player/mana_bar.gd" id="1_a4os7"]
 [ext_resource type="Texture2D" uid="uid://brnuy0g6qyt75" path="res://assets/Mana-Frame.png" id="1_mvb4q"]

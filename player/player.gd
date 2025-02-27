@@ -11,8 +11,9 @@ var bpm = 175
 @export var game_difficulty: Difficulty
 @export var can_use_nexus: bool
 
-@onready var damage_icon = $HUD/Stats/Control/Damage
-@onready var freeze_icon = $HUD/Stats/Control/Freeze
+@onready var damage_icon = preload("res://assets/damage.png")
+@onready var freeze_icon = preload("res://assets/freeze.png")
+@onready var powerup_frame = $HUD/Stats/PowerupFrame/Powerup
 
 var disable_movement = false
 var player_level = 1
@@ -69,9 +70,6 @@ var sync_is_dashing := false
 var old_collision_size
 
 func _ready() -> void:
-	
-	freeze_icon.hide()
-	damage_icon.hide()
 	$Metronome.wait_time = (60.0 / bpm)
 	cycle_duration = 2 * $Metronome.wait_time # Full cycle duration (1 second)
 	frame_duration = cycle_duration / (total_metronome_frames - 1) # 1/12 ≈ 0.0833s
@@ -348,9 +346,9 @@ func _physics_process(delta: float) -> void:
 				#player_powerups[rand_powerup] += 1
 				player_powerup = rand_powerup
 				if rand_powerup == "freeze":
-					freeze_icon.show()
+					powerup_frame.texture = freeze_icon
 				elif rand_powerup == "damage_powerup":
-					damage_icon.show()
+					powerup_frame.texture = damage_icon
 
 
 			last_combo = combo
@@ -391,7 +389,7 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_pressed("freeze") and (player_powerup == "freeze" or  current_score >= 150):
 			if player_powerup == "freeze":
 				#player_powerups["freeze"] -= 1
-				freeze_icon.hide()
+				powerup_frame.hide()
 				player_powerup = null
 			else:
 				current_score = max(current_score - 150, 0)
@@ -406,7 +404,7 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_pressed("damage_powerup") and (player_powerup == "damage_powerup" or  current_score >= 200):
 			print('using damage powerup')
 			if player_powerups["damage_powerup"]:
-				damage_icon.hide()
+				powerup_frame.hide()
 				player_powerup = null
 				#player_powerups["damage_powerup"] -= 1
 			
@@ -517,10 +515,12 @@ func get_minimap():
 func add_powerup(powerup):
 	if player_powerup == null:
 		if powerup == "freeze":
-			freeze_icon.show()
+			powerup_frame.texture = freeze_icon
+			powerup_frame.show()
 			player_powerup = "freeze"
 		elif powerup == "damage_powerup":
-			damage_icon.show()
+			powerup_frame.texture = damage_icon
+			powerup_frame.show()
 			player_powerup = "damage_powerup"
 	
 
