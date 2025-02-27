@@ -105,10 +105,7 @@ func _physics_process(delta: float):
 				sprite.play(anim_suffix + "_walk_down")
 
 			if state == State.FROZEN:
-				$FreezeParticle.emitting = true
 				return
-			else:
-				$FreezeParticle.emitting = false
 			if not is_instance_valid(tower_target):
 				var towers = get_tree().get_nodes_in_group("Towers")
 				var nexus = get_tree().get_nodes_in_group("Nexus")
@@ -267,6 +264,7 @@ func process_status(status: String) -> void:
 	print("processing status")
 	if status == "freeze":
 		state = State.FROZEN
+		$FreezeParticle.emitting = true
 	if status == "mutiny":
 		#idea: random chance -> flip team for a few seconds
 		print("placeholder")
@@ -282,6 +280,7 @@ func process_status(status: String) -> void:
 
 func _clear_status():
 	state = State.MOVE
+	$FreezeParticle.emitting = false
 func _on_timer_timeout() -> void:
 	pass # Replace with function body.
 	
@@ -295,10 +294,14 @@ func process_damage_powerup():
 	timer.timeout.connect(_reset_damage)
 	timer.start()
 
+	$DamageParticle.emitting = true
+
 
 func _reset_damage():
 	damage = 10
 	print("Power-up expired. Damage reset to:", damage)
+
+	$DamageParticle.emitting = false
 	
 @rpc("any_peer", "call_local")
 func die():
