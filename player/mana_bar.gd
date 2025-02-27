@@ -16,8 +16,8 @@ func set_manabar(mana: int) -> void:
 	mana = min(mana, max_mana)
 	var current_mana = self.mana
 	var text_tween = create_tween()
-	#text_tween.tween_method(func(v): $ManaText.text = "Mana\n" + str(int(v)) + " / " + str(max_mana),
-		#current_mana, mana, 0.5).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	text_tween.tween_method(func(v): $ManaText.text = "Mana\n" + str(int(v)) + " / " + str(max_mana),
+		current_mana, mana, 0.5).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 
 	self.mana = mana
 	var draft_mana = mana
