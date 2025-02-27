@@ -1,11 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://cjrs5vdwvwxb8"]
+[gd_scene load_steps=4 format=3 uid="uid://x6i88vd42ixt"]
 
 [ext_resource type="Script" path="res://player/powerup.gd" id="1_wfvs4"]
 [ext_resource type="Texture2D" uid="uid://dy083388dl4r6" path="res://assets/powerup.png" id="2_u6cyp"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tnw6q"]
-radius = 25.0
-height = 58.0
+radius = 72.0
+height = 162.0
 
 [node name="Powerup" type="Area2D"]
 collision_layer = 4
