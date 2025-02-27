@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bf72k84kbxll3"]
+[gd_scene load_steps=10 format=3 uid="uid://bf72k84kbxll3"]
 
 [ext_resource type="Script" path="res://scripts/Main.gd" id="1_ktlqa"]
 [ext_resource type="PackedScene" uid="uid://bj3lu7yts43wl" path="res://player/player.tscn" id="2_cthj3"]
@@ -8,6 +8,16 @@
 [ext_resource type="PackedScene" uid="uid://bufx6wcek0aj8" path="res://minions/spawner.tscn" id="5_cp35u"]
 [ext_resource type="AudioStream" uid="uid://d32ssvi08rbiw" path="res://assets/Beat of Battle (1).mp3" id="7_w87xc"]
 [ext_resource type="Texture2D" uid="uid://2bx5t4k3vue3" path="res://assets/enemy-banner.png" id="8_ffofp"]
+
+[sub_resource type="Environment" id="Environment_5p6ex"]
+background_mode = 3
+tonemap_mode = 3
+tonemap_exposure = 5.56
+ssil_enabled = true
+glow_enabled = true
+glow_intensity = 0.3
+glow_hdr_threshold = 1.5
+glow_hdr_luminance_cap = 2.0
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_ktlqa")
@@ -77,6 +87,9 @@ texture = ExtResource("8_ffofp")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 spawn_path = NodePath("../Spawner")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_5p6ex")
 
 [connection signal="timeout" from="Wave Timer" to="Spawner" method="_on_wave_timer_timeout"]
 [connection signal="freeze_spell" from="CanvasLayer/Debugmenu" to="." method="_on_debugmenu_freeze_spell"]

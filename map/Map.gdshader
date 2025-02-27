@@ -17,14 +17,14 @@ render_mode blend_mix;
 uniform float speed = 2.0;
 uniform float minStrength : hint_range(0.0, 1.0) = 0.05;
 uniform float maxStrength : hint_range(0.0, 1.0) = 0.01;
-uniform float strengthScale = 4000.0;
+uniform float strengthScale = 500.0;
 uniform float interval = 3.5;
 uniform float detail = 2.0;
 uniform float distortion : hint_range(0.0, 10.0);
-uniform float heightOffset : hint_range(0.0, 1.0);
+uniform float heightOffset : hint_range(0.0, 0.5);
 
 // With the offset value, you can if you want different moves for each asset. Just put a random value (1, 2, 3) in the editor. Don't forget to mark the material as unique if you use this
-uniform float offset = 1;
+uniform float offset = 2;
 
 
 float getWind(vec2 vertex, vec2 uv, float time){

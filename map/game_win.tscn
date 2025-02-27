@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ng0qkjtfuakj"]
 
-[ext_resource type="PackedScene" uid="uid://cfw4w7wyo12ha" path="res://map/game_over.tscn" id="1_kd535"]
+[ext_resource type="PackedScene" path="res://map/game_over.tscn" id="1_kd535"]
 [ext_resource type="Texture2D" uid="uid://dvgifd7ptn6uh" path="res://assets/Background.png" id="2_hfvp0"]
 
 [node name="GameOver" instance=ExtResource("1_kd535")]

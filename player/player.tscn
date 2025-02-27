@@ -1,4 +1,4 @@
-[gd_scene load_steps=112 format=3 uid="uid://bj3lu7yts43wl"]
+[gd_scene load_steps=114 format=3 uid="uid://bj3lu7yts43wl"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_h04aa"]
 [ext_resource type="Texture2D" uid="uid://3sv7ccy0u7fe" path="res://assets/6369.png" id="1_xd2rp"]
@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://bsp8xj4gv4cay" path="res://assets/slash-001.png" id="7_76oyw"]
 [ext_resource type="Texture2D" uid="uid://deyvtt4hy8yff" path="res://assets/Metronome-001.png" id="7_l82ru"]
 [ext_resource type="Texture2D" uid="uid://cs6m1cpa0dywa" path="res://assets/Metronome-002.png" id="8_mhfkm"]
-[ext_resource type="PackedScene" path="res://player/weapon.tscn" id="8_n6a7o"]
+[ext_resource type="PackedScene" uid="uid://b8jlygfvbd34" path="res://player/weapon.tscn" id="8_n6a7o"]
 [ext_resource type="Texture2D" uid="uid://cvpirpaujt8m1" path="res://assets/slash-002.png" id="8_txc5s"]
 [ext_resource type="Texture2D" uid="uid://boe1p0ko1l128" path="res://assets/slash-003.png" id="9_edhdg"]
 [ext_resource type="Texture2D" uid="uid://1r3m5wq8wgyt" path="res://assets/Metronome-003.png" id="9_yimr5"]
@@ -26,15 +26,17 @@
 [ext_resource type="Texture2D" uid="uid://cjel352fixcg" path="res://assets/Metronome-010.png" id="16_s4mf8"]
 [ext_resource type="Texture2D" uid="uid://cxggkjevi7j0k" path="res://assets/Metronome-011.png" id="17_eajn3"]
 [ext_resource type="FontFile" uid="uid://cm5q756n5trre" path="res://assets/VT323-Regular.ttf" id="18_86px8"]
-[ext_resource type="PackedScene" path="res://player/ManaBar.tscn" id="19_w14c3"]
+[ext_resource type="PackedScene" uid="uid://b2h8ppy4k7dko" path="res://player/ManaBar.tscn" id="19_w14c3"]
 [ext_resource type="Texture2D" uid="uid://chyxxyuvstpn0" path="res://assets/freeze.png" id="20_hmv4o"]
 [ext_resource type="Texture2D" uid="uid://dnoewolfky8m1" path="res://assets/damage.png" id="21_heyin"]
-[ext_resource type="Texture2D" uid="uid://dvgisd26hm73n" path="res://assets/light_gd.webp" id="28_bqyr1"]
+[ext_resource type="Shader" path="res://player/player.gdshader" id="22_1h4iy"]
+[ext_resource type="Texture2D" uid="uid://bqfgop2tg3noi" path="res://assets/595FAD8C-E33F-4E12-A974-9B2D043A2BA3.png.eac9bd8cac80378692e4115553790af8-export.png" id="25_pfejg"]
 [ext_resource type="Script" path="res://player/afterimage.gd" id="28_i8vw6"]
 [ext_resource type="AudioStream" uid="uid://crwiggodkgtsr" path="res://assets/sword-slash.wav" id="28_rydyj"]
 [ext_resource type="AudioStream" uid="uid://b3dde5dhicjf3" path="res://assets/blink sound.wav" id="30_oggmt"]
 [ext_resource type="AudioStream" uid="uid://cfjdfbdye2oyn" path="res://assets/FreezeSoundEffect.mp3" id="34_tllr5"]
 [ext_resource type="AudioStream" uid="uid://bh1aqvgr4h38x" path="res://assets/DamagePowerupSoundEffect.mp3" id="35_k4mhr"]
+[ext_resource type="Texture2D" uid="uid://7t3cud2tgsbj" path="res://assets/595FAD8C-E33F-4E12-A974-9B2D043A2BA3.png.eac9bd8cac80378692e4115553790af8.png" id="36_71n7s"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xpusc"]
 
@@ -772,6 +774,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p84ey"]
+shader = ExtResource("22_1h4iy")
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_on213"]
 size = Vector2(80, 80)
 
@@ -808,8 +813,6 @@ properties/1/replication_mode = 1
 properties/2/path = NodePath(".:velocity")
 properties/2/spawn = true
 properties/2/replication_mode = 1
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_j3yhm"]
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 collision_layer = 4
@@ -955,6 +958,20 @@ position = Vector2(-273, -42)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("21_heyin")
 
+[node name="ColorRect" type="ColorRect" parent="Stats"]
+visible = false
+material = SubResource("ShaderMaterial_p84ey")
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -288.0
+offset_top = -107.0
+offset_right = 249.0
+offset_bottom = 121.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="HUD" type="CanvasLayer" parent="."]
 
 [node name="Minimap" type="Control" parent="HUD"]
@@ -999,6 +1016,15 @@ offset_right = 258.32
 offset_bottom = 632.062
 scale = Vector2(1, 0.997383)
 
+[node name="Damage indic" type="TextureRect" parent="HUD"]
+modulate = Color(1, 1, 1, 0)
+offset_left = 4.0
+offset_top = -7.0
+offset_right = 1153.0
+offset_bottom = 653.0
+texture = ExtResource("25_pfejg")
+expand_mode = 1
+
 [node name="Weapon" parent="." instance=ExtResource("8_n6a7o")]
 
 [node name="Slice" type="Node2D" parent="."]
@@ -1007,17 +1033,12 @@ z_index = 5
 [node name="SliceArea" type="Area2D" parent="Slice"]
 collision_mask = 5
 
-[node name="SlashLight" type="PointLight2D" parent="Slice/SliceArea"]
-rotation = -1.5708
-scale = Vector2(2, 2)
-color = Color(0.472551, 0.00359912, 0.569929, 1)
-energy = 1.03
-texture = ExtResource("28_bqyr1")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Slice/SliceArea"]
 shape = SubResource("RectangleShape2D_on213")
 
 [node name="SliceAnimation" type="AnimatedSprite2D" parent="Slice"]
+modulate = Color(4, 4, 4, 1)
+self_modulate = Color(10, 10, 10, 1)
 rotation = -1.5708
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_8pu2n")
@@ -1053,14 +1074,22 @@ offset_bottom = 40.0
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 visible = false
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
-modulate = Color(1, 1, 1, 0.607843)
-material = SubResource("ShaderMaterial_j3yhm")
-offset_left = -289.0
-offset_top = -161.0
-offset_right = 287.0
-offset_bottom = 162.0
-color = Color(0.523657, 0, 0.000180683, 1)
+[node name="ColorRect" type="TextureRect" parent="CanvasLayer"]
+modulate = Color(0.980392, 0.0392157, 0.0313726, 1)
+self_modulate = Color(0.952941, 0.0666667, 0.054902, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1377.0
+offset_top = -785.0
+offset_right = -369.0
+offset_bottom = -572.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("36_71n7s")
+expand_mode = 2
 
 [connection signal="timeout" from="Metronome" to="." method="_on_metronome_timeout"]
 [connection signal="health_destroyed" from="HealthComponent" to="." method="_on_health_component_health_destroyed"]

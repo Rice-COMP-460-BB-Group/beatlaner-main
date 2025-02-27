@@ -1,4 +1,4 @@
-extends Area2D
+extends StaticBody2D
 class_name Nexus
 enum Team {BLUE,RED}
 var team = Team.BLUE
@@ -17,10 +17,10 @@ func set_team(new_team:Team):
 	team = new_team
 	if (team == Team.RED):
 		$AnimatedSprite2D.animation = "anim_blue"
-		$PointLight2D.color = Color(0,0,255)
+		
 	else:
 		$AnimatedSprite2D.animation = "anim_red"
-		$PointLight2D.color = Color(255,0,0)
+		
 	$AnimatedSprite2D.play()
 
 func get_team()-> Team:
@@ -34,6 +34,8 @@ func fire(dict):
 	var body_id = dict["body"]
 	var body = instance_from_id(body_id)
 	var laser = laser_scene.instantiate()
+	if laser is Laser:
+		laser.set_team(team)
 	print("attacking with laser")
 	laser.target = body
 	laser.source = self

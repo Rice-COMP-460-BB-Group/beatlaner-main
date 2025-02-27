@@ -1,4 +1,4 @@
-extends Node2D
+extends StaticBody2D
 
 class_name Tower
 
@@ -13,7 +13,7 @@ var rhythm_game_instance
 
 var minion_count = 0
 var last_attack = -1
-var attack_speed = 3
+var attack_speed = .5
 
 	
 func update_score(new_score: int):
@@ -30,17 +30,28 @@ func WaveSpawned():
 	$MinionCount.hide()
 func set_team(team):
 	if int(team) == Team.BLUE:
-		$AnimatedSprite2D.animation = "anim_red"
+		$Sigil.animation = "anim_red"
+		$Sigil.self_modulate = Color(10,10,10)
+		
+		$BannerBlue.visible = false
+		$BannerRed.visible = true
 	else:
-		$AnimatedSprite2D.animation = "anim_blue"
-	$AnimatedSprite2D.play()
+		$Sigil.animation = "anim_blue"
+		$Sigil.self_modulate = Color(3,3,3)
+		$Sigil.modulate = Color(0,0,1)
+		$BannerRed.visible = false
+		$BannerBlue.visible = true
+	$Sigil.play()
 func fire(dict):
 	print('FIRED', multiplayer.is_server())
 	var body_id = dict["body"]
 	var body = instance_from_id(body_id)
 	var laser = laser_scene.instantiate()
+	if laser is Laser:
+		laser.set_team(team)
 	print("attacking with laser")
 	laser.target = body
+	
 	laser.source = self
 	laser.global_position = global_position
 	return laser
@@ -50,7 +61,7 @@ func _ready():
 	$Sprite2D.centered = true
 	$MultiplayerSpawner.spawn_function = fire
 	$MultiplayerSpawner.spawn_path = get_parent().get_path()
-	$AnimatedSprite2D.play()
+	
 	popup_window.hide()
 	popup_window.size = Vector2(1152, 648)
 	Signals.WaveSpawned.connect(WaveSpawned)

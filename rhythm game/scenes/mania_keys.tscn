@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dvgisd26hm73n" path="res://assets/light_gd.webp" id="5_8nggk"]
 
 [node name="NoteListeners" type="Sprite2D"]
+self_modulate = Color(2, 2, 2, 1)
 script = ExtResource("2_7npj4")
 
 [node name="RandTimer" type="Timer" parent="."]
