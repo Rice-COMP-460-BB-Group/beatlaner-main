@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dd7pknkkclu6u"]
+[gd_scene load_steps=6 format=3 uid="uid://dd7pknkkclu6u"]
 
 [ext_resource type="Script" path="res://player/mana_bar.gd" id="1_a4os7"]
 [ext_resource type="Texture2D" uid="uid://brnuy0g6qyt75" path="res://assets/Mana-Frame.png" id="1_mvb4q"]
 [ext_resource type="FontFile" uid="uid://cm5q756n5trre" path="res://assets/VT323-Regular.ttf" id="1_sf7p6"]
 [ext_resource type="Texture2D" uid="uid://ckv12sihjqfj2" path="res://assets/Mana-Mask.png" id="2_pk6jd"]
+[ext_resource type="Texture2D" path="res://assets/Mana-Mask-export.png" id="4_fhubq"]
 
 [node name="ManaBarControl" type="VBoxContainer"]
 offset_left = 1.0
@@ -29,16 +30,19 @@ layout_mode = 2
 layout_mode = 2
 fill_mode = 3
 texture_under = ExtResource("1_mvb4q")
-texture_progress = ExtResource("2_pk6jd")
+texture_progress = ExtResource("4_fhubq")
+texture_progress_offset = Vector2(18, 19)
 
 [node name="ManaBottle2" type="TextureProgressBar" parent="ManaBar"]
 layout_mode = 2
 fill_mode = 3
 texture_under = ExtResource("1_mvb4q")
 texture_progress = ExtResource("2_pk6jd")
+texture_progress_offset = Vector2(18, 19)
 
 [node name="ManaBottle3" type="TextureProgressBar" parent="ManaBar"]
 layout_mode = 2
 fill_mode = 3
 texture_under = ExtResource("1_mvb4q")
 texture_progress = ExtResource("2_pk6jd")
+texture_progress_offset = Vector2(18, 19)
