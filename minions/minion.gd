@@ -105,8 +105,10 @@ func _physics_process(delta: float):
 				sprite.play(anim_suffix + "_walk_down")
 
 			if state == State.FROZEN:
-				print("frozen!")
+				$FreezeParticle.emitting = true
 				return
+			else:
+				$FreezeParticle.emitting = false
 			if not is_instance_valid(tower_target):
 				var towers = get_tree().get_nodes_in_group("Towers")
 				var nexus = get_tree().get_nodes_in_group("Nexus")

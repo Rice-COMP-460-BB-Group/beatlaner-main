@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://cao1ivxo860t2"]
+[gd_scene load_steps=34 format=3 uid="uid://cao1ivxo860t2"]
 
 [ext_resource type="Script" path="res://minions/minion.gd" id="1_ywsbo"]
 [ext_resource type="PackedScene" uid="uid://c2a3uw6r78k4d" path="res://minions/projectile.tscn" id="2_6tinm"]
@@ -29,6 +29,7 @@
 [ext_resource type="Texture2D" uid="uid://vd88j1f6kv62" path="res://assets/minion/grunt_attack_v2-003.png" id="18_vymow"]
 [ext_resource type="Texture2D" uid="uid://cifc6rrgqtasa" path="res://assets/minion/grunt_north_v2-000.png" id="26_8oryb"]
 [ext_resource type="Texture2D" uid="uid://dbvncu0vfkdbn" path="res://assets/minion/grunt_north_v2-001.png" id="27_pd7dp"]
+[ext_resource type="PackedScene" uid="uid://c88ftg8y4cbfs" path="res://player/freeze_particle.tscn" id="30_x6ghc"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_eqvgy"]
 animations = [{
@@ -247,6 +248,8 @@ replication_config = SubResource("SceneReplicationConfig_u4wih")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 spawn_path = NodePath("..")
+
+[node name="FreezeParticle" parent="." instance=ExtResource("30_x6ghc")]
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="velocity_computed" from="NavigationHandler/NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
