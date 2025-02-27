@@ -4,8 +4,6 @@
 
 [node name="Spawner" type="Node2D"]
 script = ExtResource("1_a68u2")
-friendly_wave_config = null
-enemy_wave_config = null
 
 [node name="P1Lower" type="Marker2D" parent="."]
 position = Vector2(1056, 3455)
@@ -46,6 +44,9 @@ spawn_path = NodePath("..")
 [node name="PowerupTimer" type="Timer" parent="."]
 wait_time = 20.0
 autostart = true
+
+[node name="PowerupSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("..")
 
 [connection signal="timeout" from="WaveTimer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="PowerupTimer" to="." method="_on_powerup_timer_timeout"]
