@@ -5,16 +5,27 @@ var to_add: Dictionary = {"top": 0, "mid": 0, "bottom": 0}
 
 var minionScene = load("res://minions/minion.tscn")
 var mageScene = load("res://minions/mage.tscn")
+var powerupScene = load("res://player/Powerup.tscn")
+
 @onready var multiplayer_spawner = get_parent().get_node("MultiplayerSpawner")  # Access sibling
 var towerScene = load("res://main/Tower.tscn")
 var nexusScene = load("res://nexus/nexus.tscn")
+@export var powerup_scene: PackedScene
 var minion_count = 0
 var to_spawn = 1
 var spawn_points = {}
+var current_powerup = null
 
 @onready var upperThrough: Marker2D = $UpperThrough
 @onready var lowerThrough: Marker2D = $LowerThrough
 @onready var enemySpawnTimer: Timer = $WaveTimer
+@onready var powerup_timer: Timer = $PowerupTimer
+
+
+@onready var upperLaneChild = $UpperLane/CollisionPolygon2D
+@onready var midLaneChild = $MidLane/CollisionPolygon2D
+@onready var lowerLaneChild = $LowerLane/CollisionPolygon2D
+
 
 var type_to_config = {
 	"Lower": "bottom",
@@ -281,3 +292,13 @@ func _on_wave_timer_timeout() -> void:
 	spawn_friendly_wave(friendly_wave_config, true,1)
 	spawn_friendly_wave(enemy_wave_config, false,1)
 	to_add = {"top": 0, "mid": 0, "bottom": 0}
+
+
+func _on_powerup_timer_timeout() -> void:
+	if current_powerup:
+		current_powerup.queue_free()
+	
+	var new_powerup = powerupScene.instantiate()
+	#new_powerup.position = get_random_point_in_polygon()
+	add_child(new_powerup)
+	current_powerup = new_powerup
