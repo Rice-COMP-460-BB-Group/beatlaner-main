@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dupwu05mg1a3o"
-path="res://.godot/imported/Surrender.png-4e6cb7948f2e168d5b61aa1b98ea5a0b.ctex"
+uid="uid://ckcbiv42klvno"
+path="res://.godot/imported/west-003.png-60b0b3b0181104e2e5db98f3ec8640ae.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Surrender.png"
-dest_files=["res://.godot/imported/Surrender.png-4e6cb7948f2e168d5b61aa1b98ea5a0b.ctex"]
+source_file="res://assets/west-003.png"
+dest_files=["res://.godot/imported/west-003.png-60b0b3b0181104e2e5db98f3ec8640ae.ctex"]
 
 [params]
 
