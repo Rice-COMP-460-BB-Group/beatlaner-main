@@ -208,12 +208,7 @@ func show_victory(pos: Vector2):
 
 	banner.hide()
 	print("changing scene")
-	var children = get_tree().get_root().get_children()
-	var scene = load("res://map/game_win.tscn").instantiate()
-	get_tree().root.add_child(scene)
-
-	for child in children:
-		child.call_deferred("queue_free")
+	change_to_scene("res://map/game_win.tscn")
 
 func show_defeat(pos: Vector2):
 	print("showing defeat", team, multiplayer.get_unique_id())
@@ -238,11 +233,21 @@ func show_defeat(pos: Vector2):
 
 	banner.hide()
 	print("changing scene")
+
+	change_to_scene("res://map/game_over.tscn")
+
+func change_to_scene(scene_path: String):
 	var children = get_tree().get_root().get_children()
-	var scene = load("res://map/game_over.tscn").instantiate()
+	var scene = load(scene_path).instantiate()
 	get_tree().root.add_child(scene)
 
 	for child in children:
+		if child.name == "GameManager" or child.name == "Signals":
+			if child.name == "GameManager":
+				child.Players = {}
+			continue
+		if child.name == "Titlescreen":
+			child.peer = null
 		child.call_deferred("queue_free")
 
 

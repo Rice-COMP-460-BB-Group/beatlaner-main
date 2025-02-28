@@ -1,7 +1,7 @@
 extends Control
 
 @export var port = 8910
-var peer = null
+@export var peer = null
 var dedicated_server = false
 
 func _ready():
@@ -16,6 +16,14 @@ func _ready():
 		DisplayServer.window_set_title("Beatlaner Server")
 		hostGame()
 		$VBoxContainer/Start.text = "Start"
+
+	if "--auto" in OS.get_cmdline_args() and !dedicated_server:
+		peer = ENetMultiplayerPeer.new()
+		peer.create_client("localhost", port)
+		peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
+		multiplayer.set_multiplayer_peer(peer)
+
+		print("auto connecting to server...")
 
 func _on_start_pressed() -> void:
 	print('got pressed')
@@ -44,6 +52,11 @@ func _on_button_focus_entered() -> void:
 func peer_connected(id):
 	if multiplayer.is_server():
 		print("Player Connected " + str(id))
+
+		if "--auto" in OS.get_cmdline_args():
+			print("auto starting...")
+			$Background.stop()
+			StartGame.rpc()
 	
 # this get called on the server and clients
 func peer_disconnected(id):
@@ -87,7 +100,7 @@ func SendPlayerInformation(name, id):
 
 @rpc("any_peer", "call_local")
 func StartGame():
-	if GameManager.Players.size() < 2:
+	if GameManager.Players.size() < 2 && !("--auto" in OS.get_cmdline_args()):
 		print("Not enough players to start!")
 		$ErrorDialog.dialog_text = "Not enough players to start!"
 		$ErrorDialog.popup()
@@ -97,17 +110,22 @@ func StartGame():
 	#get_tree().change_scene_to_file.bind("res://main/Main.tscn").call_deferred()
 	print("players, ", GameManager.Players)
 	$Background.stop()
-	var scene = load("res://title/difficulty_selector.tscn").instantiate()
-	
-	var lowest_id = multiplayer.get_unique_id()
-	for player_id in GameManager.Players.keys():
-		if player_id < lowest_id:
-			lowest_id = player_id
 
-	if multiplayer.get_unique_id() == lowest_id:
-		scene.team = 1
+	var scene
+	if "--auto" in OS.get_cmdline_args():
+		scene = load("res://main/Main.tscn").instantiate()
+		scene.current_difficulty = 0 # set to easy difficulty
 	else:
-		scene.team = 0
+		scene = load("res://title/difficulty_selector.tscn").instantiate()
+	
+		var lowest_id = multiplayer.get_unique_id()
+		for player_id in GameManager.Players.keys():
+			if player_id < lowest_id:
+				lowest_id = player_id
+		if multiplayer.get_unique_id() == lowest_id:
+			scene.team = 1
+		else:
+			scene.team = 0
 	self.hide()
 	get_tree().root.add_child(scene)
 	#self.hide()
