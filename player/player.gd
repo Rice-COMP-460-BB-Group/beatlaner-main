@@ -359,15 +359,15 @@ func _physics_process(delta: float) -> void:
 	if $MultiplayerSynchronizer.is_multiplayer_authority():
 		if is_rhythm_game_open:
 			var combo = rhythm_game_instance.get_combo()
-			if combo and not combo % 100 and combo > last_combo and player_powerup == null:
-				var rand_powerup = powerups[randi_range(0, len(powerups) - 1)]
-				player_powerup = rand_powerup
-				if rand_powerup == "freeze":
-					powerup_frame.texture = freeze_icon
-				elif rand_powerup == "damage_powerup":
-					powerup_frame.texture = damage_icon
-				elif rand_powerup == "heal":
-					powerup_frame.texture = damage_icon # change later
+			#if combo and not combo % 100 and combo > last_combo and player_powerup == null:
+				#var rand_powerup = powerups[randi_range(0, len(powerups) - 1)]
+				#player_powerup = rand_powerup
+				#if rand_powerup == "freeze":
+					#powerup_frame.texture = freeze_icon
+				#elif rand_powerup == "damage_powerup":
+					#powerup_frame.texture = damage_icon
+				#elif rand_powerup == "heal":
+					#powerup_frame.texture = damage_icon # change later
 
 
 			last_combo = combo
@@ -542,16 +542,13 @@ func add_powerup(powerup):
 	if player_powerup == null:
 		if powerup == "freeze":
 			powerup_frame.texture = freeze_icon
-			powerup_frame.show()
-			player_powerup = "freeze"
 		elif powerup == "damage_powerup":
 			powerup_frame.texture = damage_icon
-			powerup_frame.show()
-			player_powerup = "damage_powerup"
 		elif powerup == "heal":
 			powerup_frame.texture = heal_icon
-			powerup_frame.show()
-			player_powerup = "heal"
+		player_powerup = powerup
+		powerup_frame.show()
+		print(' added powerup', powerup)
 	
 
 func handle_rhythm_callback():

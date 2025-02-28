@@ -11,6 +11,7 @@ func _on_body_entered(body):
 	if multiplayer.is_server():
 		if body.is_in_group("Player"):
 			var rand_powerup = powerups[randi_range(0, len(powerups) - 1)]
+			print('rand powerup', rand_powerup)
 			body.add_powerup.rpc(rand_powerup)
 		rpc("destroy_powerup")
 
