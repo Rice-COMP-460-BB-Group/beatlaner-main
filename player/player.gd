@@ -5,7 +5,7 @@ class_name Player
 var bpm = 175
 @onready var damage_overlay = $"HUD/Damage indic"
 
-@export var damage = 50
+@export var damage = 49
 @export var attack_speed = .35
 @export var team: Team
 @export var respawn_position: Vector2
@@ -20,7 +20,7 @@ var bpm = 175
 
 var disable_movement = false
 @onready var minimap = $HUD/Minimap
-var player_level = 0
+var player_level = 1
 var minion_level = 0
 enum Difficulty {EASY = 0,MEDIUM = 1, HARD = 2}
 enum Team {BLUE = 0, RED = 1}
@@ -74,6 +74,8 @@ func _ready() -> void:
 	frame_duration = cycle_duration / (total_metronome_frames - 1) # 1/12 ≈ 0.0833s
 	$Metronome.start()
 	$Slice/SliceAnimation.frame = 4
+	$HUD/Stats/UpgradeStats.modulate.a = 0
+
 	$HealthComponent.red = team == Team.RED
 	rhythm_game_instance = rhythm_game_scene.instantiate()
 	rhythm_game_instance.set_difficulty(game_difficulty)
@@ -470,11 +472,23 @@ func _physics_process(delta: float) -> void:
 				current_score -= 100
 				update_mana(current_score)
 		if Input.is_action_just_pressed("upgrade_player"):
+			print('upgrading self')
 			if current_score >= 50 and can_use_nexus:
 				player_level += 1
 				current_score -= 50
 				update_mana(current_score)
 				
+				var oldHP = $HealthComponent.get_max_health()
+				$HealthComponent.increase_max_health(50)
+				
+				$HealthComponent.rpc("increase_health", $HealthComponent.get_max_health())
+				$HUD/Stats/UpgradeStats/LevelUpgradeLabel.text = "Level: " + str(player_level - 1) + " -> " + str(player_level)
+				$HUD/Stats/UpgradeStats/DamageUpgradeLabel.text = "Damage: " + str(damage + player_level - 1) + " -> " + str(damage + player_level)
+				$HUD/Stats/UpgradeStats/HPUpgradeLabel.text = "HP: " + str(oldHP) + " -> " + str($HealthComponent.get_max_health())
+				#$UpgradeStats.show()
+				var tween = get_tree().create_tween()
+				tween.tween_property($HUD/Stats/UpgradeStats, "modulate:a", 1, 0.5)
+				tween.tween_property($HUD/Stats/UpgradeStats, "modulate:a", 0, 0.5).set_delay(3)
 			
 		animate()
 		

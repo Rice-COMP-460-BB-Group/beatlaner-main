@@ -651,6 +651,57 @@ offset_bottom = -34.0
 scale = Vector2(1, 0.5)
 texture = ExtResource("22_l1p2f")
 
+[node name="UpgradeStats" type="Control" parent="HUD/Stats"]
+z_index = 100
+layout_mode = 3
+anchors_preset = 0
+offset_left = -288.0
+offset_top = -162.0
+offset_right = -248.0
+offset_bottom = -122.0
+
+[node name="HPUpgradeLabel" type="RichTextLabel" parent="HUD/Stats/UpgradeStats"]
+z_index = 100
+layout_mode = 0
+offset_left = 334.5
+offset_top = 133.5
+offset_right = 431.5
+offset_bottom = 173.5
+theme_override_colors/default_color = Color(3.27289e-06, 0.654829, 0.252461, 1)
+theme_override_fonts/normal_font = ExtResource("18_86px8")
+theme_override_font_sizes/normal_font_size = 25
+text = "HP:"
+fit_content = true
+autowrap_mode = 0
+
+[node name="LevelUpgradeLabel" type="RichTextLabel" parent="HUD/Stats/UpgradeStats"]
+z_index = 100
+layout_mode = 0
+offset_left = 334.5
+offset_top = 96.5
+offset_right = 431.5
+offset_bottom = 136.5
+theme_override_colors/default_color = Color(3.27289e-06, 0.654829, 0.252461, 1)
+theme_override_fonts/normal_font = ExtResource("18_86px8")
+theme_override_font_sizes/normal_font_size = 25
+text = "Level:"
+fit_content = true
+autowrap_mode = 0
+
+[node name="DamageUpgradeLabel" type="RichTextLabel" parent="HUD/Stats/UpgradeStats"]
+z_index = 100
+layout_mode = 0
+offset_left = 334.5
+offset_top = 167.5
+offset_right = 432.5
+offset_bottom = 207.5
+theme_override_colors/default_color = Color(3.27289e-06, 0.654829, 0.252461, 1)
+theme_override_fonts/normal_font = ExtResource("18_86px8")
+theme_override_font_sizes/normal_font_size = 25
+text = "Damage:"
+fit_content = true
+autowrap_mode = 0
+
 [node name="Minimap" type="Control" parent="HUD"]
 modulate = Color(1, 1, 1, 0.752941)
 layout_mode = 3
