@@ -53,6 +53,7 @@ func peer_disconnected(id):
 	for i in players:
 		if i.name == str(id):
 			i.queue_free()
+			
 	
 	$ConnectedCount.text = "%s / 2 Players Connected" % (GameManager.Players.size())
 # called only from clients

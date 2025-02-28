@@ -1,6 +1,12 @@
 extends Area2D
 var powerups = ["freeze", "damage_powerup"]
 
+var isLaneNode = false
+
+
+func _ready():
+	add_to_group("Powerup")
+
 func _on_body_entered(body):
 	print('collided')
 	if multiplayer.is_server():

@@ -403,7 +403,7 @@ func _physics_process(delta: float) -> void:
 
 		if Input.is_action_just_pressed("damage_powerup") and (player_powerup == "damage_powerup" or  current_score >= 200):
 			print('using damage powerup')
-			if player_powerups["damage_powerup"]:
+			if player_powerup == "damage_powerup":
 				powerup_frame.hide()
 				player_powerup = null
 				#player_powerups["damage_powerup"] -= 1

@@ -41,4 +41,12 @@ wait_time = 15.0
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 spawn_path = NodePath("..")
 
+[node name="PowerupTimer" type="Timer" parent="."]
+wait_time = 20.0
+autostart = true
+
+[node name="PowerupSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("..")
+
 [connection signal="timeout" from="WaveTimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="PowerupTimer" to="." method="_on_powerup_timer_timeout"]
