@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=19 format=3 uid="uid://548n4oq0n8c8"]
+[gd_resource type="SpriteFrames" load_steps=19 format=3 uid="uid://b4mxfgtfpoes3"]
 
 [ext_resource type="Texture2D" uid="uid://bk6xwcsj6d32x" path="res://assets/south-still.png" id="1_objk4"]
 [ext_resource type="Texture2D" uid="uid://2ovj32ou6u5m" path="res://assets/west-still.png" id="2_srbdc"]
