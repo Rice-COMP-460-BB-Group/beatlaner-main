@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://bj3lu7yts43wl"]
+[gd_scene load_steps=69 format=3 uid="uid://bj3lu7yts43wl"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_h04aa"]
 [ext_resource type="SpriteFrames" uid="uid://b4mxfgtfpoes3" path="res://assets/new_sprite_frames.tres" id="2_swing"]
@@ -31,6 +31,7 @@
 [ext_resource type="Script" path="res://player/afterimage.gd" id="28_i8vw6"]
 [ext_resource type="AudioStream" uid="uid://crwiggodkgtsr" path="res://assets/sword-slash.wav" id="28_rydyj"]
 [ext_resource type="AudioStream" uid="uid://b3dde5dhicjf3" path="res://assets/blink sound.wav" id="30_oggmt"]
+[ext_resource type="AudioStream" uid="uid://0c1aa8ecbenm" path="res://assets/Pokemon Healing - Sound Effect HD.mp3" id="33_lkuxi"]
 [ext_resource type="AudioStream" uid="uid://cfjdfbdye2oyn" path="res://assets/FreezeSoundEffect.mp3" id="34_tllr5"]
 [ext_resource type="AudioStream" uid="uid://bh1aqvgr4h38x" path="res://assets/DamagePowerupSoundEffect.mp3" id="35_k4mhr"]
 [ext_resource type="Texture2D" uid="uid://7t3cud2tgsbj" path="res://assets/595FAD8C-E33F-4E12-A974-9B2D043A2BA3.png.eac9bd8cac80378692e4115553790af8.png" id="36_71n7s"]
@@ -737,6 +738,10 @@ pitch_scale = 0.38
 
 [node name="FreezePowerupSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("34_tllr5")
+volume_db = 6.0
+
+[node name="HealPowerupSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("33_lkuxi")
 volume_db = 6.0
 
 [node name="DamagePowerupSound" type="AudioStreamPlayer" parent="."]

@@ -15,6 +15,7 @@ var bpm = 175
 
 @onready var damage_icon = preload("res://assets/damage.png")
 @onready var freeze_icon = preload("res://assets/freeze.png")
+@onready var heal_icon = preload("res://assets/proj.png")
 @onready var powerup_frame = $HUD/Stats/PowerupFrame/Powerup
 
 var disable_movement = false
@@ -24,15 +25,10 @@ var minion_level = 0
 enum Difficulty {EASY = 0,MEDIUM = 1, HARD = 2}
 enum Team {BLUE = 0, RED = 1}
 
-var player_powerups = {
-	"freeze": 0,
-	"damage_powerup": 0
-}
-
 var player_powerup = null
 
 var rhythm_game_instance= null
-var powerups = ["freeze", "damage_powerup"]
+var powerups = ["freeze", "damage_powerup", "heal"]
 
 
 var last_attack = attack_speed
@@ -89,7 +85,8 @@ func _ready() -> void:
 	Signals.TowerDestroyed.connect(on_tower_destroyed)
 	
 	$HealthComponent.health_decreased.connect(_on_health_decreased)
-	
+	$HealthComponent.health_increased.connect(_on_health_increased)
+
 	old_collision_size = $Slice/SliceArea/CollisionShape2D.shape.size
 	if team == Team.RED:
 		print("team", team)
@@ -112,6 +109,8 @@ func _ready() -> void:
 		camera.make_current()
 func _on_health_decreased():
 	show_damage_flash()
+func _on_health_increased():
+	show_health_flash()
 func show_tooltip(msg:String):
 	print("[player.gd]","show tooltip")
 	$HUD/Stats/ToolTip.text = msg
@@ -346,6 +345,11 @@ func show_damage_flash():
 	tween.tween_property(damage_overlay, "modulate:a", 0.0, 0.5).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
 var last_combo = 0
 
+func show_health_flash():
+	damage_overlay.modulate = Color(0, 1, 0, 0.6)  # Green with 60% opacity
+	var tween = create_tween()
+	tween.tween_property(damage_overlay, "modulate:a", 0.0, 0.5).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
+
 func upgrade_player() -> void:
 	damage = damage + 1
 	$HealthComponent.increase_max_health(20)
@@ -355,12 +359,13 @@ func _physics_process(delta: float) -> void:
 			var combo = rhythm_game_instance.get_combo()
 			if combo and not combo % 100 and combo > last_combo and player_powerup == null:
 				var rand_powerup = powerups[randi_range(0, len(powerups) - 1)]
-				#player_powerups[rand_powerup] += 1
 				player_powerup = rand_powerup
 				if rand_powerup == "freeze":
 					powerup_frame.texture = freeze_icon
 				elif rand_powerup == "damage_powerup":
 					powerup_frame.texture = damage_icon
+				elif rand_powerup == "heal":
+					powerup_frame.texture = damage_icon # change later
 
 
 			last_combo = combo
@@ -398,33 +403,27 @@ func _physics_process(delta: float) -> void:
 				request_wave_spawn.rpc(2, 3, team,minion_level)
 				update_mana(current_score)
 		
-		if Input.is_action_just_pressed("freeze") and (player_powerup == "freeze" or  current_score >= 150):
-			if player_powerup == "freeze":
-				#player_powerups["freeze"] -= 1
+		if Input.is_action_just_pressed("use_powerup"):
+			if player_powerup != null:
+				if player_powerup == "freeze":
+					LaneManager.freeze_current_enemies.rpc(0, team)
+					LaneManager.freeze_current_enemies.rpc(1, team)
+					LaneManager.freeze_current_enemies.rpc(2, team)
+					print('using freeze')
+					$FreezePowerupSound.play()
+				elif player_powerup == "damage_powerup":
+					LaneManager.damage_powerup.rpc(team)
+					print('using damage')
+					$DamagePowerupSound.play()
+				elif player_powerup == "heal":
+					$HealthComponent.rpc("increase_health", 100)
+					$HealPowerupSound.play()
+					print('using health')
+
+				
 				powerup_frame.hide()
 				player_powerup = null
-			else:
-				current_score = max(current_score - 150, 0)
-				update_mana(current_score)
-						
-			LaneManager.freeze_current_enemies.rpc(0, team)
-			LaneManager.freeze_current_enemies.rpc(1, team)
-			LaneManager.freeze_current_enemies.rpc(2, team)
-			$FreezePowerupSound.play()
-
-
-		if Input.is_action_just_pressed("damage_powerup") and (player_powerup == "damage_powerup" or  current_score >= 200):
-			print('using damage powerup')
-			if player_powerup == "damage_powerup":
-				powerup_frame.hide()
-				player_powerup = null
-				#player_powerups["damage_powerup"] -= 1
-			
-			else:
-				current_score = max(current_score - 200, 0)
-				update_mana(current_score)			
-			LaneManager.damage_powerup.rpc(team)
-			$DamagePowerupSound.play()
+					
 
 		if Input.is_action_just_pressed("Attack"):
 			if $HealthComponent.currentHealth <= 0 or last_attack < attack_speed:
@@ -535,13 +534,11 @@ func add_powerup(powerup):
 			powerup_frame.texture = damage_icon
 			powerup_frame.show()
 			player_powerup = "damage_powerup"
+		elif powerup == "heal":
+			powerup_frame.texture = heal_icon
+			powerup_frame.show()
+			player_powerup = "heal"
 	
-
-func reset_powerups():
-	player_powerups = {
-		"freeze": 0,
-		"damage_powerup": 0
-	}
 
 func handle_rhythm_callback():
 	if is_rhythm_game_open:
@@ -591,7 +588,6 @@ func falloff_curve():
 	return extra_damage
 
 func respawn() -> void:
-	reset_powerups()
 	$HealthComponent.visible = false
 	$AnimatedSprite2D.visible = false
 	$CollisionShape2D.disabled = true
