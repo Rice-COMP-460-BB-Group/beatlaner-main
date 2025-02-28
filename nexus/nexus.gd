@@ -75,7 +75,8 @@ func _on_detection_area_body_entered(body: Node2D) -> void:
 		if body.team == team:
 			 
 			body.can_use_nexus = true
-			body.show_tooltip("M:upgrade minions\nN:upgrade yourself")
+			body.show_tooltip(KEY_M, "Upgrade minions")
+			body.show_tooltip(KEY_N, "Upgrade yourself")
 
 func _on_health_component_health_destroyed() -> void:
 
@@ -90,7 +91,8 @@ func _on_detection_area_body_exited(body: Node2D) -> void:
 	if body is Player:
 		if body.team == team:
 			body.can_use_nexus = false
-			body.hide_tooltip()
+			body.hide_tooltip(KEY_M)
+			body.hide_tooltip(KEY_N)
 @rpc("any_peer", "call_local")
 func attack(body: Node2D) -> void:
 	print("[nexus.gd]is server", multiplayer.is_server())

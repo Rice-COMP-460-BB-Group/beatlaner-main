@@ -91,6 +91,10 @@ func get_health():
 	
 @warning_ignore("unused_parameter")
 func _physics_process(delta: float):
+	var mat = $AnimatedSprite2D.material
+	var current_time = mat.get_shader_parameter("time")
+	mat.set_shader_parameter("time", current_time + delta)
+
 	if multiplayer.is_server():
 		if not is_attacking:
 			var anim_suffix = "friendly" if team != Team.BLUE else "enemy"
@@ -296,12 +300,20 @@ func process_damage_powerup():
 
 	$DamageParticle.emitting = true
 
+	$AnimatedSprite2D.material.set_shader_parameter("fade", 0.0)
+	var tween = get_tree().create_tween()
+	tween.tween_property($AnimatedSprite2D, "material:shader_parameter/fade", 1.0, 1.0)
+			
+
 
 func _reset_damage():
 	damage = 10
 	print("Power-up expired. Damage reset to:", damage)
 
 	$DamageParticle.emitting = false
+
+	var tween = get_tree().create_tween()
+	tween.tween_property($AnimatedSprite2D, "material:shader_parameter/fade", 0.0, 1.0)
 	
 @rpc("any_peer", "call_local")
 func die():

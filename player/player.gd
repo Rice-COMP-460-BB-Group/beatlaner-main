@@ -113,14 +113,13 @@ func _on_health_decreased():
 	show_damage_flash()
 func _on_health_increased():
 	show_health_flash()
-func show_tooltip(msg:String):
+func show_tooltip(key: Key, text: String):
 	print("[player.gd]","show tooltip")
-	$HUD/Stats/ToolTip.text = msg
-	$HUD/Stats/ToolTip.show()
+	
+	$HUD/Hints.add_hint(key, text);
 
-func hide_tooltip():
-	print($HUD/Stats/Tooltip)
-	$HUD/Stats/ToolTip.hide()
+func hide_tooltip(key: Key):
+	$HUD/Hints.remove_hint(key);
 	
 	
 func move(delta):
@@ -425,6 +424,8 @@ func _physics_process(delta: float) -> void:
 				
 				powerup_frame.hide()
 				player_powerup = null
+
+				$HUD/Hints.remove_hint(KEY_E)
 					
 
 		if Input.is_action_just_pressed("Attack"):
@@ -546,10 +547,10 @@ func add_powerup(powerup):
 			powerup_frame.texture = damage_icon
 		elif powerup == "heal":
 			powerup_frame.texture = heal_icon
-		player_powerup = powerup
 		powerup_frame.show()
-		print(' added powerup', powerup)
-	
+		player_powerup = "heal"
+
+		$HUD/Hints.add_hint(KEY_E, "Use Powerup")
 
 func handle_rhythm_callback():
 	if is_rhythm_game_open:

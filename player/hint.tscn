@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://ctm8w12wbwh02"]
+
+[ext_resource type="Script" path="res://player/hint.gd" id="1_cd8f0"]
+[ext_resource type="Texture2D" uid="uid://m3ysewsr74qe" path="res://assets/keyboard_keys/0.png" id="1_oapuu"]
+[ext_resource type="FontFile" uid="uid://cm5q756n5trre" path="res://assets/VT323-Regular.ttf" id="2_xxfn8"]
+
+[node name="Hint" type="HBoxContainer"]
+theme_override_constants/separation = 5
+script = ExtResource("1_cd8f0")
+
+[node name="Key" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_oapuu")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_xxfn8")
+theme_override_font_sizes/font_size = 20
+text = "0"

@@ -1,7 +1,8 @@
-[gd_scene load_steps=35 format=3 uid="uid://cao1ivxo860t2"]
+[gd_scene load_steps=37 format=3 uid="uid://cao1ivxo860t2"]
 
 [ext_resource type="Script" path="res://minions/minion.gd" id="1_ywsbo"]
 [ext_resource type="PackedScene" uid="uid://c2a3uw6r78k4d" path="res://minions/projectile.tscn" id="2_6tinm"]
+[ext_resource type="Shader" path="res://minions/flame.gdshader" id="3_3xswk"]
 [ext_resource type="Texture2D" uid="uid://ybjhy5t6t5vw" path="res://assets/minion/grunt_east_walk_v2_red-000.png" id="3_fgpe4"]
 [ext_resource type="Texture2D" uid="uid://tl7bxs6xj53y" path="res://assets/minion/grunt_attack_v2_red-000.png" id="3_id0g0"]
 [ext_resource type="PackedScene" uid="uid://ckytalr2gjoym" path="res://healthbar/health_component.tscn" id="3_qdnh8"]
@@ -30,7 +31,21 @@
 [ext_resource type="Texture2D" uid="uid://cifc6rrgqtasa" path="res://assets/minion/grunt_north_v2-000.png" id="26_8oryb"]
 [ext_resource type="Texture2D" uid="uid://dbvncu0vfkdbn" path="res://assets/minion/grunt_north_v2-001.png" id="27_pd7dp"]
 [ext_resource type="PackedScene" uid="uid://dtcrqium7n5jk" path="res://player/damage_particle.tscn" id="30_nm2wn"]
-[ext_resource type="PackedScene" path="res://player/freeze_particle.tscn" id="30_x6ghc"]
+[ext_resource type="PackedScene" uid="uid://c88ftg8y4cbfs" path="res://player/freeze_particle.tscn" id="30_x6ghc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6tt36"]
+shader = ExtResource("3_3xswk")
+shader_parameter/outline_size = 3.21
+shader_parameter/pulsation_intensity = 4.0
+shader_parameter/threshold = 0.5
+shader_parameter/fade = 0.0
+shader_parameter/flame_color_primary = Color(1, 0.5, 0, 1)
+shader_parameter/flame_color_secondary = Color(1, 1, 0, 1)
+shader_parameter/flame_color_tertiary = Color(1, 0, 0, 1)
+shader_parameter/noise_scale = 10.0
+shader_parameter/flame_speed = 3.0
+shader_parameter/flicker_intensity = 1.0
+shader_parameter/time = 0.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_eqvgy"]
 animations = [{
@@ -207,6 +222,7 @@ aggro_range = 100
 attack_range = 50
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_6tt36")
 scale = Vector2(0.6, 0.606)
 sprite_frames = SubResource("SpriteFrames_eqvgy")
 animation = &"friendly_walk_up"
