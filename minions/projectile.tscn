@@ -26,6 +26,7 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_e41q5")
 
 [node name="Projectile" type="Sprite2D" parent="."]
+modulate = Color(1.5, 1.5, 1.5, 1)
 position = Vector2(3, 1)
 rotation = 3.14159
 scale = Vector2(0.101505, 0.0753483)

@@ -9,7 +9,7 @@ signal health_destroyed
 @export var maxHealth: int
 
 @export var red: bool = true
-
+signal health_decreased()
 var dead = false
 
 # Called when the node enters the scene tree for the first time.
@@ -39,6 +39,7 @@ func decrease_health(amount: int):
 	else:
 		print("HealthBar not found for", get_parent().name)
 	currentHealth -= amount
+	health_decreased.emit()
 	if currentHealth <= 0 and !dead:
 		dead = true
 		print("health is zero")

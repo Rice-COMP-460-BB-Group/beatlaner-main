@@ -3,7 +3,9 @@ extends CharacterBody2D
 class_name Player
 
 var bpm = 175
-@export var damage = 30
+@onready var damage_overlay = $"HUD/Damage indic"
+
+@export var damage = 50
 @export var attack_speed = .35
 @export var team: Team
 @export var respawn_position: Vector2
@@ -16,8 +18,9 @@ var bpm = 175
 @onready var powerup_frame = $HUD/Stats/PowerupFrame/Powerup
 
 var disable_movement = false
-var player_level = 1
-var minion_level = 1
+@onready var minimap = $HUD/Minimap
+var player_level = 0
+var minion_level = 0
 enum Difficulty {EASY = 0,MEDIUM = 1, HARD = 2}
 enum Team {BLUE = 0, RED = 1}
 
@@ -82,11 +85,10 @@ func _ready() -> void:
 	
 	rhythm_game_instance.hide()
 	rhythm_game_instance.disable()
-	if not Signals.NexusDestroyed.is_connected(on_nexus_destroyed):
-		Signals.NexusDestroyed.connect(on_nexus_destroyed)
-	if not Signals.TowerDestroyed.is_connected(on_tower_destroyed): 
-		Signals.TowerDestroyed.connect(on_tower_destroyed)
-
+	Signals.NexusDestroyed.connect(on_nexus_destroyed)
+	Signals.TowerDestroyed.connect(on_tower_destroyed)
+	
+	$HealthComponent.health_decreased.connect(_on_health_decreased)
 	
 	old_collision_size = $Slice/SliceArea/CollisionShape2D.shape.size
 	if team == Team.RED:
@@ -108,7 +110,8 @@ func _ready() -> void:
 	
 	if "--server" in OS.get_cmdline_args():
 		camera.make_current()
-
+func _on_health_decreased():
+	show_damage_flash()
 func show_tooltip(msg:String):
 	print("[player.gd]","show tooltip")
 	$HUD/Stats/ToolTip.text = msg
@@ -337,6 +340,10 @@ func request_wave_spawn(pos: int, size: int, team: bool,level:int):
 	if multiplayer.is_server():
 		LaneManager.wave_request(pos, size, team,level)
 
+func show_damage_flash():
+	damage_overlay.modulate.a = 0.6  # Start with a visible red hue
+	var tween = create_tween()
+	tween.tween_property(damage_overlay, "modulate:a", 0.0, 0.5).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
 var last_combo = 0
 
 func upgrade_player() -> void:
@@ -431,6 +438,7 @@ func _physics_process(delta: float) -> void:
 
 			for body in $Slice/SliceArea.get_overlapping_bodies():
 				if body != self and (body is Minion or body is Player) and body.team != team:
+					
 					if body.has_node("HealthComponent"):
 						foundAttack = true
 						body.get_node("HealthComponent").decrease_health.rpc((damage + player_level) + (damage + player_level) * falloff_curve())
@@ -514,7 +522,7 @@ func escape_rhythm_game():
 		update_mana(current_score)
 		is_rhythm_game_open = false
 func get_minimap():
-	return $HUD/Minimap
+	return minimap
 
 @rpc("any_peer", "call_local")
 func add_powerup(powerup):

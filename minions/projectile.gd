@@ -1,3 +1,4 @@
+class_name Laser
 extends Area2D
 
 @export var target: Node2D
@@ -6,7 +7,7 @@ extends Area2D
 @export var speed = 400
 @export var damage = 10
 var direction
-
+enum Team {BLUE,RED}
 var syncPos: Vector2
 var syncRotation: float
 
@@ -39,7 +40,11 @@ func _physics_process(delta):
 		if position.distance_to(syncPos) > 1:
 			position = lerp(position, syncPos, 0.5)
 			rotation = lerpf(rotation, syncRotation, 0.5)
-
+func set_team(team: Team):
+	if team == Team.BLUE:
+		$Projectile.modulate = Color(5,0,0)
+	else:
+		$Projectile.modulate = Color(0,0,5)
 func _on_body_entered(body):
 	if multiplayer.is_server():
 		if body == target:

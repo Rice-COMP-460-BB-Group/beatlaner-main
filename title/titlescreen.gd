@@ -4,6 +4,7 @@ extends Control
 @export var peer = null
 var dedicated_server = false
 
+	
 func _ready():
 	#$VBoxContainer/Start.grab_focus()
 	multiplayer.peer_connected.connect(peer_connected)
@@ -173,3 +174,28 @@ func _on_join_ip_confirmed() -> void:
 	multiplayer.set_multiplayer_peer(peer)
 	
 	pass # Replace with function body.
+
+
+func _on_start_mouse_entered() -> void:
+	$SelectHost.visible = true
+	pass # Replace with function body.
+
+
+func _on_join_mouse_entered() -> void:
+	$SelectJoin.visible = true
+
+
+func _on_exit_mouse_entered() -> void:
+	$SelectExit.visible = true
+
+
+func _on_start_mouse_exited() -> void:
+	$SelectHost.visible = false
+
+
+func _on_join_mouse_exited() -> void:
+	$SelectJoin.visible = false
+
+
+func _on_exit_mouse_exited() -> void:
+	$SelectExit.visible = false

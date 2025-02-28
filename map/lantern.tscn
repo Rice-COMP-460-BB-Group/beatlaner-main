@@ -17,7 +17,7 @@ shadow_enabled = true
 shadow_filter = 2
 shadow_filter_smooth = 64.0
 texture = ExtResource("2_2it83")
-texture_scale = 3.42
+texture_scale = 2.42
 script = ExtResource("3_4h2ua")
 
 [node name="Flicker" type="Timer" parent="."]

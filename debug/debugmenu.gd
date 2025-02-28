@@ -16,10 +16,7 @@ func _ready() -> void:
 	
 	hide()
 
-func _input(event: InputEvent):
-	
-	if Input.is_key_pressed(KEY_Q):
-		visible = !visible
+
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

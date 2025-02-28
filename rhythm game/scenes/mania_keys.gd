@@ -63,12 +63,19 @@ func _process(delta):
 	
 func init():
 	var new_note = note.instantiate()
-	if key == "key2":
-		new_note.texture = load("res://rhythm game/assets/mania_notes/Sigil2.png")
-	elif key == "key3":
-		new_note.texture = load("res://rhythm game/assets/mania_notes/Sigil3.png")
-	elif key == "key4":
-		new_note.texture = load("res://rhythm game/assets/mania_notes/Sigil4.png")
+	if new_note is ManiaNote:
+		
+		if key == "key2":
+			new_note.texture = load("res://rhythm game/assets/mania_notes/Sigil2.png")
+			new_note.set_light(2)
+		elif key == "key3":
+			new_note.texture = load("res://rhythm game/assets/mania_notes/Sigil3.png")
+			new_note.set_light(3)
+		elif key == "key4":
+			new_note.texture = load("res://rhythm game/assets/mania_notes/Sigil4.png")
+			new_note.set_light(4)
+		else:
+			new_note.set_light(1)
 	add_to_group("mania_note_instance")
 	get_parent().add_child(new_note)
 	new_note.init(position.x, speed)
