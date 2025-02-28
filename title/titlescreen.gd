@@ -7,6 +7,9 @@ var dedicated_server = false
 	
 func _ready():
 	#$VBoxContainer/Start.grab_focus()
+	$VBoxContainer/Start.focus_mode = Control.FOCUS_NONE
+	$VBoxContainer/Join.focus_mode = Control.FOCUS_NONE
+	$VBoxContainer/Exit.focus_mode = Control.FOCUS_NONE
 	multiplayer.peer_connected.connect(peer_connected)
 	multiplayer.peer_disconnected.connect(peer_disconnected)
 	multiplayer.connected_to_server.connect(connected_to_server)

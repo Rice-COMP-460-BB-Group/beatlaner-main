@@ -963,6 +963,7 @@ offset_bottom = 110.5
 
 [node name="Frame" type="TextureRect" parent="HUD/Stats/PowerupFrame"]
 z_index = -10
+layout_mode = 0
 offset_left = -1.66667
 offset_top = -5.0
 offset_right = 133.333
