@@ -121,7 +121,7 @@ func StartGame():
 	var scene
 	if "--auto" in OS.get_cmdline_args():
 		scene = load("res://main/Main.tscn").instantiate()
-		scene.current_difficulty = 0 # set to easy difficulty
+		scene.current_difficulty = 2 # set to easy difficulty
 	else:
 		scene = load("res://title/difficulty_selector.tscn").instantiate()
 	
