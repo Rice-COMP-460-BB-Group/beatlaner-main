@@ -3,9 +3,12 @@ shader_type canvas_item;
 // Base outline thickness (in pixels)
 uniform float outline_size : hint_range(1, 8) = 2.0;
 // Additional uniform to control how intense the pulsation is.
-uniform float pulsation_intensity : hint_range(0.0, 5.0) = 4.0;
+uniform float pulsation_intensity : hint_range(0.0, 5.0) = 5.0;
 // Alpha threshold for edge detection (sprite vs. transparent)
-uniform float threshold : hint_range(0.0, 1.0) = 0.5;
+uniform float threshold : hint_range(0.0, 1.0) = 0.8;
+
+// Uniform to control gradual appearance (0.0 = off, 1.0 = fully on)
+uniform float fade : hint_range(0.0, 1.0) = 0.0;
 
 // Flame colors – feel free to modify these.
 uniform vec4 flame_color_primary   : source_color = vec4(1.0, 0.5, 0.0, 1.0); // bright orange
@@ -54,6 +57,9 @@ void fragment() {
     vec4 texColor = texture(TEXTURE, UV);
     float centerAlpha = texColor.a;
     float neighborAlphaMax = 0.0;
+
+    // Default effect color is the original texture.
+    vec4 effectColor = texColor;
 
     // --------------------------------------------------------------------
     // Compute a smooth pulsation factor by averaging two lower-frequency fbm samples.
@@ -115,9 +121,9 @@ void fragment() {
         // Make the outline a bit transparent.
         finalAlpha *= 0.7;
 
-        COLOR = vec4(flameColor.rgb, finalAlpha);
-    } else {
-        // Render the sprite normally.
-        COLOR = texColor;
+        effectColor = vec4(flameColor.rgb, finalAlpha);
     }
+
+    // Gradually blend from the original texture to the flame effect using fade.
+    COLOR = mix(texColor, effectColor, fade);
 }
