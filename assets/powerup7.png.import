@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dupwu05mg1a3o"
-path="res://.godot/imported/Surrender.png-4e6cb7948f2e168d5b61aa1b98ea5a0b.ctex"
+uid="uid://bic7vv3yvtm5a"
+path="res://.godot/imported/powerup7.png-572a53439f1664be2a1444c5d0bbbb81.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Surrender.png"
-dest_files=["res://.godot/imported/Surrender.png-4e6cb7948f2e168d5b61aa1b98ea5a0b.ctex"]
+source_file="res://assets/powerup7.png"
+dest_files=["res://.godot/imported/powerup7.png-572a53439f1664be2a1444c5d0bbbb81.ctex"]
 
 [params]
 

@@ -15,7 +15,7 @@ var bpm = 175
 
 @onready var damage_icon = preload("res://assets/damage.png")
 @onready var freeze_icon = preload("res://assets/freeze.png")
-@onready var heal_icon = preload("res://assets/proj.png")
+@onready var heal_icon = preload("res://assets/health_potion.png")
 @onready var powerup_frame = $HUD/Stats/PowerupFrame/Powerup
 
 var disable_movement = false
