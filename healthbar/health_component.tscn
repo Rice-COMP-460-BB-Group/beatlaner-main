@@ -22,3 +22,5 @@ offset_left = -17.0
 offset_top = -34.0
 offset_right = 23.0
 offset_bottom = -19.0
+
+[connection signal="health_decreased" from="." to="." method="_on_health_decreased"]

@@ -10,6 +10,7 @@ signal health_destroyed
 
 @export var red: bool = true
 signal health_decreased()
+signal health_increased()
 var dead = false
 
 # Called when the node enters the scene tree for the first time.
@@ -47,8 +48,23 @@ func decrease_health(amount: int):
 		health_destroyed.emit()
 		
 	$HealthBar.update(currentHealth, maxHealth)
+	
+@rpc("any_peer", "call_local")
+func increase_health(amount: int):
+	if has_node("HealthBar"):
+		print("[health_component.gd]","Found HealthBar for", get_parent().name)
+		$HealthBar.update(currentHealth, maxHealth)
+	else:
+		print("HealthBar not found for", get_parent().name)
+	currentHealth = max(currentHealth + amount, maxHealth)
+	health_increased.emit()
+	$HealthBar.update(currentHealth, maxHealth)
 
 func reset_health():
 	currentHealth = maxHealth
 	dead = false
 	$HealthBar.update(currentHealth, maxHealth)
+
+
+func _on_health_decreased() -> void:
+	pass # Replace with function body.

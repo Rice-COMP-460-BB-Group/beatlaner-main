@@ -5,21 +5,6 @@ extends Node
 @onready var lower: Area2D = $"../LowerLane"
 @onready var map: Area2D = $"../MapPosHandler"
 
-#var player1_powerups = {
-	#"freeze": 0,
-	#"damage_powerup": 0
-#}
-#var player2_powerups = {
-	#"freeze": 0,
-	#"damage_powerup": 0
-#}
-#
-#func _on_power_get(player: String, powerup: String):
-	#if player == "player1":
-		#player1_powerups[powerup] += 1
-	#else:
-		#player2_powerups[powerup] += 1
-	#
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -65,6 +50,7 @@ func damage_powerup(team: int) ->void:
 				
 				b.process_damage_powerup()
 					
+
 func _on_lower_lane_body_entered(body: Node2D) -> void:
 	if body.name == "TileMapLayer":
 		return 
