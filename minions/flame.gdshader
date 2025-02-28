@@ -1,7 +1,9 @@
 shader_type canvas_item;
 
-// Outline thickness (in pixels)
+// Base outline thickness (in pixels)
 uniform float outline_size : hint_range(1, 8) = 2.0;
+// Additional uniform to control how intense the pulsation is.
+uniform float pulsation_intensity : hint_range(0.0, 5.0) = 4.0;
 // Alpha threshold for edge detection (sprite vs. transparent)
 uniform float threshold : hint_range(0.0, 1.0) = 0.5;
 
@@ -48,13 +50,26 @@ float fbm(vec2 p) {
 }
 
 void fragment() {
-    // Sample the sprite texture
+    // Sample the sprite texture.
     vec4 texColor = texture(TEXTURE, UV);
     float centerAlpha = texColor.a;
     float neighborAlphaMax = 0.0;
 
+    // --------------------------------------------------------------------
+    // Compute a smooth pulsation factor by averaging two lower-frequency fbm samples.
+    float pulseNoise1 = fbm(UV * (noise_scale * 2.0) + vec2(time * flame_speed, time * flame_speed));
+    float pulseNoise2 = fbm(UV * (noise_scale * 2.0) + vec2(time * flame_speed + 5.0, time * flame_speed - 5.0));
+    float pulseNoise = (pulseNoise1 + pulseNoise2) * 0.5;
+
+    // Reduce the base thickness to make the outline thinner.
+    float base_thickness = outline_size * 0.5;
+    // Increase the pulsation range: dynamic outline thickness will vary from base_thickness to
+    // base_thickness * (1.0 + pulsation_intensity).
+    float dynamic_outline_size = base_thickness * (1.0 + pulsation_intensity * pulseNoise);
+    int steps = int(dynamic_outline_size);
+    // --------------------------------------------------------------------
+
     // Loop over a small area around the pixel to find edge pixels.
-    int steps = int(outline_size);
     for (int x = -steps; x <= steps; x++) {
         for (int y = -steps; y <= steps; y++) {
             vec2 offset = vec2(float(x), float(y)) * TEXTURE_PIXEL_SIZE;
@@ -70,7 +85,7 @@ void fragment() {
             fbm(UV * noise_scale + time * flame_speed),
             fbm(UV * noise_scale - time * flame_speed)
         );
-        // Adjust the distortion magnitude (you can tweak 0.05 as needed)
+        // Adjust the distortion magnitude (tweak 0.05 as needed)
         vec2 distortedUV = UV + (turbulence - 0.5) * 0.05;
 
         // Get a noise value from the distorted UV to drive color variation.
@@ -97,6 +112,8 @@ void fragment() {
 
         // Compute an outline alpha that also fluctuates with the noise and flicker.
         float finalAlpha = clamp(flicker * (0.6 + n * 0.4), 0.0, 1.0);
+        // Make the outline a bit transparent.
+        finalAlpha *= 0.7;
 
         COLOR = vec4(flameColor.rgb, finalAlpha);
     } else {
