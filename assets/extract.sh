@@ -12,7 +12,7 @@ for f in "$@"; do
 
   basename="${f%.*}"
 
-  convert "$f" -coalesce -transparent black "${basename}-%03d.png"
-  echo "Created frames ${basename}-###.gif from $f with black turned transparent."
+  convert "$f" -coalesce "${basename}-%03d.png"
+  echo "Created frames ${basename}-###.gif from $f."
 done
 
