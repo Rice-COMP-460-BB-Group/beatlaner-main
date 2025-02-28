@@ -1,4 +1,4 @@
-[gd_scene load_steps=112 format=3 uid="uid://bj3lu7yts43wl"]
+[gd_scene load_steps=113 format=3 uid="uid://bj3lu7yts43wl"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_h04aa"]
 [ext_resource type="Texture2D" uid="uid://3sv7ccy0u7fe" path="res://assets/6369.png" id="1_xd2rp"]
@@ -28,6 +28,7 @@
 [ext_resource type="FontFile" uid="uid://cm5q756n5trre" path="res://assets/VT323-Regular.ttf" id="18_86px8"]
 [ext_resource type="PackedScene" uid="uid://dd7pknkkclu6u" path="res://player/ManaBar.tscn" id="19_w14c3"]
 [ext_resource type="Texture2D" uid="uid://2bx5t4k3vue3" path="res://assets/enemy-banner.png" id="22_25x0m"]
+[ext_resource type="Texture2D" uid="uid://kmqcf5auw58c" path="res://assets/border-halfsize.png" id="22_l1p2f"]
 [ext_resource type="Texture2D" uid="uid://5vh7vt04qm1a" path="res://assets/frame-powerup.png" id="23_akk2i"]
 [ext_resource type="Texture2D" uid="uid://dvgisd26hm73n" path="res://assets/light_gd.webp" id="28_bqyr1"]
 [ext_resource type="Script" path="res://player/afterimage.gd" id="28_i8vw6"]
@@ -894,6 +895,14 @@ anchors_preset = 0
 offset_top = -25.0
 offset_bottom = -25.0
 
+[node name="ManaBar" parent="HUD/Stats" instance=ExtResource("19_w14c3")]
+layout_mode = 0
+offset_left = -278.5
+offset_top = -160.0
+offset_right = -72.5
+offset_bottom = -49.0
+scale = Vector2(0.5, 0.5)
+
 [node name="MetronomeContainer" type="MarginContainer" parent="HUD/Stats"]
 light_mask = 2
 visibility_layer = 2
@@ -918,14 +927,6 @@ theme_override_fonts/font = ExtResource("18_86px8")
 text = "Respawning...
 "
 horizontal_alignment = 1
-
-[node name="ManaBar" parent="HUD/Stats" instance=ExtResource("19_w14c3")]
-layout_mode = 0
-offset_left = -288.0
-offset_top = -162.0
-offset_right = -82.0
-offset_bottom = -51.0
-scale = Vector2(0.5, 0.5)
 
 [node name="ToolTip" type="Label" parent="HUD/Stats"]
 layout_mode = 1
@@ -956,8 +957,8 @@ scale = Vector2(0.3, 0.3)
 
 [node name="Frame" type="TextureRect" parent="HUD/Stats/PowerupFrame"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 128.0
+offset_bottom = 128.0
 texture = ExtResource("23_akk2i")
 
 [node name="Powerup" type="TextureRect" parent="HUD/Stats/PowerupFrame"]
@@ -967,6 +968,16 @@ offset_left = 16.0
 offset_top = 14.5
 offset_right = 112.0
 offset_bottom = 110.5
+
+[node name="Backdrop" type="TextureRect" parent="HUD/Stats"]
+z_index = -10
+layout_mode = 0
+offset_left = -288.0
+offset_top = -162.0
+offset_right = -160.0
+offset_bottom = -34.0
+scale = Vector2(1, 0.5)
+texture = ExtResource("22_l1p2f")
 
 [node name="Minimap" type="Control" parent="HUD"]
 modulate = Color(1, 1, 1, 0.752941)
