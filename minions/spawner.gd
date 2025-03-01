@@ -270,7 +270,6 @@ func spawn_powerup(dict:Dictionary):
 	new_powerup.global_position = new_position
 	#new_powerup.global_position = Vector2(500, 500)
 	new_powerup.isLaneNode = true
-	new_powerup.scale = Vector2(0.3, 0.3)
 	return new_powerup
 	#minion.set_level(dict["level"])
 

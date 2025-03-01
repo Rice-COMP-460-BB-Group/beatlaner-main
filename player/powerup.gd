@@ -6,6 +6,10 @@ var isLaneNode = false
 
 func _ready():
 	add_to_group("Powerup")
+	var old_scale = scale
+	scale = Vector2.ZERO
+	var tween = create_tween()
+	tween.tween_property(self, "scale", old_scale, .75).set_trans(Tween.TRANS_SINE)
 
 func _on_body_entered(body):
 	if multiplayer.is_server():
