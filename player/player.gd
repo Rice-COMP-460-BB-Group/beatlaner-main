@@ -490,7 +490,17 @@ func _physics_process(delta: float) -> void:
 				var tween = get_tree().create_tween()
 				tween.tween_property($HUD/Stats/UpgradeStats, "modulate:a", 1, 0.5)
 				tween.tween_property($HUD/Stats/UpgradeStats, "modulate:a", 0, 0.5).set_delay(3)
-			
+
+				var old_pos = $HUD/Stats/LevelUpBanner.position.x
+				$HUD/Stats/LevelUpBanner/TextLabels/Damage.text = str(damage + player_level - 1) + " → " + str(damage + player_level)
+				$HUD/Stats/LevelUpBanner/TextLabels/Health.text = str(oldHP) + " → " + str($HealthComponent.get_max_health())
+				$HUD/Stats/LevelUpBanner/TextLabels/Level.text = str(player_level - 1) + " → " + str(player_level)
+
+				var banner_tween = create_tween()
+				banner_tween.tween_property($HUD/Stats/LevelUpBanner, "position:x", $HUD/Stats/LevelUpBanner.position.x-($HUD/Stats/LevelUpBanner/Backdrop.size.x * $HUD/Stats/LevelUpBanner.scale.x), 0.5).set_trans(Tween.TRANS_QUAD)
+				banner_tween.tween_property($HUD/Stats/LevelUpBanner, "position:x", old_pos, 0.5).set_trans(Tween.TRANS_QUAD).set_delay(2.0)
+
+
 		animate()
 		
 	else:

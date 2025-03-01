@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://bj3lu7yts43wl"]
+[gd_scene load_steps=71 format=3 uid="uid://bj3lu7yts43wl"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_h04aa"]
 [ext_resource type="SpriteFrames" uid="uid://b4mxfgtfpoes3" path="res://assets/new_sprite_frames.tres" id="2_swing"]
@@ -25,6 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://cxggkjevi7j0k" path="res://assets/Metronome-011.png" id="17_eajn3"]
 [ext_resource type="FontFile" uid="uid://cm5q756n5trre" path="res://assets/VT323-Regular.ttf" id="18_86px8"]
 [ext_resource type="PackedScene" uid="uid://dd7pknkkclu6u" path="res://player/ManaBar.tscn" id="19_w14c3"]
+[ext_resource type="Texture2D" uid="uid://00c1h6f0f02k" path="res://assets/achievement.png" id="20_kjgea"]
 [ext_resource type="Texture2D" uid="uid://2bx5t4k3vue3" path="res://assets/enemy-banner.png" id="22_25x0m"]
 [ext_resource type="Texture2D" uid="uid://kmqcf5auw58c" path="res://assets/border-halfsize.png" id="22_l1p2f"]
 [ext_resource type="PackedScene" uid="uid://dsd6jtbkqn0io" path="res://player/hints.tscn" id="23_a5f6l"]
@@ -653,6 +654,7 @@ scale = Vector2(1, 0.5)
 texture = ExtResource("22_l1p2f")
 
 [node name="UpgradeStats" type="Control" parent="HUD/Stats"]
+visible = false
 z_index = 100
 layout_mode = 3
 anchors_preset = 0
@@ -702,6 +704,59 @@ theme_override_font_sizes/normal_font_size = 25
 text = "Damage:"
 fit_content = true
 autowrap_mode = 0
+
+[node name="LevelUpBanner" type="Control" parent="HUD/Stats"]
+anchors_preset = 0
+offset_left = 287.5
+offset_top = -169.0
+offset_right = 327.5
+offset_bottom = -129.0
+scale = Vector2(0.5, 0.5)
+
+[node name="Backdrop" type="TextureRect" parent="HUD/Stats/LevelUpBanner"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("20_kjgea")
+
+[node name="TextLabels" type="Control" parent="HUD/Stats/LevelUpBanner"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Level" type="Label" parent="HUD/Stats/LevelUpBanner/TextLabels"]
+offset_left = 15.0
+offset_top = 67.5
+offset_right = 85.0
+offset_bottom = 102.5
+theme_override_fonts/font = ExtResource("18_86px8")
+text = "100 → 200"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Health" type="Label" parent="HUD/Stats/LevelUpBanner/TextLabels"]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 68.0
+offset_right = 166.0
+offset_bottom = 103.0
+theme_override_fonts/font = ExtResource("18_86px8")
+text = "100 → 200"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Damage" type="Label" parent="HUD/Stats/LevelUpBanner/TextLabels"]
+offset_left = 175.5
+offset_top = 67.5
+offset_right = 245.5
+offset_bottom = 102.5
+theme_override_fonts/font = ExtResource("18_86px8")
+text = "100 → 200"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="Minimap" type="Control" parent="HUD"]
 modulate = Color(1, 1, 1, 0.752941)
