@@ -44,6 +44,7 @@ radius = 72.0
 height = 162.0
 
 [node name="Powerup" type="Area2D"]
+z_index = 100
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_wfvs4")
