@@ -28,7 +28,7 @@
 [ext_resource type="Texture2D" uid="uid://00c1h6f0f02k" path="res://assets/achievement.png" id="20_kjgea"]
 [ext_resource type="Texture2D" uid="uid://2bx5t4k3vue3" path="res://assets/enemy-banner.png" id="22_25x0m"]
 [ext_resource type="Texture2D" uid="uid://kmqcf5auw58c" path="res://assets/border-halfsize.png" id="22_l1p2f"]
-[ext_resource type="PackedScene" path="res://player/hints.tscn" id="23_a5f6l"]
+[ext_resource type="PackedScene" uid="uid://dsd6jtbkqn0io" path="res://player/hints.tscn" id="23_a5f6l"]
 [ext_resource type="Texture2D" uid="uid://bqfgop2tg3noi" path="res://assets/595FAD8C-E33F-4E12-A974-9B2D043A2BA3.png.eac9bd8cac80378692e4115553790af8-export.png" id="25_pfejg"]
 [ext_resource type="Script" path="res://player/afterimage.gd" id="28_i8vw6"]
 [ext_resource type="AudioStream" uid="uid://crwiggodkgtsr" path="res://assets/sword-slash.wav" id="28_rydyj"]
@@ -725,6 +725,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Level" type="Label" parent="HUD/Stats/LevelUpBanner/TextLabels"]
+layout_mode = 0
 offset_left = 15.0
 offset_top = 67.5
 offset_right = 85.0
@@ -748,6 +749,7 @@ vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="Damage" type="Label" parent="HUD/Stats/LevelUpBanner/TextLabels"]
+layout_mode = 0
 offset_left = 175.5
 offset_top = 67.5
 offset_right = 245.5
@@ -802,10 +804,8 @@ scale = Vector2(1, 0.997383)
 
 [node name="Damage indic" type="TextureRect" parent="HUD"]
 modulate = Color(1, 1, 1, 0)
-offset_left = -14.0
-offset_top = -27.0
-offset_right = 1135.0
-offset_bottom = 633.0
+offset_right = 1152.0
+offset_bottom = 648.0
 texture = ExtResource("25_pfejg")
 expand_mode = 1
 
@@ -859,10 +859,6 @@ volume_db = 6.0
 [node name="DamagePowerupSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("35_k4mhr")
 volume_db = 12.0
-
-[node name="DamageVignette" type="TextureRect" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 visible = false
