@@ -558,7 +558,7 @@ func add_powerup(powerup):
 		elif powerup == "heal":
 			powerup_frame.texture = heal_icon
 		powerup_frame.show()
-		player_powerup = "heal"
+		player_powerup = powerup
 
 		$HUD/Hints.add_hint(KEY_E, "Use Powerup")
 

@@ -56,6 +56,9 @@ func _ready() -> void:
 	Signals.Score.connect(Score)
 	print("spawner invoked")
 	# $MultiplayerSpawner.set_spawn_function(spawn)
+	powerup_timer.wait_time = 4.0
+	powerup_timer.one_shot = false  
+	powerup_timer.start()
 		
 func spawner_init() -> void:
 	for sp in get_children():
@@ -258,12 +261,14 @@ func spawn(dict:Dictionary):
 	return minion
 	
 func spawn_powerup(dict:Dictionary):
-	print("[spawner.gd] id: ", multiplayer.get_unique_id(), multiplayer.get_remote_sender_id())
+	print('powerup spawning', dict)
+	#print("[spawner.gd] id: ", multiplayer.get_unique_id(), multiplayer.get_remote_sender_id())
 	#var key = dict["key"]
 	var new_powerup = powerupScene.instantiate()
 	var new_position = dict["position"]
 	print(new_position)
-	new_powerup.position = new_position
+	new_powerup.global_position = new_position
+	#new_powerup.global_position = Vector2(500, 500)
 	new_powerup.isLaneNode = true
 	new_powerup.scale = Vector2(0.3, 0.3)
 	return new_powerup
@@ -307,18 +312,19 @@ func _on_wave_timer_timeout() -> void:
 var idxpower = 0
 @rpc("authority")
 func _on_powerup_timer_timeout() -> void:
+	print('time out power timer')
 	for node in get_tree().get_nodes_in_group("Powerup"):
 		if node.isLaneNode:
 			node.queue_free()
 	idxpower += 1
-	
+		
 	for lane in [upperLaneChild, midLaneChild, lowerLaneChild]:
 
 		
 		var rand_pos = get_random_point(lane)
-		print('spawning for lane', lane.name, idxpower)
+		print('spawning for lane', idxpower, lane.name, rand_pos)
 		$PowerupSpawner.spawn({"position": rand_pos})
-		
+	powerup_timer.start()
 
 
 """

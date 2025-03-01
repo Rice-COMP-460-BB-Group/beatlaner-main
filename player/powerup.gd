@@ -13,7 +13,7 @@ func _on_body_entered(body):
 			var rand_powerup = powerups[randi_range(0, len(powerups) - 1)]
 			print('rand powerup', rand_powerup)
 			body.add_powerup.rpc(rand_powerup)
-		rpc("destroy_powerup")
+			rpc("destroy_powerup")
 
 @rpc("any_peer", "call_local")
 func destroy_powerup():
