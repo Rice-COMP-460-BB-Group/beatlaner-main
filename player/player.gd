@@ -31,6 +31,8 @@ var rhythm_game_instance= null
 var powerups = ["freeze", "damage_powerup", "heal"]
 
 
+var banner_tween = create_tween()
+
 var last_attack = attack_speed
 
 const floating_text_scene = preload("res://player/floating_text.tscn")
@@ -496,10 +498,9 @@ func _physics_process(delta: float) -> void:
 				$HUD/Stats/LevelUpBanner/TextLabels/Health.text = str(oldHP) + " → " + str($HealthComponent.get_max_health())
 				$HUD/Stats/LevelUpBanner/TextLabels/Level.text = str(player_level - 1) + " → " + str(player_level)
 
-				var banner_tween = create_tween()
-				banner_tween.tween_property($HUD/Stats/LevelUpBanner, "position:x", $HUD/Stats/LevelUpBanner.position.x-($HUD/Stats/LevelUpBanner/Backdrop.size.x * $HUD/Stats/LevelUpBanner.scale.x), 0.5).set_trans(Tween.TRANS_QUAD)
-				banner_tween.tween_property($HUD/Stats/LevelUpBanner, "position:x", old_pos, 0.5).set_trans(Tween.TRANS_QUAD).set_delay(2.0)
-
+				if !banner_tween.is_running():
+					banner_tween.tween_property($HUD/Stats/LevelUpBanner, "position:x", $HUD/Stats/LevelUpBanner.position.x-($HUD/Stats/LevelUpBanner/Backdrop.size.x * $HUD/Stats/LevelUpBanner.scale.x), 0.5).set_trans(Tween.TRANS_QUAD)
+					banner_tween.tween_property($HUD/Stats/LevelUpBanner, "position:x", old_pos, 0.5).set_trans(Tween.TRANS_QUAD).set_delay(2.0)
 
 		animate()
 		
