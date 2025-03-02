@@ -56,7 +56,7 @@ func _ready() -> void:
 	Signals.Score.connect(Score)
 	print("spawner invoked")
 	# $MultiplayerSpawner.set_spawn_function(spawn)
-	powerup_timer.wait_time = 4.0
+	powerup_timer.wait_time = 30.0
 	powerup_timer.one_shot = false  
 	powerup_timer.start()
 		

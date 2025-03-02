@@ -60,6 +60,14 @@ func increase_health(amount: int):
 	health_increased.emit()
 	$HealthBar.update(currentHealth, maxHealth)
 
+@rpc("any_peer", "call_local")
+func upgrade_health():
+	maxHealth += 10
+	health_increased.emit()
+	$HealthBar.update(maxHealth, maxHealth)
+
+
+
 func reset_health():
 	currentHealth = maxHealth
 	dead = false

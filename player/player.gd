@@ -480,9 +480,9 @@ func _physics_process(delta: float) -> void:
 				update_mana(current_score)
 				
 				var oldHP = $HealthComponent.get_max_health()
-				$HealthComponent.increase_max_health(50)
+				#$HealthComponent.upgrade_health()
 				
-				$HealthComponent.rpc("increase_health", $HealthComponent.get_max_health())
+				$HealthComponent.rpc("upgrade_health")
 				$HUD/Stats/UpgradeStats/LevelUpgradeLabel.text = "Level: " + str(player_level - 1) + " -> " + str(player_level)
 				$HUD/Stats/UpgradeStats/DamageUpgradeLabel.text = "Damage: " + str(damage + player_level - 1) + " -> " + str(damage + player_level)
 				$HUD/Stats/UpgradeStats/HPUpgradeLabel.text = "HP: " + str(oldHP) + " -> " + str($HealthComponent.get_max_health())
