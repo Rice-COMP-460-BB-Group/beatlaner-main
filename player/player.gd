@@ -441,26 +441,14 @@ func _physics_process(delta: float) -> void:
 			var foundAttack = false
 
 			for body in $Slice/SliceArea.get_overlapping_bodies():
-				if body != self and (body is Minion or body is Player) and body.team != team:
-					
+				if body != self and (body is Minion or body is Player or body is Tower or body is Nexus) and body.team != team:
 					if body.has_node("HealthComponent"):
 						foundAttack = true
 						body.get_node("HealthComponent").decrease_health.rpc((damage + player_level) + (damage + player_level) * falloff_curve())
 						if body.get_node("HealthComponent").get_current_health() <= 0:
 							
 							$HUD/Stats/ManaBar.increase_mana(5)
-			
-			for body in $Slice/SliceArea.get_overlapping_areas():
-				if body is Tower and body.team != team:
-					if body.has_node("HealthComponent"):
-						foundAttack = true
-						body.get_node("HealthComponent").decrease_health.rpc(damage + damage * falloff_curve())
-			for body in $Slice/SliceArea.get_overlapping_areas():
-				if body is Nexus and body.team != team:
-					print("[player.gd]","nexus hit!")
-					if body.has_node("HealthComponent"):
-						foundAttack = true
-						body.get_node("HealthComponent").decrease_health.rpc(damage + damage * falloff_curve())
+
 			if foundAttack:
 				var floating_text = floating_text_scene.instantiate()
 				floating_text.text = str(round(damage + damage * falloff_curve()))
