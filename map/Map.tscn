@@ -2335,28 +2335,22 @@ visible = false
 polygon = PackedVector2Array(394, 394, 3599, 395, 3605, 3593, 418, 3615)
 
 [node name="Powerup" parent="." instance=ExtResource("8_w655y")]
-position = Vector2(557, 3153)
-scale = Vector2(0.3, 0.3)
+position = Vector2(549, 3208)
 
 [node name="Powerup2" parent="." instance=ExtResource("8_w655y")]
-position = Vector2(858, 3484)
-scale = Vector2(0.3, 0.3)
+position = Vector2(811, 3484)
 
 [node name="Powerup3" parent="." instance=ExtResource("8_w655y")]
-position = Vector2(764, 3232)
-scale = Vector2(0.3, 0.3)
+position = Vector2(722, 3298)
 
 [node name="Powerup4" parent="." instance=ExtResource("8_w655y")]
-position = Vector2(3116, 548)
-scale = Vector2(0.3, 0.3)
+position = Vector2(3222, 525)
 
 [node name="Powerup5" parent="." instance=ExtResource("8_w655y")]
-position = Vector2(3473, 912)
-scale = Vector2(0.3, 0.3)
+position = Vector2(3477, 765)
 
 [node name="Powerup6" parent="." instance=ExtResource("8_w655y")]
-position = Vector2(3253, 783)
-scale = Vector2(0.3, 0.3)
+position = Vector2(3308, 669)
 
 [node name="Lamps" type="Node2D" parent="."]
 
