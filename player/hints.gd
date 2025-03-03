@@ -6,13 +6,14 @@ extends HFlowContainer
 func _ready() -> void:
 	pass # Replace with function body.
 
-func add_hint(key: Key, tip: String) -> void:
+func add_hint(action: String, tip: String) -> void:
 	var hint = new_hint.instantiate()
-	hint.key = key
+	hint.key = KeybindingSystem.action_bindings[action]
 	hint.tip = tip
 	add_child(hint)
 
-func remove_hint(key: Key) -> void:
+func remove_hint(action: String) -> void:
+	var key = KeybindingSystem.action_bindings[action]
 	for child in get_children():
 		if child.key == key:
 			child.queue_free()

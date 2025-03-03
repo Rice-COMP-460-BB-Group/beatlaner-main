@@ -10,9 +10,11 @@ func _ready():
 	$VBoxContainer/Start.focus_mode = Control.FOCUS_NONE
 	$VBoxContainer/Join.focus_mode = Control.FOCUS_NONE
 	$VBoxContainer/Exit.focus_mode = Control.FOCUS_NONE
+	$VBoxContainer/Settings.focus_mode = Control.FOCUS_NONE
 	$SelectHost.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	$SelectJoin.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	$SelectExit.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	$SelectSettings.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	multiplayer.peer_connected.connect(peer_connected)
 	multiplayer.peer_disconnected.connect(peer_disconnected)
 	multiplayer.connected_to_server.connect(connected_to_server)
@@ -205,3 +207,13 @@ func _on_join_mouse_exited() -> void:
 
 func _on_exit_mouse_exited() -> void:
 	$SelectExit.visible = false
+
+func _on_settings_mouse_entered():
+	$SelectSettings.visible = true
+	$Focus.play()
+
+func _on_settings_mouse_exited():
+	$SelectSettings.visible = false
+
+func _on_settings_pressed():
+	$KeybindingScreen.show()

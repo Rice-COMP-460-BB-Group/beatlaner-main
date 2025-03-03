@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c3jsflij7fip8"]
+[gd_scene load_steps=16 format=3 uid="uid://c3jsflij7fip8"]
 
 [ext_resource type="Script" path="res://title/titlescreen.gd" id="1_8mkg5"]
 [ext_resource type="FontFile" uid="uid://cm5q756n5trre" path="res://assets/VT323-Regular.ttf" id="2_o2rih"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://cowv6stbwfo4t" path="res://rhythm game/assets/mania_notes/Sigil-White.png" id="5_yftqa"]
 [ext_resource type="AudioStream" uid="uid://bn85ku10tp2ma" path="res://assets/menu-select.wav" id="6_0wtu3"]
 [ext_resource type="AudioStream" uid="uid://dc2ox0b4yyblh" path="res://assets/menu-confirm.wav" id="7_as5so"]
+[ext_resource type="PackedScene" uid="uid://c4kbaxi38owaa" path="res://title/settings.tscn" id="9_kh5ju"]
 [ext_resource type="Script" path="res://title/select_host.gd" id="10_hwerf"]
 [ext_resource type="Script" path="res://title/select_join.gd" id="11_ays2e"]
 [ext_resource type="Script" path="res://title/select_exit.gd" id="12_kp6lg"]
@@ -88,6 +89,16 @@ theme_override_font_sizes/font_size = 64
 text = "Join"
 flat = true
 
+[node name="Settings" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+focus_next = NodePath("../Exit")
+focus_previous = NodePath("../Join")
+theme_override_fonts/font = ExtResource("2_o2rih")
+theme_override_font_sizes/font_size = 64
+text = "Settings"
+flat = true
+
 [node name="Exit" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 6
@@ -138,6 +149,9 @@ initial_position = 1
 size = Vector2i(250, 100)
 theme = SubResource("Theme_cf6cc")
 
+[node name="KeybindingScreen" parent="." instance=ExtResource("9_kh5ju")]
+visible = false
+
 [node name="ConnectedCount" type="Label" parent="."]
 visible = false
 layout_mode = 0
@@ -158,9 +172,9 @@ environment = SubResource("Environment_qrm3v")
 [node name="SelectHost" type="TextureRect" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 138.0
+offset_left = 90.0
 offset_top = 466.0
-offset_right = 233.0
+offset_right = 185.0
 offset_bottom = 560.0
 texture = ExtResource("5_yftqa")
 expand_mode = 1
@@ -169,20 +183,31 @@ script = ExtResource("10_hwerf")
 [node name="SelectJoin" type="TextureRect" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 531.0
+offset_left = 378.0
 offset_top = 466.0
-offset_right = 626.0
+offset_right = 473.0
 offset_bottom = 560.0
 texture = ExtResource("5_yftqa")
 expand_mode = 1
 script = ExtResource("11_ays2e")
 
+[node name="SelectSettings" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 665.0
+offset_top = 467.0
+offset_right = 760.0
+offset_bottom = 561.0
+texture = ExtResource("5_yftqa")
+expand_mode = 1
+script = ExtResource("10_hwerf")
+
 [node name="SelectExit" type="TextureRect" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 914.0
+offset_left = 962.0
 offset_top = 466.0
-offset_right = 1009.0
+offset_right = 1057.0
 offset_bottom = 560.0
 texture = ExtResource("5_yftqa")
 expand_mode = 1
@@ -191,16 +216,20 @@ script = ExtResource("12_kp6lg")
 [connection signal="focus_entered" from="VBoxContainer/Start" to="." method="_on_button_focus_entered"]
 [connection signal="mouse_entered" from="VBoxContainer/Start" to="." method="_on_start_mouse_entered"]
 [connection signal="mouse_exited" from="VBoxContainer/Start" to="." method="_on_start_mouse_exited"]
-[connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_button_pressed"]
 [connection signal="focus_entered" from="VBoxContainer/Join" to="." method="_on_button_focus_entered"]
 [connection signal="mouse_entered" from="VBoxContainer/Join" to="." method="_on_join_mouse_entered"]
 [connection signal="mouse_exited" from="VBoxContainer/Join" to="." method="_on_join_mouse_exited"]
 [connection signal="pressed" from="VBoxContainer/Join" to="." method="_on_join_pressed"]
+[connection signal="focus_entered" from="VBoxContainer/Settings" to="." method="_on_button_focus_entered"]
+[connection signal="mouse_entered" from="VBoxContainer/Settings" to="." method="_on_settings_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/Settings" to="." method="_on_settings_mouse_exited"]
+[connection signal="pressed" from="VBoxContainer/Settings" to="." method="_on_settings_pressed"]
 [connection signal="focus_entered" from="VBoxContainer/Exit" to="." method="_on_button_focus_entered"]
 [connection signal="mouse_entered" from="VBoxContainer/Exit" to="." method="_on_exit_mouse_entered"]
 [connection signal="mouse_exited" from="VBoxContainer/Exit" to="." method="_on_exit_mouse_exited"]
-[connection signal="pressed" from="VBoxContainer/Exit" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="VBoxContainer/Exit" to="." method="_on_button_pressed"]
 [connection signal="confirmed" from="JoinIP" to="." method="_on_join_ip_confirmed"]
 [connection signal="confirmed" from="ErrorDialog" to="." method="_on_join_ip_confirmed"]
