@@ -11,7 +11,6 @@ func _ready() -> void:
 		if child is TextureProgressBar:
 			child.max_value = each_max_mana
 			child.tint_progress = Color(1.5, 1.5, 1.5, 1)
-		start_glow_effect(child)
 	
 	set_manabar(mana)
 
