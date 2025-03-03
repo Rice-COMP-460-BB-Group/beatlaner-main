@@ -603,7 +603,6 @@ var is_alive = true
 func respawn() -> void:
 	$HealthComponent.visible = false
 	$AnimatedSprite2D.visible = false
-	$CollisionShape2D.disabled = true
 	$HUD/Stats/Respawning.visible = true
 	is_alive = false
 	escape_rhythm_game();
@@ -628,8 +627,6 @@ func respawn() -> void:
 	$HealthComponent.reset_health()
 	$HealthComponent.visible = true
 	is_alive = true
-
-	$CollisionShape2D.disabled = false
 
 func _on_health_component_health_destroyed() -> void:
 	respawn()
