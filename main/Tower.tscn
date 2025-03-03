@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://3l0iahp12xip"]
+[gd_scene load_steps=33 format=3 uid="uid://3l0iahp12xip"]
 
 [ext_resource type="Script" path="res://scripts/Tower.gd" id="1_15l20"]
 [ext_resource type="PackedScene" uid="uid://bqkl7m6s1p5ls" path="res://minions/arrow.tscn" id="2_q6p00"]
@@ -11,6 +11,7 @@
 [ext_resource type="Shader" path="res://main/Tower.gdshader" id="9_dvgts"]
 [ext_resource type="Texture2D" uid="uid://bj2ik2nbrgwv5" path="res://assets/BanBlue.png" id="10_6ylfq"]
 [ext_resource type="Texture2D" uid="uid://dq8bs51012pa0" path="res://assets/BanRed.png" id="10_yvgmj"]
+[ext_resource type="AudioStream" uid="uid://bxuov0u06cwnq" path="res://assets/laserEffect2.mp3" id="12_8m5iv"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cwyrc"]
 radius = 250.0
@@ -248,6 +249,9 @@ texture = ExtResource("10_yvgmj")
 material = SubResource("ShaderMaterial_u1t2r")
 position = Vector2(1, -121)
 texture = ExtResource("10_6ylfq")
+
+[node name="LaserShooter" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_8m5iv")
 
 [connection signal="health_destroyed" from="HealthComponent" to="." method="_on_health_component_health_destroyed"]
 

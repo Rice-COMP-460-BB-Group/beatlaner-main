@@ -98,3 +98,5 @@ func attack(body: Node2D) -> void:
 	print("[nexus.gd]is server", multiplayer.is_server())
 	var body_id = body.get_instance_id()
 	$MultiplayerSpawner.spawn({"body": body_id})
+	$LaserShooter.play()
+	
