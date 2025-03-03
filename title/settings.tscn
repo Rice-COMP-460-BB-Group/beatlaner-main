@@ -261,3 +261,42 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "Shift"
+
+[node name="Top" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/ActionsSection"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/ActionsSection/Top"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Dispatch on top lane"
+
+[node name="Dispatch_Top_Button" type="Button" parent="ScrollContainer/VBoxContainer/ActionsSection/Top"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Dispatch on top lane"
+
+[node name="Middle" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/ActionsSection"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/ActionsSection/Middle"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Dispatch on middle lane"
+
+[node name="Dispatch_Mid_Button" type="Button" parent="ScrollContainer/VBoxContainer/ActionsSection/Middle"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Dispatch on middle lane"
+
+[node name="Bottom" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/ActionsSection"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/ActionsSection/Bottom"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Dispatch on bottom lane"
+
+[node name="Dispatch_Low_Button" type="Button" parent="ScrollContainer/VBoxContainer/ActionsSection/Bottom"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Dispatch on bottom lane"
