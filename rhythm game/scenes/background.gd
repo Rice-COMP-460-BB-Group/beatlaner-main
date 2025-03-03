@@ -3,10 +3,10 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$FirstCol.text = OS.get_keycode_string(KeybindingSystem.action_bindings["first_key"])
-	$SecondCol.text = OS.get_keycode_string(KeybindingSystem.action_bindings["second_key"])
-	$ThirdCol.text = OS.get_keycode_string(KeybindingSystem.action_bindings["third_key"])
-	$FourthCol.text = OS.get_keycode_string(KeybindingSystem.action_bindings["fourth_key"])
+	$FirstCol.text = OS.get_keycode_string(KeybindingSystem.action_bindings["key1"])
+	$SecondCol.text = OS.get_keycode_string(KeybindingSystem.action_bindings["key2"])
+	$ThirdCol.text = OS.get_keycode_string(KeybindingSystem.action_bindings["key3"])
+	$FourthCol.text = OS.get_keycode_string(KeybindingSystem.action_bindings["key4"])
 
 enum diff {EASY=0,MEDIUM=1,HARD=2}
 # Called every frame. 'delta' is the elapsed time since the previous frame.
