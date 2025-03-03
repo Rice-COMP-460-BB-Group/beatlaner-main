@@ -464,9 +464,9 @@ func _physics_process(delta: float) -> void:
 				update_mana(current_score)
 		if Input.is_action_just_pressed("upgrade_player"):
 			print('upgrading self')
-			if current_score >= 50 and can_use_nexus:
+			if current_score >= 160 and can_use_nexus:
 				player_level += 1
-				current_score -= 50
+				current_score -= 160
 				update_mana(current_score)
 				
 				var oldHP = $HealthComponent.get_max_health()

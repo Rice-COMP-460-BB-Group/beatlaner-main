@@ -253,6 +253,7 @@ texture = ExtResource("10_6ylfq")
 
 [node name="LaserShooter" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("12_8m5iv")
+volume_db = -15.0
 
 [connection signal="health_destroyed" from="HealthComponent" to="." method="_on_health_component_health_destroyed"]
 
