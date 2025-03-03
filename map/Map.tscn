@@ -2361,13 +2361,13 @@ position = Vector2(811, 3484)
 position = Vector2(722, 3298)
 
 [node name="Powerup4" parent="." instance=ExtResource("8_w655y")]
-position = Vector2(3222, 525)
+position = Vector2(3267, 511)
 
 [node name="Powerup5" parent="." instance=ExtResource("8_w655y")]
-position = Vector2(3477, 765)
+position = Vector2(3487, 710)
 
 [node name="Powerup6" parent="." instance=ExtResource("8_w655y")]
-position = Vector2(3308, 669)
+position = Vector2(3346, 642)
 
 [node name="Lamps" type="Node2D" parent="."]
 

@@ -143,7 +143,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bncu5"]
-radius = 982.008
+radius = 691.0
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_14t81"]
 properties/0/path = NodePath("HealthComponent:currentHealth")
@@ -189,11 +189,9 @@ currentHealth = 3000
 maxHealth = 3000
 
 [node name="EnemyDetectArea" type="Area2D" parent="."]
-visible = false
 collision_mask = 5
 
 [node name="EnemyDetectCollision" type="CollisionShape2D" parent="EnemyDetectArea"]
-visible = false
 shape = SubResource("CircleShape2D_bncu5")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]

@@ -4,7 +4,7 @@ enum Team {BLUE,RED}
 var team = Team.BLUE
 var minion_count = 0
 var last_attack = -1
-var attack_speed = .15
+var attack_speed = .17
 @export var laser_scene: PackedScene
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
