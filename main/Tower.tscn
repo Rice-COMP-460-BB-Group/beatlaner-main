@@ -227,6 +227,7 @@ replication_config = SubResource("SceneReplicationConfig_yp15l")
 spawn_path = NodePath("..")
 
 [node name="TowerBase" type="Sprite2D" parent="."]
+z_index = 50
 position = Vector2(11, -82)
 texture = ExtResource("6_uqitx")
 
