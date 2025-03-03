@@ -834,7 +834,7 @@ rotation = -1.5708
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_8pu2n")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Slice"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer2D" parent="Slice"]
 stream = ExtResource("28_rydyj")
 volume_db = 8.605
 pitch_scale = 0.95

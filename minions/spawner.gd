@@ -227,13 +227,14 @@ var bottomcount = 0
 func spawn(dict:Dictionary):
 	print("[spawner.gd] id: ", multiplayer.get_unique_id(), multiplayer.get_remote_sender_id())
 	var key = dict["key"]
+	var team = dict["team"]
 	var minion_type = dict["minion_type"]
-	print("[spawner.gd]",'SPAWNING COPE', key, minion_type)
-	var spawnpt = spawn_points.get(key, null)
-	if not is_instance_valid(spawnpt):
-		return
+	#print("[spawner.gd]",'SPAWNING COPE', key, minion_type)
+	#var spawnpt = spawn_points.get(key, null)
+	#if not is_instance_valid(spawnpt):
+		#return
 
-	var team = spawnpt.team
+	#var team = spawnpt.team
 	
 	# Get the opposite tower's name instead of the tower itself
 	var tower_target_name = ""
@@ -276,12 +277,12 @@ func spawn_powerup(dict:Dictionary):
 #func spawn_minion_on_clients(key: String, minion_type: int, position: Vector2, team: int, tower_target_name: String):
 	# This method is called on clients to spawn minions
 	#$MultiplayerSpawner.spawn(spawn(key, position, minion_type))
-func _spawn_and_sync(key: String,level:int):
+func _spawn_and_sync(key: String,level:int, team:int):
 	# Sync spawn to all clients
 	var minion_type = randi() % 2
 	print("cope vope spawn", multiplayer.get_unique_id())
 	
-	$MultiplayerSpawner.spawn({"key": key, "minion_type": minion_type,"level":level})
+	$MultiplayerSpawner.spawn({"key": key, "minion_type": minion_type,"level":level, "team": team})
 	#spawn_minion_on_clients.rpc(key, minion_type, spawnpt.position, team, tower_target_name)
 
 func spawn_friendly_wave(config: Dictionary, is_friendly: bool,level:int) -> void:
@@ -292,13 +293,13 @@ func spawn_friendly_wave(config: Dictionary, is_friendly: bool,level:int) -> voi
 	var player = "P1" if is_friendly else "P2"
 
 	for _i in range(config.get("top", 0) + to_add["top"]):
-		_spawn_and_sync(player + "Upper",level)
+		_spawn_and_sync(player + "Upper",level, is_friendly)
 
 	for _i in range(config.get("mid", 0) + to_add["mid"]):
-		_spawn_and_sync(player + "Mid",level)
+		_spawn_and_sync(player + "Mid",level, is_friendly)
 
 	for _i in range(config.get("bottom", 0) + to_add["bottom"]):
-		_spawn_and_sync(player + "Lower",level)
+		_spawn_and_sync(player + "Lower",level, is_friendly)
 @rpc("authority")
 func _on_wave_timer_timeout() -> void:
 	if not multiplayer.is_server():
