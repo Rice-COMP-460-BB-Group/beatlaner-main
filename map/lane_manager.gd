@@ -82,7 +82,7 @@ func _on_upper_lane_body_exited(body: Node2D) -> void:
 	
 
 func wave_request(pos: int, size: int, team: bool,level:int) -> void:
-	
+	print('wave request from spawner')
 	var spawner = $"/root/Main/Spawner"
 	var config = {"top": 0, "mid": 0, "bottom": 0}
 	
