@@ -598,11 +598,14 @@ func falloff_curve():
 
 	return extra_damage
 
+var is_alive = true
+
 func respawn() -> void:
 	$HealthComponent.visible = false
 	$AnimatedSprite2D.visible = false
 	$CollisionShape2D.disabled = true
 	$HUD/Stats/Respawning.visible = true
+	is_alive = false
 	escape_rhythm_game();
 	rhythm_game_instance.is_dead()
 
@@ -616,12 +619,15 @@ func respawn() -> void:
 	alpha_tween.tween_property($AnimatedSprite2D, "modulate:a", 1.0, 0.5)
 	await alpha_tween.finished
 
+
 	# Restore player
 	$HUD/Stats/Respawning.visible = false
 	rhythm_game_instance.is_alive()
 
+
 	$HealthComponent.reset_health()
 	$HealthComponent.visible = true
+	is_alive = true
 
 	$CollisionShape2D.disabled = false
 
