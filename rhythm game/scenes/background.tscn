@@ -73,7 +73,7 @@ offset_right = 582.0
 offset_bottom = 333.0
 texture = SubResource("GradientTexture1D_w2eji")
 
-[node name="Label" type="Label" parent="."]
+[node name="FirstCol" type="Label" parent="."]
 offset_left = -149.0
 offset_top = 282.0
 offset_right = -109.0
@@ -82,7 +82,7 @@ theme_override_fonts/font = ExtResource("5_hfwjy")
 theme_override_font_sizes/font_size = 40
 text = "D"
 
-[node name="Label2" type="Label" parent="."]
+[node name="SecondCol" type="Label" parent="."]
 offset_left = -55.0
 offset_top = 282.0
 offset_right = -15.0
@@ -91,7 +91,7 @@ theme_override_fonts/font = ExtResource("5_hfwjy")
 theme_override_font_sizes/font_size = 40
 text = "F"
 
-[node name="Label3" type="Label" parent="."]
+[node name="ThirdCol" type="Label" parent="."]
 offset_left = 38.0
 offset_top = 282.0
 offset_right = 78.0
@@ -100,7 +100,7 @@ theme_override_fonts/font = ExtResource("5_hfwjy")
 theme_override_font_sizes/font_size = 40
 text = "J"
 
-[node name="Label4" type="Label" parent="."]
+[node name="FourthCol" type="Label" parent="."]
 offset_left = 129.0
 offset_top = 282.0
 offset_right = 169.0
