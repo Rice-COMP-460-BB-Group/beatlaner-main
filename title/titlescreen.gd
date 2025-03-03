@@ -186,25 +186,23 @@ func _on_join_ip_confirmed() -> void:
 
 
 func _on_start_mouse_entered() -> void:
-	$SelectHost.visible = true
-	pass # Replace with function body.
-
+	if not $VBoxContainer/Start.disabled:
+		$SelectHost.visible = true
 
 func _on_join_mouse_entered() -> void:
-	$SelectJoin.visible = true
-
+	if not $VBoxContainer/Join.disabled:
+		$SelectJoin.visible = true
 
 func _on_exit_mouse_entered() -> void:
 	$SelectExit.visible = true
 
-
 func _on_start_mouse_exited() -> void:
-	$SelectHost.visible = false
-
+	if not $VBoxContainer/Start.disabled:
+		$SelectHost.visible = false
 
 func _on_join_mouse_exited() -> void:
-	$SelectJoin.visible = false
-
+	if not $VBoxContainer/Join.disabled:
+		$SelectJoin.visible = false
 
 func _on_exit_mouse_exited() -> void:
 	$SelectExit.visible = false

@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://cowv6stbwfo4t" path="res://rhythm game/assets/mania_notes/Sigil-White.png" id="5_yftqa"]
 [ext_resource type="AudioStream" uid="uid://bn85ku10tp2ma" path="res://assets/menu-select.wav" id="6_0wtu3"]
 [ext_resource type="AudioStream" uid="uid://dc2ox0b4yyblh" path="res://assets/menu-confirm.wav" id="7_as5so"]
-[ext_resource type="PackedScene" uid="uid://c4kbaxi38owaa" path="res://title/settings.tscn" id="9_kh5ju"]
+[ext_resource type="PackedScene" path="res://title/settings.tscn" id="9_kh5ju"]
 [ext_resource type="Script" path="res://title/select_host.gd" id="10_hwerf"]
 [ext_resource type="Script" path="res://title/select_join.gd" id="11_ays2e"]
 [ext_resource type="Script" path="res://title/select_exit.gd" id="12_kp6lg"]
