@@ -75,8 +75,8 @@ func _on_detection_area_body_entered(body: Node2D) -> void:
 		if body.team == team:
 			 
 			body.can_use_nexus = true
-			body.show_tooltip("upgrade_player", "Upgrade minions")
-			body.show_tooltip("upgrade_minions", "Upgrade yourself")
+			body.show_tooltip("upgrade_player", "Upgrade yourself")
+			body.show_tooltip("upgrade_minions", "Upgrade minions")
 
 func _on_health_component_health_destroyed() -> void:
 
