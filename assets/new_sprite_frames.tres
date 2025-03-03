@@ -30,12 +30,12 @@ animations = [{
 "speed": 5.0
 }, {
 "frames": [{
-"duration": 1.0,
+"duration": 0.5,
 "texture": ExtResource("2_srbdc")
 }],
 "loop": true,
 "name": &"IdleLeft",
-"speed": 5.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -68,21 +68,21 @@ animations = [{
 "speed": 5.0
 }, {
 "frames": [{
-"duration": 1.0,
+"duration": 0.5,
 "texture": ExtResource("8_dscqm")
 }, {
-"duration": 1.0,
+"duration": 0.5,
 "texture": ExtResource("9_78nvn")
 }, {
-"duration": 1.0,
+"duration": 0.5,
 "texture": ExtResource("10_hkese")
 }, {
-"duration": 1.0,
+"duration": 0.5,
 "texture": ExtResource("11_4js7y")
 }],
 "loop": true,
 "name": &"WalkLeft",
-"speed": 5.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,

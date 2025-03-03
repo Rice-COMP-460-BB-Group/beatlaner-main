@@ -24,11 +24,11 @@
 [ext_resource type="Texture2D" uid="uid://cjel352fixcg" path="res://assets/Metronome-010.png" id="16_s4mf8"]
 [ext_resource type="Texture2D" uid="uid://cxggkjevi7j0k" path="res://assets/Metronome-011.png" id="17_eajn3"]
 [ext_resource type="FontFile" uid="uid://cm5q756n5trre" path="res://assets/VT323-Regular.ttf" id="18_86px8"]
-[ext_resource type="PackedScene" uid="uid://dd7pknkkclu6u" path="res://player/ManaBar.tscn" id="19_w14c3"]
+[ext_resource type="PackedScene" uid="uid://4hslt1vgftg6" path="res://player/ManaBar.tscn" id="19_w14c3"]
 [ext_resource type="Texture2D" uid="uid://00c1h6f0f02k" path="res://assets/achievement.png" id="20_kjgea"]
 [ext_resource type="Texture2D" uid="uid://2bx5t4k3vue3" path="res://assets/enemy-banner.png" id="22_25x0m"]
 [ext_resource type="Texture2D" uid="uid://kmqcf5auw58c" path="res://assets/border-halfsize.png" id="22_l1p2f"]
-[ext_resource type="PackedScene" uid="uid://dsd6jtbkqn0io" path="res://player/hints.tscn" id="23_a5f6l"]
+[ext_resource type="PackedScene" path="res://player/hints.tscn" id="23_a5f6l"]
 [ext_resource type="Texture2D" uid="uid://bqfgop2tg3noi" path="res://assets/595FAD8C-E33F-4E12-A974-9B2D043A2BA3.png.eac9bd8cac80378692e4115553790af8-export.png" id="25_pfejg"]
 [ext_resource type="Script" path="res://player/afterimage.gd" id="28_i8vw6"]
 [ext_resource type="AudioStream" uid="uid://crwiggodkgtsr" path="res://assets/sword-slash.wav" id="28_rydyj"]
@@ -185,7 +185,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_q3x0e"]
 resource_name = "walk_down"
-length = 0.9
+length = 0.3
 loop_mode = 1
 step = 0.1
 tracks/0/type = "value"
@@ -207,16 +207,17 @@ tracks/1/path = NodePath("AnimatedSprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+"values": [0, 2, 1, 3, 8]
 }
 
 [sub_resource type="Animation" id="Animation_68y2o"]
 resource_name = "walk_left"
-length = 0.9
+length = 0.4
 loop_mode = 1
+step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -244,7 +245,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_58pwc"]
 resource_name = "walk_right"
-length = 0.9
+length = 0.4
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -273,7 +274,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_xchfb"]
 resource_name = "walk_up"
-length = 0.9
+length = 0.3
 loop_mode = 1
 step = 0.1
 tracks/0/type = "value"
@@ -377,7 +378,7 @@ blend_mode = 1
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_lmup1"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_bfare"]
-graph_offset = Vector2(-38.4, 72.96)
+graph_offset = Vector2(9.6, 75.84)
 nodes/BlendSpace2D/node = SubResource("AnimationNodeBlendSpace2D_5fo5x")
 nodes/BlendSpace2D/position = Vector2(70, 90)
 nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_lmup1")

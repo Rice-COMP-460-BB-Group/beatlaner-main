@@ -143,6 +143,7 @@ func StartGame():
 func hostGame():
 	$ConnectedCount.show()
 	$ConnectedCount.text = "%s / 2 Players Connected" % (GameManager.Players.size())
+	$VBoxContainer/Join.disabled = true
 	peer = ENetMultiplayerPeer.new()
 	var error = peer.create_server(port, 4)
 	if error != OK:

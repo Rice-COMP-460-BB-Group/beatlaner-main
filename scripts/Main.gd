@@ -130,4 +130,5 @@ func _on_map_update_refresh_timeout() -> void:
 	var cur_map = lane_manager.get_minimap_info()
 	print('map timeout!')
 	for player in players:
-		player.get_minimap().refresh_minimap(cur_map["blue"],cur_map["red"])
+		if is_instance_valid(player) and is_instance_valid(player.get_minimap()):
+			player.get_minimap().refresh_minimap(cur_map["blue"],cur_map["red"])

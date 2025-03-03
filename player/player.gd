@@ -31,7 +31,7 @@ var rhythm_game_instance= null
 var powerups = ["freeze", "damage_powerup", "heal"]
 
 
-var banner_tween = create_tween()
+#var banner_tween = create_tween()
 
 var last_attack = attack_speed
 
@@ -127,7 +127,7 @@ func hide_tooltip(action: String):
 func move(delta):
 	if not $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
 		return
-	if disable_movement:
+	if disable_movement or not is_alive:
 		return
 	print('moving')
 	if is_rhythm_game_open:
@@ -138,7 +138,7 @@ func move(delta):
 	if velocity and Input.is_action_just_pressed("Dash") and not $HUD/Stats/Respawning.visible:
 		$DashSound.play()
 		start_dash.rpc()
-		update_mana(current_score - 1)
+		#update_mana(current_score - 1)
 	if is_dashing:
 		sync_velocity = last_input_direction * DASH_SPEED
 		velocity = sync_velocity
@@ -464,9 +464,9 @@ func _physics_process(delta: float) -> void:
 				update_mana(current_score)
 		if Input.is_action_just_pressed("upgrade_player"):
 			print('upgrading self')
-			if current_score >= 50 and can_use_nexus:
+			if current_score >= 160 and can_use_nexus:
 				player_level += 1
-				current_score -= 50
+				current_score -= 160
 				update_mana(current_score)
 				
 				var oldHP = $HealthComponent.get_max_health()
@@ -486,9 +486,10 @@ func _physics_process(delta: float) -> void:
 				$HUD/Stats/LevelUpBanner/TextLabels/Health.text = str(oldHP) + " → " + str($HealthComponent.get_max_health())
 				$HUD/Stats/LevelUpBanner/TextLabels/Level.text = str(player_level - 1) + " → " + str(player_level)
 
-				if !banner_tween.is_running():
-					banner_tween.tween_property($HUD/Stats/LevelUpBanner, "position:x", $HUD/Stats/LevelUpBanner.position.x-($HUD/Stats/LevelUpBanner/Backdrop.size.x * $HUD/Stats/LevelUpBanner.scale.x), 0.5).set_trans(Tween.TRANS_QUAD)
-					banner_tween.tween_property($HUD/Stats/LevelUpBanner, "position:x", old_pos, 0.5).set_trans(Tween.TRANS_QUAD).set_delay(2.0)
+				#if !banner_tween.is_running():
+				var banner_tween = create_tween()
+				banner_tween.tween_property($HUD/Stats/LevelUpBanner, "position:x", $HUD/Stats/LevelUpBanner.position.x-($HUD/Stats/LevelUpBanner/Backdrop.size.x * $HUD/Stats/LevelUpBanner.scale.x), 0.5).set_trans(Tween.TRANS_QUAD)
+				banner_tween.tween_property($HUD/Stats/LevelUpBanner, "position:x", old_pos, 0.5).set_trans(Tween.TRANS_QUAD).set_delay(2.0)
 
 		animate()
 		
@@ -598,11 +599,13 @@ func falloff_curve():
 
 	return extra_damage
 
+var is_alive = true
+
 func respawn() -> void:
 	$HealthComponent.visible = false
 	$AnimatedSprite2D.visible = false
-	$CollisionShape2D.disabled = true
 	$HUD/Stats/Respawning.visible = true
+	is_alive = false
 	escape_rhythm_game();
 	rhythm_game_instance.is_dead()
 
@@ -616,14 +619,15 @@ func respawn() -> void:
 	alpha_tween.tween_property($AnimatedSprite2D, "modulate:a", 1.0, 0.5)
 	await alpha_tween.finished
 
+
 	# Restore player
 	$HUD/Stats/Respawning.visible = false
 	rhythm_game_instance.is_alive()
 
+
 	$HealthComponent.reset_health()
 	$HealthComponent.visible = true
-
-	$CollisionShape2D.disabled = false
+	is_alive = true
 
 func _on_health_component_health_destroyed() -> void:
 	respawn()

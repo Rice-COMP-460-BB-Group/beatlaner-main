@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://vrm8h4oj4f3j"]
+[gd_scene load_steps=29 format=3 uid="uid://vrm8h4oj4f3j"]
 
 [ext_resource type="Script" path="res://nexus/nexus.gd" id="1_8s1ey"]
 [ext_resource type="Texture2D" uid="uid://3r86y452fli1" path="res://assets/candidate2.png" id="2_ksxnc"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dqpdvofwrpl6o" path="res://assets/Nexus2.png" id="3_qg3cy"]
 [ext_resource type="Texture2D" uid="uid://bk53po4o04hwx" path="res://assets/nexusB-Shee222st.png" id="5_r1e8y"]
 [ext_resource type="Texture2D" uid="uid://cdauwwgf45rup" path="res://assets/Nexus2-Sheet22.png" id="6_kttx0"]
+[ext_resource type="AudioStream" uid="uid://bxuov0u06cwnq" path="res://assets/laserEffect2.mp3" id="8_obg32"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qlort"]
 radius = 161.0
@@ -142,7 +143,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bncu5"]
-radius = 982.008
+radius = 691.0
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_14t81"]
 properties/0/path = NodePath("HealthComponent:currentHealth")
@@ -188,11 +189,9 @@ currentHealth = 3000
 maxHealth = 3000
 
 [node name="EnemyDetectArea" type="Area2D" parent="."]
-visible = false
 collision_mask = 5
 
 [node name="EnemyDetectCollision" type="CollisionShape2D" parent="EnemyDetectArea"]
-visible = false
 shape = SubResource("CircleShape2D_bncu5")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
@@ -200,6 +199,10 @@ spawn_path = NodePath("..")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_14t81")
+
+[node name="LaserShooter" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_obg32")
+volume_db = -15.0
 
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
