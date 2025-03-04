@@ -13,35 +13,30 @@ offset_bottom = 85.0
 alignment = 1
 script = ExtResource("1_a4os7")
 
-[node name="ManaText" type="Label" parent="."]
-visible = false
-layout_mode = 2
-theme_override_fonts/font = ExtResource("1_sf7p6")
-theme_override_font_sizes/font_size = 20
-text = "Mana
-0 / 300"
-horizontal_alignment = 1
-
 [node name="ManaBar" type="HFlowContainer" parent="."]
 layout_mode = 2
 
 [node name="ManaBottle1" type="TextureProgressBar" parent="ManaBar"]
 layout_mode = 2
-fill_mode = 3
 texture_under = ExtResource("1_mvb4q")
 texture_progress = ExtResource("2_pk6jd")
-texture_progress_offset = Vector2(18, 19)
 
 [node name="ManaBottle2" type="TextureProgressBar" parent="ManaBar"]
 layout_mode = 2
-fill_mode = 3
 texture_under = ExtResource("1_mvb4q")
 texture_progress = ExtResource("2_pk6jd")
-texture_progress_offset = Vector2(18, 19)
 
 [node name="ManaBottle3" type="TextureProgressBar" parent="ManaBar"]
 layout_mode = 2
-fill_mode = 3
 texture_under = ExtResource("1_mvb4q")
 texture_progress = ExtResource("2_pk6jd")
-texture_progress_offset = Vector2(18, 19)
+
+[node name="ManaText" type="Label" parent="."]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("1_sf7p6")
+theme_override_font_sizes/font_size = 20
+text = "0 / 300"
+horizontal_alignment = 1
+vertical_alignment = 2

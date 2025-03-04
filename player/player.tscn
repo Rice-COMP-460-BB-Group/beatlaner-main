@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bsp8xj4gv4cay" path="res://assets/slash-001.png" id="7_76oyw"]
 [ext_resource type="Texture2D" uid="uid://deyvtt4hy8yff" path="res://assets/Metronome-001.png" id="7_l82ru"]
 [ext_resource type="Texture2D" uid="uid://cs6m1cpa0dywa" path="res://assets/Metronome-002.png" id="8_mhfkm"]
-[ext_resource type="PackedScene" path="res://player/weapon.tscn" id="8_n6a7o"]
+[ext_resource type="PackedScene" uid="uid://b8jlygfvbd34" path="res://player/weapon.tscn" id="8_n6a7o"]
 [ext_resource type="Texture2D" uid="uid://cvpirpaujt8m1" path="res://assets/slash-002.png" id="8_txc5s"]
 [ext_resource type="Texture2D" uid="uid://boe1p0ko1l128" path="res://assets/slash-003.png" id="9_edhdg"]
 [ext_resource type="Texture2D" uid="uid://1r3m5wq8wgyt" path="res://assets/Metronome-003.png" id="9_yimr5"]
@@ -24,7 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://cjel352fixcg" path="res://assets/Metronome-010.png" id="16_s4mf8"]
 [ext_resource type="Texture2D" uid="uid://cxggkjevi7j0k" path="res://assets/Metronome-011.png" id="17_eajn3"]
 [ext_resource type="FontFile" uid="uid://cm5q756n5trre" path="res://assets/VT323-Regular.ttf" id="18_86px8"]
-[ext_resource type="PackedScene" uid="uid://4hslt1vgftg6" path="res://player/ManaBar.tscn" id="19_w14c3"]
+[ext_resource type="PackedScene" uid="uid://dd7pknkkclu6u" path="res://player/ManaBar.tscn" id="19_w14c3"]
 [ext_resource type="Texture2D" uid="uid://00c1h6f0f02k" path="res://assets/achievement.png" id="20_kjgea"]
 [ext_resource type="Texture2D" uid="uid://2bx5t4k3vue3" path="res://assets/enemy-banner.png" id="22_25x0m"]
 [ext_resource type="Texture2D" uid="uid://kmqcf5auw58c" path="res://assets/border-halfsize.png" id="22_l1p2f"]
@@ -568,23 +568,24 @@ offset_bottom = -25.0
 
 [node name="ManaBar" parent="HUD/Stats" instance=ExtResource("19_w14c3")]
 layout_mode = 0
-offset_left = -278.5
-offset_top = -160.0
-offset_right = -72.5
-offset_bottom = -49.0
+offset_left = -280.5
+offset_top = -171.0
+offset_right = 114.5
+offset_bottom = -60.0
 scale = Vector2(0.5, 0.5)
 
 [node name="MetronomeContainer" type="MarginContainer" parent="HUD/Stats"]
 light_mask = 2
 visibility_layer = 2
 layout_mode = 0
-offset_left = 255.0
-offset_top = 124.0
-offset_right = 295.0
-offset_bottom = 164.0
+offset_left = -240.5
+offset_top = 142.0
+offset_right = -200.5
+offset_bottom = 182.0
 
 [node name="MetronomeAnimation" type="AnimatedSprite2D" parent="HUD/Stats/MetronomeContainer"]
 light_mask = 2
+position = Vector2(243, -268)
 sprite_frames = SubResource("SpriteFrames_81lh5")
 
 [node name="Respawning" type="Label" parent="HUD/Stats"]
@@ -620,10 +621,10 @@ texture = ExtResource("22_25x0m")
 
 [node name="PowerupFrame" type="Control" parent="HUD/Stats"]
 anchors_preset = 0
-offset_left = -287.0
-offset_top = -101.0
-offset_right = -247.0
-offset_bottom = -61.0
+offset_left = -289.5
+offset_top = -111.0
+offset_right = -249.5
+offset_bottom = -71.0
 scale = Vector2(0.3, 0.3)
 
 [node name="Powerup" type="TextureRect" parent="HUD/Stats/PowerupFrame"]
@@ -637,20 +638,20 @@ offset_bottom = 110.5
 [node name="Frame" type="TextureRect" parent="HUD/Stats/PowerupFrame"]
 z_index = -10
 layout_mode = 0
-offset_left = -1.66667
-offset_top = -5.0
-offset_right = 133.333
-offset_bottom = 254.0
+offset_left = -5.0
+offset_top = 106.667
+offset_right = 379.0
+offset_bottom = 365.667
 scale = Vector2(1, 0.5)
 texture = ExtResource("22_l1p2f")
 
 [node name="Backdrop" type="TextureRect" parent="HUD/Stats"]
 z_index = -10
 layout_mode = 0
-offset_left = -288.0
-offset_top = -162.0
-offset_right = -156.0
-offset_bottom = -34.0
+offset_left = -289.5
+offset_top = -175.0
+offset_right = 94.5
+offset_bottom = -47.0
 scale = Vector2(1, 0.5)
 texture = ExtResource("22_l1p2f")
 
@@ -762,7 +763,7 @@ vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="Minimap" type="Control" parent="HUD"]
-modulate = Color(1, 1, 1, 0.752941)
+modulate = Color(1, 1, 1, 0.988235)
 layout_mode = 3
 anchor_left = 0.671
 anchor_top = 0.792
@@ -784,12 +785,13 @@ anchor_left = -13.965
 anchor_top = -5.283
 anchor_right = -13.965
 anchor_bottom = -5.283
-offset_left = 33.6
-offset_top = 402.999
-offset_right = 465.6
-offset_bottom = 834.999
+offset_left = 9.59998
+offset_top = 468.999
+offset_right = 333.6
+offset_bottom = 792.999
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_7c3j6")
+expand_mode = 1
 
 [node name="MinimapIcons" type="Control" parent="HUD/Minimap"]
 layout_mode = 1
@@ -797,13 +799,14 @@ anchor_left = -13.808
 anchor_top = -5.454
 anchor_right = -13.808
 anchor_bottom = -5.454
-offset_left = 15.32
-offset_top = 401.062
-offset_right = 258.32
-offset_bottom = 632.062
+offset_left = 907.32
+offset_top = 416.062
+offset_right = 1150.32
+offset_bottom = 647.062
 scale = Vector2(1, 0.997383)
 
 [node name="Damage indic" type="TextureRect" parent="HUD"]
+visible = false
 modulate = Color(1, 1, 1, 0)
 offset_right = 1152.0
 offset_bottom = 648.0

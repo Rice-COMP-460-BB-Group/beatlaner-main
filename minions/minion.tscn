@@ -30,7 +30,7 @@
 [ext_resource type="Texture2D" uid="uid://vd88j1f6kv62" path="res://assets/minion/grunt_attack_v2-003.png" id="18_vymow"]
 [ext_resource type="Texture2D" uid="uid://cifc6rrgqtasa" path="res://assets/minion/grunt_north_v2-000.png" id="26_8oryb"]
 [ext_resource type="Texture2D" uid="uid://dbvncu0vfkdbn" path="res://assets/minion/grunt_north_v2-001.png" id="27_pd7dp"]
-[ext_resource type="PackedScene" uid="uid://dtcrqium7n5jk" path="res://player/damage_particle.tscn" id="30_nm2wn"]
+[ext_resource type="PackedScene" path="res://player/damage_particle.tscn" id="30_nm2wn"]
 [ext_resource type="PackedScene" path="res://player/freeze_particle.tscn" id="30_x6ghc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6tt36"]

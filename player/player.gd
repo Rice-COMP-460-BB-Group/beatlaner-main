@@ -4,7 +4,12 @@ class_name Player
 
 var bpm = 175
 @onready var damage_overlay = $"HUD/Damage indic"
-
+@export var flash_color: Color = Color(4, 4, 4, 1)  # White by default
+@export var rest_color: Color = Color(0, 0, 0, 0)   # Transparent by default
+@export var flash_duration_percent: float = 0.25    # How long the flash stays visible (as percentage of beat)
+var seconds_per_beat: float = 60.0 / bpm
+var timer: float = 0.0
+var is_flashing: bool = false
 @export var damage = 49
 @export var attack_speed = .35
 @export var team: Team
@@ -12,7 +17,6 @@ var bpm = 175
 @onready var rhythm_game_scene = preload("res://rhythm game/scenes/background.tscn");
 @export var game_difficulty: Difficulty
 @export var can_use_nexus: bool
-
 @onready var damage_icon = preload("res://assets/damage.png")
 @onready var freeze_icon = preload("res://assets/freeze.png")
 @onready var heal_icon = preload("res://assets/health_potion.png")
@@ -299,7 +303,7 @@ func _process(delta: float) -> void:
 	elif abs(elapsed_in_cycle - 1.0) < 0.01:
 		current_frame = 12
 	
-	$HUD/Stats/MetronomeContainer/MetronomeAnimation.frame = current_frame % total_metronome_frames
+	#$HUD/Stats/MetronomeContainer/MetronomeAnimation.frame = current_frame % total_metronome_frames
 
 	if $HUD/Stats/MetronomeContainer/MetronomeAnimation.frame in centered_frames:
 		print("fall off", falloff_curve(), " ", $HUD/Stats/MetronomeContainer/MetronomeAnimation.frame)
