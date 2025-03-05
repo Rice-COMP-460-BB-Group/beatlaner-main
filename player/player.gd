@@ -376,8 +376,12 @@ func _physics_process(delta: float) -> void:
 			var score = rhythm_game_instance.get_score()
 			var tmp_score: float
 			#if $HealthComponent.currentHealth > 0:
-
-			tmp_score = min(current_score + int(score / 3000), 300)
+			if game_difficulty == Difficulty.EASY:
+				tmp_score = min(current_score + int(score / 400), 300)
+			elif game_difficulty == Difficulty.MEDIUM:
+				tmp_score = min(current_score + int(score / 1000), 300)
+			else:
+				tmp_score = min(current_score + int(score / 3000), 300)
 
 			update_mana(tmp_score)
 		if is_dashing:
@@ -532,7 +536,13 @@ func escape_rhythm_game():
 		#print("notes", notes)
 		#for note in notes:
 			#note.queue_free()
-		current_score = min(current_score + int(score / 3000), 300)
+		if game_difficulty == Difficulty.EASY:
+			current_score = min(current_score + int(score / 400), 300)
+		elif game_difficulty == Difficulty.MEDIUM:
+			current_score = min(current_score + int(score / 1000), 300)
+		else:
+			current_score = min(current_score + int(score / 3000), 300)
+		#current_score = min(current_score + int(score / 3000), 300)
 		update_mana(current_score)
 		is_rhythm_game_open = false
 func get_minimap():

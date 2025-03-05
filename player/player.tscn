@@ -762,16 +762,15 @@ vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="Minimap" type="Control" parent="HUD"]
-modulate = Color(1, 1, 1, 0.752941)
 layout_mode = 3
 anchor_left = 0.671
 anchor_top = 0.792
 anchor_right = 0.671
 anchor_bottom = 0.792
-offset_left = -216.992
-offset_top = -222.216
-offset_right = -176.992
-offset_bottom = -169.216
+offset_left = 688.008
+offset_top = -637.216
+offset_right = 728.008
+offset_bottom = -584.216
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 8
@@ -784,10 +783,10 @@ anchor_left = -13.965
 anchor_top = -5.283
 anchor_right = -13.965
 anchor_bottom = -5.283
-offset_left = 33.6
-offset_top = 402.999
-offset_right = 465.6
-offset_bottom = 834.999
+offset_left = -882.4
+offset_top = 817.999
+offset_right = -450.4
+offset_bottom = 1250.0
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_7c3j6")
 

@@ -47,7 +47,6 @@ func enable() -> void:
 
 func set_difficulty(d: diff) -> void:
 	$ManiaKey.difficulty = d
-	
 	$ManiaKey2.difficulty = d
 	$ManiaKey3.difficulty = d
 	$ManiaKey4.difficulty = d
