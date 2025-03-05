@@ -8,6 +8,7 @@ var bpm = 175
 @export var rest_color: Color = Color(0, 0, 0, 0)   # Transparent by default
 @export var flash_duration_percent: float = 0.25    # How long the flash stays visible (as percentage of beat)
 var seconds_per_beat: float = 60.0 / bpm
+var last_rhythm_score:int = 0
 var timer: float = 0.0
 var is_flashing: bool = false
 @export var damage = 49
@@ -21,11 +22,14 @@ var is_flashing: bool = false
 @onready var freeze_icon = preload("res://assets/freeze.png")
 @onready var heal_icon = preload("res://assets/health_potion.png")
 @onready var powerup_frame = $HUD/Stats/PowerupFrame/Powerup
-
+@onready var rhythm_keyname:String = OS.get_keycode_string(KeybindingSystem.action_bindings["toggle_rhythm_game"])
+@onready var upgrade_minions_keyname:String = OS.get_keycode_string(KeybindingSystem.action_bindings["upgrade_minions"])
+@onready var upgrade_player_keyname:String =  OS.get_keycode_string(KeybindingSystem.action_bindings["upgrade_player"])
+@onready var has_deployed = false
 var disable_movement = false
 @onready var minimap = $HUD/Minimap
 var player_level = 1
-var minion_level = 0
+var minion_level = 1
 enum Difficulty {EASY = 0,MEDIUM = 1, HARD = 2}
 enum Team {BLUE = 0, RED = 1}
 
@@ -33,7 +37,12 @@ var player_powerup = null
 
 var rhythm_game_instance= null
 var powerups = ["freeze", "damage_powerup", "heal"]
-
+@onready var tutorialMSGs :Dictionary = {
+	"rhythm": "Press " + rhythm_keyname + " to start building Mana!",
+	"deploy": "Press 1,2, or 3 to deploy minions to a lane!",
+	"upgrade": "Try Upgrading!"
+	}
+@onready var has_upgraded = false
 
 #var banner_tween = create_tween()
 
@@ -112,7 +121,7 @@ func _ready() -> void:
 		camera.make_current()
 		$HUD/Stats.show()
 		$HUD.show()
-	
+	$HUD/DialogBox/Label.text = tutorialMSGs["rhythm"]
 	if "--server" in OS.get_cmdline_args():
 		camera.make_current()
 func _on_health_decreased():
@@ -380,9 +389,11 @@ func _physics_process(delta: float) -> void:
 			var score = rhythm_game_instance.get_score()
 			var tmp_score: float
 			#if $HealthComponent.currentHealth > 0:
-
-			tmp_score = min(current_score + int(score / 3000), 300)
-
+			var score_delta = score - last_rhythm_score
+			last_rhythm_score = score
+			tmp_score = min(current_score + int(score_delta / 50), 300)
+			print("[player.gd] tmp score is",tmp_score)
+			current_score = tmp_score
 			update_mana(tmp_score)
 		if is_dashing:
 			dash_timer -= delta
@@ -394,21 +405,37 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_pressed("toggle_rhythm_game"):
 			$DashSound.play()
 			handle_rhythm_callback()
+		if current_score >=100:
+			$HUD/Stats/MinionUpgradePrompt.visible = true
+		else:
+			$HUD/Stats/MinionUpgradePrompt.visible = false
+		if current_score >= 160:
+			$HUD/Stats/PlayerUpgradePrompt.visible = true
+		else:
+			$HUD/Stats/PlayerUpgradePrompt.visible = false
 		if current_score >= 10:
+			
+			if !has_deployed and !is_rhythm_game_open:
+				$HUD/DialogBox/Label.text = tutorialMSGs["deploy"]
+				$HUD/DialogBox/Label.add_theme_font_size_override("font_size",13)
+				$HUD/DialogBox.visible = true
+				has_deployed = true
 			if Input.is_action_just_pressed("Dispatch_Top"):
 				current_score = max(current_score - 10, 0)
 				request_wave_spawn.rpc(0, 3, team,minion_level)
 				update_mana(current_score)
-				
+				$HUD/DialogBox.visible = false
 			if Input.is_action_just_pressed("Dispatch_Mid"):
 				current_score = max(current_score - 10, 0)
 				request_wave_spawn.rpc(1, 3, team,minion_level)
 				update_mana(current_score)
+				$HUD/DialogBox.visible = false
 
 			if Input.is_action_just_pressed("Dispatch_Low"):
 				current_score= max(current_score - 10, 0)
 				request_wave_spawn.rpc(2, 3, team,minion_level)
 				update_mana(current_score)
+				$HUD/DialogBox.visible = false
 		
 		if Input.is_action_just_pressed("use_powerup"):
 			if player_powerup != null:
@@ -462,14 +489,16 @@ func _physics_process(delta: float) -> void:
 		last_attack += delta
 		move(delta)
 		if Input.is_action_just_pressed("upgrade_minions"):
-			if current_score >= 100 and can_use_nexus:
+			if current_score >= 100:
 				minion_level += 1
 				current_score -= 100
+				$HUD/Stats/MinionLvl.text = str(minion_level)
 				update_mana(current_score)
 		if Input.is_action_just_pressed("upgrade_player"):
 			print('upgrading self')
-			if current_score >= 160 and can_use_nexus:
+			if current_score >= 160:
 				player_level += 1
+				$HUD/Stats/PlayerLevel.text = str(player_level)
 				current_score -= 160
 				update_mana(current_score)
 				
@@ -530,14 +559,15 @@ func escape_rhythm_game():
 	if is_instance_valid(rhythm_game_instance):
 		#$RhythmLayer1.remove_child(rhythm_game_instance)
 	
-		var score = rhythm_game_instance.get_score()
-		rhythm_game_instance.reset_score()
-		var notes = get_tree().get_nodes_in_group("mania_note_instance")
-		#print("notes", notes)
-		#for note in notes:
-			#note.queue_free()
-		current_score = min(current_score + int(score / 3000), 300)
-		update_mana(current_score)
+		#var score = rhythm_game_instance.get_score()
+		#rhythm_game_instance.reset_score()
+		#var notes = get_tree().get_nodes_in_group("mania_note_instance")
+		##print("notes", notes)
+		##for note in notes:
+			##note.queue_free()
+		#current_score = min(current_score + int(score / 3000), 300)
+		#update_mana(current_score)
+		last_rhythm_score = rhythm_game_instance.get_score()
 		is_rhythm_game_open = false
 func get_minimap():
 	return minimap
@@ -563,9 +593,10 @@ func handle_rhythm_callback():
 		rhythm_game_instance.hide()
 		is_rhythm_game_open = false
 		escape_rhythm_game()
-	else:
+	else: #opening
+		$HUD/DialogBox.visible = false
+		last_rhythm_score = rhythm_game_instance.get_score()
 		
-	
 		rhythm_game_instance.show()
 		rhythm_game_instance.enable()
 		is_rhythm_game_open = true

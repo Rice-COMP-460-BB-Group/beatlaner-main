@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=3 uid="uid://bj3lu7yts43wl"]
+[gd_scene load_steps=75 format=3 uid="uid://bj3lu7yts43wl"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_h04aa"]
 [ext_resource type="SpriteFrames" uid="uid://b4mxfgtfpoes3" path="res://assets/new_sprite_frames.tres" id="2_swing"]
@@ -26,10 +26,14 @@
 [ext_resource type="FontFile" uid="uid://cm5q756n5trre" path="res://assets/VT323-Regular.ttf" id="18_86px8"]
 [ext_resource type="PackedScene" uid="uid://dd7pknkkclu6u" path="res://player/ManaBar.tscn" id="19_w14c3"]
 [ext_resource type="Texture2D" uid="uid://00c1h6f0f02k" path="res://assets/achievement.png" id="20_kjgea"]
+[ext_resource type="Texture2D" uid="uid://ibkcfjfob2r1" path="res://assets/minion-redUI.png" id="21_j77iq"]
+[ext_resource type="Texture2D" uid="uid://dqne33p0lxcj7" path="res://assets/PowerUpBar.png" id="21_kd2wf"]
 [ext_resource type="Texture2D" uid="uid://2bx5t4k3vue3" path="res://assets/enemy-banner.png" id="22_25x0m"]
 [ext_resource type="Texture2D" uid="uid://kmqcf5auw58c" path="res://assets/border-halfsize.png" id="22_l1p2f"]
-[ext_resource type="PackedScene" path="res://player/hints.tscn" id="23_a5f6l"]
+[ext_resource type="PackedScene" uid="uid://270dby1f0ytd" path="res://player/hints.tscn" id="23_a5f6l"]
 [ext_resource type="Texture2D" uid="uid://bqfgop2tg3noi" path="res://assets/595FAD8C-E33F-4E12-A974-9B2D043A2BA3.png.eac9bd8cac80378692e4115553790af8-export.png" id="25_pfejg"]
+[ext_resource type="Texture2D" uid="uid://dh5dok51a2vsj" path="res://assets/DialogBox.png" id="26_ontnn"]
+[ext_resource type="FontFile" uid="uid://ol8nq6vycer0" path="res://assets/PressStart2P-vaV7.ttf" id="27_o3ol7"]
 [ext_resource type="Script" path="res://player/afterimage.gd" id="28_i8vw6"]
 [ext_resource type="AudioStream" uid="uid://crwiggodkgtsr" path="res://assets/sword-slash.wav" id="28_rydyj"]
 [ext_resource type="AudioStream" uid="uid://r2wfjvbniwu4" path="res://blink2.mp3" id="31_try5o"]
@@ -542,14 +546,35 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 2)
 
-[node name="Mana" type="Label" parent="HUD/Stats"]
-visible = false
+[node name="LevelLabel" type="Label" parent="HUD/Stats"]
 layout_mode = 0
-offset_left = -285.0
-offset_top = -160.0
-offset_right = -245.0
-offset_bottom = -145.0
-text = "Mana: 0"
+offset_left = -247.0
+offset_top = -144.0
+offset_right = -207.0
+offset_bottom = -129.0
+theme_override_fonts/font = ExtResource("27_o3ol7")
+theme_override_font_sizes/font_size = 8
+text = "LVL"
+
+[node name="PlayerHUDBar" type="TextureRect" parent="HUD/Stats"]
+z_index = -50
+layout_mode = 0
+offset_left = -289.5
+offset_top = -191.0
+offset_right = 94.5
+offset_bottom = -95.0
+texture = ExtResource("22_l1p2f")
+
+[node name="Mana" type="Label" parent="HUD/Stats"]
+layout_mode = 0
+offset_left = -111.5
+offset_top = -157.5
+offset_right = -79.5
+offset_bottom = -146.5
+theme_override_fonts/font = ExtResource("27_o3ol7")
+theme_override_font_sizes/font_size = 8
+text = "MANA"
+uppercase = true
 
 [node name="Metronome" type="Label" parent="HUD/Stats"]
 visible = false
@@ -568,13 +593,14 @@ offset_bottom = -25.0
 
 [node name="ManaBar" parent="HUD/Stats" instance=ExtResource("19_w14c3")]
 layout_mode = 0
-offset_left = -280.5
-offset_top = -171.0
-offset_right = 114.5
-offset_bottom = -60.0
+offset_left = -191.0
+offset_top = -167.5
+offset_right = 204.0
+offset_bottom = -56.5
 scale = Vector2(0.5, 0.5)
 
 [node name="MetronomeContainer" type="MarginContainer" parent="HUD/Stats"]
+visible = false
 light_mask = 2
 visibility_layer = 2
 layout_mode = 0
@@ -601,12 +627,15 @@ text = "Respawning...
 horizontal_alignment = 1
 
 [node name="ToolTip" type="Label" parent="HUD/Stats"]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -1.125
 anchor_top = -1.1
 anchor_right = -1.125
 anchor_bottom = -1.1
+offset_left = 1.0
+offset_top = 1.0
 offset_right = 95.0
 offset_bottom = 19.0
 
@@ -621,39 +650,29 @@ texture = ExtResource("22_25x0m")
 
 [node name="PowerupFrame" type="Control" parent="HUD/Stats"]
 anchors_preset = 0
-offset_left = -289.5
-offset_top = -111.0
-offset_right = -249.5
-offset_bottom = -71.0
+offset_left = -277.5
+offset_top = 5.5
+offset_right = -237.5
+offset_bottom = 45.5
 scale = Vector2(0.3, 0.3)
-
-[node name="Powerup" type="TextureRect" parent="HUD/Stats/PowerupFrame"]
-visible = false
-layout_mode = 0
-offset_left = 16.0
-offset_top = 14.5
-offset_right = 112.0
-offset_bottom = 110.5
+metadata/_edit_use_anchors_ = true
 
 [node name="Frame" type="TextureRect" parent="HUD/Stats/PowerupFrame"]
 z_index = -10
 layout_mode = 0
-offset_left = -5.0
-offset_top = 106.667
-offset_right = 379.0
-offset_bottom = 365.667
+offset_left = -17.0
+offset_top = -68.0
+offset_right = 300.0
+offset_bottom = 95.0
 scale = Vector2(1, 0.5)
-texture = ExtResource("22_l1p2f")
+texture = ExtResource("21_kd2wf")
 
-[node name="Backdrop" type="TextureRect" parent="HUD/Stats"]
-z_index = -10
+[node name="Powerup" type="TextureRect" parent="HUD/Stats/PowerupFrame"]
 layout_mode = 0
-offset_left = -289.5
-offset_top = -175.0
-offset_right = 94.5
-offset_bottom = -47.0
-scale = Vector2(1, 0.5)
-texture = ExtResource("22_l1p2f")
+offset_left = -6.66667
+offset_top = -121.667
+offset_right = 89.3333
+offset_bottom = -25.6667
 
 [node name="UpgradeStats" type="Control" parent="HUD/Stats"]
 visible = false
@@ -762,8 +781,66 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
+[node name="MinionUI" type="TextureRect" parent="HUD/Stats"]
+layout_mode = 0
+offset_left = -285.5
+offset_top = -101.0
+offset_right = -179.5
+offset_bottom = -57.0
+texture = ExtResource("21_j77iq")
+
+[node name="PlayerLevel" type="Label" parent="HUD/Stats"]
+layout_mode = 0
+offset_left = -245.0
+offset_top = -134.0
+offset_right = -205.0
+offset_bottom = -119.0
+theme_override_fonts/font = ExtResource("27_o3ol7")
+theme_override_font_sizes/font_size = 8
+text = "1"
+
+[node name="MinionLvlLabel" type="Label" parent="HUD/Stats"]
+layout_mode = 0
+offset_left = -242.5
+offset_top = -80.0
+offset_right = -194.5
+offset_bottom = -64.0
+theme_override_fonts/font = ExtResource("27_o3ol7")
+theme_override_font_sizes/font_size = 8
+text = "LVL"
+
+[node name="MinionLvl" type="Label" parent="HUD/Stats"]
+layout_mode = 0
+offset_left = -241.5
+offset_top = -71.0
+offset_right = -201.5
+offset_bottom = -56.0
+theme_override_fonts/font = ExtResource("27_o3ol7")
+theme_override_font_sizes/font_size = 8
+text = "1"
+
+[node name="PlayerUpgradePrompt" type="Label" parent="HUD/Stats"]
+layout_mode = 0
+offset_left = -239.5
+offset_top = -156.5
+offset_right = -143.5
+offset_bottom = -148.5
+theme_override_colors/font_color = Color(0, 1, 0.890196, 1)
+theme_override_fonts/font = ExtResource("27_o3ol7")
+theme_override_font_sizes/font_size = 8
+text = "UPGRADE(160):Q"
+
+[node name="MinionUpgradePrompt" type="Label" parent="HUD/Stats"]
+layout_mode = 0
+offset_left = -236.0
+offset_top = -97.0
+offset_right = -132.0
+offset_bottom = -89.0
+theme_override_colors/font_color = Color(0, 0.94902, 0.952941, 1)
+theme_override_font_sizes/font_size = 8
+text = "Upgrade(50):E"
+
 [node name="Minimap" type="Control" parent="HUD"]
-modulate = Color(1, 1, 1, 0.988235)
 layout_mode = 3
 anchor_left = 0.671
 anchor_top = 0.792
@@ -785,10 +862,10 @@ anchor_left = -13.965
 anchor_top = -5.283
 anchor_right = -13.965
 anchor_bottom = -5.283
-offset_left = 976.6
-offset_top = 9.99899
-offset_right = 1300.6
-offset_bottom = 333.999
+offset_left = 23.6
+offset_top = 434.999
+offset_right = 391.6
+offset_bottom = 814.999
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_7c3j6")
 expand_mode = 1
@@ -799,10 +876,10 @@ anchor_left = -13.808
 anchor_top = -5.454
 anchor_right = -13.808
 anchor_bottom = -5.454
-offset_left = 907.32
-offset_top = 416.062
-offset_right = 1150.32
-offset_bottom = 647.062
+offset_left = -9.67999
+offset_top = 424.062
+offset_right = 52.32
+offset_bottom = 500.062
 scale = Vector2(1, 0.997383)
 
 [node name="Damage indic" type="TextureRect" parent="HUD"]
@@ -818,6 +895,28 @@ offset_left = 262.0
 offset_top = 597.0
 offset_right = 1000.0
 offset_bottom = 631.0
+
+[node name="DialogBox" type="TextureRect" parent="HUD"]
+anchors_preset = -1
+anchor_left = 0.211
+anchor_top = 0.829
+anchor_right = 0.211
+anchor_bottom = 0.829
+offset_left = 1.92799
+offset_top = -3.19202
+offset_right = 672.928
+offset_bottom = 90.808
+texture = ExtResource("26_ontnn")
+
+[node name="Label" type="Label" parent="HUD/DialogBox"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 12.0
+offset_right = 657.0
+offset_bottom = 87.0
+theme_type_variation = &"HeaderLarge"
+theme_override_fonts/font = ExtResource("27_o3ol7")
+theme_override_font_sizes/font_size = 20
 
 [node name="Weapon" parent="." instance=ExtResource("8_n6a7o")]
 

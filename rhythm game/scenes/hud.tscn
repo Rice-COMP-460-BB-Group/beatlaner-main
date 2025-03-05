@@ -25,7 +25,7 @@ offset_left = 749.0
 offset_top = 223.0
 offset_right = 872.0
 offset_bottom = 257.0
-theme_override_font_sizes/normal_font_size = 36
+theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
 
 [node name="Score" type="RichTextLabel" parent="CanvasLayer"]
@@ -33,22 +33,23 @@ unique_name_in_owner = true
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -142.0
+offset_left = -285.0
 offset_bottom = 66.0
 grow_horizontal = 0
-theme_override_font_sizes/normal_font_size = 36
+theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
-text = "[right]0000000[/right]"
+text = "[right]Score: 0000000[/right]"
 
 [node name="Accuracy" type="RichTextLabel" parent="CanvasLayer"]
 unique_name_in_owner = true
-offset_left = 1028.0
+offset_left = 842.0
 offset_top = 61.0
 offset_right = 1152.0
 offset_bottom = 108.0
-theme_override_font_sizes/normal_font_size = 36
+theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
-text = "[right]0.00%[/right]"
+text = "[right]Accuracy: 0.00%[/right]"
+fit_content = true
 
 [node name="Combo" type="RichTextLabel" parent="CanvasLayer"]
 unique_name_in_owner = true
