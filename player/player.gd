@@ -4,6 +4,7 @@ class_name Player
 
 var bpm = 175
 @onready var damage_overlay = $"HUD/Damage indic"
+@onready var powerup_labrl = $HUD/Stats/PowerUpLabel
 @export var flash_color: Color = Color(4, 4, 4, 1)  # White by default
 @export var rest_color: Color = Color(0, 0, 0, 0)   # Transparent by default
 @export var flash_duration_percent: float = 0.25    # How long the flash stays visible (as percentage of beat)
@@ -22,9 +23,20 @@ var is_flashing: bool = false
 @onready var freeze_icon = preload("res://assets/freeze.png")
 @onready var heal_icon = preload("res://assets/health_potion.png")
 @onready var powerup_frame = $HUD/Stats/PowerupFrame/Powerup
-@onready var rhythm_keyname:String = OS.get_keycode_string(KeybindingSystem.action_bindings["toggle_rhythm_game"])
-@onready var upgrade_minions_keyname:String = OS.get_keycode_string(KeybindingSystem.action_bindings["upgrade_minions"])
-@onready var upgrade_player_keyname:String =  OS.get_keycode_string(KeybindingSystem.action_bindings["upgrade_player"])
+func get_keybind_as_string(input_action: String) -> String:
+	var events = InputMap.action_get_events(input_action)
+	
+	
+	for event in events:
+		if event is InputEventKey:
+			return event.as_text()
+			
+		
+	return "NULL"
+var powerup_label_default = "POWERUP:NONE"
+@onready var rhythm_keyname:String =get_keybind_as_string("toggle_rhythm_game")
+@onready var upgrade_minions_keyname:String = get_keybind_as_string("upgrade_minions")
+@onready var upgrade_player_keyname:String = get_keybind_as_string("upgrade_player")
 @onready var has_deployed = false
 var disable_movement = false
 @onready var minimap = $HUD/Minimap
@@ -37,9 +49,13 @@ var player_powerup = null
 
 var rhythm_game_instance= null
 var powerups = ["freeze", "damage_powerup", "heal"]
+
+
+
 @onready var tutorialMSGs :Dictionary = {
-	"rhythm": "Press " + rhythm_keyname + " to start building Mana!",
-	"deploy": "Press 1,2, or 3 to deploy minions to a lane!",
+	"rhythm": "Press " + rhythm_keyname + " to start building Mana. Once the bar is full,
+	press R to stop building mana.",
+	"deploy": "Press 1,2, or 3 to deploy minions to the top,middle, or bottom lanes!",
 	"upgrade": "Try Upgrading!"
 	}
 @onready var has_upgraded = false
@@ -106,12 +122,12 @@ func _ready() -> void:
 
 	old_collision_size = $Slice/SliceArea/CollisionShape2D.shape.size
 	if team == Team.RED:
-		print("team", team)
+		#print("team", team)
 		respawn_position = Vector2(651, 3379)
 	else:
 		respawn_position = Vector2(3401, 600)
 
-	print("respawn pos", respawn_position, team)
+	#print("respawn pos", respawn_position, team)
 	$HUD/Stats.hide()
 	$HUD.hide()
 	
@@ -142,7 +158,7 @@ func move(delta):
 		return
 	if disable_movement or not is_alive:
 		return
-	print('moving')
+	#print('moving')
 	if is_rhythm_game_open:
 		state = IDLE
 		velocity = Vector2.ZERO
@@ -315,7 +331,7 @@ func _process(delta: float) -> void:
 	#$HUD/Stats/MetronomeContainer/MetronomeAnimation.frame = current_frame % total_metronome_frames
 
 	if $HUD/Stats/MetronomeContainer/MetronomeAnimation.frame in centered_frames:
-		print("fall off", falloff_curve(), " ", $HUD/Stats/MetronomeContainer/MetronomeAnimation.frame)
+		#print("fall off", falloff_curve(), " ", $HUD/Stats/MetronomeContainer/MetronomeAnimation.frame)
 		var tween = create_tween()
 		tween.tween_property($HUD/Stats/MetronomeContainer/MetronomeAnimation, "modulate", Color(2, 2, 2, 1), 0.1)
 		tween.tween_property($HUD/Stats/MetronomeContainer/MetronomeAnimation, "modulate", Color(1, 1, 1, 1), 0.1)
@@ -405,38 +421,41 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_pressed("toggle_rhythm_game"):
 			$DashSound.play()
 			handle_rhythm_callback()
-		if current_score >=100:
-			$HUD/Stats/MinionUpgradePrompt.visible = true
+		
 		else:
 			$HUD/Stats/MinionUpgradePrompt.visible = false
 		if current_score >= 160:
 			$HUD/Stats/PlayerUpgradePrompt.visible = true
 		else:
 			$HUD/Stats/PlayerUpgradePrompt.visible = false
-		if current_score >= 10:
-			
+		if current_score >= 30:
+			$HUD/Stats/MinionUpgradePrompt.text = "DEPLOY(30):1/2/3"
 			if !has_deployed and !is_rhythm_game_open:
 				$HUD/DialogBox/Label.text = tutorialMSGs["deploy"]
-				$HUD/DialogBox/Label.add_theme_font_size_override("font_size",13)
+				#$HUD/DialogBox/Label.add_theme_font_size_override("font_size",13)
 				$HUD/DialogBox.visible = true
-				has_deployed = true
+				
 			if Input.is_action_just_pressed("Dispatch_Top"):
-				current_score = max(current_score - 10, 0)
+				current_score = max(current_score - 30, 0)
 				request_wave_spawn.rpc(0, 3, team,minion_level)
 				update_mana(current_score)
 				$HUD/DialogBox.visible = false
+				has_deployed = true
 			if Input.is_action_just_pressed("Dispatch_Mid"):
-				current_score = max(current_score - 10, 0)
+				current_score = max(current_score - 30, 0)
 				request_wave_spawn.rpc(1, 3, team,minion_level)
 				update_mana(current_score)
 				$HUD/DialogBox.visible = false
-
+				has_deployed = true
 			if Input.is_action_just_pressed("Dispatch_Low"):
-				current_score= max(current_score - 10, 0)
+				current_score= max(current_score - 30, 0)
 				request_wave_spawn.rpc(2, 3, team,minion_level)
 				update_mana(current_score)
 				$HUD/DialogBox.visible = false
-		
+				has_deployed = true
+		if current_score >=100:
+			$HUD/Stats/MinionUpgradePrompt.text = "UPGRADE(100):E"
+			$HUD/Stats/MinionUpgradePrompt.visible = true
 		if Input.is_action_just_pressed("use_powerup"):
 			if player_powerup != null:
 				if player_powerup == "freeze":
@@ -444,14 +463,17 @@ func _physics_process(delta: float) -> void:
 					LaneManager.freeze_current_enemies.rpc(1, team)
 					LaneManager.freeze_current_enemies.rpc(2, team)
 					print('using freeze')
+					powerup_labrl.text = powerup_label_default
 					$FreezePowerupSound.play()
 				elif player_powerup == "damage_powerup":
 					LaneManager.damage_powerup.rpc(team)
 					print('using damage')
+					powerup_labrl.text = powerup_label_default
 					$DamagePowerupSound.play()
 				elif player_powerup == "heal":
 					$HealthComponent.rpc("increase_health", 100)
 					$HealPowerupSound.play()
+					powerup_labrl.text = powerup_label_default
 					print('using health')
 
 				
@@ -574,12 +596,16 @@ func get_minimap():
 
 @rpc("any_peer", "call_local")
 func add_powerup(powerup):
+	
 	if player_powerup == null:
 		if powerup == "freeze":
+			powerup_labrl.text = "FREEZE: Z"
 			powerup_frame.texture = freeze_icon
 		elif powerup == "damage_powerup":
+			powerup_labrl.text = "DAMAGE UP: Z"
 			powerup_frame.texture = damage_icon
 		elif powerup == "heal":
+			powerup_labrl.text =  "HEAL: Z"
 			powerup_frame.texture = heal_icon
 		powerup_frame.show()
 		player_powerup = powerup
@@ -619,18 +645,18 @@ func animate() -> void:
 	state_machine.travel(animTree_state_keys[state])
 	animationTree.set(blend_pos_paths[state], blend_position)
 
-	print("auth", is_multiplayer_authority(), multiplayer.get_unique_id())
+	#print("auth", is_multiplayer_authority(), multiplayer.get_unique_id())
 	sync_animation.rpc(state, blend_position)
 
 
 
 func falloff_curve():
 	var closest = min($Metronome.time_left, (60.0 / bpm) - $Metronome.time_left)
-	print("Closest:", closest)
+	#print("Closest:", closest)
 	var percentage = 1 - closest / ((60.0 / bpm) / 2)
-	print("Percentage:", percentage)
+	#print("Percentage:", percentage)
 	var extra_damage = pow(percentage, 2)
-	print("Extra Damage:", extra_damage)
+	#print("Extra Damage:", extra_damage)
 
 	return extra_damage
 

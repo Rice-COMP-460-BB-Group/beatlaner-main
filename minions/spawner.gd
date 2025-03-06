@@ -85,7 +85,7 @@ func spawner_init() -> void:
 			tower.team = sp.name.find("P1") == 0
 			tower.set_team(sp.name.find("P1") == 0)
 			tower.name = sp.name
-			print(tower.name)
+			#print(tower.name)
 			spawn_points[sp.name] = tower
 			var main = get_parent()
 			main.add_child(tower)
@@ -152,11 +152,11 @@ func get_opposite(key: StringName) -> Tower:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 
 func disable_timer() -> void:
-	print("timer disabled!!")
+	#print("timer disabled!!")
 	enemySpawnTimer.stop()
 
 func enable_timer() -> void:
-	print("timer enabled!!")
+	#print("timer enabled!!")
 	enemySpawnTimer.start()
 	
 
@@ -225,7 +225,7 @@ var bottomcount = 0
 	#
 	
 func spawn(dict:Dictionary):
-	print("[spawner.gd] id: ", multiplayer.get_unique_id(), multiplayer.get_remote_sender_id())
+	#print("[spawner.gd] id: ", multiplayer.get_unique_id(), multiplayer.get_remote_sender_id())
 	var key = dict["key"]
 	var team = dict["team"]
 	var minion_type = dict["minion_type"]
@@ -262,7 +262,7 @@ func spawn(dict:Dictionary):
 	return minion
 	
 func spawn_powerup(dict:Dictionary):
-	print('powerup spawning', dict)
+	#print('powerup spawning', dict)
 	#print("[spawner.gd] id: ", multiplayer.get_unique_id(), multiplayer.get_remote_sender_id())
 	#var key = dict["key"]
 	var new_powerup = powerupScene.instantiate()
@@ -280,13 +280,13 @@ func spawn_powerup(dict:Dictionary):
 func _spawn_and_sync(key: String,level:int, team:int):
 	# Sync spawn to all clients
 	var minion_type = randi() % 2
-	print("cope vope spawn", multiplayer.get_unique_id())
+	#print("cope vope spawn", multiplayer.get_unique_id())
 	
 	$MultiplayerSpawner.spawn({"key": key, "minion_type": minion_type,"level":level, "team": team})
 	#spawn_minion_on_clients.rpc(key, minion_type, spawnpt.position, team, tower_target_name)
 
 func spawn_friendly_wave(config: Dictionary, is_friendly: bool,level:int) -> void:
-	print("spawning spawning", config)
+	#print("spawning spawning", config)
 	if not multiplayer.is_server():
 		return  # Only the server triggers spawning
 
@@ -304,7 +304,7 @@ func spawn_friendly_wave(config: Dictionary, is_friendly: bool,level:int) -> voi
 func _on_wave_timer_timeout() -> void:
 	if not multiplayer.is_server():
 		return
-	print('ran')
+	#print('ran')
 	spawn_friendly_wave(friendly_wave_config, true,1)
 	spawn_friendly_wave(enemy_wave_config, false,1)
 	to_add = {"top": 0, "mid": 0, "bottom": 0}
@@ -312,7 +312,7 @@ func _on_wave_timer_timeout() -> void:
 var idxpower = 0
 @rpc("authority")
 func _on_powerup_timer_timeout() -> void:
-	print('time out power timer')
+	#print('time out power timer')
 	for node in get_tree().get_nodes_in_group("Powerup"):
 		if node.isLaneNode:
 			node.queue_free()

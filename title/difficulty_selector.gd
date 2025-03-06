@@ -89,7 +89,7 @@ func move_to_game(selected_difficulty: Difficulty) -> void:
 	self.hide()
 
 func determine_difficulty() -> Difficulty:
-	print(easy_votes,medium_votes,hard_votes)
+	#print(easy_votes,medium_votes,hard_votes)
 	if easy_votes + medium_votes + hard_votes == 0:
 		return Difficulty.values()[randi() % 3]
 

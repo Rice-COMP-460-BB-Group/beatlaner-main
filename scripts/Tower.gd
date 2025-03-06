@@ -43,13 +43,13 @@ func set_team(team):
 		$BannerBlue.visible = true
 	$Sigil.play()
 func fire(dict):
-	print('FIRED', multiplayer.is_server())
+	#print('FIRED', multiplayer.is_server())
 	var body_id = dict["body"]
 	var body = instance_from_id(body_id)
 	var laser = laser_scene.instantiate()
 	if laser is Laser:
 		laser.set_team(team)
-	print("attacking with laser")
+	#print("attacking with laser")
 	laser.target = body
 	
 	laser.source = self

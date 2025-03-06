@@ -37,7 +37,7 @@ func refresh_minimap(blue_team:Array,red_team:Array):
 	
 	for blue_pos in blue_team:
 		var coords = world_to_minimap(blue_pos,Vector2(4096,4096),Vector2(216,216))
-		print(coords,"coords")
+		#print(coords,"coords")
 		add_minion_to_minimap(coords,false)
 	for red_pos in red_team:
 		var coords = world_to_minimap(red_pos,Vector2(4096,4096),Vector2(216,216))

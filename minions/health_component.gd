@@ -35,7 +35,7 @@ func increase_max_health(amt:int)-> void:
 @rpc("any_peer", "call_local")
 func decrease_health(amount: int):
 	if has_node("HealthBar"):
-		print("[health_component.gd]","Found HealthBar for", get_parent().name)
+		#print("[health_component.gd]","Found HealthBar for", get_parent().name)
 		$HealthBar.update(currentHealth, maxHealth)
 	else:
 		print("HealthBar not found for", get_parent().name)
@@ -43,7 +43,7 @@ func decrease_health(amount: int):
 	health_decreased.emit()
 	if currentHealth <= 0 and !dead:
 		dead = true
-		print("health is zero")
+		#print("health is zero")
 		currentHealth = 0
 		health_destroyed.emit()
 		
@@ -52,7 +52,7 @@ func decrease_health(amount: int):
 @rpc("any_peer", "call_local")
 func increase_health(amount: int):
 	if has_node("HealthBar"):
-		print("[health_component.gd]","Found HealthBar for", get_parent().name)
+		#print("[health_component.gd]","Found HealthBar for", get_parent().name)
 		$HealthBar.update(currentHealth, maxHealth)
 	else:
 		print("HealthBar not found for", get_parent().name)

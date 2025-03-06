@@ -16,7 +16,7 @@ func _process(delta: float) -> void:
 #
 @rpc("any_peer", "call_local")
 func freeze_current_enemies(lane: int,team: int) ->void:
-	print("[lane_manager.gd] got team",team)
+	#print("[lane_manager.gd] got team",team)
 	if not multiplayer.is_server():
 		return
 	var bodies = []
@@ -27,7 +27,7 @@ func freeze_current_enemies(lane: int,team: int) ->void:
 		bodies = mid.get_overlapping_bodies()
 	elif lane == 2:
 		bodies = lower.get_overlapping_bodies()
-	print("here are bodies:",bodies)
+	#print("here are bodies:",bodies)
 	for b in bodies:
 			if b is Minion:
 				
@@ -54,12 +54,12 @@ func damage_powerup(team: int) ->void:
 func _on_lower_lane_body_entered(body: Node2D) -> void:
 	if body.name == "TileMapLayer":
 		return 
-	print(body.name)
+	#print(body.name)
 
 func _on_lower_lane_body_exited(body: Node2D) -> void:
 	if body.name == "TileMapLayer":
 		return# Replace with function body.
-	print(body.name)
+	#print(body.name)
 
 func _on_mid_lane_body_entered(body: Node2D) -> void:
 	if body.name == "TileMapLayer":
@@ -82,7 +82,7 @@ func _on_upper_lane_body_exited(body: Node2D) -> void:
 	
 
 func wave_request(pos: int, size: int, team: bool,level:int) -> void:
-	print('wave request from spawner')
+	#print('wave request from spawner')
 	var spawner = $"/root/Main/Spawner"
 	var config = {"top": 0, "mid": 0, "bottom": 0}
 	
@@ -96,7 +96,7 @@ func wave_request(pos: int, size: int, team: bool,level:int) -> void:
 	spawner.spawn_friendly_wave(config, team,level)
 
 func _on_player_wave_request(pos: int, size: int) -> void:
-	print("wave request")
+	#print("wave request")
 	var spawner = $"../../Spawner"
 	var config = {"top": 0,"mid":0, "bottom":0}
 	if pos == 0:
@@ -113,9 +113,9 @@ func get_minimap_info() ->Dictionary :
 	
 	var current_red = []
 	var bodies = map.get_overlapping_bodies()
-	print("bodies",bodies)
+	#print("bodies",bodies)
 	for b in bodies:
-		print("hello from bodies!")
+		#print("hello from bodies!")
 		if b.name == "Player":
 			current_red.append(b.position)
 		if b.has_method("get_team"):
@@ -125,7 +125,7 @@ func get_minimap_info() ->Dictionary :
 			if b.get_team() == 1:
 				current_red.append(b.position)
 				
-	print("current_blue",current_blue,"current_red",current_red)
+	#print("current_blue",current_blue,"current_red",current_red)
 	return {"blue":current_blue,"red":current_red}
 	
 	

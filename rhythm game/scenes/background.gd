@@ -1,12 +1,24 @@
 extends Node2D
 
 
+func get_keybind_as_string(input_action: String) -> String:
+	var events = InputMap.action_get_events(input_action)
+	
+	
+	for event in events:
+		if event is InputEventKey:
+			return event.as_text()
+			
+		
+	return "NULL"
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$FirstCol.text = OS.get_keycode_string(KeybindingSystem.action_bindings["key1"])
-	$SecondCol.text = OS.get_keycode_string(KeybindingSystem.action_bindings["key2"])
-	$ThirdCol.text = OS.get_keycode_string(KeybindingSystem.action_bindings["key3"])
-	$FourthCol.text = OS.get_keycode_string(KeybindingSystem.action_bindings["key4"])
+	
+	$FirstCol.text = get_keybind_as_string("key1")
+	$SecondCol.text = get_keybind_as_string("key2")
+	$ThirdCol.text = get_keybind_as_string("key3")
+	$FourthCol.text = get_keybind_as_string("key4")
 
 enum diff {EASY=0,MEDIUM=1,HARD=2}
 # Called every frame. 'delta' is the elapsed time since the previous frame.

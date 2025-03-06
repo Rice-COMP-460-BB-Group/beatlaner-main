@@ -81,7 +81,7 @@ func set_enemy_target(node: Node2D):
 
 
 func set_level(level:int):
-	print("[minion.gd]","level invoked")
+	#print("[minion.gd]","level invoked")
 	$HealthComponent.increase_max_health(10 * level)
 	$HealthComponent.currentHealth = $HealthComponent.maxHealth
 	$HealthComponent.display_level(level)
@@ -123,7 +123,7 @@ func _physics_process(delta: float):
 						if distance < min_dist:
 							min_dist = distance
 							candid = tower
-				print("finding new tower")
+				#print("finding new tower")
 				tower_target = candid
 
 			if state == State.MOVE || enemy_target == null:
@@ -146,10 +146,10 @@ func _physics_process(delta: float):
 				if health_component and health_component is HealthComponent and health_component.currentHealth <= 0:
 					enemy_target = null
 					state = State.MOVE
-					print("stopped aggroing")
+					#print("stopped aggroing")
 				elif global_position.distance_to(enemy_target.global_position) < aggro_range:
 					if attack_timer.is_stopped():
-						print("begin attacking")
+						#print("begin attacking")
 						attack_timer.start()
 			
 			var current_agent_position = global_position
@@ -172,27 +172,27 @@ func _physics_process(delta: float):
 				var results = space_state.intersect_shape(query)
 				for result in results:
 					if result.collider is Player and result.collider.team != team:
-						print("player found")
+						#print("player found")
 						set_enemy_target(result.collider)
 						state = State.ATTACK
 						return
 					if result.collider is Minion and result.collider.get_team() != team:
-						print("enemy found")
+						#print("enemy found")
 						set_enemy_target(result.collider)
 						state = State.ATTACK
 						return
 					if result.collider is Tower and result.collider.team != team:
-						print("tower found")
+						#print("tower found")
 						set_enemy_target(result.collider)
 						state = State.ATTACK
 						return
 					if result.collider is Nexus and result.collider.team != team:
-						print("[minion.gd] nexus found")
+						#print("[minion.gd] nexus found")
 						set_enemy_target(result.collider)
 						state = State.ATTACK
 						return
 			if navigation_agent_2d.is_navigation_finished():
-				print("reached target")
+				#print("reached target")
 				return
 			# stop moving if we are close to the target
 			if state == State.ATTACK and global_position.distance_to(enemy_target.global_position) < attack_range:
@@ -216,7 +216,7 @@ func _physics_process(delta: float):
 			state = syncState
 
 func fire(dict):
-	print('FIRED')
+	#print('FIRED')
 	var projectile = projectile_scene.instantiate()
 	projectile.red = team != Team.RED
 	projectile.target = enemy_target
@@ -228,17 +228,17 @@ func fire(dict):
 	
 @rpc("authority")
 func _on_attack_timer_timeout():
-	print("attempting attack on enemy")
-	print(is_instance_valid(enemy_target))
+	#print("attempting attack on enemy")
+	#print(is_instance_valid(enemy_target))
 	var anim_suffix = "friendly" if team != Team.BLUE else "enemy"
 	if is_instance_valid(enemy_target) && global_position.distance_to(enemy_target.global_position) < attack_range:
-		print("ranged", ranged)
+		#print("ranged", ranged)
 		
 		sprite.play(anim_suffix + "_attack")
 		is_attacking = true
 		if ranged:
-			print('spawning')
-			print("MultiplayerSpawner function set to:", $MultiplayerSpawner.spawn_function)
+			#print('spawning')
+			#print("MultiplayerSpawner function set to:", $MultiplayerSpawner.spawn_function)
 			$MultiplayerSpawner.spawn({"dummy": true})
 			#fire.rpc()
 		else:
@@ -265,7 +265,7 @@ func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:
 	velocity = safe_velocity
 
 func process_status(status: String) -> void:
-	print("processing status")
+	#print("processing status")
 	if status == "freeze":
 		state = State.FROZEN
 		$FreezeParticle.emitting = true

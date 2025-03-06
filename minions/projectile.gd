@@ -54,7 +54,7 @@ func _on_body_entered(body):
 
 @rpc("any_peer", "call_local")
 func destroy_bullet():
-	print("destroyed")
+	#print("destroyed")
 	queue_free()
 
 func _on_area_entered(area: Area2D) -> void:

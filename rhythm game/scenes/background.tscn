@@ -1,14 +1,15 @@
-[gd_scene load_steps=8 format=3 uid="uid://b6mdjbyemb0sr"]
+[gd_scene load_steps=7 format=3 uid="uid://b6mdjbyemb0sr"]
 
 [ext_resource type="Script" path="res://rhythm game/scenes/background.gd" id="1_jjh5w"]
 [ext_resource type="PackedScene" uid="uid://do5hu0dt23mbe" path="res://rhythm game/scenes/mania_keys.tscn" id="1_ykdqm"]
 [ext_resource type="Texture2D" uid="uid://bx1o4v6nl7dc6" path="res://rhythm game/assets/mania_notes/Sigil-Gray.png" id="3_2vcog"]
 [ext_resource type="PackedScene" uid="uid://xfxnyk30olx4" path="res://rhythm game/scenes/hud.tscn" id="3_pnkrm"]
-[ext_resource type="FontFile" uid="uid://cm5q756n5trre" path="res://assets/VT323-Regular.ttf" id="5_hfwjy"]
 
 [sub_resource type="Gradient" id="Gradient_b4q47"]
-offsets = PackedFloat32Array(0, 0.146104, 1)
-colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0.509804, 0, 0, 0, 1)
+offsets = PackedFloat32Array(0, 0.0666667, 0.133333, 0.2, 0.266667, 0.333333, 0.4, 0.666667)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.509804, 0, 0, 0, 0.579832, 0, 0, 0, 0.64986, 0, 0, 0, 0.737395, 0, 0, 0, 0.82493, 0, 0, 0, 1)
+metadata/_snap_enabled = true
+metadata/_snap_count = 15
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_w2eji"]
 gradient = SubResource("Gradient_b4q47")
@@ -74,37 +75,37 @@ offset_bottom = 333.0
 texture = SubResource("GradientTexture1D_w2eji")
 
 [node name="FirstCol" type="Label" parent="."]
-offset_left = -149.0
-offset_top = 282.0
-offset_right = -109.0
-offset_bottom = 322.0
-theme_override_fonts/font = ExtResource("5_hfwjy")
+offset_left = -161.0
+offset_top = 146.0
+offset_right = -121.0
+offset_bottom = 186.0
+theme_override_colors/font_color = Color(1, 1, 0, 1)
 theme_override_font_sizes/font_size = 40
 text = "D"
 
 [node name="SecondCol" type="Label" parent="."]
 offset_left = -55.0
-offset_top = 282.0
+offset_top = 146.0
 offset_right = -15.0
-offset_bottom = 322.0
-theme_override_fonts/font = ExtResource("5_hfwjy")
+offset_bottom = 186.0
+theme_override_colors/font_color = Color(1, 1, 0, 1)
 theme_override_font_sizes/font_size = 40
 text = "F"
 
 [node name="ThirdCol" type="Label" parent="."]
-offset_left = 38.0
-offset_top = 282.0
-offset_right = 78.0
-offset_bottom = 322.0
-theme_override_fonts/font = ExtResource("5_hfwjy")
+offset_left = 33.0
+offset_top = 145.0
+offset_right = 73.0
+offset_bottom = 185.0
+theme_override_colors/font_color = Color(0.964706, 1, 0, 1)
 theme_override_font_sizes/font_size = 40
 text = "J"
 
 [node name="FourthCol" type="Label" parent="."]
 offset_left = 129.0
-offset_top = 282.0
+offset_top = 145.0
 offset_right = 169.0
-offset_bottom = 322.0
-theme_override_fonts/font = ExtResource("5_hfwjy")
+offset_bottom = 185.0
+theme_override_colors/font_color = Color(1, 1, 0, 1)
 theme_override_font_sizes/font_size = 40
 text = "K"

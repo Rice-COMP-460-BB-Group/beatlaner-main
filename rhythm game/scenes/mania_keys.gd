@@ -94,11 +94,12 @@ func _on_rand_timer_timeout() -> void:
 		
 	if randi_range(0, 2) == 0:
 		if is_enabled:
-			print("[background.gd]","I am enabled")
+			#print("[background.gd]","I am enabled")
 			
 			init()
 		else:
-			print("[background.gd]","I am not enabled")
+			pass
+			#print("[background.gd]","I am not enabled")
 	#$RandTimer.wait_time = randf_range(0.1, 0.5) # hard
 	#$RandTimer.wait_time = randf_range(0.1, 0.8) # medium
 	#$RandTimer.wait_time = randf_range(0.5, 2.0) # easy

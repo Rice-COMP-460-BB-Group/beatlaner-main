@@ -30,13 +30,13 @@ func _process(delta: float) -> void:
 	pass
 
 func fire(dict):
-	print('FIRED', multiplayer.is_server())
+	#print('FIRED', multiplayer.is_server())
 	var body_id = dict["body"]
 	var body = instance_from_id(body_id)
 	var laser = laser_scene.instantiate()
 	if laser is Laser:
 		laser.set_team(team)
-	print("attacking with laser")
+	#print("attacking with laser")
 	laser.target = body
 	laser.source = self
 	laser.global_position = global_position
@@ -68,26 +68,26 @@ func _physics_process(delta: float) -> void:
 		last_attack += delta
 
 func _on_detection_area_body_entered(body: Node2D) -> void:
-	print("[nexus.gd]","body entered")
+	#print("[nexus.gd]","body entered")
 	if body is Player:
-		print("[nexus.gd]","hey player")
-		print("[nexus.gd]",body.team,"team",team)
+		#print("[nexus.gd]","hey player")
+		#print("[nexus.gd]",body.team,"team",team)
 		if body.team == team:
-			 
+			pass
 			body.can_use_nexus = true
-			body.show_tooltip("upgrade_player", "Upgrade yourself")
-			body.show_tooltip("upgrade_minions", "Upgrade minions")
+			#body.show_tooltip("upgrade_player", "Upgrade yourself")
+			#body.show_tooltip("upgrade_minions", "Upgrade minions")
 
 func _on_health_component_health_destroyed() -> void:
 
-	print("nexus destroyed" + str(team))
+	#print("nexus destroyed" + str(team))
 	Signals.NexusDestroyed.emit(team, global_position)
 	queue_free()
 
 
 
 func _on_detection_area_body_exited(body: Node2D) -> void:
-	print("[nexus.gd]","body exited")
+	#print("[nexus.gd]","body exited")
 	if body is Player:
 		if body.team == team:
 			body.can_use_nexus = false
@@ -95,7 +95,7 @@ func _on_detection_area_body_exited(body: Node2D) -> void:
 			body.hide_tooltip("upgrade_minions")
 @rpc("any_peer", "call_local")
 func attack(body: Node2D) -> void:
-	print("[nexus.gd]is server", multiplayer.is_server())
+	#print("[nexus.gd]is server", multiplayer.is_server())
 	var body_id = body.get_instance_id()
 	$MultiplayerSpawner.spawn({"body": body_id})
 	$LaserShooter.play()

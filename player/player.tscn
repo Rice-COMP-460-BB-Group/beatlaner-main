@@ -565,17 +565,6 @@ offset_right = 94.5
 offset_bottom = -95.0
 texture = ExtResource("22_l1p2f")
 
-[node name="Mana" type="Label" parent="HUD/Stats"]
-layout_mode = 0
-offset_left = -111.5
-offset_top = -157.5
-offset_right = -79.5
-offset_bottom = -146.5
-theme_override_fonts/font = ExtResource("27_o3ol7")
-theme_override_font_sizes/font_size = 8
-text = "MANA"
-uppercase = true
-
 [node name="Metronome" type="Label" parent="HUD/Stats"]
 visible = false
 layout_mode = 0
@@ -820,12 +809,13 @@ theme_override_font_sizes/font_size = 8
 text = "1"
 
 [node name="PlayerUpgradePrompt" type="Label" parent="HUD/Stats"]
+self_modulate = Color(4, 4, 4, 1)
 layout_mode = 0
 offset_left = -239.5
 offset_top = -156.5
 offset_right = -143.5
 offset_bottom = -148.5
-theme_override_colors/font_color = Color(0, 1, 0.890196, 1)
+theme_override_colors/font_color = Color(0, 1, 4, 1)
 theme_override_fonts/font = ExtResource("27_o3ol7")
 theme_override_font_sizes/font_size = 8
 text = "UPGRADE(160):Q"
@@ -839,6 +829,16 @@ offset_bottom = -89.0
 theme_override_colors/font_color = Color(0, 0.94902, 0.952941, 1)
 theme_override_font_sizes/font_size = 8
 text = "Upgrade(50):E"
+
+[node name="PowerUpLabel" type="Label" parent="HUD/Stats"]
+layout_mode = 0
+offset_left = -275.5
+offset_top = -2.0
+offset_right = -131.5
+offset_bottom = 14.0
+theme_override_colors/font_color = Color(1, 0.854902, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "POWERUP:NONE"
 
 [node name="Minimap" type="Control" parent="HUD"]
 layout_mode = 3
@@ -917,6 +917,7 @@ offset_bottom = 87.0
 theme_type_variation = &"HeaderLarge"
 theme_override_fonts/font = ExtResource("27_o3ol7")
 theme_override_font_sizes/font_size = 20
+autowrap_mode = 3
 
 [node name="Weapon" parent="." instance=ExtResource("8_n6a7o")]
 
