@@ -21,12 +21,13 @@ stream = ExtResource("2_248el")
 
 [node name="HitStatus" type="RichTextLabel" parent="CanvasLayer"]
 unique_name_in_owner = true
-offset_left = 749.0
+offset_left = 732.0
 offset_top = 223.0
-offset_right = 872.0
+offset_right = 911.0
 offset_bottom = 257.0
 theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
+autowrap_mode = 0
 
 [node name="Score" type="RichTextLabel" parent="CanvasLayer"]
 unique_name_in_owner = true

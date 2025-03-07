@@ -111,7 +111,7 @@ func _on_health_component_health_destroyed() -> void:
 	#Signals.OpenRhythmGame.emit(name, self)
 @rpc("any_peer", "call_local")
 func attack(body: Node2D) -> void:
-	print("is server", multiplayer.is_server())
+	print("nexus attacking ", body.name)
 	var body_id = body.get_instance_id()
 	$MultiplayerSpawner.spawn({"body": body_id})
 	$LaserShooter.play()

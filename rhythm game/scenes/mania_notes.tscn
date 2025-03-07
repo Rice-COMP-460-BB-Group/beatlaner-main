@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cowv6stbwfo4t" path="res://rhythm game/assets/mania_notes/Sigil-White.png" id="3_rbtxo"]
 
 [node name="mania_notes" type="Sprite2D"]
+z_index = 4096
 texture = ExtResource("1_d2jr5")
 script = ExtResource("2_s4xme")
 

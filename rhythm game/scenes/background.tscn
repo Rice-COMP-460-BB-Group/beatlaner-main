@@ -75,37 +75,37 @@ offset_bottom = 333.0
 texture = SubResource("GradientTexture1D_w2eji")
 
 [node name="FirstCol" type="Label" parent="."]
-offset_left = -161.0
-offset_top = 146.0
-offset_right = -121.0
-offset_bottom = 186.0
-theme_override_colors/font_color = Color(1, 1, 0, 1)
+offset_left = -158.0
+offset_top = 222.0
+offset_right = -118.0
+offset_bottom = 262.0
+theme_override_colors/font_color = Color(0.941887, 0.957946, 1, 1)
 theme_override_font_sizes/font_size = 40
 text = "D"
 
 [node name="SecondCol" type="Label" parent="."]
-offset_left = -55.0
-offset_top = 146.0
-offset_right = -15.0
-offset_bottom = 186.0
-theme_override_colors/font_color = Color(1, 1, 0, 1)
+offset_left = -61.0
+offset_top = 222.0
+offset_right = -21.0
+offset_bottom = 262.0
+theme_override_colors/font_color = Color(0.941887, 0.957946, 1, 1)
 theme_override_font_sizes/font_size = 40
 text = "F"
 
 [node name="ThirdCol" type="Label" parent="."]
-offset_left = 33.0
-offset_top = 145.0
-offset_right = 73.0
-offset_bottom = 185.0
-theme_override_colors/font_color = Color(0.964706, 1, 0, 1)
+offset_left = 24.0
+offset_top = 222.0
+offset_right = 64.0
+offset_bottom = 262.0
+theme_override_colors/font_color = Color(0.941887, 0.957946, 1, 1)
 theme_override_font_sizes/font_size = 40
 text = "J"
 
 [node name="FourthCol" type="Label" parent="."]
-offset_left = 129.0
-offset_top = 145.0
-offset_right = 169.0
-offset_bottom = 185.0
-theme_override_colors/font_color = Color(1, 1, 0, 1)
+offset_left = 124.0
+offset_top = 221.0
+offset_right = 164.0
+offset_bottom = 261.0
+theme_override_colors/font_color = Color(0.941887, 0.957946, 1, 1)
 theme_override_font_sizes/font_size = 40
 text = "K"
