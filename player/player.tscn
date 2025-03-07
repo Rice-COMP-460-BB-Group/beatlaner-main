@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bsp8xj4gv4cay" path="res://assets/slash-001.png" id="7_76oyw"]
 [ext_resource type="Texture2D" uid="uid://deyvtt4hy8yff" path="res://assets/Metronome-001.png" id="7_l82ru"]
 [ext_resource type="Texture2D" uid="uid://cs6m1cpa0dywa" path="res://assets/Metronome-002.png" id="8_mhfkm"]
-[ext_resource type="PackedScene" uid="uid://b8jlygfvbd34" path="res://player/weapon.tscn" id="8_n6a7o"]
+[ext_resource type="PackedScene" path="res://player/weapon.tscn" id="8_n6a7o"]
 [ext_resource type="Texture2D" uid="uid://cvpirpaujt8m1" path="res://assets/slash-002.png" id="8_txc5s"]
 [ext_resource type="Texture2D" uid="uid://boe1p0ko1l128" path="res://assets/slash-003.png" id="9_edhdg"]
 [ext_resource type="Texture2D" uid="uid://1r3m5wq8wgyt" path="res://assets/Metronome-003.png" id="9_yimr5"]

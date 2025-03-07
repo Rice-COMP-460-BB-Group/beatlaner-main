@@ -13,21 +13,54 @@ func _ready() -> void:
 			child.tint_progress = Color(1.5, 1.5, 1.5, 1)
 	
 	set_manabar(mana)
+func custom_sort(a, b):
+	# Convert the name to a String
+	var a_name = str(a.name)
+	var b_name =str(b.name)
+
+	var a_num = int(a_name.substr(a_name.length() - 1, 1)) 
+	var b_num = int(b_name.substr(b_name.length() - 1, 1)) 
+
+	return a_num > b_num 
+	
+func custom_sort_reverse(a, b):
+	# Convert the name to a String
+	var a_name = str(a.name)
+	var b_name =str(b.name)
+
+	var a_num = int(a_name.substr(a_name.length() - 1, 1)) 
+	var b_num = int(b_name.substr(b_name.length() - 1, 1)) 
+
+	return a_num < b_num 
+
 
 func set_manabar(mana: int) -> void:
 	mana = min(mana, max_mana)
 	var current_mana = self.mana
+	var is_increasing = self.mana <= mana
+	print('is increasing', is_increasing)
 	var text_tween = create_tween()
 	text_tween.tween_method(func(v): $ManaText.text = "Mana\n" + str(int(v)) + " / " + str(max_mana),
 		current_mana, mana, 0.5).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-
+	
 	self.mana = mana
 	var draft_mana = mana
-	for child in $ManaBar.get_children():
+	var children = $ManaBar.get_children()
+	if is_increasing:
+		children.sort_custom(custom_sort_reverse)
+	else:
+		children.sort_custom(custom_sort)
+	for child in children:
+		if is_increasing:
+			print('bar name increasing', child.name)
+		else:
+			print('bar name decreasing', child.name)
+	for child in children:
 		if child is TextureProgressBar:
 			var target_value = min(draft_mana, child.max_value)
 			var tween = create_tween()
 			tween.tween_property(child, "value", target_value, 0.5).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+			await tween.finished
 			draft_mana = max(0, draft_mana - child.max_value)
 			
 			if target_value >= child.max_value:
