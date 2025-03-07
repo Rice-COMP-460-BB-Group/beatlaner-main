@@ -44,6 +44,7 @@ func _on_start_pressed() -> void:
 		$VBoxContainer/Start.text = "Start"
 	else:
 		$Background.stop()
+		$VBoxContainer/Start.disabled = true
 		StartGame.rpc()
 	# StartGame.rpc()
 
@@ -80,10 +81,11 @@ func peer_disconnected(id):
 	$ConnectedCount.text = "%s / 2 Players Connected" % (GameManager.Players.size())
 # called only from clients
 func connected_to_server():
+	$VBoxContainer/Start.disabled = true
 	print("connected To Sever!")
 	SendPlayerInformation.rpc_id(1, "", multiplayer.get_unique_id())
 	$VBoxContainer/Join.text = "Disconnect"
-	$VBoxContainer/Start.disabled = true
+
 
 # called only from clients
 func connection_failed():
