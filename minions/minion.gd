@@ -55,6 +55,8 @@ func _ready():
 	syncVelocity = velocity
 	syncState = state
 
+	$HealthComponent.set_color(team)
+
 
 func get_team() -> int:
 	return team
