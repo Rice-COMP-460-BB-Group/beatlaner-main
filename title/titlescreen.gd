@@ -11,6 +11,7 @@ func _ready():
 	$VBoxContainer/Join.focus_mode = Control.FOCUS_NONE
 	$VBoxContainer/Exit.focus_mode = Control.FOCUS_NONE
 	$VBoxContainer/Settings.focus_mode = Control.FOCUS_NONE
+	$TutorialButton.focus_mode = Control.FOCUS_NONE
 	$SelectHost.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	$SelectJoin.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	$SelectExit.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -218,3 +219,6 @@ func _on_settings_mouse_exited():
 
 func _on_settings_pressed():
 	$KeybindingScreen.show()
+
+func _on_tutorial_button_pressed():
+	$Tutorial.show()

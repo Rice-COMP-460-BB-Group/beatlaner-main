@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c3jsflij7fip8"]
+[gd_scene load_steps=17 format=3 uid="uid://c3jsflij7fip8"]
 
 [ext_resource type="Script" path="res://title/titlescreen.gd" id="1_8mkg5"]
 [ext_resource type="FontFile" uid="uid://cm5q756n5trre" path="res://assets/VT323-Regular.ttf" id="2_o2rih"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://c3s31xeh7uye3" path="res://rhythm game/assets/mania_notes/Sigil-White2.png" id="10_stebw"]
 [ext_resource type="Script" path="res://title/select_join.gd" id="11_ays2e"]
 [ext_resource type="Script" path="res://title/select_exit.gd" id="12_kp6lg"]
+[ext_resource type="Texture2D" uid="uid://t7qi5g33ltc2" path="res://assets/big keyhints.png" id="14_4tjq8"]
 
 [sub_resource type="Theme" id="Theme_cf6cc"]
 default_font = ExtResource("2_o2rih")
@@ -212,6 +213,34 @@ texture = ExtResource("10_stebw")
 expand_mode = 1
 script = ExtResource("12_kp6lg")
 
+[node name="TutorialButton" type="Button" parent="."]
+layout_direction = 2
+layout_mode = 0
+offset_left = 1022.0
+offset_right = 1132.0
+offset_bottom = 74.0
+size_flags_horizontal = 6
+focus_next = NodePath("../Exit")
+focus_previous = NodePath("../Exit")
+theme_override_fonts/font = ExtResource("2_o2rih")
+theme_override_font_sizes/font_size = 32
+text = "Tutorial"
+flat = true
+icon_alignment = 1
+vertical_icon_alignment = 0
+
+[node name="Tutorial" type="AcceptDialog" parent="."]
+title = "How-to"
+initial_position = 1
+size = Vector2i(956, 400)
+
+[node name="TextureRect" type="TextureRect" parent="Tutorial"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 948.0
+offset_bottom = 358.0
+texture = ExtResource("14_4tjq8")
+
 [connection signal="focus_entered" from="VBoxContainer/Start" to="." method="_on_button_focus_entered"]
 [connection signal="mouse_entered" from="VBoxContainer/Start" to="." method="_on_start_mouse_entered"]
 [connection signal="mouse_exited" from="VBoxContainer/Start" to="." method="_on_start_mouse_exited"]
@@ -232,3 +261,5 @@ script = ExtResource("12_kp6lg")
 [connection signal="pressed" from="VBoxContainer/Exit" to="." method="_on_exit_pressed"]
 [connection signal="confirmed" from="JoinIP" to="." method="_on_join_ip_confirmed"]
 [connection signal="confirmed" from="ErrorDialog" to="." method="_on_join_ip_confirmed"]
+[connection signal="focus_entered" from="TutorialButton" to="." method="_on_button_focus_entered"]
+[connection signal="pressed" from="TutorialButton" to="." method="_on_tutorial_button_pressed"]
