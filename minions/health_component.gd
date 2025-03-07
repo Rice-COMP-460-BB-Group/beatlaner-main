@@ -22,6 +22,18 @@ func _ready() -> void:
 	
 	$HealthBar.update(currentHealth, maxHealth)
 
+func set_color(new_red):
+	red = new_red
+	if !red:
+		$HealthBar.texture_under = preload("res://assets/healthbar/health-outline-blue.png")
+		$HealthBar.texture_progress = preload("res://assets/healthbar/health-mask-blue.png")
+		$CanvasModulate.modulate = Color(1.4, 1.4, 1.4, 1.0)
+	else:
+		$HealthBar.texture_under = preload("res://assets/healthbar/health-outline.png")
+		$HealthBar.texture_progress = preload("res://assets/healthbar/health-mask.png")
+		$CanvasModulate.modulate = Color(1.0, 1.0, 1.0, 1.0)
+	
+	$HealthBar.update(currentHealth, maxHealth)
 func display_level(level: int):
 	$Level.text = str(level)
 func get_current_health():

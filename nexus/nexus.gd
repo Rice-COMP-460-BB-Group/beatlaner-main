@@ -12,6 +12,8 @@ func _ready() -> void:
 	$MultiplayerSpawner.spawn_path = get_parent().get_path()
 	$AnimatedSprite2D.play()
 
+	$HealthComponent.set_color(team)
+
 
 func set_team(new_team:Team):
 	team = new_team
@@ -20,7 +22,8 @@ func set_team(new_team:Team):
 		
 	else:
 		$AnimatedSprite2D.animation = "anim_red"
-		
+	
+	$HealthComponent.set_color(team)
 	$AnimatedSprite2D.play()
 
 func get_team()-> Team:

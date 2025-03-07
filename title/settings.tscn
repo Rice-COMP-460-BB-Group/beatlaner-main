@@ -32,7 +32,7 @@ script = ExtResource("1_gshu1")
 offset_left = 8.0
 offset_top = 8.0
 offset_right = 912.0
-offset_bottom = 419.0
+offset_bottom = 418.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
 layout_mode = 2

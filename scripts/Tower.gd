@@ -41,6 +41,8 @@ func set_team(team):
 		$Sigil.modulate = Color(0,0,1)
 		$BannerRed.visible = false
 		$BannerBlue.visible = true
+
+	$HealthComponent.set_color(team)
 	$Sigil.play()
 func fire(dict):
 	#print('FIRED', multiplayer.is_server())
@@ -61,7 +63,8 @@ func _ready():
 	$Sprite2D.centered = true
 	$MultiplayerSpawner.spawn_function = fire
 	$MultiplayerSpawner.spawn_path = get_parent().get_path()
-	
+	$HealthComponent.set_color(team)
+
 	popup_window.hide()
 	popup_window.size = Vector2(1152, 648)
 	Signals.WaveSpawned.connect(WaveSpawned)
