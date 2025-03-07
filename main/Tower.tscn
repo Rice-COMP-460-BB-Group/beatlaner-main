@@ -188,8 +188,8 @@ polygon = PackedVector2Array(-58, 66, -18, 66, -13, 73, -5, 78, 5, 79, 14, 76, 1
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_sstfa")]
 position = Vector2(0, 50)
-currentHealth = 10
-maxHealth = 10
+currentHealth = 1000
+maxHealth = 1000
 
 [node name="DestroySound" type="AudioStreamPlayer2D" parent="."]
 visible = false

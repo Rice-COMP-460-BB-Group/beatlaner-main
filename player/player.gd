@@ -107,7 +107,7 @@ func _ready() -> void:
 	$Slice/SliceAnimation.frame = 4
 	$HUD/Stats/UpgradeStats.modulate.a = 0
 
-	$HealthComponent.set_color(team)
+	$HealthComponent.set_color(team == 0)
 	rhythm_game_instance = rhythm_game_scene.instantiate()
 	rhythm_game_instance.set_difficulty(game_difficulty)
 	$RhythmLayer1.add_child(rhythm_game_instance)
