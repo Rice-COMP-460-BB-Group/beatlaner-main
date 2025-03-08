@@ -59,12 +59,12 @@ func _on_exit_pressed() -> void:
 func _on_button_focus_entered() -> void:
 	$Focus.play()
 
-
+var connection = 0
 func peer_connected(id):
 	if multiplayer.is_server():
 		print("Player Connected " + str(id))
-
-		if "--auto" in OS.get_cmdline_args():
+		connection += 1
+		if "--auto" in OS.get_cmdline_args() and (connection >= 2 or !"--cap" in OS.get_cmdline_args()):
 			print("auto starting...")
 			$Background.stop()
 			StartGame.rpc()
@@ -112,7 +112,8 @@ func SendPlayerInformation(name, id):
 
 @rpc("any_peer", "call_local")
 func StartGame():
-	if GameManager.Players.size() < 2 && !("--auto" in OS.get_cmdline_args()):
+	# if cap is enabled, then only 2 players can join
+	if GameManager.Players.size() < 2 && !("--auto" in OS.get_cmdline_args() && !"--cap" in OS.get_cmdline_args()):
 		print("Not enough players to start!")
 		$ErrorDialog.dialog_text = "Not enough players to start!"
 		$ErrorDialog.popup()
