@@ -425,6 +425,7 @@ func _physics_process(delta: float) -> void:
 		else:
 			$HUD/Stats/MinionUpgradePrompt.visible = false
 		if current_score >= 160:
+			$HUD/Stats/PlayerUpgradePrompt.text = "UPGRADE(160):"+upgrade_player_keyname
 			$HUD/Stats/PlayerUpgradePrompt.visible = true
 		else:
 			$HUD/Stats/PlayerUpgradePrompt.visible = false
@@ -454,7 +455,7 @@ func _physics_process(delta: float) -> void:
 				$HUD/DialogBox.visible = false
 				has_deployed = true
 		if current_score >=100:
-			$HUD/Stats/MinionUpgradePrompt.text = "UPGRADE(100):E"
+			$HUD/Stats/MinionUpgradePrompt.text = "UPGRADE(100):"+upgrade_minions_keyname
 			$HUD/Stats/MinionUpgradePrompt.visible = true
 		if Input.is_action_just_pressed("use_powerup"):
 			if player_powerup != null:
@@ -515,6 +516,7 @@ func _physics_process(delta: float) -> void:
 				minion_level += 1
 				current_score -= 100
 				$HUD/Stats/MinionLvl.text = str(minion_level)
+				print("new score", current_score)
 				update_mana(current_score)
 		if Input.is_action_just_pressed("upgrade_player"):
 			print('upgrading self')
