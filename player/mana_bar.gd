@@ -1,4 +1,4 @@
-extends VBoxContainer
+extends Control
 
 @export var mana = 0
 @export var max_mana = 300.0
