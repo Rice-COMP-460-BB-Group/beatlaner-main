@@ -113,7 +113,7 @@ func SendPlayerInformation(name, id):
 @rpc("any_peer", "call_local")
 func StartGame():
 	# if cap is enabled, then only 2 players can join
-	if GameManager.Players.size() < 2 && !("--auto" in OS.get_cmdline_args() && !"--cap" in OS.get_cmdline_args()):
+	if GameManager.Players.size() < 2 && !("--auto" in OS.get_cmdline_args()):
 		print("Not enough players to start!")
 		$ErrorDialog.dialog_text = "Not enough players to start!"
 		$ErrorDialog.popup()
@@ -127,7 +127,7 @@ func StartGame():
 	var scene
 	if "--auto" in OS.get_cmdline_args():
 		scene = load("res://main/Main.tscn").instantiate()
-		scene.current_difficulty = 2 # set to easy difficulty
+		scene.current_difficulty = 0 # set to easy difficulty
 	else:
 		scene = load("res://title/difficulty_selector.tscn").instantiate()
 	
