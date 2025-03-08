@@ -1,6 +1,6 @@
 extends Node2D
 @onready var lane_manager = $Map/LaneManager
-@onready var minimap = $Map/Player/HUD/Minimap
+@onready var minimap
 @export var PlayerScene: PackedScene
 @export var current_difficulty = Difficulty.EASY
 enum Difficulty {EASY, MEDIUM, HARD}
