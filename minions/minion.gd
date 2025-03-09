@@ -272,6 +272,8 @@ func process_status(status: String) -> void:
 	if status == "freeze":
 		state = State.FROZEN
 		$FreezeParticle.emitting = true
+		var tween = create_tween()
+		tween.tween_property($AnimatedSprite2D, "modulate", Color(0.7, 0.7, 1, 1), 0.5)
 	if status == "mutiny":
 		#idea: random chance -> flip team for a few seconds
 		print("placeholder")
@@ -288,6 +290,9 @@ func process_status(status: String) -> void:
 func _clear_status():
 	state = State.MOVE
 	$FreezeParticle.emitting = false
+
+	var tween = create_tween()
+	tween.tween_property($AnimatedSprite2D, "modulate", Color(1, 1, 1, 1), 0.5)
 func _on_timer_timeout() -> void:
 	pass # Replace with function body.
 	

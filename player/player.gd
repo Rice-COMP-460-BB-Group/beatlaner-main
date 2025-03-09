@@ -100,6 +100,7 @@ var sync_is_dashing := false
 var old_collision_size
 
 func _ready() -> void:
+
 	$Metronome.wait_time = (60.0 / bpm)
 	cycle_duration = 2 * $Metronome.wait_time # Full cycle duration (1 second)
 	frame_duration = cycle_duration / (total_metronome_frames - 1) # 1/12 ≈ 0.0833s
@@ -386,6 +387,10 @@ func upgrade_player() -> void:
 	damage = damage + 1
 	$HealthComponent.increase_max_health(20)
 func _physics_process(delta: float) -> void:
+	var mat = $AnimatedSprite2D.material
+	var current_time = mat.get_shader_parameter("time")
+	mat.set_shader_parameter("time", current_time + delta)
+
 	if $MultiplayerSynchronizer.is_multiplayer_authority():
 		if is_rhythm_game_open:
 			var combo = rhythm_game_instance.get_combo()
@@ -692,3 +697,24 @@ func respawn() -> void:
 
 func _on_health_component_health_destroyed() -> void:
 	respawn()
+
+func process_damage_powerup():
+	damage *= 2
+	var timer: Timer = Timer.new()
+	add_child(timer)
+	timer.one_shot = true
+	timer.autostart = false
+	timer.wait_time = 5.0
+	timer.timeout.connect(_reset_damage)
+	timer.start()
+
+	$AnimatedSprite2D.material.set_shader_parameter("fade", 0.0)
+	var tween = get_tree().create_tween()
+	tween.tween_property($AnimatedSprite2D, "material:shader_parameter/fade", 1.0, 1.0)
+
+func _reset_damage():
+	damage /= 2
+	print("Power-up expired. Damage reset to:", damage)
+
+	var tween = get_tree().create_tween()
+	tween.tween_property($AnimatedSprite2D, "material:shader_parameter/fade", 0.0, 1.0)
