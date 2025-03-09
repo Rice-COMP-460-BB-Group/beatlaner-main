@@ -40,6 +40,7 @@ func _process(delta):
 		
 	
 	if active_notes:
+		active_notes = active_notes.filter(func(note): return is_instance_valid(note))
 		if active_notes and Input.is_action_just_pressed(key) and is_instance_valid(active_notes.front()):
 			var front_note = active_notes.front()
 			var distance_at_click = abs(front_note.global_position.y - front_note.end)
