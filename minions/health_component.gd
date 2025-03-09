@@ -15,7 +15,7 @@ var dead = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	if !red:
+	if red:
 		$HealthBar.texture_under = preload("res://assets/healthbar/health-outline-blue.png")
 		$HealthBar.texture_progress = preload("res://assets/healthbar/health-mask-blue.png")
 		$CanvasModulate.modulate = Color(1.4, 1.4, 1.4, 1.0)
@@ -24,7 +24,7 @@ func _ready() -> void:
 
 func set_color(new_red):
 	red = new_red
-	if !red:
+	if red:
 		$HealthBar.texture_under = preload("res://assets/healthbar/health-outline-blue.png")
 		$HealthBar.texture_progress = preload("res://assets/healthbar/health-mask-blue.png")
 		$CanvasModulate.modulate = Color(1.4, 1.4, 1.4, 1.0)

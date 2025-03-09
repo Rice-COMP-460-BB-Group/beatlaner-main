@@ -41,7 +41,7 @@ func _physics_process(delta):
 			position = lerp(position, syncPos, 0.5)
 			rotation = lerpf(rotation, syncRotation, 0.5)
 func set_team(team: Team):
-	if team != Team.BLUE:
+	if team == Team.BLUE:
 		$Projectile.modulate = Color(5,0,0)
 	else:
 		$Projectile.modulate = Color(0,0,5)
