@@ -16,40 +16,19 @@ func _process(delta: float) -> void:
 #
 @rpc("any_peer", "call_local")
 func freeze_current_enemies(lane: int,team: int) ->void:
-	#print("[lane_manager.gd] got team",team)
-	if not multiplayer.is_server():
-		return
-	var bodies = []
-	if lane == 0:
-		bodies = top.get_overlapping_bodies()
-		
-	elif lane == 1:
-		bodies = mid.get_overlapping_bodies()
-	elif lane == 2:
-		bodies = lower.get_overlapping_bodies()
-	#print("here are bodies:",bodies)
-	for b in bodies:
-			if b is Minion:
-				
-				if b.get_team() != team:
-					
-					b.process_status("freeze")
+	var minions = get_tree().get_nodes_in_group("minion")
+	for minion in minions:
+		if minion.get_team() == team:
+			minion.process_status("freeze")
 	
 @rpc("any_peer", "call_local")
 func damage_powerup(team: int) ->void:
-	if not multiplayer.is_server():
-		return
-	var bodies = top.get_overlapping_bodies()
-	bodies += mid.get_overlapping_bodies()
-	bodies += lower.get_overlapping_bodies()
-	
-	for b in bodies:
-		if b.has_method("process_damage_powerup") and b.has_method("get_team"):
-			
-			if b.get_team() != team:
-				
-				b.process_damage_powerup()
-					
+	var minions = get_tree().get_nodes_in_group("minion")
+	print("here are minions:",minions)
+	for minion in minions:
+		if minion.get_team() == team:
+			minion.process_damage_powerup()
+
 
 func _on_lower_lane_body_entered(body: Node2D) -> void:
 	if body.name == "TileMapLayer":

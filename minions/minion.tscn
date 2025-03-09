@@ -31,7 +31,7 @@
 [ext_resource type="Texture2D" uid="uid://cifc6rrgqtasa" path="res://assets/minion/grunt_north_v2-000.png" id="26_8oryb"]
 [ext_resource type="Texture2D" uid="uid://dbvncu0vfkdbn" path="res://assets/minion/grunt_north_v2-001.png" id="27_pd7dp"]
 [ext_resource type="PackedScene" uid="uid://dtcrqium7n5jk" path="res://player/damage_particle.tscn" id="30_nm2wn"]
-[ext_resource type="PackedScene" path="res://player/freeze_particle.tscn" id="30_x6ghc"]
+[ext_resource type="PackedScene" uid="uid://c88ftg8y4cbfs" path="res://player/freeze_particle.tscn" id="30_x6ghc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6tt36"]
 shader = ExtResource("3_3xswk")
@@ -211,7 +211,7 @@ properties/5/path = NodePath(".:team")
 properties/5/spawn = true
 properties/5/replication_mode = 1
 
-[node name="Minion2" type="CharacterBody2D"]
+[node name="Minion2" type="CharacterBody2D" groups=["minion"]]
 collision_layer = 5
 collision_mask = 0
 script = ExtResource("1_ywsbo")

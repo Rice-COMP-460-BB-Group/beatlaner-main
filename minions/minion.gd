@@ -301,7 +301,7 @@ func process_damage_powerup():
 	timer.timeout.connect(_reset_damage)
 	timer.start()
 
-	$DamageParticle.emitting = true
+	$DamageParticle.emitting = false # for now, don't show
 
 	$AnimatedSprite2D.material.set_shader_parameter("fade", 0.0)
 	var tween = get_tree().create_tween()
