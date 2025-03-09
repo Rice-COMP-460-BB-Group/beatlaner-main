@@ -1,6 +1,7 @@
-[gd_scene load_steps=76 format=3 uid="uid://bj3lu7yts43wl"]
+[gd_scene load_steps=78 format=3 uid="uid://bj3lu7yts43wl"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_h04aa"]
+[ext_resource type="Shader" path="res://minions/flame.gdshader" id="2_h7gj3"]
 [ext_resource type="SpriteFrames" uid="uid://b4mxfgtfpoes3" path="res://assets/new_sprite_frames.tres" id="2_swing"]
 [ext_resource type="Texture2D" uid="uid://d2vprod1nv81r" path="res://assets/newborder.png" id="5_nfi33"]
 [ext_resource type="Texture2D" uid="uid://wdv5b52q5u2h" path="res://assets/Metronome-000.png" id="6_0etmd"]
@@ -44,6 +45,20 @@
 [ext_resource type="Texture2D" uid="uid://7t3cud2tgsbj" path="res://assets/595FAD8C-E33F-4E12-A974-9B2D043A2BA3.png.eac9bd8cac80378692e4115553790af8.png" id="36_71n7s"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xpusc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qvmqn"]
+shader = ExtResource("2_h7gj3")
+shader_parameter/outline_size = 2.0
+shader_parameter/pulsation_intensity = 5.0
+shader_parameter/threshold = 0.8
+shader_parameter/fade = 0.0
+shader_parameter/flame_color_primary = Color(1, 0.5, 0, 1)
+shader_parameter/flame_color_secondary = Color(1, 1, 0, 1)
+shader_parameter/flame_color_tertiary = Color(1, 0, 0, 1)
+shader_parameter/noise_scale = 10.0
+shader_parameter/flame_speed = 3.0
+shader_parameter/flicker_intensity = 1.0
+shader_parameter/time = 0.0
 
 [sub_resource type="Animation" id="Animation_ndbho"]
 length = 0.001
@@ -496,6 +511,7 @@ script = ExtResource("1_h04aa")
 shape = SubResource("CapsuleShape2D_xpusc")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_qvmqn")
 position = Vector2(0, -4)
 scale = Vector2(0.6, 0.6)
 sprite_frames = ExtResource("2_swing")
