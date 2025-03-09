@@ -584,11 +584,11 @@ func escape_rhythm_game():
 		#$RhythmLayer1.remove_child(rhythm_game_instance)
 	
 		#var score = rhythm_game_instance.get_score()
-		#rhythm_game_instance.reset_score()
-		#var notes = get_tree().get_nodes_in_group("mania_note_instance")
-		##print("notes", notes)
-		##for note in notes:
-			##note.queue_free()
+		rhythm_game_instance.reset_score()
+		var notes = get_tree().get_nodes_in_group("mania_note_instance")
+		print("notes", notes)
+		for note in notes:
+			note.queue_free()
 		#current_score = min(current_score + int(score / 3000), 300)
 		#update_mana(current_score)
 		last_rhythm_score = rhythm_game_instance.get_score()
@@ -619,12 +619,10 @@ func handle_rhythm_callback():
 		#$RhythmLayer1.remove_child(rhythm_game_instance)
 		rhythm_game_instance.disable()
 		rhythm_game_instance.hide()
-		is_rhythm_game_open = false
 		escape_rhythm_game()
 	else: #opening
 		$HUD/DialogBox.visible = false
 		last_rhythm_score = rhythm_game_instance.get_score()
-		
 		rhythm_game_instance.show()
 		rhythm_game_instance.enable()
 		is_rhythm_game_open = true

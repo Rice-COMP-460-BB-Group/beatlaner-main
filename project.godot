@@ -29,6 +29,10 @@ window/stretch/mode="viewport"
 mouse_cursor/custom_image="res://assets/Cursor.png"
 mouse_cursor/custom_image_hotspot=Vector2(0, 40)
 
+[global_group]
+
+mania_note_instance=""
+
 [gui]
 
 theme/custom_font="res://assets/PressStart2P-vaV7.ttf"

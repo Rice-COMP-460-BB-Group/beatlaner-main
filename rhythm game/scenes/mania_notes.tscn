@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://rhythm game/scenes/mania_notes.gd" id="2_s4xme"]
 [ext_resource type="Texture2D" uid="uid://c3s31xeh7uye3" path="res://rhythm game/assets/mania_notes/Sigil-White2.png" id="3_gfq3b"]
 
-[node name="mania_notes" type="Sprite2D"]
+[node name="mania_notes" type="Sprite2D" groups=["mania_note_instance"]]
 z_index = 4096
 texture = ExtResource("1_d2jr5")
 script = ExtResource("2_s4xme")

@@ -76,7 +76,6 @@ func init():
 			new_note.set_light(4)
 		else:
 			new_note.set_light(1)
-	add_to_group("mania_note_instance")
 	get_parent().add_child(new_note)
 	new_note.init(position.x, speed)
 	active_notes.push_back(new_note)

@@ -86,15 +86,6 @@ func _on_loop_sound(player):
 
 func _process(delta):
 	pass
-
-		
-	
-	#if len($RhythmLayer.get_children()) and Input.is_action_just_pressed("escape rhythm game"):
-		#var score = rhythm_game_instance.get_score()
-		#Signals.Score.emit(score, tower_type)
-		#current_tower.update_score(score)
-		#$RhythmLayer.remove_child(rhythm_game_instance)
-		
 	
 	$"WaveLayer/Wave Spawning/Timer Label".text = "Wave Spawning: " + str(floor($"Wave Timer".time_left)) + "s"
 	$"WaveLayer/Wave Spawning/Mana".text = "Current Mana:"

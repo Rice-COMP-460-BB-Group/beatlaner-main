@@ -42,7 +42,6 @@ func reset_score() -> void:
 	$HUD.reset()
 func disable() -> void:
 	$ManiaKey.is_enabled = false
-	
 	$ManiaKey2.is_enabled = false
 	$ManiaKey3.is_enabled = false
 	$ManiaKey4.is_enabled = false
