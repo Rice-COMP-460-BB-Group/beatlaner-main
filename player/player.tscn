@@ -39,10 +39,10 @@
 [ext_resource type="Script" path="res://player/afterimage.gd" id="28_i8vw6"]
 [ext_resource type="AudioStream" uid="uid://crwiggodkgtsr" path="res://assets/sword-slash.wav" id="28_rydyj"]
 [ext_resource type="AudioStream" uid="uid://r2wfjvbniwu4" path="res://blink2.mp3" id="31_try5o"]
-[ext_resource type="AudioStream" uid="uid://0c1aa8ecbenm" path="res://assets/Pokemon Healing - Sound Effect HD.mp3" id="33_lkuxi"]
 [ext_resource type="AudioStream" uid="uid://cfjdfbdye2oyn" path="res://assets/FreezeSoundEffect.mp3" id="34_tllr5"]
 [ext_resource type="AudioStream" uid="uid://bh1aqvgr4h38x" path="res://assets/DamagePowerupSoundEffect.mp3" id="35_k4mhr"]
 [ext_resource type="Texture2D" uid="uid://7t3cud2tgsbj" path="res://assets/595FAD8C-E33F-4E12-A974-9B2D043A2BA3.png.eac9bd8cac80378692e4115553790af8.png" id="36_71n7s"]
+[ext_resource type="AudioStream" uid="uid://dbyk4mfgjwba4" path="res://assets/heal.mp3" id="41_n8m4g"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xpusc"]
 
@@ -1031,7 +1031,7 @@ stream = ExtResource("34_tllr5")
 volume_db = 6.0
 
 [node name="HealPowerupSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("33_lkuxi")
+stream = ExtResource("41_n8m4g")
 volume_db = 6.0
 
 [node name="DamagePowerupSound" type="AudioStreamPlayer" parent="."]
