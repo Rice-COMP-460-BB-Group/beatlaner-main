@@ -220,7 +220,8 @@ func _physics_process(delta: float):
 func fire(dict):
 	#print('FIRED')
 	var projectile = projectile_scene.instantiate()
-	projectile.red = team != Team.RED
+	projectile.red = team == Team.RED
+	projectile.set_team(team)
 	projectile.target = enemy_target
 	projectile.global_position = global_position
 	projectile.source = self
