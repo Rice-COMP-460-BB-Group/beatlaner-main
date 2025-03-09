@@ -241,6 +241,8 @@ func spawn(dict:Dictionary):
 	var opposite_tower = get_opposite(key)
 	if is_instance_valid(opposite_tower):
 		tower_target_name = opposite_tower.name
+	else:
+		tower_target_name = "nexus" + str(team)
 
 	# Spawn on server
 	var minion = minionScene.instantiate() if minion_type else mageScene.instantiate()
