@@ -671,6 +671,7 @@ func respawn() -> void:
 	$HealthComponent.visible = false
 	$AnimatedSprite2D.visible = false
 	$HUD/Stats/Respawning.visible = true
+	$HUD/"Damage indic".visible = false
 	is_alive = false
 	escape_rhythm_game();
 	rhythm_game_instance.is_dead()
@@ -690,6 +691,7 @@ func respawn() -> void:
 	$HUD/Stats/Respawning.visible = false
 	rhythm_game_instance.is_alive()
 
+	$HUD/"Damage indic".visible = true
 
 	$HealthComponent.reset_health()
 	$HealthComponent.visible = true
