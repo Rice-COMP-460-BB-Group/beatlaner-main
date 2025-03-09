@@ -5,11 +5,11 @@ class_name Player
 var bpm = 175
 @onready var damage_overlay = $"HUD/Damage indic"
 @onready var powerup_labrl = $HUD/Stats/PowerUpLabel
-@export var flash_color: Color = Color(4, 4, 4, 1)  # White by default
-@export var rest_color: Color = Color(0, 0, 0, 0)   # Transparent by default
-@export var flash_duration_percent: float = 0.25    # How long the flash stays visible (as percentage of beat)
+@export var flash_color: Color = Color(4, 4, 4, 1) # White by default
+@export var rest_color: Color = Color(0, 0, 0, 0) # Transparent by default
+@export var flash_duration_percent: float = 0.25 # How long the flash stays visible (as percentage of beat)
 var seconds_per_beat: float = 60.0 / bpm
-var last_rhythm_score:int = 0
+var last_rhythm_score: int = 0
 var timer: float = 0.0
 var is_flashing: bool = false
 @export var damage = 49
@@ -34,25 +34,24 @@ func get_keybind_as_string(input_action: String) -> String:
 		
 	return "NULL"
 var powerup_label_default = "POWERUP:NONE"
-@onready var rhythm_keyname:String =get_keybind_as_string("toggle_rhythm_game")
-@onready var upgrade_minions_keyname:String = get_keybind_as_string("upgrade_minions")
-@onready var upgrade_player_keyname:String = get_keybind_as_string("upgrade_player")
+@onready var rhythm_keyname: String = get_keybind_as_string("toggle_rhythm_game")
+@onready var upgrade_minions_keyname: String = get_keybind_as_string("upgrade_minions")
+@onready var upgrade_player_keyname: String = get_keybind_as_string("upgrade_player")
 @onready var has_deployed = false
 var disable_movement = false
 @onready var minimap = $HUD/Minimap
 var player_level = 1
 var minion_level = 1
-enum Difficulty {EASY = 0,MEDIUM = 1, HARD = 2}
+enum Difficulty {EASY = 0, MEDIUM = 1, HARD = 2}
 enum Team {BLUE = 0, RED = 1}
 
 var player_powerup = null
 
-var rhythm_game_instance= null
+var rhythm_game_instance = null
 var powerups = ["freeze", "damage_powerup", "heal"]
 
 
-
-@onready var tutorialMSGs :Dictionary = {
+@onready var tutorialMSGs: Dictionary = {
 	"rhythm": "Press " + rhythm_keyname + " to start building Mana. Once the bar is full,
 	press R to stop building mana.",
 	"deploy": "Press 1,2, or 3 to deploy minions to the top,middle, or bottom lanes!",
@@ -66,7 +65,7 @@ var last_attack = attack_speed
 
 const floating_text_scene = preload("res://player/floating_text.tscn")
 const ACCELERATION = 1000
-signal wave_request(pos: int, size: int,team:bool,level:int)
+signal wave_request(pos: int, size: int, team: bool, level: int)
 const FRICTION = 10000
 
 const MAX_SPEED = 180
@@ -99,8 +98,11 @@ var sync_is_dashing := false
 
 var old_collision_size
 
-func _ready() -> void:
+var banner_queue = []
+var banner_playing = false
+var banner_tween = null
 
+func _ready() -> void:
 	$Metronome.wait_time = (60.0 / bpm)
 	cycle_duration = 2 * $Metronome.wait_time # Full cycle duration (1 second)
 	frame_duration = cycle_duration / (total_metronome_frames - 1) # 1/12 ≈ 0.0833s
@@ -134,7 +136,6 @@ func _ready() -> void:
 	
 	$MultiplayerSynchronizer.set_multiplayer_authority(str(name).to_int())
 	if $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
-
 		camera.make_current()
 		$HUD/Stats.show()
 		$HUD.show()
@@ -146,7 +147,7 @@ func _on_health_decreased():
 func _on_health_increased():
 	show_health_flash()
 func show_tooltip(action: String, text: String):
-	print("[player.gd]","show tooltip")
+	print("[player.gd]", "show tooltip")
 	
 	$HUD/Hints.add_hint(action, text);
 
@@ -173,7 +174,6 @@ func move(delta):
 		sync_velocity = last_input_direction * DASH_SPEED
 		velocity = sync_velocity
 	else:
-		
 		if input_vector == Vector2.ZERO:
 			state = IDLE
 			last_input_direction = Vector2.ZERO
@@ -216,7 +216,6 @@ var destroy_friendly_banner = preload("res://assets/friendly-banner.png")
 
 var win_banner = preload("res://assets/Victory.png")
 var lose_banner = preload("res://assets/Defeat.png")
-
 
 
 # Add this near the top of your script
@@ -284,7 +283,6 @@ func change_to_scene(scene_path: String):
 		if child.name == "Titlescreen":
 			child.peer = null
 		child.call_deferred("queue_free")
-
 
 
 func on_nexus_destroyed(nexus_destroyed_team: Team, pos: Vector2):
@@ -368,18 +366,18 @@ func create_afterimage():
 		afterimage.queue_free()
 		
 @rpc("any_peer", "call_local", "reliable")
-func request_wave_spawn(pos: int, size: int, team: bool,level:int):
+func request_wave_spawn(pos: int, size: int, team: bool, level: int):
 	if multiplayer.is_server():
-		LaneManager.wave_request(pos, size, team,level)
+		LaneManager.wave_request(pos, size, team, level)
 
 func show_damage_flash():
-	damage_overlay.modulate.a = 0.6  # Start with a visible red hue
+	damage_overlay.modulate.a = 0.6 # Start with a visible red hue
 	var tween = create_tween()
 	tween.tween_property(damage_overlay, "modulate:a", 0.0, 0.5).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
 var last_combo = 0
 
 func show_health_flash():
-	damage_overlay.modulate = Color(0, 1, 0, 0.6)  # Green with 60% opacity
+	damage_overlay.modulate = Color(0, 1, 0, 0.6) # Green with 60% opacity
 	var tween = create_tween()
 	tween.tween_property(damage_overlay, "modulate:a", 0.0, 0.5).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
 
@@ -413,7 +411,7 @@ func _physics_process(delta: float) -> void:
 			var score_delta = score - last_rhythm_score
 			last_rhythm_score = score
 			tmp_score = min(current_score + int(score_delta / 50), 300)
-			print("[player.gd] tmp score is",tmp_score)
+			print("[player.gd] tmp score is", tmp_score)
 			current_score = tmp_score
 			update_mana(tmp_score)
 		if is_dashing:
@@ -430,7 +428,7 @@ func _physics_process(delta: float) -> void:
 		else:
 			$HUD/Stats/MinionUpgradePrompt.visible = false
 		if current_score >= 160:
-			$HUD/Stats/PlayerUpgradePrompt.text = "UPGRADE(160):"+upgrade_player_keyname
+			$HUD/Stats/PlayerUpgradePrompt.text = "UPGRADE(160):" + upgrade_player_keyname
 			$HUD/Stats/PlayerUpgradePrompt.visible = true
 		else:
 			$HUD/Stats/PlayerUpgradePrompt.visible = false
@@ -443,24 +441,24 @@ func _physics_process(delta: float) -> void:
 				
 			if Input.is_action_just_pressed("Dispatch_Top"):
 				current_score = max(current_score - 30, 0)
-				request_wave_spawn.rpc(0, 3, team,minion_level)
+				request_wave_spawn.rpc(0, 3, team, minion_level)
 				update_mana(current_score)
 				$HUD/DialogBox.visible = false
 				has_deployed = true
 			if Input.is_action_just_pressed("Dispatch_Mid"):
 				current_score = max(current_score - 30, 0)
-				request_wave_spawn.rpc(1, 3, team,minion_level)
+				request_wave_spawn.rpc(1, 3, team, minion_level)
 				update_mana(current_score)
 				$HUD/DialogBox.visible = false
 				has_deployed = true
 			if Input.is_action_just_pressed("Dispatch_Low"):
-				current_score= max(current_score - 30, 0)
-				request_wave_spawn.rpc(2, 3, team,minion_level)
+				current_score = max(current_score - 30, 0)
+				request_wave_spawn.rpc(2, 3, team, minion_level)
 				update_mana(current_score)
 				$HUD/DialogBox.visible = false
 				has_deployed = true
-		if current_score >=100:
-			$HUD/Stats/MinionUpgradePrompt.text = "UPGRADE(100):"+upgrade_minions_keyname
+		if current_score >= 100:
+			$HUD/Stats/MinionUpgradePrompt.text = "UPGRADE(100):" + upgrade_minions_keyname
 			$HUD/Stats/MinionUpgradePrompt.visible = true
 		if Input.is_action_just_pressed("use_powerup"):
 			if player_powerup != null:
@@ -505,7 +503,6 @@ func _physics_process(delta: float) -> void:
 						foundAttack = true
 						body.get_node("HealthComponent").decrease_health.rpc((damage + player_level) + (damage + player_level) * falloff_curve())
 						if body.get_node("HealthComponent").get_current_health() <= 0:
-							
 							$HUD/Stats/ManaBar.increase_mana(5)
 
 			if foundAttack:
@@ -518,11 +515,26 @@ func _physics_process(delta: float) -> void:
 		move(delta)
 		if Input.is_action_just_pressed("upgrade_minions"):
 			if current_score >= 100:
+				var old_minion_level = minion_level
 				minion_level += 1
 				current_score -= 100
 				$HUD/Stats/MinionLvl.text = str(minion_level)
-				print("new score", current_score)
 				update_mana(current_score)
+				
+				var old_damage = 10 + (old_minion_level - 1) * 5
+				var new_damage = 10 + (minion_level - 1) * 5
+				var old_hp = 50 + (old_minion_level - 1) * 15
+				var new_hp = 50 + minion_level * 15
+				
+				show_upgrade_banner(
+					"minion",
+					old_minion_level,
+					minion_level,
+					old_damage,
+					new_damage,
+					old_hp,
+					new_hp
+				)
 		if Input.is_action_just_pressed("upgrade_player"):
 			print('upgrading self')
 			if current_score >= 160:
@@ -532,27 +544,21 @@ func _physics_process(delta: float) -> void:
 				update_mana(current_score)
 				
 				var oldHP = $HealthComponent.get_max_health()
-				#$HealthComponent.upgrade_health()
-				
 				$HealthComponent.rpc("upgrade_health")
-				$HUD/Stats/UpgradeStats/LevelUpgradeLabel.text = "Level: " + str(player_level - 1) + " -> " + str(player_level)
-				$HUD/Stats/UpgradeStats/DamageUpgradeLabel.text = "Damage: " + str(damage + player_level - 1) + " -> " + str(damage + player_level)
-				$HUD/Stats/UpgradeStats/HPUpgradeLabel.text = "HP: " + str(oldHP) + " -> " + str($HealthComponent.get_max_health())
-				#$UpgradeStats.show()
+				
 				var tween = get_tree().create_tween()
 				tween.tween_property($HUD/Stats/UpgradeStats, "modulate:a", 1, 0.5)
 				tween.tween_property($HUD/Stats/UpgradeStats, "modulate:a", 0, 0.5).set_delay(3)
-
-				var old_pos = $HUD/Stats/LevelUpBanner.position.x
-				$HUD/Stats/LevelUpBanner/TextLabels/Damage.text = str(damage + player_level - 1) + " → " + str(damage + player_level)
-				$HUD/Stats/LevelUpBanner/TextLabels/Health.text = str(oldHP) + " → " + str($HealthComponent.get_max_health())
-				$HUD/Stats/LevelUpBanner/TextLabels/Level.text = str(player_level - 1) + " → " + str(player_level)
-
-				#if !banner_tween.is_running():
-				var banner_tween = create_tween()
-				banner_tween.tween_property($HUD/Stats/LevelUpBanner, "position:x", $HUD/Stats/LevelUpBanner.position.x-($HUD/Stats/LevelUpBanner/Backdrop.size.x * $HUD/Stats/LevelUpBanner.scale.x), 0.5).set_trans(Tween.TRANS_QUAD)
-				banner_tween.tween_property($HUD/Stats/LevelUpBanner, "position:x", old_pos, 0.5).set_trans(Tween.TRANS_QUAD).set_delay(2.0)
-
+				
+				show_upgrade_banner(
+					"player",
+					player_level - 1,
+					player_level,
+					damage + player_level - 1,
+					damage + player_level,
+					oldHP,
+					$HealthComponent.get_max_health()
+				)
 		animate()
 		
 	else:
@@ -587,7 +593,6 @@ func play_slice_anim(angle_to_cursor):
 func escape_rhythm_game():
 	if is_instance_valid(rhythm_game_instance):
 		#$RhythmLayer1.remove_child(rhythm_game_instance)
-	
 		#var score = rhythm_game_instance.get_score()
 		rhythm_game_instance.reset_score()
 		var notes = get_tree().get_nodes_in_group("mania_note_instance")
@@ -603,7 +608,6 @@ func get_minimap():
 
 @rpc("any_peer", "call_local")
 func add_powerup(powerup):
-	
 	if player_powerup == null:
 		if powerup == "freeze":
 			powerup_labrl.text = "FREEZE: Z"
@@ -612,7 +616,7 @@ func add_powerup(powerup):
 			powerup_labrl.text = "DAMAGE UP: Z"
 			powerup_frame.texture = damage_icon
 		elif powerup == "heal":
-			powerup_labrl.text =  "HEAL: Z"
+			powerup_labrl.text = "HEAL: Z"
 			powerup_frame.texture = heal_icon
 		powerup_frame.show()
 		player_powerup = powerup
@@ -625,7 +629,7 @@ func handle_rhythm_callback():
 		rhythm_game_instance.disable()
 		rhythm_game_instance.hide()
 		escape_rhythm_game()
-	else: #opening
+	else: # opening
 		$HUD/DialogBox.visible = false
 		last_rhythm_score = rhythm_game_instance.get_score()
 		rhythm_game_instance.show()
@@ -633,9 +637,7 @@ func handle_rhythm_callback():
 		is_rhythm_game_open = true
 		
 
-
 func apply_movement(amount) -> void:
-	
 	velocity += amount
 	velocity = velocity.limit_length(MAX_SPEED)
 
@@ -646,13 +648,11 @@ func sync_animation(state, blend_position) -> void:
 
 
 func animate() -> void:
-	
 	state_machine.travel(animTree_state_keys[state])
 	animationTree.set(blend_pos_paths[state], blend_position)
 
 	#print("auth", is_multiplayer_authority(), multiplayer.get_unique_id())
 	sync_animation.rpc(state, blend_position)
-
 
 
 func falloff_curve():
@@ -671,7 +671,7 @@ func respawn() -> void:
 	$HealthComponent.visible = false
 	$AnimatedSprite2D.visible = false
 	$HUD/Stats/Respawning.visible = true
-	$HUD/"Damage indic".visible = false
+	$HUD / "Damage indic".visible = false
 	is_alive = false
 	escape_rhythm_game();
 	rhythm_game_instance.is_dead()
@@ -691,7 +691,7 @@ func respawn() -> void:
 	$HUD/Stats/Respawning.visible = false
 	rhythm_game_instance.is_alive()
 
-	$HUD/"Damage indic".visible = true
+	$HUD / "Damage indic".visible = true
 
 	$HealthComponent.reset_health()
 	$HealthComponent.visible = true
@@ -720,3 +720,50 @@ func _reset_damage():
 
 	var tween = get_tree().create_tween()
 	tween.tween_property($AnimatedSprite2D, "material:shader_parameter/fade", 0.0, 1.0)
+
+func show_upgrade_banner(type, old_level, new_level, old_damage, new_damage, old_hp, new_hp):
+	banner_queue.append({
+		"type": type,
+		"old_level": old_level,
+		"new_level": new_level,
+		"old_damage": old_damage,
+		"new_damage": new_damage,
+		"old_hp": old_hp,
+		"new_hp": new_hp
+	})
+	
+	if not banner_playing:
+		process_next_banner()
+
+func process_next_banner():
+	if banner_queue.empty():
+		banner_playing = false
+		return
+	
+	banner_playing = true
+	var data = banner_queue[0]
+	banner_queue.pop_front()
+	
+	if banner_tween:
+		banner_tween.kill()
+	
+	var banner = $HUD/Stats/LevelUpBanner
+	var old_pos = banner.position.x
+	
+	if data.type == "player":
+		banner.modulate = Color(0.2, 0.6, 1.0)
+		$HUD/Stats/LevelUpBanner/TextLabels/Title.text = "PLAYER LEVEL UP"
+	else:
+		banner.modulate = Color(0.8, 0.3, 0.3)
+		$HUD/Stats/LevelUpBanner/TextLabels/Title.text = "MINION LEVEL UP"
+	
+	$HUD/Stats/LevelUpBanner/TextLabels/Damage.text = str(data.old_damage) + " → " + str(data.new_damage)
+	$HUD/Stats/LevelUpBanner/TextLabels/Health.text = str(data.old_hp) + " → " + str(data.new_hp)
+	$HUD/Stats/LevelUpBanner/TextLabels/Level.text = str(data.old_level) + " → " + str(data.new_level)
+	
+	banner_tween = create_tween()
+	banner_tween.tween_property(banner, "position:x",
+		banner.position.x - (banner.get_node("Backdrop").size.x * banner.scale.x), 0.5).set_trans(Tween.TRANS_QUAD)
+	banner_tween.tween_interval(2.0)
+	banner_tween.tween_property(banner, "position:x", old_pos, 0.5).set_trans(Tween.TRANS_QUAD)
+	banner_tween.finished.connect(process_next_banner)
