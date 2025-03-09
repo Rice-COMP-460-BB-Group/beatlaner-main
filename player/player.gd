@@ -736,7 +736,7 @@ func show_upgrade_banner(type, old_level, new_level, old_damage, new_damage, old
 		process_next_banner()
 
 func process_next_banner():
-	if banner_queue.empty():
+	if !banner_queue:
 		banner_playing = false
 		return
 	
