@@ -31,7 +31,7 @@ func reset():
 	acc_notes_total = 0
 	combo = 0
 	score = 0
-	%Accuracy.text = "[right]" + str(float(acc_notes_sum) / acc_notes_total).pad_decimals(2) + "%" + "[/right]"
+	%Accuracy.text = "[right]" + "0.00" + "%" + "[/right]"
 	%Combo.text = "[center]"+str(combo)+"[/center]" if combo else ""
 	%Score.text = "[right]" + str(score) + "[/right]"
 # Called when the node enters the scene tree for the first time.
@@ -68,6 +68,7 @@ func Hit(type: String):
 		score += combo * points_dict[type] / (1 + int(is_dead))
 	acc_notes_total += 1
 	acc_notes_sum += accuracy_dict[type]
+
 	%Accuracy.text = "[right]" + str(float(acc_notes_sum) / acc_notes_total).pad_decimals(2) + "%" + "[/right]"
 	%Combo.text = "[center]"+str(combo)+"[/center]" if combo else ""
 	%Score.text = "[right]" + str(score) + "[/right]"

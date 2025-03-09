@@ -19,9 +19,11 @@ func set_team(new_team:Team):
 	team = new_team
 	if (team == Team.RED):
 		$AnimatedSprite2D.animation = "anim_blue"
+		name = "nexus0"
 		
 	else:
 		$AnimatedSprite2D.animation = "anim_red"
+		name = "nexus1"
 	
 	$HealthComponent.set_color(team)
 	$AnimatedSprite2D.play()
