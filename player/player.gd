@@ -427,8 +427,8 @@ func _physics_process(delta: float) -> void:
 		
 		else:
 			$HUD/Stats/MinionUpgradePrompt.visible = false
-		if current_score >= 160:
-			$HUD/Stats/PlayerUpgradePrompt.text = "UPGRADE(160):" + upgrade_player_keyname
+		if current_score >= 100:
+			$HUD/Stats/PlayerUpgradePrompt.text = "UPGRADE(100):" + upgrade_player_keyname
 			$HUD/Stats/PlayerUpgradePrompt.visible = true
 		else:
 			$HUD/Stats/PlayerUpgradePrompt.visible = false
@@ -535,10 +535,10 @@ func _physics_process(delta: float) -> void:
 				)
 		if Input.is_action_just_pressed("upgrade_player"):
 			print('upgrading self')
-			if current_score >= 160:
+			if current_score >= 100:
 				player_level += 1
 				$HUD/Stats/PlayerLevel.text = str(player_level)
-				current_score -= 160
+				current_score -= 100
 				update_mana(current_score)
 				
 				var oldHP = $HealthComponent.get_max_health()
@@ -675,7 +675,7 @@ func respawn() -> void:
 	rhythm_game_instance.is_dead()
 
 	var tween = create_tween()
-	tween.tween_property(self, "global_position", respawn_position, player_level * 2 + 8)
+	tween.tween_property(self, "global_position", respawn_position, player_level * 1.3 + 8)
 	await tween.finished
 
 	$AnimatedSprite2D.modulate.a = 0
