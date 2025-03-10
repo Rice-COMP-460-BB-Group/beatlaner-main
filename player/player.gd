@@ -750,12 +750,14 @@ func process_next_banner():
 	var banner = $HUD/Stats/LevelUpBanner
 	var old_pos = banner.position.x
 	
+	"""
 	if data.type == "player":
 		banner.modulate = Color(0.2, 0.6, 1.0)
-		$HUD/Stats/LevelUpBanner/TextLabels/Title.text = "PLAYER LEVEL UP"
+		# $HUD/Stats/LevelUpBanner/TextLabels/Title.text = "PLAYER LEVEL UP"
 	else:
 		banner.modulate = Color(0.8, 0.3, 0.3)
-		$HUD/Stats/LevelUpBanner/TextLabels/Title.text = "MINION LEVEL UP"
+		# $HUD/Stats/LevelUpBanner/TextLabels/Title.text = "MINION LEVEL UP"
+	"""
 	
 	$HUD/Stats/LevelUpBanner/TextLabels/Damage.text = str(data.old_damage) + " → " + str(data.new_damage)
 	$HUD/Stats/LevelUpBanner/TextLabels/Health.text = str(data.old_hp) + " → " + str(data.new_hp)
