@@ -47,6 +47,7 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xpusc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qvmqn"]
+resource_local_to_scene = true
 shader = ExtResource("2_h7gj3")
 shader_parameter/outline_size = 2.0
 shader_parameter/pulsation_intensity = 5.0
