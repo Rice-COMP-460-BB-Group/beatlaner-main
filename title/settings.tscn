@@ -44,7 +44,7 @@ layout_mode = 2
 
 [node name="SectionTitle" type="Label" parent="ScrollContainer/VBoxContainer/MovementSection"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 28
 text = "Movement Controls"
 
 [node name="HSeparator" type="HSeparator" parent="ScrollContainer/VBoxContainer/MovementSection"]
@@ -56,6 +56,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/MovementSection/MoveUp"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
 text = "Move Up"
 
 [node name="move_up_Button" type="Button" parent="ScrollContainer/VBoxContainer/MovementSection/MoveUp"]
@@ -70,6 +71,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/MovementSection/MoveLeft"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
 text = "Move Left"
 
 [node name="move_left_Button" type="Button" parent="ScrollContainer/VBoxContainer/MovementSection/MoveLeft"]
@@ -84,6 +86,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/MovementSection/MoveDown"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
 text = "Move Down"
 
 [node name="move_down_Button" type="Button" parent="ScrollContainer/VBoxContainer/MovementSection/MoveDown"]
@@ -98,6 +101,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/MovementSection/MoveRight"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
 text = "Move Right"
 
 [node name="move_right_Button" type="Button" parent="ScrollContainer/VBoxContainer/MovementSection/MoveRight"]
@@ -115,7 +119,7 @@ layout_mode = 2
 
 [node name="SectionTitle" type="Label" parent="ScrollContainer/VBoxContainer/RhythmSection"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 28
 text = "Rhythm Game Controls"
 
 [node name="HSeparator" type="HSeparator" parent="ScrollContainer/VBoxContainer/RhythmSection"]
@@ -127,6 +131,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/RhythmSection/ToggleRhythm"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
 text = "Toggle Rhythm Game"
 
 [node name="toggle_rhythm_game_Button" type="Button" parent="ScrollContainer/VBoxContainer/RhythmSection/ToggleRhythm"]
@@ -141,6 +146,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/RhythmSection/FirstRow"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
 text = "First Row"
 
 [node name="key1_Button" type="Button" parent="ScrollContainer/VBoxContainer/RhythmSection/FirstRow"]
@@ -155,6 +161,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/RhythmSection/SecondRow"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
 text = "Second Row"
 
 [node name="key2_Button" type="Button" parent="ScrollContainer/VBoxContainer/RhythmSection/SecondRow"]
@@ -169,6 +176,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/RhythmSection/ThirdRow"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
 text = "Third Row"
 
 [node name="key3_Button" type="Button" parent="ScrollContainer/VBoxContainer/RhythmSection/ThirdRow"]
@@ -183,6 +191,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/RhythmSection/FourthRow"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
 text = "Fourth Row"
 
 [node name="key4_Button" type="Button" parent="ScrollContainer/VBoxContainer/RhythmSection/FourthRow"]
@@ -200,7 +209,7 @@ layout_mode = 2
 
 [node name="SectionTitle" type="Label" parent="ScrollContainer/VBoxContainer/ActionsSection"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 28
 text = "Action Controls"
 
 [node name="HSeparator" type="HSeparator" parent="ScrollContainer/VBoxContainer/ActionsSection"]
@@ -212,6 +221,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/ActionsSection/Powerup"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 28
 text = "Use Powerup"
 
 [node name="use_powerup_Button" type="Button" parent="ScrollContainer/VBoxContainer/ActionsSection/Powerup"]
@@ -226,6 +236,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/ActionsSection/UpgradeMinion"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
 text = "Upgrade Minion"
 
 [node name="upgrade_minions_Button" type="Button" parent="ScrollContainer/VBoxContainer/ActionsSection/UpgradeMinion"]
@@ -240,6 +251,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/ActionsSection/UpgradePlayer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
 text = "Upgrade Player"
 
 [node name="upgrade_player_Button" type="Button" parent="ScrollContainer/VBoxContainer/ActionsSection/UpgradePlayer"]
@@ -254,6 +266,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/ActionsSection/Dash"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
 text = "Dash"
 
 [node name="Dash_Button" type="Button" parent="ScrollContainer/VBoxContainer/ActionsSection/Dash"]
@@ -268,6 +281,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/ActionsSection/Top"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
 text = "Dispatch on top lane"
 
 [node name="Dispatch_Top_Button" type="Button" parent="ScrollContainer/VBoxContainer/ActionsSection/Top"]
@@ -281,6 +295,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/ActionsSection/Middle"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
 text = "Dispatch on middle lane"
 
 [node name="Dispatch_Mid_Button" type="Button" parent="ScrollContainer/VBoxContainer/ActionsSection/Middle"]
@@ -294,6 +309,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/ActionsSection/Bottom"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
 text = "Dispatch on bottom lane"
 
 [node name="Dispatch_Low_Button" type="Button" parent="ScrollContainer/VBoxContainer/ActionsSection/Bottom"]

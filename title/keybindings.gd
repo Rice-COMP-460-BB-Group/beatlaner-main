@@ -35,6 +35,8 @@ func _update_button_labels():
 					if event is InputEventKey:
 						action_buttons[action].icon = load("res://assets/keyboard_keys/" + OS.get_keycode_string(event.keycode) + ".png")
 						action_buttons[action].icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
+						action_buttons[action].custom_minimum_size = Vector2(64, 64)
+						action_buttons[action].expand_icon = true
 						action_buttons[action].text = ""
 						break
 
