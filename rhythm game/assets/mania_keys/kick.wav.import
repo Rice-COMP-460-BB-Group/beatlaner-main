@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://c3df50uys7mcn"
+path="res://.godot/imported/kick.wav-93eb7f4e260063c3ddceb4e8a8498f63.sample"
+
+[deps]
+
+source_file="res://rhythm game/assets/mania_keys/kick.wav"
+dest_files=["res://.godot/imported/kick.wav-93eb7f4e260063c3ddceb4e8a8498f63.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

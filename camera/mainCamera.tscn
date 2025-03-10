@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://3tacypncddfp"]
+
+[node name="MainCamera" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(3511, 3376)
+limit_left = 1000
+limit_right = 100000000
+editor_draw_limits = true

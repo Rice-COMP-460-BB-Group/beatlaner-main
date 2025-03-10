@@ -1,0 +1,1063 @@
+[gd_scene load_steps=78 format=3 uid="uid://bj3lu7yts43wl"]
+
+[ext_resource type="Script" path="res://player/player.gd" id="1_h04aa"]
+[ext_resource type="Shader" path="res://minions/flame.gdshader" id="2_h7gj3"]
+[ext_resource type="SpriteFrames" uid="uid://b4mxfgtfpoes3" path="res://assets/new_sprite_frames.tres" id="2_swing"]
+[ext_resource type="Texture2D" uid="uid://d2vprod1nv81r" path="res://assets/newborder.png" id="5_nfi33"]
+[ext_resource type="Texture2D" uid="uid://wdv5b52q5u2h" path="res://assets/Metronome-000.png" id="6_0etmd"]
+[ext_resource type="Texture2D" uid="uid://3ueshbvvsixu" path="res://assets/Minimap.png" id="6_7c3j6"]
+[ext_resource type="Texture2D" uid="uid://cf2nfu6g3yy3f" path="res://assets/slash-000.png" id="6_60335"]
+[ext_resource type="Script" path="res://player/hud.gd" id="6_a5lxw"]
+[ext_resource type="PackedScene" uid="uid://ckytalr2gjoym" path="res://healthbar/health_component.tscn" id="6_wraxi"]
+[ext_resource type="Texture2D" uid="uid://bsp8xj4gv4cay" path="res://assets/slash-001.png" id="7_76oyw"]
+[ext_resource type="Texture2D" uid="uid://deyvtt4hy8yff" path="res://assets/Metronome-001.png" id="7_l82ru"]
+[ext_resource type="Texture2D" uid="uid://cs6m1cpa0dywa" path="res://assets/Metronome-002.png" id="8_mhfkm"]
+[ext_resource type="PackedScene" path="res://player/weapon.tscn" id="8_n6a7o"]
+[ext_resource type="Texture2D" uid="uid://cvpirpaujt8m1" path="res://assets/slash-002.png" id="8_txc5s"]
+[ext_resource type="Texture2D" uid="uid://boe1p0ko1l128" path="res://assets/slash-003.png" id="9_edhdg"]
+[ext_resource type="Texture2D" uid="uid://1r3m5wq8wgyt" path="res://assets/Metronome-003.png" id="9_yimr5"]
+[ext_resource type="Texture2D" uid="uid://c8rpkuadahmoc" path="res://assets/slash-004.png" id="10_62kya"]
+[ext_resource type="Texture2D" uid="uid://chv3yj535lnip" path="res://assets/Metronome-004.png" id="10_rajxp"]
+[ext_resource type="Texture2D" uid="uid://djkms17yqf5ra" path="res://assets/Metronome-005.png" id="11_nlrx6"]
+[ext_resource type="Texture2D" uid="uid://dpr7rx1ks6def" path="res://assets/Metronome-006.png" id="12_fi5ek"]
+[ext_resource type="Texture2D" uid="uid://dv2gai8318vrd" path="res://assets/Metronome-007.png" id="13_5obdv"]
+[ext_resource type="Texture2D" uid="uid://bfb78bt2gh1vc" path="res://assets/Metronome-008.png" id="14_3kgyv"]
+[ext_resource type="Texture2D" uid="uid://bpbx63c4ld1l7" path="res://assets/Metronome-009.png" id="15_umc4n"]
+[ext_resource type="Texture2D" uid="uid://cjel352fixcg" path="res://assets/Metronome-010.png" id="16_s4mf8"]
+[ext_resource type="Texture2D" uid="uid://cxggkjevi7j0k" path="res://assets/Metronome-011.png" id="17_eajn3"]
+[ext_resource type="FontFile" uid="uid://cm5q756n5trre" path="res://assets/VT323-Regular.ttf" id="18_86px8"]
+[ext_resource type="PackedScene" uid="uid://dd7pknkkclu6u" path="res://player/ManaBar.tscn" id="19_w14c3"]
+[ext_resource type="Texture2D" uid="uid://00c1h6f0f02k" path="res://assets/achievement.png" id="20_kjgea"]
+[ext_resource type="Texture2D" uid="uid://ibkcfjfob2r1" path="res://assets/minion-redUI.png" id="21_j77iq"]
+[ext_resource type="Texture2D" uid="uid://dqne33p0lxcj7" path="res://assets/PowerUpBar.png" id="21_kd2wf"]
+[ext_resource type="Texture2D" uid="uid://2bx5t4k3vue3" path="res://assets/enemy-banner.png" id="22_25x0m"]
+[ext_resource type="Texture2D" uid="uid://cywg8rwi5edfw" path="res://assets/player-upgrade-UI.png" id="23_7eqls"]
+[ext_resource type="PackedScene" uid="uid://270dby1f0ytd" path="res://player/hints.tscn" id="23_a5f6l"]
+[ext_resource type="Texture2D" uid="uid://bqfgop2tg3noi" path="res://assets/595FAD8C-E33F-4E12-A974-9B2D043A2BA3.png.eac9bd8cac80378692e4115553790af8-export.png" id="25_pfejg"]
+[ext_resource type="Texture2D" uid="uid://dh5dok51a2vsj" path="res://assets/DialogBox.png" id="26_ontnn"]
+[ext_resource type="FontFile" uid="uid://ol8nq6vycer0" path="res://assets/PressStart2P-vaV7.ttf" id="27_o3ol7"]
+[ext_resource type="Script" path="res://player/afterimage.gd" id="28_i8vw6"]
+[ext_resource type="AudioStream" uid="uid://crwiggodkgtsr" path="res://assets/sword-slash.wav" id="28_rydyj"]
+[ext_resource type="AudioStream" uid="uid://r2wfjvbniwu4" path="res://blink2.mp3" id="31_try5o"]
+[ext_resource type="AudioStream" uid="uid://cfjdfbdye2oyn" path="res://assets/FreezeSoundEffect.mp3" id="34_tllr5"]
+[ext_resource type="AudioStream" uid="uid://bh1aqvgr4h38x" path="res://assets/DamagePowerupSoundEffect.mp3" id="35_k4mhr"]
+[ext_resource type="Texture2D" uid="uid://7t3cud2tgsbj" path="res://assets/595FAD8C-E33F-4E12-A974-9B2D043A2BA3.png.eac9bd8cac80378692e4115553790af8.png" id="36_71n7s"]
+[ext_resource type="AudioStream" uid="uid://dbyk4mfgjwba4" path="res://assets/heal.mp3" id="41_n8m4g"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xpusc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qvmqn"]
+resource_local_to_scene = true
+shader = ExtResource("2_h7gj3")
+shader_parameter/outline_size = 2.0
+shader_parameter/pulsation_intensity = 5.0
+shader_parameter/threshold = 0.8
+shader_parameter/fade = 0.0
+shader_parameter/flame_color_primary = Color(1, 0.5, 0, 1)
+shader_parameter/flame_color_secondary = Color(1, 1, 0, 1)
+shader_parameter/flame_color_tertiary = Color(1, 0, 0, 1)
+shader_parameter/noise_scale = 10.0
+shader_parameter/flame_speed = 3.0
+shader_parameter/flicker_intensity = 1.0
+shader_parameter/time = 0.0
+
+[sub_resource type="Animation" id="Animation_ndbho"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"IdleLeft"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_jgomj"]
+resource_name = "idle_down"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"IdleDown"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_j37cc"]
+resource_name = "idle_left"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"IdleLeft"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_u1utp"]
+resource_name = "idle_right"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"IdleRight"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_bjfj8"]
+resource_name = "idle_up"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"IdleUp"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_q3x0e"]
+resource_name = "walk_down"
+length = 0.3
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"WalkDown"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 2, 1, 3, 8]
+}
+
+[sub_resource type="Animation" id="Animation_68y2o"]
+resource_name = "walk_left"
+length = 0.4
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(-0.0333333),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"WalkLeft"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+}
+
+[sub_resource type="Animation" id="Animation_58pwc"]
+resource_name = "walk_right"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"WalkRight"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 3, 2, 3, 8, 5, 6, 7, 8]
+}
+
+[sub_resource type="Animation" id="Animation_xchfb"]
+resource_name = "walk_up"
+length = 0.3
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"WalkUp"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1ag5u"]
+_data = {
+"RESET": SubResource("Animation_ndbho"),
+"idle_down": SubResource("Animation_jgomj"),
+"idle_left": SubResource("Animation_j37cc"),
+"idle_right": SubResource("Animation_u1utp"),
+"idle_up": SubResource("Animation_bjfj8"),
+"walk_down": SubResource("Animation_q3x0e"),
+"walk_left": SubResource("Animation_68y2o"),
+"walk_right": SubResource("Animation_58pwc"),
+"walk_up": SubResource("Animation_xchfb")
+}
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_lqvt5"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_o247v"]
+animation = &"idle_left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ou3ph"]
+animation = &"idle_right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8v5ft"]
+animation = &"idle_up"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hqixf"]
+animation = &"idle_down"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_fqbmo"]
+auto_triangles = false
+blend_point_0/node = SubResource("AnimationNodeAnimation_o247v")
+blend_point_0/pos = Vector2(-0.1, 0)
+blend_point_1/node = SubResource("AnimationNodeAnimation_ou3ph")
+blend_point_1/pos = Vector2(0.1, 0)
+blend_point_2/node = SubResource("AnimationNodeAnimation_8v5ft")
+blend_point_2/pos = Vector2(0, -1.1)
+blend_point_3/node = SubResource("AnimationNodeAnimation_hqixf")
+blend_point_3/pos = Vector2(0, 1.1)
+triangles = PackedInt32Array(0, 1, 2, 0, 1, 3)
+max_space = Vector2(1, 1.16)
+blend_mode = 1
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_gvvw1"]
+graph_offset = Vector2(46.2811, 117.237)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_lqvt5")
+nodes/TimeScale/position = Vector2(322.525, 228.363)
+nodes/id_BlendSpace2D/node = SubResource("AnimationNodeBlendSpace2D_fqbmo")
+nodes/id_BlendSpace2D/position = Vector2(140, 160)
+nodes/output/position = Vector2(460, 140)
+node_connections = [&"TimeScale", 0, &"id_BlendSpace2D", &"output", 0, &"TimeScale"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_eju2y"]
+animation = &"walk_left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_u3hfy"]
+animation = &"walk_down"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ogfd3"]
+animation = &"walk_up"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ro4pe"]
+animation = &"walk_right"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_5fo5x"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_eju2y")
+blend_point_0/pos = Vector2(-1, 0)
+blend_point_1/node = SubResource("AnimationNodeAnimation_u3hfy")
+blend_point_1/pos = Vector2(0, 1)
+blend_point_2/node = SubResource("AnimationNodeAnimation_ogfd3")
+blend_point_2/pos = Vector2(0, -0.9)
+blend_point_3/node = SubResource("AnimationNodeAnimation_ro4pe")
+blend_point_3/pos = Vector2(1, 0)
+blend_mode = 1
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_lmup1"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_bfare"]
+graph_offset = Vector2(9.6, 75.84)
+nodes/BlendSpace2D/node = SubResource("AnimationNodeBlendSpace2D_5fo5x")
+nodes/BlendSpace2D/position = Vector2(70, 90)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_lmup1")
+nodes/TimeScale/position = Vector2(306.806, 211.627)
+nodes/output/position = Vector2(480, 90)
+node_connections = [&"TimeScale", 0, &"BlendSpace2D", &"output", 0, &"TimeScale"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_p0j6e"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qmcw4"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vdlgp"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_h1iuj"]
+states/Idle/node = SubResource("AnimationNodeBlendTree_gvvw1")
+states/Idle/position = Vector2(335.87, 38.7275)
+states/Moving/node = SubResource("AnimationNodeBlendTree_bfare")
+states/Moving/position = Vector2(343.08, 176.5)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_p0j6e"), "Idle", "Moving", SubResource("AnimationNodeStateMachineTransition_qmcw4"), "Moving", "Idle", SubResource("AnimationNodeStateMachineTransition_vdlgp")]
+graph_offset = Vector2(7.23001, -30.48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_81lh5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_0etmd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_l82ru")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_mhfkm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_yimr5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_rajxp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_nlrx6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_fi5ek")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_5obdv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_3kgyv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_umc4n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_s4mf8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_eajn3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_on213"]
+size = Vector2(80, 80)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8pu2n"]
+animations = [{
+"frames": [{
+"duration": 0.5,
+"texture": ExtResource("6_60335")
+}, {
+"duration": 0.5,
+"texture": ExtResource("7_76oyw")
+}, {
+"duration": 0.5,
+"texture": ExtResource("8_txc5s")
+}, {
+"duration": 0.5,
+"texture": ExtResource("9_edhdg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_62kya")
+}],
+"loop": false,
+"name": &"default",
+"speed": 30.0
+}]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_fmn6a"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:current_score")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:velocity")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_h04aa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_xpusc")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_qvmqn")
+position = Vector2(0, -4)
+scale = Vector2(0.6, 0.6)
+sprite_frames = ExtResource("2_swing")
+animation = &"IdleLeft"
+offset = Vector2(1, 0)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+deterministic = true
+libraries = {
+"": SubResource("AnimationLibrary_1ag5u")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_h1iuj")
+anim_player = NodePath("../AnimationPlayer")
+parameters/Idle/TimeScale/scale = 1.0
+parameters/Idle/id_BlendSpace2D/blend_position = Vector2(-0.336412, 0.0419382)
+parameters/Moving/BlendSpace2D/blend_position = Vector2(-0.651515, -0.942731)
+parameters/Moving/TimeScale/scale = 1.25
+
+[node name="Metronome" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="RhythmLayer1" type="CanvasLayer" parent="."]
+offset = Vector2(800, 325)
+transform = Transform2D(1, 0, 0, 1, 800, 325)
+
+[node name="HealthComponent" parent="." instance=ExtResource("6_wraxi")]
+position = Vector2(0, -7)
+currentHealth = 200
+maxHealth = 200
+red = false
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Stats" type="Control" parent="HUD"]
+z_index = 100
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+
+[node name="LevelLabel3" type="Label" parent="HUD/Stats"]
+visible = false
+layout_mode = 0
+offset_left = -237.0
+offset_top = -136.5
+offset_right = -197.0
+offset_bottom = -121.5
+theme_override_fonts/font = ExtResource("27_o3ol7")
+theme_override_font_sizes/font_size = 8
+text = "LVL"
+
+[node name="PlayerHUDBar" type="TextureRect" parent="HUD/Stats"]
+z_index = -50
+layout_mode = 0
+offset_left = -285.5
+offset_top = -193.5
+offset_right = 98.5
+offset_bottom = -97.5
+texture = ExtResource("5_nfi33")
+
+[node name="Metronome" type="Label" parent="HUD/Stats"]
+visible = false
+layout_mode = 0
+offset_left = 204.0
+offset_top = -157.0
+offset_right = 265.0
+offset_bottom = -142.0
+text = "metronome:"
+
+[node name="DamagePosition" type="Control" parent="HUD/Stats"]
+layout_mode = 3
+anchors_preset = 0
+offset_top = -25.0
+offset_bottom = -25.0
+
+[node name="ManaBar" parent="HUD/Stats" instance=ExtResource("19_w14c3")]
+layout_mode = 0
+offset_left = -283.5
+offset_top = -162.0
+offset_right = 111.5
+offset_bottom = -51.0
+scale = Vector2(0.5, 0.5)
+
+[node name="MetronomeContainer" type="MarginContainer" parent="HUD/Stats"]
+visible = false
+light_mask = 2
+visibility_layer = 2
+layout_mode = 0
+offset_left = -240.5
+offset_top = 142.0
+offset_right = -200.5
+offset_bottom = 182.0
+
+[node name="MetronomeAnimation" type="AnimatedSprite2D" parent="HUD/Stats/MetronomeContainer"]
+light_mask = 2
+position = Vector2(243, -268)
+sprite_frames = SubResource("SpriteFrames_81lh5")
+
+[node name="Respawning" type="Label" parent="HUD/Stats"]
+visible = false
+layout_mode = 0
+offset_left = -42.0
+offset_top = -49.0
+offset_right = 42.0
+offset_bottom = -12.0
+theme_override_fonts/font = ExtResource("18_86px8")
+text = "Respawning...
+"
+horizontal_alignment = 1
+
+[node name="ToolTip" type="Label" parent="HUD/Stats"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -1.125
+anchor_top = -1.1
+anchor_right = -1.125
+anchor_bottom = -1.1
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 95.0
+offset_bottom = 19.0
+
+[node name="Banner" type="TextureRect" parent="HUD/Stats"]
+visible = false
+z_index = 12
+layout_mode = 0
+offset_left = -101.0
+offset_top = -152.0
+offset_right = 99.0
+offset_bottom = -92.0
+texture = ExtResource("22_25x0m")
+
+[node name="PowerupFrame" type="Control" parent="HUD/Stats"]
+anchors_preset = 0
+offset_left = -277.5
+offset_top = 5.5
+offset_right = -237.5
+offset_bottom = 45.5
+scale = Vector2(0.3, 0.3)
+
+[node name="Frame" type="TextureRect" parent="HUD/Stats/PowerupFrame"]
+z_index = -10
+layout_mode = 0
+offset_left = -17.0
+offset_top = -68.0
+offset_right = 300.0
+offset_bottom = 95.0
+scale = Vector2(1, 0.5)
+texture = ExtResource("21_kd2wf")
+
+[node name="Powerup" type="TextureRect" parent="HUD/Stats/PowerupFrame"]
+layout_mode = 0
+offset_left = -6.66667
+offset_top = -121.667
+offset_right = 89.3333
+offset_bottom = -25.6667
+
+[node name="UpgradeStats" type="Control" parent="HUD/Stats"]
+visible = false
+z_index = 100
+layout_mode = 3
+anchors_preset = 0
+offset_left = -288.0
+offset_top = -162.0
+offset_right = -248.0
+offset_bottom = -122.0
+
+[node name="HPUpgradeLabel" type="RichTextLabel" parent="HUD/Stats/UpgradeStats"]
+z_index = 100
+layout_mode = 0
+offset_left = 334.5
+offset_top = 133.5
+offset_right = 431.5
+offset_bottom = 173.5
+theme_override_colors/default_color = Color(3.27289e-06, 0.654829, 0.252461, 1)
+theme_override_fonts/normal_font = ExtResource("18_86px8")
+theme_override_font_sizes/normal_font_size = 25
+text = "HP:"
+fit_content = true
+autowrap_mode = 0
+
+[node name="LevelUpgradeLabel" type="RichTextLabel" parent="HUD/Stats/UpgradeStats"]
+z_index = 100
+layout_mode = 0
+offset_left = 334.5
+offset_top = 96.5
+offset_right = 431.5
+offset_bottom = 136.5
+theme_override_colors/default_color = Color(3.27289e-06, 0.654829, 0.252461, 1)
+theme_override_fonts/normal_font = ExtResource("18_86px8")
+theme_override_font_sizes/normal_font_size = 25
+text = "Level:"
+fit_content = true
+autowrap_mode = 0
+
+[node name="DamageUpgradeLabel" type="RichTextLabel" parent="HUD/Stats/UpgradeStats"]
+z_index = 100
+layout_mode = 0
+offset_left = 334.5
+offset_top = 167.5
+offset_right = 432.5
+offset_bottom = 207.5
+theme_override_colors/default_color = Color(3.27289e-06, 0.654829, 0.252461, 1)
+theme_override_fonts/normal_font = ExtResource("18_86px8")
+theme_override_font_sizes/normal_font_size = 25
+text = "Damage:"
+fit_content = true
+autowrap_mode = 0
+
+[node name="LevelUpBanner" type="Control" parent="HUD/Stats"]
+anchors_preset = 0
+offset_left = 287.5
+offset_top = -169.0
+offset_right = 327.5
+offset_bottom = -129.0
+scale = Vector2(0.5, 0.5)
+metadata/_edit_use_anchors_ = true
+
+[node name="Backdrop" type="TextureRect" parent="HUD/Stats/LevelUpBanner"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("20_kjgea")
+
+[node name="TextLabels" type="Control" parent="HUD/Stats/LevelUpBanner"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Level" type="Label" parent="HUD/Stats/LevelUpBanner/TextLabels"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 67.5
+offset_right = 85.0
+offset_bottom = 102.5
+theme_override_fonts/font = ExtResource("18_86px8")
+text = "100 → 200"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Health" type="Label" parent="HUD/Stats/LevelUpBanner/TextLabels"]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 68.0
+offset_right = 166.0
+offset_bottom = 103.0
+theme_override_fonts/font = ExtResource("18_86px8")
+text = "100 → 200"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Damage" type="Label" parent="HUD/Stats/LevelUpBanner/TextLabels"]
+layout_mode = 0
+offset_left = 175.5
+offset_top = 67.5
+offset_right = 245.5
+offset_bottom = 102.5
+theme_override_fonts/font = ExtResource("18_86px8")
+text = "100 → 200"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="PlayerUI" type="TextureRect" parent="HUD/Stats"]
+layout_mode = 0
+offset_left = -128.0
+offset_top = -131.5
+offset_right = -22.0
+offset_bottom = -87.5
+texture = ExtResource("23_7eqls")
+
+[node name="MinionUI" type="TextureRect" parent="HUD/Stats"]
+layout_mode = 0
+offset_left = -287.5
+offset_top = -132.5
+offset_right = -181.5
+offset_bottom = -88.5
+texture = ExtResource("21_j77iq")
+
+[node name="MinionUI2" type="TextureRect" parent="HUD/Stats"]
+layout_mode = 0
+offset_left = -571.0
+offset_top = -101.0
+offset_right = -465.0
+offset_bottom = -57.0
+texture = ExtResource("21_j77iq")
+
+[node name="PlayerLevel3" type="Label" parent="HUD/Stats"]
+visible = false
+layout_mode = 0
+offset_left = -238.0
+offset_top = -125.0
+offset_right = -198.0
+offset_bottom = -110.0
+theme_override_fonts/font = ExtResource("27_o3ol7")
+theme_override_font_sizes/font_size = 8
+text = "1"
+
+[node name="MinionLvlLabel" type="Label" parent="HUD/Stats"]
+layout_mode = 0
+offset_left = -237.0
+offset_top = -112.5
+offset_right = -189.0
+offset_bottom = -96.5
+theme_override_fonts/font = ExtResource("27_o3ol7")
+theme_override_font_sizes/font_size = 8
+text = "LVL"
+
+[node name="MinionLvl" type="Label" parent="HUD/Stats"]
+layout_mode = 0
+offset_left = -236.0
+offset_top = -103.5
+offset_right = -196.0
+offset_bottom = -88.5
+theme_override_fonts/font = ExtResource("27_o3ol7")
+theme_override_font_sizes/font_size = 8
+text = "1"
+
+[node name="PlayerUpgradePrompt3" type="Label" parent="HUD/Stats"]
+visible = false
+self_modulate = Color(4, 4, 4, 1)
+z_index = 1000
+layout_mode = 0
+offset_left = -239.5
+offset_top = -156.5
+offset_right = -143.5
+offset_bottom = -148.5
+theme_override_colors/font_color = Color(0, 1, 4, 1)
+theme_override_fonts/font = ExtResource("27_o3ol7")
+theme_override_font_sizes/font_size = 8
+text = "UPGRADE(160):Q"
+
+[node name="MinionUpgradePrompt" type="Label" parent="HUD/Stats"]
+z_index = 1000
+layout_mode = 0
+offset_left = -238.0
+offset_top = -128.5
+offset_right = -134.0
+offset_bottom = -120.5
+theme_override_colors/font_color = Color(0, 0.94902, 0.952941, 1)
+theme_override_font_sizes/font_size = 8
+text = "Upgrade(50):E"
+
+[node name="LevelLabel" type="Label" parent="HUD/Stats"]
+layout_mode = 0
+offset_left = -79.5
+offset_top = -111.0
+offset_right = -31.5
+offset_bottom = -95.0
+theme_override_fonts/font = ExtResource("27_o3ol7")
+theme_override_font_sizes/font_size = 8
+text = "LVL"
+
+[node name="PlayerLevel" type="Label" parent="HUD/Stats"]
+layout_mode = 0
+offset_left = -78.5
+offset_top = -102.0
+offset_right = -38.5
+offset_bottom = -87.0
+theme_override_fonts/font = ExtResource("27_o3ol7")
+theme_override_font_sizes/font_size = 8
+text = "1"
+
+[node name="PlayerUpgradePrompt" type="Label" parent="HUD/Stats"]
+layout_mode = 0
+offset_left = -78.0
+offset_top = -128.0
+offset_right = 34.0
+offset_bottom = -120.0
+theme_override_colors/font_color = Color(0, 0.94902, 0.952941, 1)
+theme_override_font_sizes/font_size = 8
+text = "UPGRADE(160):Q"
+
+[node name="PowerUpLabel" type="Label" parent="HUD/Stats"]
+layout_mode = 0
+offset_left = -275.5
+offset_top = -2.0
+offset_right = -131.5
+offset_bottom = 14.0
+theme_override_colors/font_color = Color(1, 0.854902, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "POWERUP:NONE"
+
+[node name="Control" type="Control" parent="HUD/Stats"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Minimap" type="Control" parent="HUD"]
+layout_mode = 3
+anchor_left = 0.671
+anchor_top = 0.792
+anchor_right = 0.671
+anchor_bottom = 0.792
+offset_left = -216.992
+offset_top = -222.216
+offset_right = -176.992
+offset_bottom = -169.216
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 8
+script = ExtResource("6_a5lxw")
+
+[node name="MinimapTexture" type="TextureRect" parent="HUD/Minimap"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -13.965
+anchor_top = -5.283
+anchor_right = -13.965
+anchor_bottom = -5.283
+offset_left = 23.6
+offset_top = 434.999
+offset_right = 391.6
+offset_bottom = 814.999
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_7c3j6")
+expand_mode = 1
+
+[node name="MinimapIcons" type="Control" parent="HUD/Minimap"]
+layout_mode = 1
+anchor_left = -13.808
+anchor_top = -5.454
+anchor_right = -13.808
+anchor_bottom = -5.454
+offset_left = -9.67999
+offset_top = 424.062
+offset_right = 52.32
+offset_bottom = 500.062
+scale = Vector2(1, 0.997383)
+
+[node name="Damage indic" type="TextureRect" parent="HUD"]
+modulate = Color(1, 1, 1, 0)
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("25_pfejg")
+expand_mode = 1
+
+[node name="Hints" parent="HUD" instance=ExtResource("23_a5f6l")]
+offset_left = 262.0
+offset_top = 597.0
+offset_right = 1000.0
+offset_bottom = 631.0
+
+[node name="DialogBox" type="TextureRect" parent="HUD"]
+anchors_preset = -1
+anchor_left = 0.211
+anchor_top = 0.829
+anchor_right = 0.211
+anchor_bottom = 0.829
+offset_left = 1.92799
+offset_top = -3.19202
+offset_right = 672.928
+offset_bottom = 90.808
+texture = ExtResource("26_ontnn")
+
+[node name="Label" type="Label" parent="HUD/DialogBox"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 12.0
+offset_right = 657.0
+offset_bottom = 87.0
+theme_type_variation = &"HeaderLarge"
+theme_override_fonts/font = ExtResource("27_o3ol7")
+theme_override_font_sizes/font_size = 20
+autowrap_mode = 3
+
+[node name="Weapon" parent="." instance=ExtResource("8_n6a7o")]
+
+[node name="Slice" type="Node2D" parent="."]
+z_index = 5
+
+[node name="SliceArea" type="Area2D" parent="Slice"]
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Slice/SliceArea"]
+shape = SubResource("RectangleShape2D_on213")
+
+[node name="SliceAnimation" type="AnimatedSprite2D" parent="Slice"]
+modulate = Color(4, 4, 4, 1)
+self_modulate = Color(10, 10, 10, 1)
+z_index = 80
+rotation = -1.5708
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_8pu2n")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer2D" parent="Slice"]
+stream = ExtResource("28_rydyj")
+volume_db = 8.605
+pitch_scale = 0.95
+
+[node name="AfterImage" type="Sprite2D" parent="."]
+script = ExtResource("28_i8vw6")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_fmn6a")
+
+[node name="DashSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("31_try5o")
+volume_db = 4.982
+
+[node name="FreezePowerupSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("34_tllr5")
+volume_db = 6.0
+
+[node name="HealPowerupSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("41_n8m4g")
+volume_db = 6.0
+
+[node name="DamagePowerupSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("35_k4mhr")
+volume_db = 12.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="TextureRect" parent="CanvasLayer"]
+modulate = Color(0.980392, 0.0392157, 0.0313726, 1)
+self_modulate = Color(0.952941, 0.0666667, 0.054902, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1377.0
+offset_top = -785.0
+offset_right = -369.0
+offset_bottom = -572.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("36_71n7s")
+expand_mode = 2
+
+[connection signal="timeout" from="Metronome" to="." method="_on_metronome_timeout"]
+[connection signal="health_destroyed" from="HealthComponent" to="." method="_on_health_component_health_destroyed"]

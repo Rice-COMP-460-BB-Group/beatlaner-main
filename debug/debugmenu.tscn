@@ -1,0 +1,122 @@
+[gd_scene load_steps=3 format=3 uid="uid://bq7b1nef7l6w6"]
+
+[ext_resource type="Script" path="res://debug/debugmenu.gd" id="1_jwsup"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t0jcy"]
+bg_color = Color(2.04556e-07, 0.103389, 0.159623, 1)
+
+[node name="Debugmenu" type="Control"]
+visible = false
+layout_mode = 3
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 532.0
+offset_top = -322.0
+offset_right = 532.0
+offset_bottom = -322.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.00248, 1.06001)
+size_flags_horizontal = 4
+script = ExtResource("1_jwsup")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 615.0
+offset_bottom = 434.0
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_t0jcy")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Debug Menu"
+horizontal_alignment = 1
+
+[node name="UPPER LANE" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Upper Lane
+"
+horizontal_alignment = 1
+
+[node name="Minion" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Number of minion1"
+horizontal_alignment = 1
+
+[node name="TopMinionCount" type="HSlider" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_stretch_ratio = 1.1
+max_value = 5.0
+tick_count = 6
+ticks_on_borders = true
+
+[node name="MID LANE" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Mid Lane
+"
+horizontal_alignment = 1
+
+[node name="Minion2" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Number of minion1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MidMinionCount" type="HSlider" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+max_value = 5.0
+tick_count = 6
+ticks_on_borders = true
+
+[node name="LOWER LANE" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Lower Lane
+"
+
+[node name="Minion1" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Number of minion1"
+
+[node name="LowMinionCount" type="HSlider" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+max_value = 5.0
+tick_count = 6
+ticks_on_borders = true
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Spawn Wave"
+
+[node name="Button2" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Freeze Top Lane
+"
+
+[node name="Button3" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Freeze Middle Lane"
+
+[node name="Button4" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Freeze Lower Lane"
+
+[node name="enable enemy waves" type="CheckBox" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "enable enemy waves"
+alignment = 1
+
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/TopMinionCount" to="." method="_on_top_minion_count_value_changed"]
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/MidMinionCount" to="." method="_on_mid_minion_count_value_changed"]
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/LowMinionCount" to="." method="_on_low_minion_count_value_changed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Button3" to="." method="_on_button_3_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Button4" to="." method="_on_button_4_pressed"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/enable enemy waves" to="." method="_on_check_box_toggled"]

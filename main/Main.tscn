@@ -1,0 +1,98 @@
+[gd_scene load_steps=10 format=3 uid="uid://bf72k84kbxll3"]
+
+[ext_resource type="Script" path="res://scripts/Main.gd" id="1_ktlqa"]
+[ext_resource type="PackedScene" uid="uid://bj3lu7yts43wl" path="res://player/player.tscn" id="2_cthj3"]
+[ext_resource type="FontFile" uid="uid://cm5q756n5trre" path="res://assets/VT323-Regular.ttf" id="2_poqt5"]
+[ext_resource type="PackedScene" uid="uid://dcm1avlkgfcd7" path="res://map/Map.tscn" id="2_tonyl"]
+[ext_resource type="PackedScene" uid="uid://bq7b1nef7l6w6" path="res://debug/debugmenu.tscn" id="3_nkcnh"]
+[ext_resource type="PackedScene" uid="uid://bufx6wcek0aj8" path="res://minions/spawner.tscn" id="5_cp35u"]
+[ext_resource type="AudioStream" uid="uid://d32ssvi08rbiw" path="res://assets/Beat of Battle (1).mp3" id="7_w87xc"]
+[ext_resource type="Texture2D" uid="uid://2bx5t4k3vue3" path="res://assets/enemy-banner.png" id="8_ffofp"]
+
+[sub_resource type="Environment" id="Environment_5p6ex"]
+background_mode = 3
+tonemap_mode = 3
+tonemap_exposure = 5.56
+ssil_enabled = true
+glow_enabled = true
+glow_intensity = 0.3
+glow_hdr_threshold = 1.5
+glow_hdr_luminance_cap = 2.0
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_ktlqa")
+PlayerScene = ExtResource("2_cthj3")
+
+[node name="Wave Timer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[node name="WaveLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="Wave Spawning" type="Control" parent="WaveLayer"]
+z_index = 10
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Timer Label" type="Label" parent="WaveLayer/Wave Spawning"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 176.0
+offset_bottom = 43.0
+pivot_offset = Vector2(30, 30)
+theme_override_fonts/font = ExtResource("2_poqt5")
+theme_override_font_sizes/font_size = 32
+text = "Wave Spawning"
+
+[node name="Mana" type="Label" parent="WaveLayer/Wave Spawning"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 15.0
+text = "Current Mana:"
+
+[node name="RhythmLayer" type="CanvasLayer" parent="."]
+layer = 7
+offset = Vector2(800, 325)
+scale = Vector2(1.01, 1.01)
+transform = Transform2D(1.01, 0, 0, 1.01, 800, 325)
+
+[node name="Map" parent="." instance=ExtResource("2_tonyl")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Debugmenu" parent="CanvasLayer" instance=ExtResource("3_nkcnh")]
+visible = true
+
+[node name="Spawner" parent="." instance=ExtResource("5_cp35u")]
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_w87xc")
+
+[node name="map_update_refresh" type="Timer" parent="."]
+wait_time = 0.851
+autostart = true
+
+[node name="BannerLayer" type="CanvasLayer" parent="."]
+
+[node name="Banner" type="TextureRect" parent="BannerLayer"]
+visible = false
+offset_left = 384.0
+offset_top = 64.0
+offset_right = 584.0
+offset_bottom = 124.0
+scale = Vector2(2, 2)
+texture = ExtResource("8_ffofp")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("../Spawner")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_5p6ex")
+
+[connection signal="timeout" from="Wave Timer" to="Spawner" method="_on_wave_timer_timeout"]
+[connection signal="freeze_spell" from="CanvasLayer/Debugmenu" to="." method="_on_debugmenu_freeze_spell"]
+[connection signal="spawn_wave" from="CanvasLayer/Debugmenu" to="." method="_on_debugmenu_spawn_wave"]
+[connection signal="toggle_enemy_wave" from="CanvasLayer/Debugmenu" to="." method="_on_debugmenu_toggle_enemy_wave"]
+[connection signal="timeout" from="map_update_refresh" to="." method="_on_map_update_refresh_timeout"]

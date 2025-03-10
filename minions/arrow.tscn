@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqkl7m6s1p5ls"]
+
+[ext_resource type="PackedScene" uid="uid://c2a3uw6r78k4d" path="res://minions/projectile.tscn" id="1_v2l15"]
+[ext_resource type="Texture2D" uid="uid://bge0hs07i3uf5" path="res://assets/star.png" id="2_pcnkm"]
+
+[node name="Area2D" instance=ExtResource("1_v2l15")]
+z_index = 3
+
+[node name="Projectile" parent="." index="1"]
+modulate = Color(4, 4, 4, 1)
+position = Vector2(0, 0)
+rotation = 0.0
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("2_pcnkm")
+
+[node name="PointLight2D" parent="." index="2"]
+visible = false

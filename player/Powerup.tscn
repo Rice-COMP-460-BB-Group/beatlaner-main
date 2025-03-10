@@ -1,0 +1,64 @@
+[gd_scene load_steps=12 format=3 uid="uid://x6i88vd42ixt"]
+
+[ext_resource type="Script" path="res://player/powerup.gd" id="1_wfvs4"]
+[ext_resource type="Texture2D" uid="uid://cpjmi4g0fokb" path="res://assets/powerup1.png" id="2_c8j7x"]
+[ext_resource type="Texture2D" uid="uid://c3tfsoyrsveqw" path="res://assets/powerup2.png" id="3_illse"]
+[ext_resource type="Texture2D" uid="uid://cjd7cufidnetp" path="res://assets/powerup3.png" id="4_qhv7i"]
+[ext_resource type="Texture2D" uid="uid://d3xartpsnpq0o" path="res://assets/powerup4.png" id="5_f013q"]
+[ext_resource type="Texture2D" uid="uid://2i2cc18bb8l" path="res://assets/powerup5.png" id="6_scx47"]
+[ext_resource type="Texture2D" uid="uid://bdqsjmnwikxgu" path="res://assets/powerup6.png" id="7_r2w78"]
+[ext_resource type="Texture2D" uid="uid://bic7vv3yvtm5a" path="res://assets/powerup7.png" id="8_fq85h"]
+[ext_resource type="Texture2D" uid="uid://dvgisd26hm73n" path="res://assets/light_gd.webp" id="9_d1w6a"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mfvmh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_c8j7x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_illse")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_qhv7i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_f013q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_scx47")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_r2w78")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_fq85h")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tnw6q"]
+radius = 72.0
+height = 162.0
+
+[node name="Powerup" type="Area2D"]
+scale = Vector2(0.3, 0.3)
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_wfvs4")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_mfvmh")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_tnw6q")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0.984314, 0.882353, 0.482353, 1)
+energy = 2.0
+texture = ExtResource("9_d1w6a")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://do5hu0dt23mbe"]
+
+[ext_resource type="Script" path="res://rhythm game/scenes/mania_keys.gd" id="2_7npj4"]
+[ext_resource type="Texture2D" uid="uid://cowv6stbwfo4t" path="res://rhythm game/assets/mania_notes/Sigil-White.png" id="3_csyqq"]
+[ext_resource type="AudioStream" uid="uid://ddrlodld8pakk" path="res://assets/tr909-snare-drum-241413.mp3" id="4_dbu8m"]
+[ext_resource type="Texture2D" uid="uid://dvgisd26hm73n" path="res://assets/light_gd.webp" id="5_8nggk"]
+
+[node name="NoteListeners" type="Sprite2D"]
+self_modulate = Color(2, 2, 2, 1)
+script = ExtResource("2_7npj4")
+
+[node name="RandTimer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[node name="ActiveKey" type="Sprite2D" parent="."]
+texture = ExtResource("3_csyqq")
+
+[node name="PointLight2D" type="PointLight2D" parent="ActiveKey"]
+texture = ExtResource("5_8nggk")
+
+[node name="ActiveKeyTimer" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="Kicksound1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_dbu8m")
+
+[connection signal="timeout" from="RandTimer" to="." method="_on_rand_timer_timeout"]
+[connection signal="timeout" from="ActiveKeyTimer" to="." method="_on_active_key_timer_timeout"]

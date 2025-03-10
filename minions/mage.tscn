@@ -1,0 +1,225 @@
+[gd_scene load_steps=43 format=3 uid="uid://c266odicko6xv"]
+
+[ext_resource type="PackedScene" uid="uid://cao1ivxo860t2" path="res://minions/minion.tscn" id="1_ng6xl"]
+[ext_resource type="Texture2D" uid="uid://bb8jmvh3nk5sg" path="res://assets/mage/MAGE-ATTACK_red-000.png" id="2_gu58h"]
+[ext_resource type="Texture2D" uid="uid://di260adgjp352" path="res://assets/mage/MAGE-ATTACK_red-001.png" id="3_0cuyp"]
+[ext_resource type="Texture2D" uid="uid://3ovayqp0pwt2" path="res://assets/mage/MAGE-ATTACK_red-002.png" id="4_bdlem"]
+[ext_resource type="Texture2D" uid="uid://b051f5nbi6dfu" path="res://assets/mage/MAGE-ATTACK_red-003.png" id="5_25sy6"]
+[ext_resource type="Texture2D" uid="uid://c7lmh5tlst5wt" path="res://assets/mage/MAGE-SOUTH-WALKgif_red-000.png" id="6_h8awg"]
+[ext_resource type="Texture2D" uid="uid://bpds2rfbvll6x" path="res://assets/mage/MAGE-SOUTH-WALKgif_red-001.png" id="7_18eud"]
+[ext_resource type="Texture2D" uid="uid://0hyw6m4f4pqp" path="res://assets/mage/MAGE-SOUTH-WALKgif_red-002.png" id="8_jbhb1"]
+[ext_resource type="Texture2D" uid="uid://b1hdxs13qhseo" path="res://assets/mage/MAGE-SOUTH-WALKgif_red-003.png" id="9_ot7ic"]
+[ext_resource type="Texture2D" uid="uid://bpwsrt4lsi1ci" path="res://assets/mage/MAGE-WEST-WALK_red-000.png" id="10_en27v"]
+[ext_resource type="Texture2D" uid="uid://dapnnxp5nniug" path="res://assets/mage/MAGE-WEST-WALK_red-001.png" id="11_mo0h7"]
+[ext_resource type="Texture2D" uid="uid://wyl5vtbyrwb4" path="res://assets/mage/MAGE-WEST-WALK_red-002.png" id="12_wspyq"]
+[ext_resource type="Texture2D" uid="uid://ctojicljl5ysk" path="res://assets/mage/MAGE-WEST-WALK_red-003.png" id="13_cqfdp"]
+[ext_resource type="Texture2D" uid="uid://cdbfmq3phgw8v" path="res://assets/mage/MAGE-EAST-WALK_red-000.png" id="14_hnycw"]
+[ext_resource type="Texture2D" uid="uid://cyq7ediqmpd42" path="res://assets/mage/MAGE-EAST-WALK_red-001.png" id="15_fx1ew"]
+[ext_resource type="Texture2D" uid="uid://beyna7ur4q3lr" path="res://assets/mage/MAGE-EAST-WALK_red-002.png" id="16_2r8nc"]
+[ext_resource type="Texture2D" uid="uid://bhqmtcl07j7y3" path="res://assets/mage/MAGE-EAST-WALK_red-003.png" id="17_xy8hh"]
+[ext_resource type="Texture2D" uid="uid://dmokbctg6petm" path="res://assets/mage/MAGE-NORTH-WALK_red-000.png" id="18_i1vad"]
+[ext_resource type="Texture2D" uid="uid://ruj6pk7t1k75" path="res://assets/mage/MAGE-NORTH-WALK_red-001.png" id="19_pv6rp"]
+[ext_resource type="Texture2D" uid="uid://gdet11pjonaw" path="res://assets/mage/MAGE-NORTH-WALK_red-002.png" id="20_wum6x"]
+[ext_resource type="Texture2D" uid="uid://duy6kgyr8eutc" path="res://assets/mage/MAGE-NORTH-WALK_red-003.png" id="21_s4q3t"]
+[ext_resource type="Texture2D" uid="uid://b5jvv2myvme04" path="res://assets/mage/MAGE-ATTACK-000.png" id="22_dwmdp"]
+[ext_resource type="Texture2D" uid="uid://oytjblrcdoci" path="res://assets/mage/MAGE-ATTACK-001.png" id="23_cagg0"]
+[ext_resource type="Texture2D" uid="uid://cmd1i1qt1cfjx" path="res://assets/mage/MAGE-ATTACK-002.png" id="24_cvjf1"]
+[ext_resource type="Texture2D" uid="uid://br4eh1v4hrr06" path="res://assets/mage/MAGE-ATTACK-003.png" id="25_kywpo"]
+[ext_resource type="Texture2D" uid="uid://pynr8ik16kch" path="res://assets/mage/MAGE-SOUTH-WALKgif-000.png" id="26_gjy2o"]
+[ext_resource type="Texture2D" uid="uid://l60cl7ehsods" path="res://assets/mage/MAGE-SOUTH-WALKgif-001.png" id="27_f5763"]
+[ext_resource type="Texture2D" uid="uid://c35lc2igfuggm" path="res://assets/mage/MAGE-SOUTH-WALKgif-002.png" id="28_fli2o"]
+[ext_resource type="Texture2D" uid="uid://b703bbj022khv" path="res://assets/mage/MAGE-SOUTH-WALKgif-003.png" id="29_orofo"]
+[ext_resource type="Texture2D" uid="uid://c78qx3plauop7" path="res://assets/mage/MAGE-WEST-WALK-000.png" id="30_ah0fs"]
+[ext_resource type="Texture2D" uid="uid://bxqdaviu3puog" path="res://assets/mage/MAGE-WEST-WALK-001.png" id="31_ph3fy"]
+[ext_resource type="Texture2D" uid="uid://dhqyt7s34y0d" path="res://assets/mage/MAGE-WEST-WALK-002.png" id="32_0b1uy"]
+[ext_resource type="Texture2D" uid="uid://dpsbbsqi82mv3" path="res://assets/mage/MAGE-WEST-WALK-003.png" id="33_qsemk"]
+[ext_resource type="Texture2D" uid="uid://djwd5f1l4ygd7" path="res://assets/mage/MAGE-EAST-WALK-000.png" id="34_dxwk0"]
+[ext_resource type="Texture2D" uid="uid://cpp3s88ydcf4a" path="res://assets/mage/MAGE-EAST-WALK-001.png" id="35_ujq43"]
+[ext_resource type="Texture2D" uid="uid://52dl5fdf288q" path="res://assets/mage/MAGE-EAST-WALK-002.png" id="36_18h17"]
+[ext_resource type="Texture2D" uid="uid://c181xijnwrvoj" path="res://assets/mage/MAGE-EAST-WALK-003.png" id="37_vpbux"]
+[ext_resource type="Texture2D" uid="uid://8ixlak4vldmm" path="res://assets/mage/MAGE-NORTH-WALK-000.png" id="38_lqeh7"]
+[ext_resource type="Texture2D" uid="uid://drpal02l8fw1w" path="res://assets/mage/MAGE-NORTH-WALK-001.png" id="39_ro0r0"]
+[ext_resource type="Texture2D" uid="uid://cikmwlxlqych1" path="res://assets/mage/MAGE-NORTH-WALK-002.png" id="40_s0xg8"]
+[ext_resource type="Texture2D" uid="uid://sx6h07eg6uhh" path="res://assets/mage/MAGE-NORTH-WALK-003.png" id="41_5ugtf"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_asmhh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_gu58h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_0cuyp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_bdlem")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_25sy6")
+}],
+"loop": false,
+"name": &"enemy_attack",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_h8awg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_18eud")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_jbhb1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_ot7ic")
+}],
+"loop": true,
+"name": &"enemy_walk_down",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_en27v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_mo0h7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_wspyq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_cqfdp")
+}],
+"loop": true,
+"name": &"enemy_walk_left",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_hnycw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_fx1ew")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_2r8nc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_xy8hh")
+}],
+"loop": true,
+"name": &"enemy_walk_right",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("18_i1vad")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_pv6rp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_wum6x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_s4q3t")
+}],
+"loop": true,
+"name": &"enemy_walk_up",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("22_dwmdp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_cagg0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_cvjf1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_kywpo")
+}],
+"loop": false,
+"name": &"friendly_attack",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("26_gjy2o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_f5763")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_fli2o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_orofo")
+}],
+"loop": true,
+"name": &"friendly_walk_down",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("30_ah0fs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_ph3fy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_0b1uy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_qsemk")
+}],
+"loop": true,
+"name": &"friendly_walk_left",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("34_dxwk0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_ujq43")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_18h17")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_vpbux")
+}],
+"loop": true,
+"name": &"friendly_walk_right",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("38_lqeh7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_ro0r0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_s0xg8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_5ugtf")
+}],
+"loop": true,
+"name": &"friendly_walk_up",
+"speed": 4.0
+}]
+
+[node name="Minion" instance=ExtResource("1_ng6xl")]
+ranged = true
+movement_speed = 75
+aggro_range = 500
+attack_range = 250
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_asmhh")

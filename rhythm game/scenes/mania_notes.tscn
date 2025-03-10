@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://cibs8e3snxrb3"]
+
+[ext_resource type="Texture2D" uid="uid://cupxo25fl3dd3" path="res://rhythm game/assets/mania_notes/Sigil1.png" id="1_d2jr5"]
+[ext_resource type="Script" path="res://rhythm game/scenes/mania_notes.gd" id="2_s4xme"]
+[ext_resource type="Texture2D" uid="uid://c3s31xeh7uye3" path="res://rhythm game/assets/mania_notes/Sigil-White2.png" id="3_gfq3b"]
+
+[node name="mania_notes" type="Sprite2D" groups=["mania_note_instance"]]
+z_index = 4096
+texture = ExtResource("1_d2jr5")
+script = ExtResource("2_s4xme")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="GarbageCollector" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(-1, 1)
+scale = Vector2(0.984375, 1.01562)
+color = Color(0.992157, 0.0235294, 0.913725, 1)
+energy = 2.02
+shadow_enabled = true
+texture = ExtResource("3_gfq3b")
+
+[connection signal="timeout" from="GarbageCollector" to="." method="_on_garbage_collector_timeout"]

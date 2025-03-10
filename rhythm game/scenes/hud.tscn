@@ -1,0 +1,72 @@
+[gd_scene load_steps=3 format=3 uid="uid://xfxnyk30olx4"]
+
+[ext_resource type="Script" path="res://rhythm game/scenes/hud.gd" id="1_swecj"]
+[ext_resource type="AudioStream" uid="uid://bpsllidgcm5tj" path="res://rhythm game/assets/music/combobreak.wav" id="2_248el"]
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_swecj")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 8
+
+[node name="MissSound" type="AudioStreamPlayer" parent="CanvasLayer"]
+stream = ExtResource("2_248el")
+
+[node name="HitStatus" type="RichTextLabel" parent="CanvasLayer"]
+unique_name_in_owner = true
+offset_left = 717.0
+offset_top = 225.0
+offset_right = 896.0
+offset_bottom = 259.0
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+autowrap_mode = 0
+
+[node name="Score" type="RichTextLabel" parent="CanvasLayer"]
+unique_name_in_owner = true
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -285.0
+offset_bottom = 66.0
+grow_horizontal = 0
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "[right]Score: 0000000[/right]"
+
+[node name="Accuracy" type="RichTextLabel" parent="CanvasLayer"]
+unique_name_in_owner = true
+offset_left = 842.0
+offset_top = 61.0
+offset_right = 1152.0
+offset_bottom = 108.0
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "[right]Accuracy: 0.00%[/right]"
+fit_content = true
+
+[node name="Combo" type="RichTextLabel" parent="CanvasLayer"]
+unique_name_in_owner = true
+offset_left = 728.0
+offset_top = 165.0
+offset_right = 906.0
+offset_bottom = 205.0
+theme_override_font_sizes/normal_font_size = 36
+bbcode_enabled = true
+autowrap_mode = 0
+
+[node name="ScrollSpeed" type="RichTextLabel" parent="CanvasLayer"]
+unique_name_in_owner = true
+offset_left = 584.0
+offset_top = 316.0
+offset_right = 1051.0
+offset_bottom = 362.0
+theme_override_font_sizes/normal_font_size = 35
+bbcode_enabled = true

@@ -1,0 +1,318 @@
+[gd_scene load_steps=4 format=3 uid="uid://c4kbaxi38owaa"]
+
+[ext_resource type="Script" path="res://title/keybindings.gd" id="1_gshu1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u58dv"]
+bg_color = Color(0.1, 0.1, 0.1, 0.9)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Theme" id="Theme_lt6kw"]
+Button/colors/font_color = Color(0.875, 0.875, 0.875, 1)
+Button/colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+Button/colors/font_pressed_color = Color(0.7, 0.85, 1, 1)
+Button/font_sizes/font_size = 16
+Label/colors/font_color = Color(0.9, 0.9, 0.9, 1)
+Label/font_sizes/font_size = 16
+Panel/styles/panel = SubResource("StyleBoxFlat_u58dv")
+
+[node name="KeybindingScreen" type="ConfirmationDialog"]
+title = "Settings"
+initial_position = 1
+size = Vector2i(920, 460)
+visible = true
+theme = SubResource("Theme_lt6kw")
+ok_button_text = "apply"
+cancel_button_text = "reset defaults"
+script = ExtResource("1_gshu1")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 912.0
+offset_bottom = 418.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 15
+
+[node name="MovementSection" type="VBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="SectionTitle" type="Label" parent="ScrollContainer/VBoxContainer/MovementSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Movement Controls"
+
+[node name="HSeparator" type="HSeparator" parent="ScrollContainer/VBoxContainer/MovementSection"]
+layout_mode = 2
+
+[node name="MoveUp" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/MovementSection"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/MovementSection/MoveUp"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "Move Up"
+
+[node name="move_up_Button" type="Button" parent="ScrollContainer/VBoxContainer/MovementSection/MoveUp"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "W"
+
+[node name="MoveLeft" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/MovementSection"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/MovementSection/MoveLeft"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "Move Left"
+
+[node name="move_left_Button" type="Button" parent="ScrollContainer/VBoxContainer/MovementSection/MoveLeft"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "A"
+
+[node name="MoveDown" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/MovementSection"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/MovementSection/MoveDown"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "Move Down"
+
+[node name="move_down_Button" type="Button" parent="ScrollContainer/VBoxContainer/MovementSection/MoveDown"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "S"
+
+[node name="MoveRight" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/MovementSection"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/MovementSection/MoveRight"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "Move Right"
+
+[node name="move_right_Button" type="Button" parent="ScrollContainer/VBoxContainer/MovementSection/MoveRight"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "D"
+
+[node name="Spacer1" type="Control" parent="ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="RhythmSection" type="VBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="SectionTitle" type="Label" parent="ScrollContainer/VBoxContainer/RhythmSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Rhythm Game Controls"
+
+[node name="HSeparator" type="HSeparator" parent="ScrollContainer/VBoxContainer/RhythmSection"]
+layout_mode = 2
+
+[node name="ToggleRhythm" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/RhythmSection"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/RhythmSection/ToggleRhythm"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "Toggle Rhythm Game"
+
+[node name="toggle_rhythm_game_Button" type="Button" parent="ScrollContainer/VBoxContainer/RhythmSection/ToggleRhythm"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Tab"
+
+[node name="FirstRow" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/RhythmSection"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/RhythmSection/FirstRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "First Row"
+
+[node name="key1_Button" type="Button" parent="ScrollContainer/VBoxContainer/RhythmSection/FirstRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "1"
+
+[node name="SecondRow" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/RhythmSection"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/RhythmSection/SecondRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "Second Row"
+
+[node name="key2_Button" type="Button" parent="ScrollContainer/VBoxContainer/RhythmSection/SecondRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "2"
+
+[node name="ThirdRow" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/RhythmSection"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/RhythmSection/ThirdRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "Third Row"
+
+[node name="key3_Button" type="Button" parent="ScrollContainer/VBoxContainer/RhythmSection/ThirdRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "3"
+
+[node name="FourthRow" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/RhythmSection"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/RhythmSection/FourthRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "Fourth Row"
+
+[node name="key4_Button" type="Button" parent="ScrollContainer/VBoxContainer/RhythmSection/FourthRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "4"
+
+[node name="Spacer2" type="Control" parent="ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="ActionsSection" type="VBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="SectionTitle" type="Label" parent="ScrollContainer/VBoxContainer/ActionsSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Action Controls"
+
+[node name="HSeparator" type="HSeparator" parent="ScrollContainer/VBoxContainer/ActionsSection"]
+layout_mode = 2
+
+[node name="Powerup" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/ActionsSection"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/ActionsSection/Powerup"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 28
+text = "Use Powerup"
+
+[node name="use_powerup_Button" type="Button" parent="ScrollContainer/VBoxContainer/ActionsSection/Powerup"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Space"
+
+[node name="UpgradeMinion" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/ActionsSection"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/ActionsSection/UpgradeMinion"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "Upgrade Minion"
+
+[node name="upgrade_minions_Button" type="Button" parent="ScrollContainer/VBoxContainer/ActionsSection/UpgradeMinion"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "E"
+
+[node name="UpgradePlayer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/ActionsSection"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/ActionsSection/UpgradePlayer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "Upgrade Player"
+
+[node name="upgrade_player_Button" type="Button" parent="ScrollContainer/VBoxContainer/ActionsSection/UpgradePlayer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Q"
+
+[node name="Dash" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/ActionsSection"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/ActionsSection/Dash"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "Dash"
+
+[node name="Dash_Button" type="Button" parent="ScrollContainer/VBoxContainer/ActionsSection/Dash"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Shift"
+
+[node name="Top" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/ActionsSection"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/ActionsSection/Top"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "Dispatch on top lane"
+
+[node name="Dispatch_Top_Button" type="Button" parent="ScrollContainer/VBoxContainer/ActionsSection/Top"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Dispatch on top lane"
+
+[node name="Middle" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/ActionsSection"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/ActionsSection/Middle"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "Dispatch on middle lane"
+
+[node name="Dispatch_Mid_Button" type="Button" parent="ScrollContainer/VBoxContainer/ActionsSection/Middle"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Dispatch on middle lane"
+
+[node name="Bottom" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/ActionsSection"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/ActionsSection/Bottom"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "Dispatch on bottom lane"
+
+[node name="Dispatch_Low_Button" type="Button" parent="ScrollContainer/VBoxContainer/ActionsSection/Bottom"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Dispatch on bottom lane"

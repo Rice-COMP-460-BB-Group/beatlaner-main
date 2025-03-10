@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckytalr2gjoym"]
+
+[ext_resource type="Script" path="res://minions/health_component.gd" id="1_36lsc"]
+[ext_resource type="PackedScene" uid="uid://bd5imx0piptlg" path="res://main/HealthBar.tscn" id="2_5vfn3"]
+
+[node name="Node2D" type="Node2D"]
+z_index = 1000
+script = ExtResource("1_36lsc")
+currentHealth = 50
+maxHealth = 50
+
+[node name="HealthBar" parent="." instance=ExtResource("2_5vfn3")]
+z_index = 3
+offset_left = -29.0
+offset_top = 30.0
+offset_right = 28.0
+offset_bottom = 37.0
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+
+[node name="Level" type="Label" parent="."]
+offset_left = -17.0
+offset_top = -34.0
+offset_right = 23.0
+offset_bottom = -19.0
+
+[connection signal="health_decreased" from="." to="." method="_on_health_decreased"]

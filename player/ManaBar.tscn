@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://dd7pknkkclu6u"]
+
+[ext_resource type="Script" path="res://player/mana_bar.gd" id="1_a4os7"]
+[ext_resource type="Texture2D" uid="uid://brnuy0g6qyt75" path="res://assets/Mana-Frame.png" id="1_mvb4q"]
+[ext_resource type="FontFile" uid="uid://cm5q756n5trre" path="res://assets/VT323-Regular.ttf" id="1_sf7p6"]
+[ext_resource type="Texture2D" uid="uid://ckv12sihjqfj2" path="res://assets/Mana-Mask.png" id="2_pk6jd"]
+
+[node name="ManaBarControl" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1.0
+offset_top = 2.0
+offset_right = 221.0
+offset_bottom = 202.0
+script = ExtResource("1_a4os7")
+
+[node name="ManaBar" type="HFlowContainer" parent="."]
+layout_mode = 2
+offset_right = 400.0
+offset_bottom = 200.0
+scale = Vector2(1.4, 1)
+
+[node name="ManaBottle1" type="TextureProgressBar" parent="ManaBar"]
+layout_mode = 2
+texture_under = ExtResource("1_mvb4q")
+texture_progress = ExtResource("2_pk6jd")
+
+[node name="ManaBottle2" type="TextureProgressBar" parent="ManaBar"]
+layout_mode = 2
+texture_under = ExtResource("1_mvb4q")
+texture_progress = ExtResource("2_pk6jd")
+
+[node name="ManaBottle3" type="TextureProgressBar" parent="ManaBar"]
+layout_mode = 2
+texture_under = ExtResource("1_mvb4q")
+texture_progress = ExtResource("2_pk6jd")
+
+[node name="ManaText" type="Label" parent="."]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("1_sf7p6")
+theme_override_font_sizes/font_size = 20
+text = "0 / 300"
+horizontal_alignment = 1
+vertical_alignment = 2

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://q02meihnvbrf"
+path="res://.godot/imported/combobreak.wav-110ec0a6b9d851a5d119aa28eb238c20.sample"
+
+[deps]
+
+source_file="res://rhythm game/assets/fonts/combobreak.wav"
+dest_files=["res://.godot/imported/combobreak.wav-110ec0a6b9d851a5d119aa28eb238c20.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://0n265vc7dy8m"]
+
+[ext_resource type="PackedScene" uid="uid://bqkl7m6s1p5ls" path="res://minions/arrow.tscn" id="1_sh500"]
+
+[node name="Area2D" instance=ExtResource("1_sh500")]
+collision_layer = 7
+
+[node name="Projectile" parent="." index="1"]
+modulate = Color(10, 10, 10, 1)
+self_modulate = Color(10, 10, 10, 1)

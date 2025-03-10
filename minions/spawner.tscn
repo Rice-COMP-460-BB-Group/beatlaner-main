@@ -1,0 +1,52 @@
+[gd_scene load_steps=2 format=3 uid="uid://bufx6wcek0aj8"]
+
+[ext_resource type="Script" path="res://minions/spawner.gd" id="1_a68u2"]
+
+[node name="Spawner" type="Node2D"]
+position = Vector2(-1, 0)
+script = ExtResource("1_a68u2")
+
+[node name="P1Lower" type="Marker2D" parent="."]
+position = Vector2(1056, 3455)
+
+[node name="LowerThrough" type="Marker2D" parent="."]
+position = Vector2(3440, 3456)
+
+[node name="P2Lower" type="Marker2D" parent="."]
+position = Vector2(3468, 1000)
+
+[node name="P1Upper" type="Marker2D" parent="."]
+position = Vector2(561, 2988)
+
+[node name="UpperThrough" type="Marker2D" parent="."]
+position = Vector2(560, 512)
+
+[node name="P2Upper" type="Marker2D" parent="."]
+position = Vector2(2933, 493)
+
+[node name="P2Mid" type="Marker2D" parent="."]
+position = Vector2(3038, 918)
+
+[node name="P1Mid" type="Marker2D" parent="."]
+position = Vector2(946, 3077)
+
+[node name="P1Nexus" type="Marker2D" parent="."]
+position = Vector2(524, 3413)
+
+[node name="P2Nexus" type="Marker2D" parent="."]
+position = Vector2(3530, 401)
+
+[node name="WaveTimer" type="Timer" parent="."]
+wait_time = 15.0
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("..")
+
+[node name="PowerupTimer" type="Timer" parent="."]
+wait_time = 30.0
+
+[node name="PowerupSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("..")
+
+[connection signal="timeout" from="WaveTimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="PowerupTimer" to="." method="_on_powerup_timer_timeout"]

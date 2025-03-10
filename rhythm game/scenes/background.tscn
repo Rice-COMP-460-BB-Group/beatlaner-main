@@ -1,0 +1,111 @@
+[gd_scene load_steps=7 format=3 uid="uid://b6mdjbyemb0sr"]
+
+[ext_resource type="Script" path="res://rhythm game/scenes/background.gd" id="1_jjh5w"]
+[ext_resource type="PackedScene" uid="uid://do5hu0dt23mbe" path="res://rhythm game/scenes/mania_keys.tscn" id="1_ykdqm"]
+[ext_resource type="Texture2D" uid="uid://bx1o4v6nl7dc6" path="res://rhythm game/assets/mania_notes/Sigil-Gray.png" id="3_2vcog"]
+[ext_resource type="PackedScene" uid="uid://xfxnyk30olx4" path="res://rhythm game/scenes/hud.tscn" id="3_pnkrm"]
+
+[sub_resource type="Gradient" id="Gradient_b4q47"]
+offsets = PackedFloat32Array(0, 0.0666667, 0.133333, 0.2, 0.266667, 0.333333, 0.4, 0.666667)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.509804, 0, 0, 0, 0.579832, 0, 0, 0, 0.64986, 0, 0, 0, 0.737395, 0, 0, 0, 0.82493, 0, 0, 0, 1)
+metadata/_snap_enabled = true
+metadata/_snap_count = 15
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_w2eji"]
+gradient = SubResource("Gradient_b4q47")
+use_hdr = true
+
+[node name="Background" type="Node2D"]
+script = ExtResource("1_jjh5w")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="ManiaKey" parent="." instance=ExtResource("1_ykdqm")]
+position = Vector2(-141, 241)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("3_2vcog")
+key = "key1"
+
+[node name="ManiaKey2" parent="." instance=ExtResource("1_ykdqm")]
+position = Vector2(-47, 241)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("3_2vcog")
+key = "key2"
+
+[node name="ManiaKey3" parent="." instance=ExtResource("1_ykdqm")]
+position = Vector2(47, 241)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("3_2vcog")
+key = "key3"
+
+[node name="ManiaKey4" parent="." instance=ExtResource("1_ykdqm")]
+position = Vector2(141, 241)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("3_2vcog")
+key = "key4"
+
+[node name="HUD" parent="." instance=ExtResource("3_pnkrm")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 13.0
+offset_top = -112.0
+offset_right = 13.0
+offset_bottom = -112.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+z_index = -1
+offset_left = -273.0
+offset_top = -324.0
+offset_right = 573.0
+offset_bottom = 322.0
+color = Color(0, 0, 0, 0.490196)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+z_index = -1
+offset_left = -385.0
+offset_top = -330.0
+offset_right = 582.0
+offset_bottom = 333.0
+texture = SubResource("GradientTexture1D_w2eji")
+
+[node name="FirstCol" type="Label" parent="."]
+offset_left = -158.0
+offset_top = 222.0
+offset_right = -118.0
+offset_bottom = 262.0
+theme_override_colors/font_color = Color(0.941887, 0.957946, 1, 1)
+theme_override_font_sizes/font_size = 40
+text = "D"
+
+[node name="SecondCol" type="Label" parent="."]
+offset_left = -61.0
+offset_top = 222.0
+offset_right = -21.0
+offset_bottom = 262.0
+theme_override_colors/font_color = Color(0.941887, 0.957946, 1, 1)
+theme_override_font_sizes/font_size = 40
+text = "F"
+
+[node name="ThirdCol" type="Label" parent="."]
+offset_left = 24.0
+offset_top = 222.0
+offset_right = 64.0
+offset_bottom = 262.0
+theme_override_colors/font_color = Color(0.941887, 0.957946, 1, 1)
+theme_override_font_sizes/font_size = 40
+text = "J"
+
+[node name="FourthCol" type="Label" parent="."]
+offset_left = 124.0
+offset_top = 221.0
+offset_right = 164.0
+offset_bottom = 261.0
+theme_override_colors/font_color = Color(0.941887, 0.957946, 1, 1)
+theme_override_font_sizes/font_size = 40
+text = "K"

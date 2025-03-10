@@ -1,0 +1,176 @@
+[gd_scene load_steps=11 format=3 uid="uid://b81g0bgytqv28"]
+
+[ext_resource type="FontFile" uid="uid://cm5q756n5trre" path="res://assets/VT323-Regular.ttf" id="1_2ytti"]
+[ext_resource type="Script" path="res://title/difficulty_selector.gd" id="1_h4s06"]
+[ext_resource type="Texture2D" uid="uid://c0bdluppfl1xj" path="res://assets/Vote-Blue.png" id="2_6qv7q"]
+[ext_resource type="Texture2D" uid="uid://b5crc7to5j2h5" path="res://assets/Vote-Red.png" id="3_xmu1h"]
+[ext_resource type="Texture2D" uid="uid://4jck6k2hu7ch" path="res://assets/Timer-Outline.png" id="5_08lim"]
+[ext_resource type="ButtonGroup" uid="uid://dgq6lewe03v68" path="res://assets/vote_button_group.tres" id="5_m6g3w"]
+[ext_resource type="Texture2D" uid="uid://hjng7wjykxpu" path="res://assets/easy.png" id="6_boceg"]
+[ext_resource type="Texture2D" uid="uid://bujnoqtv8aml4" path="res://assets/Timer-Mask.png" id="6_i5jcp"]
+[ext_resource type="Texture2D" uid="uid://daplhhm4hc6id" path="res://assets/medium.png" id="7_o8y2o"]
+[ext_resource type="Texture2D" uid="uid://2dgvhjpeslq6" path="res://assets/hard.png" id="8_rjmgr"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 601.0
+offset_top = 191.0
+offset_right = 601.0
+offset_bottom = 447.0
+script = ExtResource("1_h4s06")
+
+[node name="DifficultySelector" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -489.0
+offset_top = -69.0
+offset_right = 271.0
+offset_bottom = -23.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.25, 1.25)
+size_flags_vertical = 4
+theme_override_constants/separation = 128
+alignment = 1
+metadata/_edit_group_ = true
+
+[node name="Easy" type="VBoxContainer" parent="DifficultySelector"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="DifficultySelector/Easy"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+alignment = 1
+
+[node name="VoteBlue" type="TextureRect" parent="DifficultySelector/Easy/HBoxContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("2_6qv7q")
+
+[node name="VoteRed" type="TextureRect" parent="DifficultySelector/Easy/HBoxContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("3_xmu1h")
+
+[node name="Button" type="Button" parent="DifficultySelector/Easy" groups=["buttons"]]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_2ytti")
+theme_override_font_sizes/font_size = 32
+toggle_mode = true
+button_group = ExtResource("5_m6g3w")
+text = "Easy
+"
+icon = ExtResource("6_boceg")
+icon_alignment = 1
+vertical_icon_alignment = 0
+
+[node name="Medium" type="VBoxContainer" parent="DifficultySelector"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="DifficultySelector/Medium"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+alignment = 1
+
+[node name="VoteBlue" type="TextureRect" parent="DifficultySelector/Medium/HBoxContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("2_6qv7q")
+
+[node name="VoteRed" type="TextureRect" parent="DifficultySelector/Medium/HBoxContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("3_xmu1h")
+
+[node name="Button" type="Button" parent="DifficultySelector/Medium" groups=["buttons"]]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_2ytti")
+theme_override_font_sizes/font_size = 32
+toggle_mode = true
+button_group = ExtResource("5_m6g3w")
+text = "Medium"
+icon = ExtResource("7_o8y2o")
+icon_alignment = 1
+vertical_icon_alignment = 0
+
+[node name="Hard" type="VBoxContainer" parent="DifficultySelector"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="DifficultySelector/Hard"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+alignment = 1
+
+[node name="VoteBlue" type="TextureRect" parent="DifficultySelector/Hard/HBoxContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("2_6qv7q")
+
+[node name="VoteRed" type="TextureRect" parent="DifficultySelector/Hard/HBoxContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("3_xmu1h")
+
+[node name="Button" type="Button" parent="DifficultySelector/Hard" groups=["buttons"]]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_2ytti")
+theme_override_font_sizes/font_size = 32
+toggle_mode = true
+button_group = ExtResource("5_m6g3w")
+text = "Hard"
+icon = ExtResource("8_rjmgr")
+icon_alignment = 1
+vertical_icon_alignment = 0
+
+[node name="Timer" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 431.0
+offset_top = 303.0
+offset_right = 495.0
+offset_bottom = 386.0
+scale = Vector2(2, 2)
+
+[node name="Label" type="Label" parent="Timer"]
+layout_mode = 2
+offset_top = 16.3333
+offset_right = 64.0
+offset_bottom = 31.3333
+theme_override_font_sizes/font_size = 10
+text = "60"
+horizontal_alignment = 1
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Timer"]
+layout_mode = 2
+offset_top = 15.0
+offset_right = 64.0
+offset_bottom = 79.0
+max_value = 60.0
+step = 0.1
+value = 60.0
+fill_mode = 5
+texture_under = ExtResource("5_08lim")
+texture_progress = ExtResource("6_i5jcp")
+
+[node name="VoteTime" type="Timer" parent="Timer"]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = -188.0
+offset_top = -145.0
+offset_right = 170.0
+offset_bottom = -80.0
+theme_override_fonts/font = ExtResource("1_2ytti")
+theme_override_font_sizes/font_size = 64
+text = "Mode Vote"
+horizontal_alignment = 1
+
+[connection signal="toggled" from="DifficultySelector/Easy/Button" to="." method="_on_easy_toggled"]
+[connection signal="toggled" from="DifficultySelector/Medium/Button" to="." method="_on_medium_toggled"]
+[connection signal="toggled" from="DifficultySelector/Hard/Button" to="." method="_on_hard_toggled"]
+[connection signal="timeout" from="Timer/VoteTime" to="." method="_on_vote_time_timeout"]

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://buvm2ubvaw0lh"]
+
+[ext_resource type="Texture2D" uid="uid://b8g3h24iot0yh" path="res://icon.svg" id="1_1ckpl"]
+
+[node name="Minion" type="CharacterBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_1ckpl")
