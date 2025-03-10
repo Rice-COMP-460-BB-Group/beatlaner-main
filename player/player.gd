@@ -665,7 +665,7 @@ func falloff_curve():
 
 	return extra_damage
 
-var is_alive = true
+@export var is_alive = true
 
 func respawn() -> void:
 	$HealthComponent.visible = false

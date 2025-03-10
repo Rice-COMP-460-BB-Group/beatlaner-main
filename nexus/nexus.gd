@@ -51,7 +51,7 @@ func _physics_process(delta: float) -> void:
 	if last_attack < 0 or last_attack > attack_speed:
 		var enemy_minions = []
 		for body in $EnemyDetectArea.get_overlapping_bodies():
-			if (body is Minion or body is Player) and body.team != team  and body.is_alive == true:
+			if (body is Minion or (body is Player and body.is_alive == true)) and body.team != team:
 				var space_state = get_world_2d().direct_space_state
 				var query = PhysicsRayQueryParameters2D.create(global_position, body.global_position, (1 | 4), [self])
 
