@@ -16,23 +16,28 @@ func _process(delta: float) -> void:
 #
 @rpc("any_peer", "call_local")
 func freeze_current_enemies(lane: int,team: int) ->void:
+	if not multiplayer.is_server():
+		return
 	var minions = get_tree().get_nodes_in_group("minion")
 	for minion in minions:
 		if minion.get_team() != team:
-			minion.process_status("freeze")
+			minion.process_status.rpc("freeze")
 	
 @rpc("any_peer", "call_local")
 func damage_powerup(team: int) ->void:
+	if not multiplayer.is_server():
+		return
 	var minions = get_tree().get_nodes_in_group("minion")
 	print("here are minions:",minions)
 	for minion in minions:
 		if minion.get_team() == team:
-			minion.process_damage_powerup()
+			minion.process_damage_powerup.rpc()
 	
 	var players = get_tree().get_nodes_in_group("Player")
 	for player in players:
 		if player.team == team:
-			player.process_damage_powerup()
+			print("found players")
+			player.process_damage_powerup.rpc()
 
 
 func _on_lower_lane_body_entered(body: Node2D) -> void:

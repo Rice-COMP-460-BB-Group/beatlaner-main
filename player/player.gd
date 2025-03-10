@@ -464,8 +464,6 @@ func _physics_process(delta: float) -> void:
 			if player_powerup != null:
 				if player_powerup == "freeze":
 					LaneManager.freeze_current_enemies.rpc(0, team)
-					LaneManager.freeze_current_enemies.rpc(1, team)
-					LaneManager.freeze_current_enemies.rpc(2, team)
 					print('using freeze')
 					powerup_labrl.text = powerup_label_default
 					$FreezePowerupSound.play()
@@ -700,6 +698,7 @@ func respawn() -> void:
 func _on_health_component_health_destroyed() -> void:
 	respawn()
 
+@rpc("any_peer", "call_local")
 func process_damage_powerup():
 	damage *= 2
 	var timer: Timer = Timer.new()
@@ -758,7 +757,7 @@ func process_next_banner():
 		banner.modulate = Color(0.8, 0.3, 0.3)
 		# $HUD/Stats/LevelUpBanner/TextLabels/Title.text = "MINION LEVEL UP"
 	"""
-	
+
 	$HUD/Stats/LevelUpBanner/TextLabels/Damage.text = str(data.old_damage) + " → " + str(data.new_damage)
 	$HUD/Stats/LevelUpBanner/TextLabels/Health.text = str(data.old_hp) + " → " + str(data.new_hp)
 	$HUD/Stats/LevelUpBanner/TextLabels/Level.text = str(data.old_level) + " → " + str(data.new_level)

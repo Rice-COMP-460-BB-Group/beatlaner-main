@@ -267,6 +267,7 @@ func _on_animated_sprite_2d_animation_finished():
 func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:
 	velocity = safe_velocity
 
+@rpc("any_peer", "call_local")
 func process_status(status: String) -> void:
 	#print("processing status")
 	if status == "freeze":
@@ -295,8 +296,10 @@ func _clear_status():
 	tween.tween_property($AnimatedSprite2D, "modulate", Color(1, 1, 1, 1), 0.5)
 func _on_timer_timeout() -> void:
 	pass # Replace with function body.
-	
+
+@rpc("any_peer", "call_local")
 func process_damage_powerup():
+	print("me getting a powerup")
 	damage *= 2
 	var timer: Timer = Timer.new()
 	add_child(timer)
