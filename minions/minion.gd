@@ -173,7 +173,7 @@ func _physics_process(delta: float):
 
 				var results = space_state.intersect_shape(query)
 				for result in results:
-					if result.collider is Player and result.collider.team != team:
+					if result.collider is Player and result.collider.team != team and result.collider.is_alive == true:
 						#print("player found")
 						set_enemy_target(result.collider)
 						state = State.ATTACK
