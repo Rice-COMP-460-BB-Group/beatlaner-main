@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://c4kbaxi38owaa"]
 
-[ext_resource type="Script" path="res://title/keybindings.gd" id="1_gshu1"]
+[ext_resource type="Script" uid="uid://ddm8dcy5xmpi2" path="res://title/keybindings.gd" id="1_gshu1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u58dv"]
 bg_color = Color(0.1, 0.1, 0.1, 0.9)

@@ -1,18 +1,18 @@
 [gd_scene load_steps=78 format=3 uid="uid://bj3lu7yts43wl"]
 
-[ext_resource type="Script" path="res://player/player.gd" id="1_h04aa"]
-[ext_resource type="Shader" path="res://minions/flame.gdshader" id="2_h7gj3"]
+[ext_resource type="Script" uid="uid://b7xgmf7yjemai" path="res://player/player.gd" id="1_h04aa"]
+[ext_resource type="Shader" uid="uid://dr7xdahy2q11u" path="res://minions/flame.gdshader" id="2_h7gj3"]
 [ext_resource type="SpriteFrames" uid="uid://b4mxfgtfpoes3" path="res://assets/new_sprite_frames.tres" id="2_swing"]
 [ext_resource type="Texture2D" uid="uid://d2vprod1nv81r" path="res://assets/newborder.png" id="5_nfi33"]
 [ext_resource type="Texture2D" uid="uid://wdv5b52q5u2h" path="res://assets/Metronome-000.png" id="6_0etmd"]
 [ext_resource type="Texture2D" uid="uid://3ueshbvvsixu" path="res://assets/Minimap.png" id="6_7c3j6"]
 [ext_resource type="Texture2D" uid="uid://cf2nfu6g3yy3f" path="res://assets/slash-000.png" id="6_60335"]
-[ext_resource type="Script" path="res://player/hud.gd" id="6_a5lxw"]
+[ext_resource type="Script" uid="uid://dwl4hm7awt8io" path="res://player/hud.gd" id="6_a5lxw"]
 [ext_resource type="PackedScene" uid="uid://ckytalr2gjoym" path="res://healthbar/health_component.tscn" id="6_wraxi"]
 [ext_resource type="Texture2D" uid="uid://bsp8xj4gv4cay" path="res://assets/slash-001.png" id="7_76oyw"]
 [ext_resource type="Texture2D" uid="uid://deyvtt4hy8yff" path="res://assets/Metronome-001.png" id="7_l82ru"]
 [ext_resource type="Texture2D" uid="uid://cs6m1cpa0dywa" path="res://assets/Metronome-002.png" id="8_mhfkm"]
-[ext_resource type="PackedScene" path="res://player/weapon.tscn" id="8_n6a7o"]
+[ext_resource type="PackedScene" uid="uid://b8jlygfvbd34" path="res://player/weapon.tscn" id="8_n6a7o"]
 [ext_resource type="Texture2D" uid="uid://cvpirpaujt8m1" path="res://assets/slash-002.png" id="8_txc5s"]
 [ext_resource type="Texture2D" uid="uid://boe1p0ko1l128" path="res://assets/slash-003.png" id="9_edhdg"]
 [ext_resource type="Texture2D" uid="uid://1r3m5wq8wgyt" path="res://assets/Metronome-003.png" id="9_yimr5"]
@@ -36,7 +36,7 @@
 [ext_resource type="Texture2D" uid="uid://bqfgop2tg3noi" path="res://assets/595FAD8C-E33F-4E12-A974-9B2D043A2BA3.png.eac9bd8cac80378692e4115553790af8-export.png" id="25_pfejg"]
 [ext_resource type="Texture2D" uid="uid://dh5dok51a2vsj" path="res://assets/DialogBox.png" id="26_ontnn"]
 [ext_resource type="FontFile" uid="uid://ol8nq6vycer0" path="res://assets/PressStart2P-vaV7.ttf" id="27_o3ol7"]
-[ext_resource type="Script" path="res://player/afterimage.gd" id="28_i8vw6"]
+[ext_resource type="Script" uid="uid://cjt8lctmyu0nf" path="res://player/afterimage.gd" id="28_i8vw6"]
 [ext_resource type="AudioStream" uid="uid://crwiggodkgtsr" path="res://assets/sword-slash.wav" id="28_rydyj"]
 [ext_resource type="AudioStream" uid="uid://r2wfjvbniwu4" path="res://blink2.mp3" id="31_try5o"]
 [ext_resource type="AudioStream" uid="uid://cfjdfbdye2oyn" path="res://assets/FreezeSoundEffect.mp3" id="34_tllr5"]
@@ -325,15 +325,15 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1ag5u"]
 _data = {
-"RESET": SubResource("Animation_ndbho"),
-"idle_down": SubResource("Animation_jgomj"),
-"idle_left": SubResource("Animation_j37cc"),
-"idle_right": SubResource("Animation_u1utp"),
-"idle_up": SubResource("Animation_bjfj8"),
-"walk_down": SubResource("Animation_q3x0e"),
-"walk_left": SubResource("Animation_68y2o"),
-"walk_right": SubResource("Animation_58pwc"),
-"walk_up": SubResource("Animation_xchfb")
+&"RESET": SubResource("Animation_ndbho"),
+&"idle_down": SubResource("Animation_jgomj"),
+&"idle_left": SubResource("Animation_j37cc"),
+&"idle_right": SubResource("Animation_u1utp"),
+&"idle_up": SubResource("Animation_bjfj8"),
+&"walk_down": SubResource("Animation_q3x0e"),
+&"walk_left": SubResource("Animation_68y2o"),
+&"walk_right": SubResource("Animation_58pwc"),
+&"walk_up": SubResource("Animation_xchfb")
 }
 
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_lqvt5"]
@@ -525,7 +525,7 @@ zoom = Vector2(2, 2)
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 deterministic = true
 libraries = {
-"": SubResource("AnimationLibrary_1ag5u")
+&"": SubResource("AnimationLibrary_1ag5u")
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="."]

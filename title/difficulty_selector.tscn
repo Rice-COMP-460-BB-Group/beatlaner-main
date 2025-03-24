@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://b81g0bgytqv28"]
 
 [ext_resource type="FontFile" uid="uid://cm5q756n5trre" path="res://assets/VT323-Regular.ttf" id="1_2ytti"]
-[ext_resource type="Script" path="res://title/difficulty_selector.gd" id="1_h4s06"]
+[ext_resource type="Script" uid="uid://mdtjsdxfi5ks" path="res://title/difficulty_selector.gd" id="1_h4s06"]
 [ext_resource type="Texture2D" uid="uid://c0bdluppfl1xj" path="res://assets/Vote-Blue.png" id="2_6qv7q"]
 [ext_resource type="Texture2D" uid="uid://b5crc7to5j2h5" path="res://assets/Vote-Red.png" id="3_xmu1h"]
 [ext_resource type="Texture2D" uid="uid://4jck6k2hu7ch" path="res://assets/Timer-Outline.png" id="5_08lim"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cibs8e3snxrb3"]
 
 [ext_resource type="Texture2D" uid="uid://cupxo25fl3dd3" path="res://rhythm game/assets/mania_notes/Sigil1.png" id="1_d2jr5"]
-[ext_resource type="Script" path="res://rhythm game/scenes/mania_notes.gd" id="2_s4xme"]
+[ext_resource type="Script" uid="uid://djpfowx1ktnrh" path="res://rhythm game/scenes/mania_notes.gd" id="2_s4xme"]
 [ext_resource type="Texture2D" uid="uid://c3s31xeh7uye3" path="res://rhythm game/assets/mania_notes/Sigil-White2.png" id="3_gfq3b"]
 
 [node name="mania_notes" type="Sprite2D" groups=["mania_note_instance"]]

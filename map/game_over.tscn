@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cfw4w7wyo12ha"]
 
-[ext_resource type="Texture2D" uid="uid://dupwu05mg1a3o" path="res://assets/Surrender.png" id="1_u1d7q"]
-[ext_resource type="Script" path="res://map/game_over.gd" id="1_v2yhc"]
+[ext_resource type="Texture2D" uid="uid://dgmjdveas7mim" path="res://assets/Surrender.png" id="1_u1d7q"]
+[ext_resource type="Script" uid="uid://dm14ugemdaxro" path="res://map/game_over.gd" id="1_v2yhc"]
 [ext_resource type="FontFile" uid="uid://cm5q756n5trre" path="res://assets/VT323-Regular.ttf" id="2_hh0ir"]
 
 [node name="GameOver" type="Control"]

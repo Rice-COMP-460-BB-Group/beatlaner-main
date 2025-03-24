@@ -1,8 +1,8 @@
 [gd_scene load_steps=29 format=3 uid="uid://vrm8h4oj4f3j"]
 
-[ext_resource type="Script" path="res://nexus/nexus.gd" id="1_8s1ey"]
+[ext_resource type="Script" uid="uid://joml2cl3kfrm" path="res://nexus/nexus.gd" id="1_8s1ey"]
 [ext_resource type="Texture2D" uid="uid://3r86y452fli1" path="res://assets/candidate2.png" id="2_ksxnc"]
-[ext_resource type="PackedScene" path="res://nexus/laser.tscn" id="2_ok7j0"]
+[ext_resource type="PackedScene" uid="uid://0n265vc7dy8m" path="res://nexus/laser.tscn" id="2_ok7j0"]
 [ext_resource type="PackedScene" uid="uid://ckytalr2gjoym" path="res://healthbar/health_component.tscn" id="3_d3luj"]
 [ext_resource type="Texture2D" uid="uid://dqpdvofwrpl6o" path="res://assets/Nexus2.png" id="3_qg3cy"]
 [ext_resource type="Texture2D" uid="uid://bk53po4o04hwx" path="res://assets/nexusB-Shee222st.png" id="5_r1e8y"]

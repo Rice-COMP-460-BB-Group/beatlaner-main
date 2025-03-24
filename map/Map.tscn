@@ -1,13 +1,13 @@
 [gd_scene load_steps=35 format=4 uid="uid://dcm1avlkgfcd7"]
 
 [ext_resource type="Texture2D" uid="uid://bgr2btvy5yevs" path="res://assets/map/grass_tileset_16x16.png" id="1_38v8j"]
-[ext_resource type="Script" path="res://map/lane_manager.gd" id="2_4jb2k"]
+[ext_resource type="Script" uid="uid://bovuaac3fl2gg" path="res://map/lane_manager.gd" id="2_4jb2k"]
 [ext_resource type="Texture2D" uid="uid://rhxtlwdc3r1o" path="res://assets/map/Beatlaner-Sheet.png" id="2_hv50b"]
 [ext_resource type="Texture2D" uid="uid://6ltq881qn18u" path="res://assets/BeatlanerTiles2-export.png" id="3_6a7h1"]
 [ext_resource type="Texture2D" uid="uid://dc5tcawpn2c2x" path="res://assets/BeatlanerTiles copy.png" id="4_c402s"]
-[ext_resource type="PackedScene" path="res://map/lantern.tscn" id="4_nj2fp"]
+[ext_resource type="PackedScene" uid="uid://can4ucahvj8ac" path="res://map/lantern.tscn" id="4_nj2fp"]
 [ext_resource type="Texture2D" uid="uid://cbweh0hmcw0u5" path="res://assets/NewTreeFinallNow.png" id="5_eurw2"]
-[ext_resource type="Shader" path="res://map/Map.gdshader" id="5_kqr5r"]
+[ext_resource type="Shader" uid="uid://drjn2cyc3njox" path="res://map/Map.gdshader" id="5_kqr5r"]
 [ext_resource type="Texture2D" uid="uid://vg8wiwdnk5wb" path="res://assets/bushFinaShadowl.png" id="6_6xu8k"]
 [ext_resource type="Texture2D" uid="uid://ik4vtfosenor" path="res://assets/BEATLANERFOREST2 Copy.png" id="6_hk4ok"]
 [ext_resource type="PackedScene" uid="uid://ls62ff1qbdop" path="res://fog/Fog.tscn" id="8_6i0wg"]
@@ -723,8 +723,8 @@ shader_parameter/maxStrength = 0.01
 shader_parameter/strengthScale = 400.0
 shader_parameter/interval = 3.5
 shader_parameter/detail = 2.0
-shader_parameter/distortion = null
-shader_parameter/heightOffset = null
+shader_parameter/distortion = 0.0
+shader_parameter/heightOffset = 0.0
 shader_parameter/offset = 3.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7rcms"]
@@ -1166,7 +1166,7 @@ shader_parameter/maxStrength = 0.01
 shader_parameter/strengthScale = 300.0
 shader_parameter/interval = 3.5
 shader_parameter/detail = 2.0
-shader_parameter/distortion = null
+shader_parameter/distortion = 0.0
 shader_parameter/heightOffset = 0.5
 shader_parameter/offset = 1.0
 
@@ -1609,8 +1609,8 @@ shader_parameter/maxStrength = 0.01
 shader_parameter/strengthScale = 500.0
 shader_parameter/interval = 3.5
 shader_parameter/detail = 2.0
-shader_parameter/distortion = null
-shader_parameter/heightOffset = null
+shader_parameter/distortion = 0.0
+shader_parameter/heightOffset = 0.0
 shader_parameter/offset = 2.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gaq5m"]
