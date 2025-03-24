@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Beatlaner"
 run/main_scene="res://title/titlescreen.tscn"
-config/features=PackedStringArray("4.3", "Forward Plus")
+config/features=PackedStringArray("4.4", "Forward Plus")
 boot_splash/image="res://Beatlaner logwhiteo.png"
 config/icon="res://icon.svg"
 
@@ -154,5 +154,5 @@ use_powerup={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
-environment/defaults/default_clear_color=Color(0.0728426, 0.0728427, 0.0728426, 1)
 viewport/hdr_2d=true
+environment/defaults/default_clear_color=Color(0.0728426, 0.0728427, 0.0728426, 1)
