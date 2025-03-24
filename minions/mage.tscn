@@ -1,7 +1,8 @@
-[gd_scene load_steps=43 format=3 uid="uid://c266odicko6xv"]
+[gd_scene load_steps=45 format=3 uid="uid://c266odicko6xv"]
 
 [ext_resource type="PackedScene" uid="uid://cao1ivxo860t2" path="res://minions/minion.tscn" id="1_ng6xl"]
 [ext_resource type="Texture2D" uid="uid://bb8jmvh3nk5sg" path="res://assets/mage/MAGE-ATTACK_red-000.png" id="2_gu58h"]
+[ext_resource type="Shader" uid="uid://dr7xdahy2q11u" path="res://minions/flame.gdshader" id="2_tj70o"]
 [ext_resource type="Texture2D" uid="uid://di260adgjp352" path="res://assets/mage/MAGE-ATTACK_red-001.png" id="3_0cuyp"]
 [ext_resource type="Texture2D" uid="uid://3ovayqp0pwt2" path="res://assets/mage/MAGE-ATTACK_red-002.png" id="4_bdlem"]
 [ext_resource type="Texture2D" uid="uid://b051f5nbi6dfu" path="res://assets/mage/MAGE-ATTACK_red-003.png" id="5_25sy6"]
@@ -41,6 +42,21 @@
 [ext_resource type="Texture2D" uid="uid://drpal02l8fw1w" path="res://assets/mage/MAGE-NORTH-WALK-001.png" id="39_ro0r0"]
 [ext_resource type="Texture2D" uid="uid://cikmwlxlqych1" path="res://assets/mage/MAGE-NORTH-WALK-002.png" id="40_s0xg8"]
 [ext_resource type="Texture2D" uid="uid://sx6h07eg6uhh" path="res://assets/mage/MAGE-NORTH-WALK-003.png" id="41_5ugtf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cvv04"]
+resource_local_to_scene = true
+shader = ExtResource("2_tj70o")
+shader_parameter/outline_size = 3.21
+shader_parameter/pulsation_intensity = 4.0
+shader_parameter/threshold = 0.5
+shader_parameter/fade = 0.0
+shader_parameter/flame_color_primary = Color(1, 0.5, 0, 1)
+shader_parameter/flame_color_secondary = Color(1, 1, 0, 1)
+shader_parameter/flame_color_tertiary = Color(1, 0, 0, 1)
+shader_parameter/noise_scale = 10.0
+shader_parameter/flame_speed = 3.0
+shader_parameter/flicker_intensity = 1.0
+shader_parameter/time = 0.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_asmhh"]
 animations = [{
@@ -222,4 +238,5 @@ aggro_range = 500
 attack_range = 250
 
 [node name="AnimatedSprite2D" parent="." index="0"]
+material = SubResource("ShaderMaterial_cvv04")
 sprite_frames = SubResource("SpriteFrames_asmhh")

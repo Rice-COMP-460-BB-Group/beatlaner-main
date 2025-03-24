@@ -73,7 +73,7 @@ const DASH_SPEED = 5000
 
 var dash_timer = 0.0
 var is_dashing = false
-enum {IDLE, WALK}
+enum {IDLE, WALK, ATTACK}
 
 var state = IDLE
 var is_rhythm_game_open = false
@@ -85,12 +85,12 @@ var is_rhythm_game_open = false
 @onready var LaneManager = get_node("/root/Main/Map/LaneManager")
 
 var blend_position: Vector2 = Vector2.ZERO
-var blend_pos_paths = ["parameters/Idle/id_BlendSpace2D/blend_position", "parameters/Moving/BlendSpace2D/blend_position"]
+var blend_pos_paths = ["parameters/Idle/id_BlendSpace2D/blend_position", "parameters/Moving/BlendSpace2D/blend_position", "parameters/Attacking/BlendSpace2D/blend_position"]
 var current_score = 0
 
 var last_input_direction = Vector2.ZERO
 var animTree_state_keys = [
-	"Idle", "Moving"
+	"Idle", "Moving", "Attacking"
 ]
 
 var sync_velocity := Vector2.ZERO
@@ -175,14 +175,17 @@ func move(delta):
 		velocity = sync_velocity
 	else:
 		if input_vector == Vector2.ZERO:
-			state = IDLE
+			if !(state == ATTACK):
+				state = IDLE
+			
 			last_input_direction = Vector2.ZERO
 			velocity = Vector2.ZERO
 		
 		else:
 			input_vector = input_vector.normalized()
 			last_input_direction = input_vector
-			state = WALK
+			if !(state == ATTACK):
+				state = WALK
 			apply_movement(input_vector * MAX_SPEED)
 			blend_position = input_vector
 		
@@ -490,7 +493,7 @@ func _physics_process(delta: float) -> void:
 				return
 			
 			last_attack = 0
-
+			state = ATTACK
 			play_slice_anim.rpc(global_position.angle_to_point(get_global_mouse_position()))
 
 			var foundAttack = false
@@ -768,3 +771,11 @@ func process_next_banner():
 	banner_tween.tween_interval(2.0)
 	banner_tween.tween_property(banner, "position:x", old_pos, 0.5).set_trans(Tween.TRANS_QUAD)
 	banner_tween.finished.connect(process_next_banner)
+
+
+func _on_animation_tree_animation_finished(anim_name: StringName) -> void:
+	if anim_name.begins_with("slash_"):
+		if last_input_direction != Vector2.ZERO:
+			state = WALK
+		else:
+			state = IDLE
