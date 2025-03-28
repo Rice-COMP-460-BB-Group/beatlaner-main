@@ -19,8 +19,11 @@ var passed = false
 
 
 func _process(delta):
-	global_position += Vector2(0, speed) * delta * 100
+	var target_y = global_position.y + speed * delta * 100
+	global_position.y = lerp(global_position.y, target_y, 0.8)
+	
 	z_index = 100
+	
 	if global_position.y > end + 140:
 		passed = true
 	
