@@ -37,7 +37,7 @@ var osu_highest_combo = 0
 var osu_notes_hit_combo = 0
 var osu_avg_accuracy = 0
 var minion_spawn_count = 0 # √
-var match_length = 0
+var match_length = 0 # √
 
 
 
@@ -122,6 +122,8 @@ var old_collision_size
 var banner_queue = []
 var banner_playing = false
 var banner_tween = null
+var start_time = 0
+var end_time = 0
 
 func _ready() -> void:
 	$Metronome.wait_time = (60.0 / bpm)
@@ -143,6 +145,8 @@ func _ready() -> void:
 	
 	$HealthComponent.health_decreased.connect(_on_health_decreased)
 	$HealthComponent.health_increased.connect(_on_health_increased)
+	
+	start_time = Time.get_ticks_msec()
 
 	old_collision_size = $Slice/SliceArea/CollisionShape2D.shape.size
 	if team == Team.RED:
@@ -311,6 +315,9 @@ func change_to_scene(scene_path: String):
 
 func on_nexus_destroyed(nexus_destroyed_team: Team, pos: Vector2):
 	if $MultiplayerSynchronizer.is_multiplayer_authority():
+		var end_time = Time.get_ticks_msec()
+		match_length = end_time - start_time
+
 		if team == nexus_destroyed_team:
 			show_defeat(pos)
 		else:
