@@ -34,8 +34,10 @@ var total_damage_received = 0
 var death_count = 0 # √
 var ability_used_count = 0 # √
 var osu_highest_combo = 0
-var osu_notes_hit_combo = 0
-var osu_avg_accuracy = 0
+var osu_notes_hit_count = 0
+var osu_acc_notes_count = 0
+
+var osu_acc_sum = 0 # √
 var minion_spawn_count = 0 # √
 var match_length = 0 # √
 
@@ -125,6 +127,11 @@ var banner_tween = null
 var start_time = 0
 var end_time = 0
 
+func Hit(type: String):
+	if type != "Miss":
+		osu_notes_hit_count += 1
+	osu_acc_notes_count += 1
+
 func _ready() -> void:
 	$Metronome.wait_time = (60.0 / bpm)
 	cycle_duration = 2 * $Metronome.wait_time # Full cycle duration (1 second)
@@ -142,6 +149,8 @@ func _ready() -> void:
 	rhythm_game_instance.disable()
 	Signals.NexusDestroyed.connect(on_nexus_destroyed)
 	Signals.TowerDestroyed.connect(on_tower_destroyed)
+	Signals.Hit.connect(Hit)
+
 	
 	$HealthComponent.health_decreased.connect(_on_health_decreased)
 	$HealthComponent.health_increased.connect(_on_health_increased)
@@ -312,11 +321,18 @@ func change_to_scene(scene_path: String):
 			child.peer = null
 		child.call_deferred("queue_free")
 
-
+func format_time(ms: int) -> String:
+	var seconds = ms / 1000
+	var minutes = seconds / 60
+	seconds = seconds % 60
+	return "%02d:%02d" % [minutes, seconds]
+	
+	
 func on_nexus_destroyed(nexus_destroyed_team: Team, pos: Vector2):
 	if $MultiplayerSynchronizer.is_multiplayer_authority():
 		var end_time = Time.get_ticks_msec()
 		match_length = end_time - start_time
+		print_match_statistics()
 
 		if team == nexus_destroyed_team:
 			show_defeat(pos)
@@ -436,7 +452,15 @@ func _physics_process(delta: float) -> void:
 
 			last_combo = combo
 			
-			var score = rhythm_game_instance.get_score()
+			var osu_stats = rhythm_game_instance.get_stats()
+			
+			
+			var score = osu_stats['score']
+			var accuracy = osu_stats['accuracy']
+			#var current_combo = osu_stats['combo']
+			
+			osu_highest_combo = max(osu_highest_combo, combo)
+			
 			var tmp_score: float
 			#if $HealthComponent.currentHealth > 0:
 			var score_delta = score - last_rhythm_score
@@ -633,9 +657,11 @@ func escape_rhythm_game():
 	if is_instance_valid(rhythm_game_instance):
 		#$RhythmLayer1.remove_child(rhythm_game_instance)
 		#var score = rhythm_game_instance.get_score()
+		osu_acc_sum += rhythm_game_instance.get_acc_sum()
 		rhythm_game_instance.reset_score()
 		var notes = get_tree().get_nodes_in_group("mania_note_instance")
 		print("notes", notes)
+
 		for note in notes:
 			note.queue_free()
 		#current_score = min(current_score + int(score / 3000), 300)
@@ -693,6 +719,20 @@ func animate() -> void:
 	#print("auth", is_multiplayer_authority(), multiplayer.get_unique_id())
 	sync_animation.rpc(state, blend_position)
 
+
+func print_match_statistics():
+	print("Player Kill Count: ", player_kill_count)
+	print("Minion Kill Count: ", minion_kill_count)
+	print("Total Damage Dealt: ", total_damage_dealt)
+	print("Total Damage Received: ", total_damage_received)
+	print("Death Count: ", death_count)
+	print("Ability Used Count: ", ability_used_count)
+	print("OSU Highest Combo: ", osu_highest_combo)
+	print("OSU Notes Hit Count: ", osu_notes_hit_count)
+	print('osu acc', osu_acc_sum ," ",osu_acc_notes_count)
+	print("OSU Average Accuracy: ", str(float(osu_acc_sum) / (osu_acc_notes_count)).pad_decimals(2))
+	print("Minion Spawn Count: ", minion_spawn_count)
+	print("Match Length: ", format_time(match_length))
 
 func falloff_curve():
 	var closest = min($Metronome.time_left, (60.0 / bpm) - $Metronome.time_left)

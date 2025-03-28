@@ -33,11 +33,38 @@ func is_dead():
 func is_alive():
 	$HUD.is_dead = false
 
+func get_acc_sum():
+	return $HUD.get_notes_sum()
+
 func get_score() -> int:
 	var text = $HUD/CanvasLayer/Score.text
 	var score_text = text.strip_edges()  
 	score_text = score_text.replace("[right]", "").replace("[/right]", "")
 	return int(score_text)
+	
+func get_stats() -> Dictionary:
+	# score
+	var s_text = $HUD/CanvasLayer/Score.text
+	var score_text = s_text.strip_edges()  
+	score_text = score_text.replace("[right]", "").replace("[/right]", "")
+	
+	# accuracy
+	var a_text = $HUD/CanvasLayer/Accuracy.text
+	var accuracy_text = a_text.strip_edges()  
+	accuracy_text = accuracy_text.replace("[right]", "").replace("[/right]", "")
+	print('accuracy text', accuracy_text)
+	
+	# combo
+	var c_text = $HUD/CanvasLayer/Accuracy.text
+	var combo_text = c_text.strip_edges()  
+	combo_text = combo_text.replace("[center]", "").replace("[/center]", "")
+	
+	
+	return {
+		"score": int(score_text),
+		"accuracy": float(accuracy_text),
+		"combo": int(combo_text)
+	}
 func reset_score() -> void:
 	$HUD.reset()
 func disable() -> void:

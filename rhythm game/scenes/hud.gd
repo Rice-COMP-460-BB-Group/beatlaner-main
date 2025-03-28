@@ -73,3 +73,5 @@ func Hit(type: String):
 	%Combo.text = "[center]"+str(combo)+"[/center]" if combo else ""
 	%Score.text = "[right]" + str(score) + "[/right]"
 	
+func get_notes_sum():
+	return acc_notes_sum
