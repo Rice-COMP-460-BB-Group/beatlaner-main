@@ -31,6 +31,7 @@ func reset_map() -> void:
 		$MinimapIcons.remove_child(c)
 		c.queue_free()
 		
+
 	
 func refresh_minimap(blue_team:Array,red_team:Array):
 	reset_map()
