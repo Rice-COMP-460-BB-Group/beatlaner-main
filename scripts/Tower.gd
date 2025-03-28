@@ -31,14 +31,12 @@ func WaveSpawned():
 func set_team(team):
 	if int(team) == Team.BLUE:
 		$Sigil.animation = "anim_red"
-		$Sigil.self_modulate = Color(10,10,10)
+		
 		
 		$BannerBlue.visible = false
 		$BannerRed.visible = true
 	else:
 		$Sigil.animation = "anim_blue"
-		$Sigil.self_modulate = Color(3,3,3)
-		$Sigil.modulate = Color(0,0,1)
 		$BannerRed.visible = false
 		$BannerBlue.visible = true
 
@@ -59,7 +57,6 @@ func fire(dict):
 	return laser
 
 func _ready():
-	
 	$Sprite2D.centered = true
 	$MultiplayerSpawner.spawn_function = fire
 	$MultiplayerSpawner.spawn_path = get_parent().get_path()

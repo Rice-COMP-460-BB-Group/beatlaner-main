@@ -234,7 +234,6 @@ position = Vector2(11, -82)
 texture = ExtResource("6_uqitx")
 
 [node name="Sigil" type="AnimatedSprite2D" parent="."]
-self_modulate = Color(10, 10, 10, 1)
 z_index = 50
 y_sort_enabled = true
 position = Vector2(21, -95)

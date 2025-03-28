@@ -704,6 +704,7 @@ wait_time = 0.5
 autostart = true
 
 [node name="RhythmLayer1" type="CanvasLayer" parent="."]
+layer = 2
 offset = Vector2(800, 325)
 transform = Transform2D(1, 0, 0, 1, 800, 325)
 
@@ -1123,8 +1124,8 @@ offset_bottom = 500.062
 scale = Vector2(1, 0.997383)
 
 [node name="Damage indic" type="TextureRect" parent="HUD"]
-visible = false
 modulate = Color(1, 1, 1, 0)
+z_index = -1
 offset_right = 1152.0
 offset_bottom = 648.0
 texture = ExtResource("25_pfejg")
@@ -1142,10 +1143,10 @@ anchor_left = 0.207
 anchor_top = 0.41
 anchor_right = 0.207
 anchor_bottom = 0.41
-offset_left = 60.536
-offset_top = -247.68
-offset_right = 731.536
-offset_bottom = -153.68
+offset_left = -1.464
+offset_top = -245.68
+offset_right = 669.536
+offset_bottom = -151.68
 texture = ExtResource("26_ontnn")
 
 [node name="Label" type="Label" parent="HUD/DialogBox"]
