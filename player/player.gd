@@ -23,6 +23,27 @@ var is_flashing: bool = false
 @onready var freeze_icon = preload("res://assets/freeze.png")
 @onready var heal_icon = preload("res://assets/health_potion.png")
 @onready var powerup_frame = $HUD/Stats/PowerupFrame/Powerup
+
+
+
+# Stats
+var player_kill_count = 0 # √
+var minion_kill_count = 0 # √
+var total_damage_dealt = 0 # √
+var total_damage_received = 0 
+var death_count = 0 # √
+var ability_used_count = 0 # √
+var osu_highest_combo = 0
+var osu_notes_hit_combo = 0
+var osu_avg_accuracy = 0
+var minion_spawn_count = 0 # √
+var match_length = 0
+
+
+
+
+
+
 func get_keybind_as_string(input_action: String) -> String:
 	var events = InputMap.action_get_events(input_action)
 	
@@ -448,18 +469,21 @@ func _physics_process(delta: float) -> void:
 				update_mana(current_score)
 				$HUD/DialogBox.visible = false
 				has_deployed = true
+				minion_spawn_count += 3
 			if Input.is_action_just_pressed("Dispatch_Mid"):
 				current_score = max(current_score - 30, 0)
 				request_wave_spawn.rpc(1, 3, team, minion_level)
 				update_mana(current_score)
 				$HUD/DialogBox.visible = false
 				has_deployed = true
+				minion_spawn_count += 3
 			if Input.is_action_just_pressed("Dispatch_Low"):
 				current_score = max(current_score - 30, 0)
 				request_wave_spawn.rpc(2, 3, team, minion_level)
 				update_mana(current_score)
 				$HUD/DialogBox.visible = false
 				has_deployed = true
+				minion_spawn_count += 3
 		if current_score >= 100:
 			$HUD/Stats/MinionUpgradePrompt.text = "↑(" + upgrade_minions_keyname+")"
 			$HUD/Stats/MinionUpgradePrompt.visible = true
@@ -480,6 +504,7 @@ func _physics_process(delta: float) -> void:
 					$HealPowerupSound.play()
 					powerup_labrl.text = powerup_label_default
 					print('using health')
+				ability_used_count += 1
 
 				
 				powerup_frame.hide()
@@ -502,8 +527,14 @@ func _physics_process(delta: float) -> void:
 				if body != self and (body is Minion or body is Player or body is Tower or body is Nexus) and body.team != team:
 					if body.has_node("HealthComponent"):
 						foundAttack = true
-						body.get_node("HealthComponent").decrease_health.rpc((damage + player_level) + (damage + player_level) * falloff_curve())
+						var damage_to_deal = (damage + player_level) + (damage + player_level) * falloff_curve()
+						total_damage_dealt += damage_to_deal
+						body.get_node("HealthComponent").decrease_health.rpc(damage_to_deal)
 						if body.get_node("HealthComponent").get_current_health() <= 0:
+							if body is Player:
+								player_kill_count += 1
+							if body is Minion:
+								minion_kill_count += 1
 							$HUD/Stats/ManaBar.increase_mana(5)
 
 			if foundAttack:
@@ -673,6 +704,7 @@ func respawn() -> void:
 	$AnimatedSprite2D.visible = false
 	$HUD/Stats/Respawning.visible = true
 	$HUD / "Damage indic".visible = false
+	death_count += 1
 	is_alive = false
 	escape_rhythm_game();
 	rhythm_game_instance.is_dead()
