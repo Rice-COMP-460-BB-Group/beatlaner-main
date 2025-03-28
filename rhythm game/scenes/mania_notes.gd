@@ -1,7 +1,7 @@
 class_name ManiaNote
 extends Sprite2D
 func _ready():
-	self_modulate.a = .2
+	self_modulate.a = .35
 func _init():
 	# Activate processing
 	set_process(false)
