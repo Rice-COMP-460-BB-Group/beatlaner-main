@@ -1,13 +1,13 @@
 [gd_scene load_steps=93 format=3 uid="uid://bj3lu7yts43wl"]
 
-[ext_resource type="Script" uid="uid://b7xgmf7yjemai" path="res://player/player.gd" id="1_h04aa"]
-[ext_resource type="Shader" uid="uid://dr7xdahy2q11u" path="res://minions/flame.gdshader" id="2_h7gj3"]
+[ext_resource type="Script" path="res://player/player.gd" id="1_h04aa"]
+[ext_resource type="Shader" path="res://minions/flame.gdshader" id="2_h7gj3"]
 [ext_resource type="SpriteFrames" uid="uid://b4mxfgtfpoes3" path="res://assets/new_sprite_frames.tres" id="2_swing"]
 [ext_resource type="Texture2D" uid="uid://d2vprod1nv81r" path="res://assets/newborder.png" id="5_nfi33"]
 [ext_resource type="Texture2D" uid="uid://wdv5b52q5u2h" path="res://assets/Metronome-000.png" id="6_0etmd"]
 [ext_resource type="Texture2D" uid="uid://3ueshbvvsixu" path="res://assets/Minimap.png" id="6_7c3j6"]
 [ext_resource type="Texture2D" uid="uid://cf2nfu6g3yy3f" path="res://assets/slash-000.png" id="6_60335"]
-[ext_resource type="Script" uid="uid://dwl4hm7awt8io" path="res://player/hud.gd" id="6_a5lxw"]
+[ext_resource type="Script" path="res://player/hud.gd" id="6_a5lxw"]
 [ext_resource type="PackedScene" uid="uid://ckytalr2gjoym" path="res://healthbar/health_component.tscn" id="6_wraxi"]
 [ext_resource type="Texture2D" uid="uid://bsp8xj4gv4cay" path="res://assets/slash-001.png" id="7_76oyw"]
 [ext_resource type="Texture2D" uid="uid://deyvtt4hy8yff" path="res://assets/Metronome-001.png" id="7_l82ru"]
@@ -36,7 +36,7 @@
 [ext_resource type="Texture2D" uid="uid://bqfgop2tg3noi" path="res://assets/595FAD8C-E33F-4E12-A974-9B2D043A2BA3.png.eac9bd8cac80378692e4115553790af8-export.png" id="25_pfejg"]
 [ext_resource type="Texture2D" uid="uid://dh5dok51a2vsj" path="res://assets/DialogBox.png" id="26_ontnn"]
 [ext_resource type="FontFile" uid="uid://ol8nq6vycer0" path="res://assets/PressStart2P-vaV7.ttf" id="27_o3ol7"]
-[ext_resource type="Script" uid="uid://cjt8lctmyu0nf" path="res://player/afterimage.gd" id="28_i8vw6"]
+[ext_resource type="Script" path="res://player/afterimage.gd" id="28_i8vw6"]
 [ext_resource type="AudioStream" uid="uid://crwiggodkgtsr" path="res://assets/sword-slash.wav" id="28_rydyj"]
 [ext_resource type="AudioStream" uid="uid://r2wfjvbniwu4" path="res://blink2.mp3" id="31_try5o"]
 [ext_resource type="AudioStream" uid="uid://cfjdfbdye2oyn" path="res://assets/FreezeSoundEffect.mp3" id="34_tllr5"]
@@ -437,19 +437,19 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1ag5u"]
 _data = {
-&"RESET": SubResource("Animation_ndbho"),
-&"idle_down": SubResource("Animation_jgomj"),
-&"idle_left": SubResource("Animation_j37cc"),
-&"idle_right": SubResource("Animation_u1utp"),
-&"idle_up": SubResource("Animation_bjfj8"),
-&"slash_down": SubResource("Animation_gswnw"),
-&"slash_left": SubResource("Animation_xcnuv"),
-&"slash_right": SubResource("Animation_j55il"),
-&"slash_up": SubResource("Animation_fjxoa"),
-&"walk_down": SubResource("Animation_q3x0e"),
-&"walk_left": SubResource("Animation_68y2o"),
-&"walk_right": SubResource("Animation_58pwc"),
-&"walk_up": SubResource("Animation_xchfb")
+"RESET": SubResource("Animation_ndbho"),
+"idle_down": SubResource("Animation_jgomj"),
+"idle_left": SubResource("Animation_j37cc"),
+"idle_right": SubResource("Animation_u1utp"),
+"idle_up": SubResource("Animation_bjfj8"),
+"slash_down": SubResource("Animation_gswnw"),
+"slash_left": SubResource("Animation_xcnuv"),
+"slash_right": SubResource("Animation_j55il"),
+"slash_up": SubResource("Animation_fjxoa"),
+"walk_down": SubResource("Animation_q3x0e"),
+"walk_left": SubResource("Animation_68y2o"),
+"walk_right": SubResource("Animation_58pwc"),
+"walk_up": SubResource("Animation_xchfb")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fjxoa"]
@@ -686,7 +686,7 @@ zoom = Vector2(2, 2)
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 deterministic = true
 libraries = {
-&"": SubResource("AnimationLibrary_1ag5u")
+"": SubResource("AnimationLibrary_1ag5u")
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
@@ -741,10 +741,10 @@ text = "LVL"
 [node name="PlayerHUDBar" type="TextureRect" parent="HUD/Stats"]
 z_index = -50
 layout_mode = 0
-offset_left = -285.5
-offset_top = -193.5
-offset_right = 98.5
-offset_bottom = -97.5
+offset_left = -179.5
+offset_top = 79.0
+offset_right = 204.5
+offset_bottom = 175.0
 texture = ExtResource("5_nfi33")
 
 [node name="Metronome" type="Label" parent="HUD/Stats"]
@@ -764,10 +764,10 @@ offset_bottom = -25.0
 
 [node name="ManaBar" parent="HUD/Stats" instance=ExtResource("19_w14c3")]
 layout_mode = 0
-offset_left = -283.5
-offset_top = -162.0
-offset_right = 111.5
-offset_bottom = -51.0
+offset_left = -60.5
+offset_top = 127.5
+offset_right = 490.5
+offset_bottom = 261.5
 scale = Vector2(0.5, 0.5)
 
 [node name="MetronomeContainer" type="MarginContainer" parent="HUD/Stats"]
@@ -831,19 +831,19 @@ scale = Vector2(0.3, 0.3)
 [node name="Frame" type="TextureRect" parent="HUD/Stats/PowerupFrame"]
 z_index = -10
 layout_mode = 0
-offset_left = -17.0
-offset_top = -68.0
-offset_right = 300.0
-offset_bottom = 95.0
+offset_left = 548.333
+offset_top = 318.333
+offset_right = 696.333
+offset_bottom = 689.333
 scale = Vector2(1, 0.5)
 texture = ExtResource("21_kd2wf")
 
 [node name="Powerup" type="TextureRect" parent="HUD/Stats/PowerupFrame"]
 layout_mode = 0
-offset_left = -6.66667
-offset_top = -121.667
-offset_right = 89.3333
-offset_bottom = -25.6667
+offset_left = 573.333
+offset_top = 341.667
+offset_right = 671.333
+offset_bottom = 438.667
 
 [node name="UpgradeStats" type="Control" parent="HUD/Stats"]
 visible = false
@@ -955,19 +955,21 @@ autowrap_mode = 3
 
 [node name="PlayerUI" type="TextureRect" parent="HUD/Stats"]
 layout_mode = 0
-offset_left = -128.0
-offset_top = -131.5
-offset_right = -22.0
-offset_bottom = -87.5
+offset_left = -61.5
+offset_top = 112.0
+offset_right = -10.5
+offset_bottom = 133.0
 texture = ExtResource("23_7eqls")
+expand_mode = 1
 
 [node name="MinionUI" type="TextureRect" parent="HUD/Stats"]
 layout_mode = 0
-offset_left = -287.5
-offset_top = -132.5
-offset_right = -181.5
-offset_bottom = -88.5
+offset_left = 3.0
+offset_top = 109.5
+offset_right = 55.0
+offset_bottom = 132.5
 texture = ExtResource("21_j77iq")
+expand_mode = 1
 
 [node name="MinionUI2" type="TextureRect" parent="HUD/Stats"]
 layout_mode = 0
@@ -990,20 +992,20 @@ text = "1"
 
 [node name="MinionLvlLabel" type="Label" parent="HUD/Stats"]
 layout_mode = 0
-offset_left = -237.0
-offset_top = -112.5
-offset_right = -189.0
-offset_bottom = -96.5
+offset_left = 23.0
+offset_top = 122.5
+offset_right = 71.0
+offset_bottom = 138.5
 theme_override_fonts/font = ExtResource("27_o3ol7")
 theme_override_font_sizes/font_size = 8
 text = "LVL"
 
 [node name="MinionLvl" type="Label" parent="HUD/Stats"]
 layout_mode = 0
-offset_left = -236.0
-offset_top = -103.5
-offset_right = -196.0
-offset_bottom = -88.5
+offset_left = 47.0
+offset_top = 123.0
+offset_right = 87.0
+offset_bottom = 138.0
 theme_override_fonts/font = ExtResource("27_o3ol7")
 theme_override_font_sizes/font_size = 8
 text = "1"
@@ -1025,58 +1027,58 @@ text = "UPGRADE(160):Q"
 [node name="MinionUpgradePrompt" type="Label" parent="HUD/Stats"]
 z_index = 1000
 layout_mode = 0
-offset_left = -238.0
-offset_top = -128.5
-offset_right = -134.0
-offset_bottom = -120.5
+offset_left = 23.0
+offset_top = 112.0
+offset_right = 63.0
+offset_bottom = 120.0
 theme_override_colors/font_color = Color(0, 0.94902, 0.952941, 1)
 theme_override_font_sizes/font_size = 8
-text = "Upgrade(50):E"
+text = " ↑(E)"
 
 [node name="LevelLabel" type="Label" parent="HUD/Stats"]
 layout_mode = 0
-offset_left = -79.5
-offset_top = -111.0
-offset_right = -31.5
-offset_bottom = -95.0
+offset_left = -40.5
+offset_top = 122.5
+offset_right = 7.5
+offset_bottom = 138.5
 theme_override_fonts/font = ExtResource("27_o3ol7")
 theme_override_font_sizes/font_size = 8
 text = "LVL"
 
 [node name="PlayerLevel" type="Label" parent="HUD/Stats"]
 layout_mode = 0
-offset_left = -78.5
-offset_top = -102.0
-offset_right = -38.5
-offset_bottom = -87.0
+offset_left = -14.0
+offset_top = 123.0
+offset_right = 26.0
+offset_bottom = 138.0
 theme_override_fonts/font = ExtResource("27_o3ol7")
 theme_override_font_sizes/font_size = 8
 text = "1"
 
 [node name="PlayerUpgradePrompt" type="Label" parent="HUD/Stats"]
 layout_mode = 0
-offset_left = -78.0
-offset_top = -128.0
-offset_right = 34.0
-offset_bottom = -120.0
+offset_left = -41.0
+offset_top = 112.5
+offset_right = -1.0
+offset_bottom = 120.5
 theme_override_colors/font_color = Color(0, 0.94902, 0.952941, 1)
 theme_override_font_sizes/font_size = 8
-text = "UPGRADE(160):Q"
+text = " ↑(Q)"
 
 [node name="PowerUpLabel" type="Label" parent="HUD/Stats"]
 layout_mode = 0
-offset_left = -275.5
-offset_top = -2.0
-offset_right = -131.5
-offset_bottom = 14.0
-theme_override_colors/font_color = Color(1, 0.854902, 0, 1)
+offset_left = -106.0
+offset_top = 133.0
+offset_right = -75.0
+offset_bottom = 149.0
 theme_override_font_sizes/font_size = 8
-text = "POWERUP:NONE"
 
 [node name="Control" type="Control" parent="HUD/Stats"]
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = -31.0
+offset_top = -32.0
+offset_right = 9.0
+offset_bottom = 8.0
 
 [node name="Minimap" type="Control" parent="HUD"]
 layout_mode = 3
@@ -1121,6 +1123,7 @@ offset_bottom = 500.062
 scale = Vector2(1, 0.997383)
 
 [node name="Damage indic" type="TextureRect" parent="HUD"]
+visible = false
 modulate = Color(1, 1, 1, 0)
 offset_right = 1152.0
 offset_bottom = 648.0
@@ -1129,28 +1132,28 @@ expand_mode = 1
 
 [node name="Hints" parent="HUD" instance=ExtResource("23_a5f6l")]
 offset_left = 262.0
-offset_top = 597.0
+offset_top = 603.0
 offset_right = 1000.0
-offset_bottom = 631.0
+offset_bottom = 637.0
 
 [node name="DialogBox" type="TextureRect" parent="HUD"]
 anchors_preset = -1
-anchor_left = 0.211
-anchor_top = 0.829
-anchor_right = 0.211
-anchor_bottom = 0.829
-offset_left = 1.92799
-offset_top = -3.19202
-offset_right = 672.928
-offset_bottom = 90.808
+anchor_left = 0.207
+anchor_top = 0.41
+anchor_right = 0.207
+anchor_bottom = 0.41
+offset_left = 60.536
+offset_top = -247.68
+offset_right = 731.536
+offset_bottom = -153.68
 texture = ExtResource("26_ontnn")
 
 [node name="Label" type="Label" parent="HUD/DialogBox"]
 layout_mode = 0
-offset_left = 18.0
-offset_top = 12.0
-offset_right = 657.0
-offset_bottom = 87.0
+offset_left = 16.0
+offset_top = 9.0
+offset_right = 663.0
+offset_bottom = 90.0
 theme_type_variation = &"HeaderLarge"
 theme_override_fonts/font = ExtResource("27_o3ol7")
 theme_override_font_sizes/font_size = 20

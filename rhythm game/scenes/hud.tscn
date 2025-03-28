@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://xfxnyk30olx4"]
 
-[ext_resource type="Script" uid="uid://oo2064ntdsv4" path="res://rhythm game/scenes/hud.gd" id="1_swecj"]
+[ext_resource type="Script" path="res://rhythm game/scenes/hud.gd" id="1_swecj"]
 [ext_resource type="AudioStream" uid="uid://bpsllidgcm5tj" path="res://rhythm game/assets/music/combobreak.wav" id="2_248el"]
 
 [node name="HUD" type="Control"]

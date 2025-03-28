@@ -33,7 +33,7 @@ func get_keybind_as_string(input_action: String) -> String:
 			
 		
 	return "NULL"
-var powerup_label_default = "POWERUP:NONE"
+var powerup_label_default = ""
 @onready var rhythm_keyname: String = get_keybind_as_string("toggle_rhythm_game")
 @onready var upgrade_minions_keyname: String = get_keybind_as_string("upgrade_minions")
 @onready var upgrade_player_keyname: String = get_keybind_as_string("upgrade_player")
@@ -431,7 +431,7 @@ func _physics_process(delta: float) -> void:
 		else:
 			$HUD/Stats/MinionUpgradePrompt.visible = false
 		if current_score >= 100:
-			$HUD/Stats/PlayerUpgradePrompt.text = "UPGRADE(100):" + upgrade_player_keyname
+			$HUD/Stats/PlayerUpgradePrompt.text = "↑(" + upgrade_player_keyname +")"
 			$HUD/Stats/PlayerUpgradePrompt.visible = true
 		else:
 			$HUD/Stats/PlayerUpgradePrompt.visible = false
@@ -461,7 +461,7 @@ func _physics_process(delta: float) -> void:
 				$HUD/DialogBox.visible = false
 				has_deployed = true
 		if current_score >= 100:
-			$HUD/Stats/MinionUpgradePrompt.text = "UPGRADE(100):" + upgrade_minions_keyname
+			$HUD/Stats/MinionUpgradePrompt.text = "↑(" + upgrade_minions_keyname+")"
 			$HUD/Stats/MinionUpgradePrompt.visible = true
 		if Input.is_action_just_pressed("use_powerup"):
 			if player_powerup != null:
@@ -611,13 +611,13 @@ func get_minimap():
 func add_powerup(powerup):
 	if player_powerup == null:
 		if powerup == "freeze":
-			powerup_labrl.text = "FREEZE: Z"
+			powerup_labrl.text = "Z"
 			powerup_frame.texture = freeze_icon
 		elif powerup == "damage_powerup":
-			powerup_labrl.text = "DAMAGE UP: Z"
+			powerup_labrl.text = "Z"
 			powerup_frame.texture = damage_icon
 		elif powerup == "heal":
-			powerup_labrl.text = "HEAL: Z"
+			powerup_labrl.text = "Z"
 			powerup_frame.texture = heal_icon
 		powerup_frame.show()
 		player_powerup = powerup

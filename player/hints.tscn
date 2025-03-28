@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://270dby1f0ytd"]
 
-[ext_resource type="Script" uid="uid://c2bkx70btivkq" path="res://player/hints.gd" id="1_whm60"]
+[ext_resource type="Script" path="res://player/hints.gd" id="1_whm60"]
 
 [node name="Hints" type="HFlowContainer"]
 offset_right = 200.0

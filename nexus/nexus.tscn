@@ -1,6 +1,6 @@
 [gd_scene load_steps=29 format=3 uid="uid://vrm8h4oj4f3j"]
 
-[ext_resource type="Script" uid="uid://joml2cl3kfrm" path="res://nexus/nexus.gd" id="1_8s1ey"]
+[ext_resource type="Script" path="res://nexus/nexus.gd" id="1_8s1ey"]
 [ext_resource type="Texture2D" uid="uid://3r86y452fli1" path="res://assets/candidate2.png" id="2_ksxnc"]
 [ext_resource type="PackedScene" uid="uid://0n265vc7dy8m" path="res://nexus/laser.tscn" id="2_ok7j0"]
 [ext_resource type="PackedScene" uid="uid://ckytalr2gjoym" path="res://healthbar/health_component.tscn" id="3_d3luj"]
@@ -177,7 +177,7 @@ position = Vector2(0, 140)
 polygon = PackedVector2Array(-60, 36, -21, 36, -20, 37, -20, 38, -19, 40, -18, 42, -17, 42, -16, 43, -15, 44, -12, 45, -9, 46, -6, 46, -4, 46, -3, 46, 0, 46, 3, 46, 6, 46, 9, 46, 12, 46, 13, 43, 15, 40, 16, 38, 18, 36, 57, 35, 57, 4, 57, -22, 56, -41, 55, -81, -60, -80, -61, 35)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-modulate = Color(10, 10, 10, 1)
+modulate = Color(1.5, 1.5, 1.5, 1)
 z_index = 15
 position = Vector2(-2, -5)
 sprite_frames = SubResource("SpriteFrames_ry8do")

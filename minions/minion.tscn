@@ -1,8 +1,8 @@
 [gd_scene load_steps=37 format=3 uid="uid://cao1ivxo860t2"]
 
-[ext_resource type="Script" uid="uid://ciit000s07w30" path="res://minions/minion.gd" id="1_ywsbo"]
+[ext_resource type="Script" path="res://minions/minion.gd" id="1_ywsbo"]
 [ext_resource type="PackedScene" uid="uid://c2a3uw6r78k4d" path="res://minions/projectile.tscn" id="2_6tinm"]
-[ext_resource type="Shader" uid="uid://dr7xdahy2q11u" path="res://minions/flame.gdshader" id="3_3xswk"]
+[ext_resource type="Shader" path="res://minions/flame.gdshader" id="3_3xswk"]
 [ext_resource type="Texture2D" uid="uid://ybjhy5t6t5vw" path="res://assets/minion/grunt_east_walk_v2_red-000.png" id="3_fgpe4"]
 [ext_resource type="Texture2D" uid="uid://tl7bxs6xj53y" path="res://assets/minion/grunt_attack_v2_red-000.png" id="3_id0g0"]
 [ext_resource type="PackedScene" uid="uid://ckytalr2gjoym" path="res://healthbar/health_component.tscn" id="3_qdnh8"]

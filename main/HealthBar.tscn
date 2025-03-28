@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://4br11jqpfcag" path="res://assets/health-outline.png" id="1_a51qs"]
 [ext_resource type="Texture2D" uid="uid://bf63vlohnhtk4" path="res://assets/health-mask..png" id="2_60r2c"]
-[ext_resource type="Script" uid="uid://coyrllvyqs5ll" path="res://scripts/health_bar.gd" id="3_q1qwu"]
+[ext_resource type="Script" path="res://scripts/health_bar.gd" id="3_q1qwu"]
 
 [node name="HealthBar" type="TextureProgressBar"]
 self_modulate = Color(1.5, 1.5, 1.5, 1)

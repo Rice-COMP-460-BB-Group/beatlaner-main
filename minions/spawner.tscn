@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bufx6wcek0aj8"]
 
-[ext_resource type="Script" uid="uid://e4ph6ktdeiy3" path="res://minions/spawner.gd" id="1_a68u2"]
+[ext_resource type="Script" path="res://minions/spawner.gd" id="1_a68u2"]
 
 [node name="Spawner" type="Node2D"]
 position = Vector2(-1, 0)
