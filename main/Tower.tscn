@@ -1,6 +1,6 @@
 [gd_scene load_steps=33 format=3 uid="uid://3l0iahp12xip"]
 
-[ext_resource type="Script" path="res://scripts/Tower.gd" id="1_15l20"]
+[ext_resource type="Script" uid="uid://eahindjn0aae" path="res://scripts/Tower.gd" id="1_15l20"]
 [ext_resource type="PackedScene" uid="uid://bqkl7m6s1p5ls" path="res://minions/arrow.tscn" id="2_q6p00"]
 [ext_resource type="Texture2D" uid="uid://c6vob683c35dk" path="res://assets/tower.png" id="2_qjxk3"]
 [ext_resource type="PackedScene" uid="uid://ckytalr2gjoym" path="res://healthbar/health_component.tscn" id="3_sstfa"]
@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://drv3mmdcucid7" path="res://assets/tower_anim-Sheet2.png" id="6_e3htb"]
 [ext_resource type="Texture2D" uid="uid://dnu5hdpe2sjgs" path="res://assets/tower-base.png" id="6_uqitx"]
 [ext_resource type="Texture2D" uid="uid://c6rguhqnh0eru" path="res://assets/tower-anim_red-Sheet22.png" id="7_q3y2f"]
-[ext_resource type="Shader" path="res://main/Tower.gdshader" id="9_dvgts"]
+[ext_resource type="Shader" uid="uid://cpq3wxu22dcrw" path="res://main/Tower.gdshader" id="9_dvgts"]
 [ext_resource type="Texture2D" uid="uid://bj2ik2nbrgwv5" path="res://assets/BanBlue.png" id="10_6ylfq"]
 [ext_resource type="Texture2D" uid="uid://dq8bs51012pa0" path="res://assets/BanRed.png" id="10_yvgmj"]
 [ext_resource type="AudioStream" uid="uid://bxuov0u06cwnq" path="res://assets/laserEffect2.mp3" id="12_8m5iv"]
