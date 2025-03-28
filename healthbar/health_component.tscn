@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://ckytalr2gjoym"]
 
-[ext_resource type="Script" path="res://minions/health_component.gd" id="1_36lsc"]
-[ext_resource type="PackedScene" uid="uid://bd5imx0piptlg" path="res://main/HealthBar.tscn" id="2_5vfn3"]
+[ext_resource type="Script" uid="uid://dsm1lnko6v63n" path="res://minions/health_component.gd" id="1_36lsc"]
+[ext_resource type="PackedScene" uid="uid://bd5imx0piptlg" path="res://healthbar/HealthBar.tscn" id="2_5vfn3"]
 
 [node name="Node2D" type="Node2D"]
 z_index = 1000
