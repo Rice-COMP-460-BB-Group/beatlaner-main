@@ -30,12 +30,12 @@ var is_flashing: bool = false
 var player_kill_count = 0 # √
 var minion_kill_count = 0 # √
 var total_damage_dealt = 0 # √
-var total_damage_received = 0 
+var total_damage_received = 0 # √ 
 var death_count = 0 # √
 var ability_used_count = 0 # √
-var osu_highest_combo = 0
-var osu_notes_hit_count = 0
-var osu_acc_notes_count = 0
+var osu_highest_combo = 0 # √
+var osu_notes_hit_count = 0 # √
+var osu_acc_notes_count = 0 # √
 
 var osu_acc_sum = 0 # √
 var minion_spawn_count = 0 # √
@@ -733,6 +733,18 @@ func print_match_statistics():
 	print("OSU Average Accuracy: ", str(float(osu_acc_sum) / (osu_acc_notes_count)).pad_decimals(2))
 	print("Minion Spawn Count: ", minion_spawn_count)
 	print("Match Length: ", format_time(match_length))
+	
+	var titles = []
+	if minion_kill_count > 100:
+		titles.append("The Minion Slayer")
+	if osu_highest_combo > 100:
+		titles.append('Probably knew Epstein')
+	if total_damage_dealt > 10000:
+		titles.append('You play too much league')
+	if death_count > 10:
+		titles.append('You suck')
+	var title_text = '\n'.join(titles)
+	print(title_text)
 
 func falloff_curve():
 	var closest = min($Metronome.time_left, (60.0 / bpm) - $Metronome.time_left)
