@@ -27,18 +27,18 @@ var is_flashing: bool = false
 
 
 # Stats
-var player_kill_count = 0 # √
-var minion_kill_count = 0 # √
-var total_damage_dealt = 0 # √
-var total_damage_received = 0 # √ 
-var death_count = 0 # √
-var ability_used_count = 0 # √
-var osu_highest_combo = 0 # √
-var osu_notes_hit_count = 0 # √
-var osu_acc_notes_count = 0 # √
+var player_kill_count = 0 # √√
+var minion_kill_count = 0 # √√
+var total_damage_dealt = 0 # √√
+var total_damage_received = 0 # 
+var death_count = 0 # √√
+var ability_used_count = 0 # √√
+var osu_highest_combo = 0 # √√
+var osu_notes_hit_count = 0 # √√
+var osu_acc_notes_count = 0 # √√
 
-var osu_acc_sum = 0 # √
-var minion_spawn_count = 0 # √
+var osu_acc_sum = 0 # √√
+var minion_spawn_count = 0 # √√
 var match_length = 0 # √
 
 
@@ -130,7 +130,10 @@ var end_time = 0
 func Hit(type: String):
 	if type != "Miss":
 		osu_notes_hit_count += 1
+		MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "osu_notes_hit_count", osu_notes_hit_count)
 	osu_acc_notes_count += 1
+	MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "osu_acc_notes_count", osu_acc_notes_count)
+
 
 func _ready() -> void:
 	$Metronome.wait_time = (60.0 / bpm)
@@ -332,12 +335,15 @@ func on_nexus_destroyed(nexus_destroyed_team: Team, pos: Vector2):
 	if $MultiplayerSynchronizer.is_multiplayer_authority():
 		var end_time = Time.get_ticks_msec()
 		match_length = end_time - start_time
-		print_match_statistics()
+		MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "match_length", match_length)
+		#print_match_statistics()
+		print(multiplayer.get_unique_id(), MatchStats.get_all_stats())
+		print()
 
 		if team == nexus_destroyed_team:
-			show_defeat(pos)
+			await show_defeat(pos)
 		else:
-			show_victory(pos)
+			await show_victory(pos)
 		
 		
 func on_tower_destroyed(tower_team: Team, pos: Vector2):
@@ -460,6 +466,7 @@ func _physics_process(delta: float) -> void:
 			#var current_combo = osu_stats['combo']
 			
 			osu_highest_combo = max(osu_highest_combo, combo)
+			MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "osu_highest_combo", osu_highest_combo)
 			
 			var tmp_score: float
 			#if $HealthComponent.currentHealth > 0:
@@ -501,6 +508,7 @@ func _physics_process(delta: float) -> void:
 				$HUD/DialogBox.visible = false
 				has_deployed = true
 				minion_spawn_count += 3
+				MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "minion_spawn_count", minion_spawn_count)
 			if Input.is_action_just_pressed("Dispatch_Mid"):
 				current_score = max(current_score - 30, 0)
 				request_wave_spawn.rpc(1, 3, team, minion_level)
@@ -508,6 +516,8 @@ func _physics_process(delta: float) -> void:
 				$HUD/DialogBox.visible = false
 				has_deployed = true
 				minion_spawn_count += 3
+				MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "minion_spawn_count", minion_spawn_count)
+
 			if Input.is_action_just_pressed("Dispatch_Low"):
 				current_score = max(current_score - 30, 0)
 				request_wave_spawn.rpc(2, 3, team, minion_level)
@@ -515,6 +525,8 @@ func _physics_process(delta: float) -> void:
 				$HUD/DialogBox.visible = false
 				has_deployed = true
 				minion_spawn_count += 3
+				MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "minion_spawn_count", minion_spawn_count)
+
 		if current_score >= 100:
 			$HUD/Stats/MinionUpgradePrompt.text = "↑(" + upgrade_minions_keyname+")"
 			$HUD/Stats/MinionUpgradePrompt.visible = true
@@ -536,6 +548,7 @@ func _physics_process(delta: float) -> void:
 					powerup_labrl.text = powerup_label_default
 					print('using health')
 				ability_used_count += 1
+				MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "ability_used_count", ability_used_count)
 
 				
 				powerup_frame.hide()
@@ -560,12 +573,17 @@ func _physics_process(delta: float) -> void:
 						foundAttack = true
 						var damage_to_deal = (damage + player_level) + (damage + player_level) * falloff_curve()
 						total_damage_dealt += damage_to_deal
+						MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "total_damage_dealt", total_damage_dealt)
+
 						body.get_node("HealthComponent").decrease_health.rpc(damage_to_deal)
 						if body.get_node("HealthComponent").get_current_health() <= 0:
 							if body is Player:
 								player_kill_count += 1
+								MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "player_kill_count", player_kill_count)
 							if body is Minion:
 								minion_kill_count += 1
+								MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "minion_kill_count", minion_kill_count)
+
 							$HUD/Stats/ManaBar.increase_mana(5)
 
 			if foundAttack:
@@ -658,6 +676,7 @@ func escape_rhythm_game():
 		#$RhythmLayer1.remove_child(rhythm_game_instance)
 		#var score = rhythm_game_instance.get_score()
 		osu_acc_sum += rhythm_game_instance.get_acc_sum()
+		MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "osu_acc_sum", osu_acc_sum)
 		rhythm_game_instance.reset_score()
 		var notes = get_tree().get_nodes_in_group("mania_note_instance")
 		print("notes", notes)
@@ -764,6 +783,7 @@ func respawn() -> void:
 	$HUD/Stats/Respawning.visible = true
 	$HUD / "Damage indic".visible = false
 	death_count += 1
+	MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "death_count", death_count)
 	is_alive = false
 	escape_rhythm_game();
 	rhythm_game_instance.is_dead()

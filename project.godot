@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Signals="*res://rhythm game/scenes/signals.gd"
+MatchStats="*res://scripts/MatchStats.gd"
 GameManager="*res://scripts/GameManager.gd"
 KeybindingSystem="*res://title/keybindingsystem.gd"
 

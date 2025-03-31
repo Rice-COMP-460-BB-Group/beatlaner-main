@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://ng0qkjtfuakj"]
+[gd_scene load_steps=3 format=3 uid="uid://ng0qkjtfuakj"]
 
 [ext_resource type="PackedScene" uid="uid://cfw4w7wyo12ha" path="res://map/game_over.tscn" id="1_kd535"]
 [ext_resource type="Texture2D" uid="uid://dvgifd7ptn6uh" path="res://assets/Background.png" id="2_hfvp0"]
-[ext_resource type="FontFile" uid="uid://cm5q756n5trre" path="res://assets/VT323-Regular.ttf" id="3_vkfba"]
 
 [node name="GameOver" instance=ExtResource("1_kd535")]
 
@@ -16,21 +15,11 @@ scale = Vector2(0.6, 0.6)
 texture = ExtResource("2_hfvp0")
 
 [node name="VBoxContainer" parent="." index="1"]
-offset_top = 193.0
-offset_bottom = 532.0
+offset_left = 290.0
+offset_top = 24.0
+offset_right = 847.0
+offset_bottom = 476.0
 
 [node name="Label" parent="VBoxContainer" index="0"]
 theme_override_colors/font_color = Color(0, 0.8, 0.356863, 1)
 text = "You Won!"
-
-[node name="StatsLabel" type="RichTextLabel" parent="VBoxContainer" index="1"]
-layout_mode = 2
-
-[node name="View Stats" type="Button" parent="VBoxContainer" index="2"]
-visible = false
-layout_mode = 2
-theme_override_fonts/font = ExtResource("3_vkfba")
-theme_override_font_sizes/font_size = 64
-text = "View Stats"
-
-[connection signal="pressed" from="VBoxContainer/View Stats" to="." method="_on_main_menu_pressed"]
