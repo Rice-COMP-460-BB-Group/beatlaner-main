@@ -4,7 +4,7 @@ class_name Player
 
 var bpm = 175
 @onready var damage_overlay = $"HUD/Damage indic"
-@onready var powerup_labrl = $HUD/Stats/PowerUpLabel
+@onready var powerup_labrl = $HUD/Stats/PowerupFrame/PowerUpLabel
 @export var flash_color: Color = Color(4, 4, 4, 1) # White by default
 @export var rest_color: Color = Color(0, 0, 0, 0) # Transparent by default
 @export var flash_duration_percent: float = 0.25 # How long the flash stays visible (as percentage of beat)
@@ -248,7 +248,7 @@ func start_dash():
 		
 
 func update_mana(score: int):
-	$HUD/Stats/ManaBar.set_manabar(score)
+	%ManaBar.set_manabar(score)
 	
 var beat_half_count := 0
 var total_metronome_frames := 13
@@ -494,14 +494,14 @@ func _physics_process(delta: float) -> void:
 			handle_rhythm_callback()
 		
 		else:
-			$HUD/Stats/MinionUpgradePrompt.visible = false
+			%MinionUpgradePrompt.visible = false
 		if current_score >= 100:
-			$HUD/Stats/PlayerUpgradePrompt.text = "↑(" + upgrade_player_keyname +")"
-			$HUD/Stats/PlayerUpgradePrompt.visible = true
+			%PlayerUpgradePrompt.text = "↑(" + upgrade_player_keyname +")"
+			%PlayerUpgradePrompt.visible = true
 		else:
-			$HUD/Stats/PlayerUpgradePrompt.visible = false
+			%PlayerUpgradePrompt.visible = false
 		if current_score >= 30:
-			$HUD/Stats/MinionUpgradePrompt.text = "DEPLOY(30):1/2/3"
+			%MinionUpgradePrompt.text = "DEPLOY(30):1/2/3"
 			
 			$HUD/Stats/DeployUi/Label.add_theme_color_override("font_color",Color(0,242,243))
 			$"HUD/Stats/DeployUi/2abel".add_theme_color_override("font_color",Color(0,242,243))
@@ -542,8 +542,8 @@ func _physics_process(delta: float) -> void:
 			$"HUD/Stats/DeployUi/2abel".add_theme_color_override("font_color",Color(255,255,255))
 			$"HUD/Stats/DeployUi/1Label".add_theme_color_override("font_color",Color(255,255,255))
 		if current_score >= 100:
-			$HUD/Stats/MinionUpgradePrompt.text = "↑(" + upgrade_minions_keyname+")"
-			$HUD/Stats/MinionUpgradePrompt.visible = true
+			%MinionUpgradePrompt.text = "↑(" + upgrade_minions_keyname+")"
+			%MinionUpgradePrompt.visible = true
 		if Input.is_action_just_pressed("use_powerup"):
 			if player_powerup != null:
 				if player_powerup == "freeze":
@@ -598,7 +598,8 @@ func _physics_process(delta: float) -> void:
 								minion_kill_count += 1
 								MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "minion_kill_count", minion_kill_count)
 
-							$HUD/Stats/ManaBar.increase_mana(5)
+							current_score += 5
+							update_mana(current_score)
 
 			if foundAttack:
 				var floating_text = floating_text_scene.instantiate()
@@ -613,7 +614,7 @@ func _physics_process(delta: float) -> void:
 				var old_minion_level = minion_level
 				minion_level += 1
 				current_score -= 100
-				$HUD/Stats/MinionLvl.text = str(minion_level)
+				%MinionLvl.text = str(minion_level)
 				update_mana(current_score)
 				
 				var old_damage = 10 + (old_minion_level - 1) * 5
@@ -634,7 +635,7 @@ func _physics_process(delta: float) -> void:
 			print('upgrading self')
 			if current_score >= 100:
 				player_level += 1
-				$HUD/Stats/PlayerLevel.text = str(player_level)
+				%PlayerLevel.text = str(player_level)
 				current_score -= 100
 				update_mana(current_score)
 				
