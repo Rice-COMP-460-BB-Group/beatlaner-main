@@ -1,4 +1,4 @@
-[gd_scene load_steps=96 format=3 uid="uid://bj3lu7yts43wl"]
+[gd_scene load_steps=95 format=3 uid="uid://bj3lu7yts43wl"]
 
 [ext_resource type="Script" uid="uid://b7xgmf7yjemai" path="res://player/player.gd" id="1_h04aa"]
 [ext_resource type="Shader" uid="uid://dr7xdahy2q11u" path="res://minions/flame.gdshader" id="2_h7gj3"]
@@ -28,7 +28,6 @@
 [ext_resource type="FontFile" uid="uid://cm5q756n5trre" path="res://assets/VT323-Regular.ttf" id="18_86px8"]
 [ext_resource type="PackedScene" uid="uid://dd7pknkkclu6u" path="res://player/ManaBar.tscn" id="19_w14c3"]
 [ext_resource type="Texture2D" uid="uid://00c1h6f0f02k" path="res://assets/achievement.png" id="20_kjgea"]
-[ext_resource type="Texture2D" uid="uid://u4g1b7vsgxai" path="res://assets/health_potion.png" id="21_j55il"]
 [ext_resource type="Texture2D" uid="uid://ibkcfjfob2r1" path="res://assets/minion-redUI.png" id="21_j77iq"]
 [ext_resource type="Texture2D" uid="uid://dqne33p0lxcj7" path="res://assets/PowerUpBar.png" id="21_kd2wf"]
 [ext_resource type="Texture2D" uid="uid://2bx5t4k3vue3" path="res://assets/enemy-banner.png" id="22_25x0m"]
@@ -937,7 +936,6 @@ offset_left = 25.0
 offset_top = 23.0
 offset_right = 123.0
 offset_bottom = 120.0
-texture = ExtResource("21_j55il")
 
 [node name="PowerUpLabel" type="Label" parent="HUD/Stats/PowerupFrame"]
 layout_mode = 0
@@ -946,7 +944,6 @@ offset_top = 115.0
 offset_right = 92.6667
 offset_bottom = 135.0
 theme_override_font_sizes/font_size = 20
-text = "z"
 horizontal_alignment = 1
 
 [node name="DeployUi" type="Control" parent="HUD/Stats"]
