@@ -1,4 +1,4 @@
-[gd_scene load_steps=93 format=3 uid="uid://bj3lu7yts43wl"]
+[gd_scene load_steps=95 format=3 uid="uid://bj3lu7yts43wl"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_h04aa"]
 [ext_resource type="Shader" path="res://minions/flame.gdshader" id="2_h7gj3"]
@@ -35,6 +35,8 @@
 [ext_resource type="PackedScene" uid="uid://270dby1f0ytd" path="res://player/hints.tscn" id="23_a5f6l"]
 [ext_resource type="Texture2D" uid="uid://bqfgop2tg3noi" path="res://assets/595FAD8C-E33F-4E12-A974-9B2D043A2BA3.png.eac9bd8cac80378692e4115553790af8-export.png" id="25_pfejg"]
 [ext_resource type="Texture2D" uid="uid://dh5dok51a2vsj" path="res://assets/DialogBox.png" id="26_ontnn"]
+[ext_resource type="Texture2D" uid="uid://dopvl8tctspgh" path="res://assets/DeployUITopRight.png" id="26_qsqxi"]
+[ext_resource type="Texture2D" uid="uid://c5yeo5skrhat8" path="res://assets/deployuiLowerLeft.png" id="26_wap1y"]
 [ext_resource type="FontFile" uid="uid://ol8nq6vycer0" path="res://assets/PressStart2P-vaV7.ttf" id="27_o3ol7"]
 [ext_resource type="Script" path="res://player/afterimage.gd" id="28_i8vw6"]
 [ext_resource type="AudioStream" uid="uid://crwiggodkgtsr" path="res://assets/sword-slash.wav" id="28_rydyj"]
@@ -1079,6 +1081,56 @@ offset_left = -31.0
 offset_top = -32.0
 offset_right = 9.0
 offset_bottom = 8.0
+
+[node name="DeployUi" type="Control" parent="HUD/Stats"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TopRight" type="TextureRect" parent="HUD/Stats/DeployUi"]
+layout_mode = 0
+offset_left = 92.0
+offset_top = 99.0
+offset_right = 145.0
+offset_bottom = 155.0
+texture = ExtResource("26_qsqxi")
+expand_mode = 1
+
+[node name="LowLeft" type="TextureRect" parent="HUD/Stats/DeployUi"]
+layout_mode = 0
+offset_left = 93.0
+offset_top = 101.0
+offset_right = 147.0
+offset_bottom = 158.0
+texture = ExtResource("26_wap1y")
+expand_mode = 1
+
+[node name="1Label" type="Label" parent="HUD/Stats/DeployUi"]
+layout_mode = 0
+offset_left = 103.0
+offset_top = 111.0
+offset_right = 143.0
+offset_bottom = 127.0
+theme_override_font_sizes/font_size = 8
+text = "1"
+
+[node name="2abel" type="Label" parent="HUD/Stats/DeployUi"]
+layout_mode = 0
+offset_left = 115.0
+offset_top = 121.5
+offset_right = 155.0
+offset_bottom = 137.5
+theme_override_font_sizes/font_size = 8
+text = "2"
+
+[node name="Label" type="Label" parent="HUD/Stats/DeployUi"]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 137.0
+offset_right = 168.0
+offset_bottom = 153.0
+theme_override_font_sizes/font_size = 8
+text = "3"
 
 [node name="Minimap" type="Control" parent="HUD"]
 layout_mode = 3
