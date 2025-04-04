@@ -1,0 +1,60 @@
+[gd_scene load_steps=2 format=3 uid="uid://bb4g1b1em6bsp"]
+
+[ext_resource type="Texture2D" uid="uid://bgocpdpd4ikd6" path="res://assets/New_Menu5.png" id="1_rrvhx"]
+
+[node name="Resultscreen" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Nature Art" type="TextureRect" parent="."]
+self_modulate = Color(0.444843, 0.444843, 0.444843, 1)
+offset_top = -3.0
+offset_right = 1920.0
+offset_bottom = 1084.0
+scale = Vector2(0.599999, 0.599989)
+texture = ExtResource("1_rrvhx")
+
+[node name="Player1Stats2" type="Label" parent="."]
+offset_left = 406.0
+offset_top = 55.0
+offset_right = 796.0
+offset_bottom = 89.0
+theme_override_font_sizes/font_size = 30
+text = "Match Results"
+
+[node name="Player1Stats" type="Label" parent="."]
+layout_mode = 0
+offset_left = 107.0
+offset_top = 335.0
+offset_right = 571.0
+offset_bottom = 560.0
+text = "Player 1
+			\"player_kill_count\": 0,
+			\"minion_kill_count\": 0,
+			\"total_damage_dealt\": 0,
+			\"total_damage_received\": 0,
+			\"death_count\": 0,
+			\"ability_used_count\": 0,
+			\"osu_highest_combo\": 0,
+			\"osu_notes_hit_count\": 0,
+			\"osu_average_accuracy\": 0.0, 
+			\"minion_spawn_count\": 0,
+			\"match_length\": 0"
+
+[node name="Player2Stats" type="Label" parent="."]
+offset_left = 615.0
+offset_top = 337.0
+offset_right = 1079.0
+offset_bottom = 562.0
+text = "Player 1
+			\"player_kill_count\": 0,
+			\"minion_kill_count\": 0,
+			\"total_damage_dealt\": 0,
+			\"total_damage_received\": 0,
+			\"death_count\": 0,
+			\"ability_used_count\": 0,
+			\"osu_highest_combo\": 0,
+			\"osu_notes_hit_count\": 0,
+			\"osu_average_accuracy\": 0.0, 
+			\"minion_spawn_count\": 0,
+			\"match_length\": 0"

@@ -23,3 +23,12 @@ offset_bottom = 476.0
 [node name="Label" parent="VBoxContainer" index="0"]
 theme_override_colors/font_color = Color(0, 0.8, 0.356863, 1)
 text = "You Won!"
+
+[node name="MatchLength" parent="VBoxContainer" index="3"]
+text = ""
+
+[node name="Player1StatsLabel" parent="VBoxContainer/Control/HBox" index="0"]
+text = "Shinigami"
+
+[node name="Player2StatsLabel" parent="VBoxContainer/Control/HBox" index="1"]
+text = "Shinigami"
