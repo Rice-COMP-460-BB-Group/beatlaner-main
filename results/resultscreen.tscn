@@ -1,20 +1,28 @@
-[gd_scene load_steps=2 format=3 uid="uid://bb4g1b1em6bsp"]
+[gd_scene load_steps=5 format=3 uid="uid://bb4g1b1em6bsp"]
 
+[ext_resource type="Script" uid="uid://cbiubhrs66cot" path="res://results/resultscreen.gd" id="1_lwqjt"]
 [ext_resource type="Texture2D" uid="uid://bgocpdpd4ikd6" path="res://assets/New_Menu5.png" id="1_rrvhx"]
+[ext_resource type="Texture2D" uid="uid://4pr5rte4vcl6" path="res://assets/south_slash-002.png" id="3_iq7io"]
+[ext_resource type="Texture2D" uid="uid://dcyqokoybm3hj" path="res://assets/forward_southv4-000.png" id="4_vadlq"]
 
 [node name="Resultscreen" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+offset_left = -1.0
+offset_right = -1.0
+script = ExtResource("1_lwqjt")
 
 [node name="Nature Art" type="TextureRect" parent="."]
 self_modulate = Color(0.444843, 0.444843, 0.444843, 1)
+layout_mode = 0
 offset_top = -3.0
 offset_right = 1920.0
 offset_bottom = 1084.0
 scale = Vector2(0.599999, 0.599989)
 texture = ExtResource("1_rrvhx")
 
-[node name="Player1Stats2" type="Label" parent="."]
+[node name="Matchresults" type="Label" parent="."]
+layout_mode = 0
 offset_left = 406.0
 offset_top = 55.0
 offset_right = 796.0
@@ -22,7 +30,7 @@ offset_bottom = 89.0
 theme_override_font_sizes/font_size = 30
 text = "Match Results"
 
-[node name="Player1Stats" type="Label" parent="."]
+[node name="Player1StatsLabel" type="Label" parent="."]
 layout_mode = 0
 offset_left = 107.0
 offset_top = 335.0
@@ -41,20 +49,51 @@ text = "Player 1
 			\"minion_spawn_count\": 0,
 			\"match_length\": 0"
 
-[node name="Player2Stats" type="Label" parent="."]
+[node name="Player2Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 695.0
+offset_top = 134.0
+offset_right = 872.0
+offset_bottom = 170.0
+theme_override_font_sizes/font_size = 18
+text = "Player 2"
+horizontal_alignment = 1
+
+[node name="Player1Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 216.0
+offset_top = 131.0
+offset_right = 393.0
+offset_bottom = 167.0
+theme_override_font_sizes/font_size = 18
+text = "Player 1"
+horizontal_alignment = 1
+
+[node name="SouthSlash-002" type="Sprite2D" parent="."]
+position = Vector2(295.75, 231.75)
+scale = Vector2(1.86719, 1.80469)
+texture = ExtResource("3_iq7io")
+
+[node name="ForwardSouthv4-000" type="Sprite2D" parent="."]
+position = Vector2(785.75, 243.75)
+scale = Vector2(0.921875, 0.921875)
+texture = ExtResource("4_vadlq")
+
+[node name="Player2StatsLabel" type="Label" parent="."]
+layout_mode = 0
 offset_left = 615.0
 offset_top = 337.0
 offset_right = 1079.0
 offset_bottom = 562.0
 text = "Player 1
-			\"player_kill_count\": 0,
-			\"minion_kill_count\": 0,
+			\"player_kill_count\": 0,√
+			\"minion_kill_count\": 0,√
 			\"total_damage_dealt\": 0,
 			\"total_damage_received\": 0,
-			\"death_count\": 0,
+			\"death_count\": 0,√
 			\"ability_used_count\": 0,
 			\"osu_highest_combo\": 0,
+			\"mana_generation:0\"√
 			\"osu_notes_hit_count\": 0,
-			\"osu_average_accuracy\": 0.0, 
-			\"minion_spawn_count\": 0,
-			\"match_length\": 0"
+			\"osu_average_accuracy\": 0.0, √
+			\"minion_spawn_count\": 0,√"

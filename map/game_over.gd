@@ -12,7 +12,7 @@ func update_stats_display():
 	var idx = 1
 	# Iterate over each player
 	for player_id in all_stats.keys():
-		var stats_label = get_node("VBoxContainer/Control/HBox/Player" + str(idx) + "StatsLabel")  # Use get_node() to find StatsLabel reliably
+		var stats_label = get_node("Player" + str(idx) + "StatsLabel")  # Use get_node() to find StatsLabel reliably
 		stats_label.text = ""  
 		
 
@@ -69,6 +69,8 @@ func update_stats_display():
 		#stats_label.text += stats_text + "\n"  # Extra line for spacing
 
 func _ready() -> void:
+	for child in get_children():
+		print("Child node:", child.name)
 	$"VBoxContainer/Main Menu".grab_focus()
 	if not multiplayer.is_server():
 		#await get_tree().process_frame
