@@ -25,12 +25,11 @@ var is_flashing: bool = false
 @onready var powerup_frame = $HUD/Stats/PowerupFrame/Powerup
 
 
-
 # Stats
 var player_kill_count = 0 # √√
 var minion_kill_count = 0 # √√
 var total_damage_dealt = 0 # √√
-var total_damage_received = 0 # 
+var total_damage_received = 0 #
 var death_count = 0 # √√
 var ability_used_count = 0 # √√
 var osu_highest_combo = 0 # √√
@@ -40,10 +39,6 @@ var osu_acc_notes_count = 0 # √√
 var osu_acc_sum = 0 # √√
 var minion_spawn_count = 0 # √√
 var match_length = 0 # √
-
-
-
-
 
 
 func get_keybind_as_string(input_action: String) -> String:
@@ -167,7 +162,7 @@ func _ready() -> void:
 		
 	else:
 		respawn_position = Vector2(3401, 600)
-	if team ==Team.BLUE:
+	if team == Team.BLUE:
 		$HUD/Stats/DeployUi/LowLeft.visible = false
 		$HUD/Stats/DeployUi/TopRight.visible = true
 	else:
@@ -185,6 +180,7 @@ func _ready() -> void:
 	$HUD/DialogBox/Label.text = tutorialMSGs["rhythm"]
 	if "--server" in OS.get_cmdline_args():
 		camera.make_current()
+	switch_vertical()
 func _on_health_decreased():
 	show_damage_flash()
 func _on_health_increased():
@@ -496,16 +492,16 @@ func _physics_process(delta: float) -> void:
 		else:
 			%MinionUpgradePrompt.visible = false
 		if current_score >= 100:
-			%PlayerUpgradePrompt.text = "↑(" + upgrade_player_keyname +")"
+			%PlayerUpgradePrompt.text = "↑(" + upgrade_player_keyname + ")"
 			%PlayerUpgradePrompt.visible = true
 		else:
 			%PlayerUpgradePrompt.visible = false
 		if current_score >= 30:
 			%MinionUpgradePrompt.text = "DEPLOY(30):1/2/3"
 			
-			$HUD/Stats/DeployUi/Label.add_theme_color_override("font_color",Color(0,242,243))
-			$"HUD/Stats/DeployUi/2abel".add_theme_color_override("font_color",Color(0,242,243))
-			$"HUD/Stats/DeployUi/1Label".add_theme_color_override("font_color",Color(0,242,243))
+			$HUD/Stats/DeployUi/Label.add_theme_color_override("font_color", Color(0, 242, 243))
+			$"HUD/Stats/DeployUi/2abel".add_theme_color_override("font_color", Color(0, 242, 243))
+			$"HUD/Stats/DeployUi/1Label".add_theme_color_override("font_color", Color(0, 242, 243))
 			
 			if !has_deployed and !is_rhythm_game_open:
 				$HUD/DialogBox/Label.text = tutorialMSGs["deploy"]
@@ -538,11 +534,11 @@ func _physics_process(delta: float) -> void:
 				minion_spawn_count += 3
 				MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "minion_spawn_count", minion_spawn_count)
 		else:
-			$HUD/Stats/DeployUi/Label.add_theme_color_override("font_color",Color(255,255,255))
-			$"HUD/Stats/DeployUi/2abel".add_theme_color_override("font_color",Color(255,255,255))
-			$"HUD/Stats/DeployUi/1Label".add_theme_color_override("font_color",Color(255,255,255))
+			$HUD/Stats/DeployUi/Label.add_theme_color_override("font_color", Color(255, 255, 255))
+			$"HUD/Stats/DeployUi/2abel".add_theme_color_override("font_color", Color(255, 255, 255))
+			$"HUD/Stats/DeployUi/1Label".add_theme_color_override("font_color", Color(255, 255, 255))
 		if current_score >= 100:
-			%MinionUpgradePrompt.text = "↑(" + upgrade_minions_keyname+")"
+			%MinionUpgradePrompt.text = "↑(" + upgrade_minions_keyname + ")"
 			%MinionUpgradePrompt.visible = true
 		if Input.is_action_just_pressed("use_powerup"):
 			if player_powerup != null:
@@ -763,7 +759,7 @@ func print_match_statistics():
 	print("Ability Used Count: ", ability_used_count)
 	print("OSU Highest Combo: ", osu_highest_combo)
 	print("OSU Notes Hit Count: ", osu_notes_hit_count)
-	print('osu acc', osu_acc_sum ," ",osu_acc_notes_count)
+	print('osu acc', osu_acc_sum, " ", osu_acc_notes_count)
 	print("OSU Average Accuracy: ", str(float(osu_acc_sum) / (osu_acc_notes_count)).pad_decimals(2))
 	print("Minion Spawn Count: ", minion_spawn_count)
 	print("Match Length: ", format_time(match_length))
@@ -905,3 +901,22 @@ func _on_animation_tree_animation_finished(anim_name: StringName) -> void:
 			state = WALK
 		else:
 			state = IDLE
+
+func switch_vertical():	
+	$HUD/Stats/PlayerUi.position = Vector2(40, -120)
+	$HUD/Stats/PlayerUi.rotation_degrees = 90
+	
+	$HUD/Stats/PlayerUi/ManaBar.position = Vector2(-20, 140)
+	$HUD/Stats/PlayerUi/ManaBar.rotation_degrees = 0 # Keep it readable
+	
+	$HUD/Stats/DeployUi.position = Vector2(40, 10)
+	$HUD/Stats/DeployUi.rotation_degrees = 90
+	
+	$HUD/Stats/PowerupFrame.position = Vector2(30, -160)
+	
+	$HUD/Stats/PlayerUi/PlayerLevel.rotation_degrees = 270
+	$HUD/Stats/PlayerUi/LevelLabel.rotation_degrees = 270
+	$HUD/Stats/PlayerUi/MinionLvl.rotation_degrees = 270
+	$HUD/Stats/PlayerUi/MinionLvlLabel.rotation_degrees = 270
+	$HUD/Stats/PlayerUi/PlayerUpgradePrompt.rotation_degrees = 270
+	$HUD/Stats/PlayerUi/MinionUpgradePrompt.rotation_degrees = 270
