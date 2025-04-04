@@ -180,7 +180,7 @@ func _ready() -> void:
 	$HUD/DialogBox/Label.text = tutorialMSGs["rhythm"]
 	if "--server" in OS.get_cmdline_args():
 		camera.make_current()
-	switch_vertical()
+
 func _on_health_decreased():
 	show_damage_flash()
 func _on_health_increased():
@@ -698,6 +698,7 @@ func escape_rhythm_game():
 		#update_mana(current_score)
 		last_rhythm_score = rhythm_game_instance.get_score()
 		is_rhythm_game_open = false
+		switch_expanded()
 func get_minimap():
 	return minimap
 
@@ -730,6 +731,7 @@ func handle_rhythm_callback():
 		rhythm_game_instance.show()
 		rhythm_game_instance.enable()
 		is_rhythm_game_open = true
+		switch_collapsed()
 		
 
 func apply_movement(amount) -> void:
@@ -902,21 +904,12 @@ func _on_animation_tree_animation_finished(anim_name: StringName) -> void:
 		else:
 			state = IDLE
 
-func switch_vertical():	
-	$HUD/Stats/PlayerUi.position = Vector2(40, -120)
-	$HUD/Stats/PlayerUi.rotation_degrees = 90
-	
-	$HUD/Stats/PlayerUi/ManaBar.position = Vector2(-20, 140)
-	$HUD/Stats/PlayerUi/ManaBar.rotation_degrees = 0 # Keep it readable
-	
-	$HUD/Stats/DeployUi.position = Vector2(40, 10)
-	$HUD/Stats/DeployUi.rotation_degrees = 90
-	
-	$HUD/Stats/PowerupFrame.position = Vector2(30, -160)
-	
-	$HUD/Stats/PlayerUi/PlayerLevel.rotation_degrees = 270
-	$HUD/Stats/PlayerUi/LevelLabel.rotation_degrees = 270
-	$HUD/Stats/PlayerUi/MinionLvl.rotation_degrees = 270
-	$HUD/Stats/PlayerUi/MinionLvlLabel.rotation_degrees = 270
-	$HUD/Stats/PlayerUi/PlayerUpgradePrompt.rotation_degrees = 270
-	$HUD/Stats/PlayerUi/MinionUpgradePrompt.rotation_degrees = 270
+func switch_collapsed():
+	$HUD/Stats/DeployUi.position = Vector2(-66.5, 57.0)
+	$HUD/Stats/PowerupFrame.position = Vector2(-185.5, 57.0)
+	$HUD/Stats/PlayerUi.position = Vector2(-112.0, 110.0)
+
+func switch_expanded():
+	$HUD/Stats/DeployUi.position = Vector2(95.0, 101.0)
+	$HUD/Stats/PowerupFrame.position = Vector2(-114.5, 101.0)
+	$HUD/Stats/PlayerUi.position = Vector2(0, 108.0)
