@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cplp0vg10jjim" path="res://assets/lantern.png" id="1_cvkhk"]
 [ext_resource type="Texture2D" uid="uid://dvgisd26hm73n" path="res://assets/light_gd.webp" id="2_2it83"]
-[ext_resource type="Script" path="res://map/torch.gd" id="3_4h2ua"]
+[ext_resource type="Script" uid="uid://dtmvfph8iwkol" path="res://map/torch.gd" id="3_4h2ua"]
 
 [node name="Lantern" type="Node2D"]
 

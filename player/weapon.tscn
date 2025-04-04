@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b8jlygfvbd34"]
 
 [ext_resource type="Texture2D" uid="uid://dhewjher4cseh" path="res://assets/Slash.png" id="1_i1sfj"]
-[ext_resource type="Script" path="res://player/area_2d.gd" id="2_i0tck"]
+[ext_resource type="Script" uid="uid://bfdk70o0lyfsl" path="res://player/area_2d.gd" id="2_i0tck"]
 
 [node name="Weapon" type="Node2D"]
 

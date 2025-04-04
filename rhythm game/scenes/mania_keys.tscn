@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://do5hu0dt23mbe"]
 
-[ext_resource type="Script" path="res://rhythm game/scenes/mania_keys.gd" id="2_7npj4"]
+[ext_resource type="Script" uid="uid://pfh116xygvty" path="res://rhythm game/scenes/mania_keys.gd" id="2_7npj4"]
 [ext_resource type="Texture2D" uid="uid://cowv6stbwfo4t" path="res://rhythm game/assets/mania_notes/Sigil-White.png" id="3_csyqq"]
 [ext_resource type="AudioStream" uid="uid://ddrlodld8pakk" path="res://assets/tr909-snare-drum-241413.mp3" id="4_dbu8m"]
 [ext_resource type="Texture2D" uid="uid://dvgisd26hm73n" path="res://assets/light_gd.webp" id="5_8nggk"]

@@ -23,6 +23,29 @@ var is_flashing: bool = false
 @onready var freeze_icon = preload("res://assets/freeze.png")
 @onready var heal_icon = preload("res://assets/health_potion.png")
 @onready var powerup_frame = $HUD/Stats/PowerupFrame/Powerup
+
+
+
+# Stats
+var player_kill_count = 0 # √√
+var minion_kill_count = 0 # √√
+var total_damage_dealt = 0 # √√
+var total_damage_received = 0 # 
+var death_count = 0 # √√
+var ability_used_count = 0 # √√
+var osu_highest_combo = 0 # √√
+var osu_notes_hit_count = 0 # √√
+var osu_acc_notes_count = 0 # √√
+
+var osu_acc_sum = 0 # √√
+var minion_spawn_count = 0 # √√
+var match_length = 0 # √
+
+
+
+
+
+
 func get_keybind_as_string(input_action: String) -> String:
 	var events = InputMap.action_get_events(input_action)
 	
@@ -101,6 +124,16 @@ var old_collision_size
 var banner_queue = []
 var banner_playing = false
 var banner_tween = null
+var start_time = 0
+var end_time = 0
+
+func Hit(type: String):
+	if type != "Miss":
+		osu_notes_hit_count += 1
+		MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "osu_notes_hit_count", osu_notes_hit_count)
+	osu_acc_notes_count += 1
+	MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "osu_acc_notes_count", osu_acc_notes_count)
+
 
 func _ready() -> void:
 	$Metronome.wait_time = (60.0 / bpm)
@@ -119,9 +152,13 @@ func _ready() -> void:
 	rhythm_game_instance.disable()
 	Signals.NexusDestroyed.connect(on_nexus_destroyed)
 	Signals.TowerDestroyed.connect(on_tower_destroyed)
+	Signals.Hit.connect(Hit)
+
 	
 	$HealthComponent.health_decreased.connect(_on_health_decreased)
 	$HealthComponent.health_increased.connect(_on_health_increased)
+	
+	start_time = Time.get_ticks_msec()
 
 	old_collision_size = $Slice/SliceArea/CollisionShape2D.shape.size
 	if team == Team.RED:
@@ -287,13 +324,26 @@ func change_to_scene(scene_path: String):
 			child.peer = null
 		child.call_deferred("queue_free")
 
-
+func format_time(ms: int) -> String:
+	var seconds = ms / 1000
+	var minutes = seconds / 60
+	seconds = seconds % 60
+	return "%02d:%02d" % [minutes, seconds]
+	
+	
 func on_nexus_destroyed(nexus_destroyed_team: Team, pos: Vector2):
 	if $MultiplayerSynchronizer.is_multiplayer_authority():
+		var end_time = Time.get_ticks_msec()
+		match_length = end_time - start_time
+		MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "match_length", match_length)
+		#print_match_statistics()
+		print(multiplayer.get_unique_id(), MatchStats.get_all_stats())
+		print()
+
 		if team == nexus_destroyed_team:
-			show_defeat(pos)
+			await show_defeat(pos)
 		else:
-			show_victory(pos)
+			await show_victory(pos)
 		
 		
 func on_tower_destroyed(tower_team: Team, pos: Vector2):
@@ -408,7 +458,16 @@ func _physics_process(delta: float) -> void:
 
 			last_combo = combo
 			
-			var score = rhythm_game_instance.get_score()
+			var osu_stats = rhythm_game_instance.get_stats()
+			
+			
+			var score = osu_stats['score']
+			var accuracy = osu_stats['accuracy']
+			#var current_combo = osu_stats['combo']
+			
+			osu_highest_combo = max(osu_highest_combo, combo)
+			MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "osu_highest_combo", osu_highest_combo)
+			
 			var tmp_score: float
 			#if $HealthComponent.currentHealth > 0:
 			var score_delta = score - last_rhythm_score
@@ -448,18 +507,26 @@ func _physics_process(delta: float) -> void:
 				update_mana(current_score)
 				$HUD/DialogBox.visible = false
 				has_deployed = true
+				minion_spawn_count += 3
+				MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "minion_spawn_count", minion_spawn_count)
 			if Input.is_action_just_pressed("Dispatch_Mid"):
 				current_score = max(current_score - 30, 0)
 				request_wave_spawn.rpc(1, 3, team, minion_level)
 				update_mana(current_score)
 				$HUD/DialogBox.visible = false
 				has_deployed = true
+				minion_spawn_count += 3
+				MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "minion_spawn_count", minion_spawn_count)
+
 			if Input.is_action_just_pressed("Dispatch_Low"):
 				current_score = max(current_score - 30, 0)
 				request_wave_spawn.rpc(2, 3, team, minion_level)
 				update_mana(current_score)
 				$HUD/DialogBox.visible = false
 				has_deployed = true
+				minion_spawn_count += 3
+				MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "minion_spawn_count", minion_spawn_count)
+
 		if current_score >= 100:
 			$HUD/Stats/MinionUpgradePrompt.text = "↑(" + upgrade_minions_keyname+")"
 			$HUD/Stats/MinionUpgradePrompt.visible = true
@@ -480,6 +547,8 @@ func _physics_process(delta: float) -> void:
 					$HealPowerupSound.play()
 					powerup_labrl.text = powerup_label_default
 					print('using health')
+				ability_used_count += 1
+				MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "ability_used_count", ability_used_count)
 
 				
 				powerup_frame.hide()
@@ -502,8 +571,19 @@ func _physics_process(delta: float) -> void:
 				if body != self and (body is Minion or body is Player or body is Tower or body is Nexus) and body.team != team:
 					if body.has_node("HealthComponent"):
 						foundAttack = true
-						body.get_node("HealthComponent").decrease_health.rpc((damage + player_level) + (damage + player_level) * falloff_curve())
+						var damage_to_deal = (damage + player_level) + (damage + player_level) * falloff_curve()
+						total_damage_dealt += damage_to_deal
+						MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "total_damage_dealt", total_damage_dealt)
+
+						body.get_node("HealthComponent").decrease_health.rpc(damage_to_deal)
 						if body.get_node("HealthComponent").get_current_health() <= 0:
+							if body is Player:
+								player_kill_count += 1
+								MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "player_kill_count", player_kill_count)
+							if body is Minion:
+								minion_kill_count += 1
+								MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "minion_kill_count", minion_kill_count)
+
 							$HUD/Stats/ManaBar.increase_mana(5)
 
 			if foundAttack:
@@ -595,9 +675,12 @@ func escape_rhythm_game():
 	if is_instance_valid(rhythm_game_instance):
 		#$RhythmLayer1.remove_child(rhythm_game_instance)
 		#var score = rhythm_game_instance.get_score()
+		osu_acc_sum += rhythm_game_instance.get_acc_sum()
+		MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "osu_acc_sum", osu_acc_sum)
 		rhythm_game_instance.reset_score()
 		var notes = get_tree().get_nodes_in_group("mania_note_instance")
 		print("notes", notes)
+
 		for note in notes:
 			note.queue_free()
 		#current_score = min(current_score + int(score / 3000), 300)
@@ -656,6 +739,32 @@ func animate() -> void:
 	sync_animation.rpc(state, blend_position)
 
 
+func print_match_statistics():
+	print("Player Kill Count: ", player_kill_count)
+	print("Minion Kill Count: ", minion_kill_count)
+	print("Total Damage Dealt: ", total_damage_dealt)
+	print("Total Damage Received: ", total_damage_received)
+	print("Death Count: ", death_count)
+	print("Ability Used Count: ", ability_used_count)
+	print("OSU Highest Combo: ", osu_highest_combo)
+	print("OSU Notes Hit Count: ", osu_notes_hit_count)
+	print('osu acc', osu_acc_sum ," ",osu_acc_notes_count)
+	print("OSU Average Accuracy: ", str(float(osu_acc_sum) / (osu_acc_notes_count)).pad_decimals(2))
+	print("Minion Spawn Count: ", minion_spawn_count)
+	print("Match Length: ", format_time(match_length))
+	
+	var titles = []
+	if minion_kill_count > 100:
+		titles.append("The Minion Slayer")
+	if osu_highest_combo > 100:
+		titles.append('Probably knew Epstein')
+	if total_damage_dealt > 10000:
+		titles.append('You play too much league')
+	if death_count > 10:
+		titles.append('You suck')
+	var title_text = '\n'.join(titles)
+	print(title_text)
+
 func falloff_curve():
 	var closest = min($Metronome.time_left, (60.0 / bpm) - $Metronome.time_left)
 	#print("Closest:", closest)
@@ -673,6 +782,8 @@ func respawn() -> void:
 	$AnimatedSprite2D.visible = false
 	$HUD/Stats/Respawning.visible = true
 	$HUD / "Damage indic".visible = false
+	death_count += 1
+	MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "death_count", death_count)
 	is_alive = false
 	escape_rhythm_game();
 	rhythm_game_instance.is_dead()

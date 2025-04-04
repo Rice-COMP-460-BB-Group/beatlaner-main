@@ -1,13 +1,13 @@
 [gd_scene load_steps=95 format=3 uid="uid://bj3lu7yts43wl"]
 
-[ext_resource type="Script" path="res://player/player.gd" id="1_h04aa"]
-[ext_resource type="Shader" path="res://minions/flame.gdshader" id="2_h7gj3"]
+[ext_resource type="Script" uid="uid://b7xgmf7yjemai" path="res://player/player.gd" id="1_h04aa"]
+[ext_resource type="Shader" uid="uid://dr7xdahy2q11u" path="res://minions/flame.gdshader" id="2_h7gj3"]
 [ext_resource type="SpriteFrames" uid="uid://b4mxfgtfpoes3" path="res://assets/new_sprite_frames.tres" id="2_swing"]
 [ext_resource type="Texture2D" uid="uid://d2vprod1nv81r" path="res://assets/newborder.png" id="5_nfi33"]
 [ext_resource type="Texture2D" uid="uid://wdv5b52q5u2h" path="res://assets/Metronome-000.png" id="6_0etmd"]
 [ext_resource type="Texture2D" uid="uid://3ueshbvvsixu" path="res://assets/Minimap.png" id="6_7c3j6"]
 [ext_resource type="Texture2D" uid="uid://cf2nfu6g3yy3f" path="res://assets/slash-000.png" id="6_60335"]
-[ext_resource type="Script" path="res://player/hud.gd" id="6_a5lxw"]
+[ext_resource type="Script" uid="uid://dwl4hm7awt8io" path="res://player/hud.gd" id="6_a5lxw"]
 [ext_resource type="PackedScene" uid="uid://ckytalr2gjoym" path="res://healthbar/health_component.tscn" id="6_wraxi"]
 [ext_resource type="Texture2D" uid="uid://bsp8xj4gv4cay" path="res://assets/slash-001.png" id="7_76oyw"]
 [ext_resource type="Texture2D" uid="uid://deyvtt4hy8yff" path="res://assets/Metronome-001.png" id="7_l82ru"]
@@ -38,7 +38,7 @@
 [ext_resource type="Texture2D" uid="uid://dopvl8tctspgh" path="res://assets/DeployUITopRight.png" id="26_qsqxi"]
 [ext_resource type="Texture2D" uid="uid://c5yeo5skrhat8" path="res://assets/deployuiLowerLeft.png" id="26_wap1y"]
 [ext_resource type="FontFile" uid="uid://ol8nq6vycer0" path="res://assets/PressStart2P-vaV7.ttf" id="27_o3ol7"]
-[ext_resource type="Script" path="res://player/afterimage.gd" id="28_i8vw6"]
+[ext_resource type="Script" uid="uid://cjt8lctmyu0nf" path="res://player/afterimage.gd" id="28_i8vw6"]
 [ext_resource type="AudioStream" uid="uid://crwiggodkgtsr" path="res://assets/sword-slash.wav" id="28_rydyj"]
 [ext_resource type="AudioStream" uid="uid://r2wfjvbniwu4" path="res://blink2.mp3" id="31_try5o"]
 [ext_resource type="AudioStream" uid="uid://cfjdfbdye2oyn" path="res://assets/FreezeSoundEffect.mp3" id="34_tllr5"]
@@ -439,19 +439,19 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1ag5u"]
 _data = {
-"RESET": SubResource("Animation_ndbho"),
-"idle_down": SubResource("Animation_jgomj"),
-"idle_left": SubResource("Animation_j37cc"),
-"idle_right": SubResource("Animation_u1utp"),
-"idle_up": SubResource("Animation_bjfj8"),
-"slash_down": SubResource("Animation_gswnw"),
-"slash_left": SubResource("Animation_xcnuv"),
-"slash_right": SubResource("Animation_j55il"),
-"slash_up": SubResource("Animation_fjxoa"),
-"walk_down": SubResource("Animation_q3x0e"),
-"walk_left": SubResource("Animation_68y2o"),
-"walk_right": SubResource("Animation_58pwc"),
-"walk_up": SubResource("Animation_xchfb")
+&"RESET": SubResource("Animation_ndbho"),
+&"idle_down": SubResource("Animation_jgomj"),
+&"idle_left": SubResource("Animation_j37cc"),
+&"idle_right": SubResource("Animation_u1utp"),
+&"idle_up": SubResource("Animation_bjfj8"),
+&"slash_down": SubResource("Animation_gswnw"),
+&"slash_left": SubResource("Animation_xcnuv"),
+&"slash_right": SubResource("Animation_j55il"),
+&"slash_up": SubResource("Animation_fjxoa"),
+&"walk_down": SubResource("Animation_q3x0e"),
+&"walk_left": SubResource("Animation_68y2o"),
+&"walk_right": SubResource("Animation_58pwc"),
+&"walk_up": SubResource("Animation_xchfb")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fjxoa"]
@@ -688,7 +688,7 @@ zoom = Vector2(2, 2)
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 deterministic = true
 libraries = {
-"": SubResource("AnimationLibrary_1ag5u")
+&"": SubResource("AnimationLibrary_1ag5u")
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
@@ -706,6 +706,7 @@ wait_time = 0.5
 autostart = true
 
 [node name="RhythmLayer1" type="CanvasLayer" parent="."]
+layer = 2
 offset = Vector2(800, 325)
 transform = Transform2D(1, 0, 0, 1, 800, 325)
 
@@ -1175,8 +1176,8 @@ offset_bottom = 500.062
 scale = Vector2(1, 0.997383)
 
 [node name="Damage indic" type="TextureRect" parent="HUD"]
-visible = false
 modulate = Color(1, 1, 1, 0)
+z_index = -1
 offset_right = 1152.0
 offset_bottom = 648.0
 texture = ExtResource("25_pfejg")
@@ -1194,10 +1195,10 @@ anchor_left = 0.207
 anchor_top = 0.41
 anchor_right = 0.207
 anchor_bottom = 0.41
-offset_left = 60.536
-offset_top = -247.68
-offset_right = 731.536
-offset_bottom = -153.68
+offset_left = -1.464
+offset_top = -245.68
+offset_right = 669.536
+offset_bottom = -151.68
 texture = ExtResource("26_ontnn")
 
 [node name="Label" type="Label" parent="HUD/DialogBox"]

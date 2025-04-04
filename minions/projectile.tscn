@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://c2a3uw6r78k4d"]
 
 [ext_resource type="Texture2D" uid="uid://4be4ksormlgi" path="res://assets/proj.png" id="1_6ng7n"]
-[ext_resource type="Script" path="res://minions/projectile.gd" id="2_765r6"]
+[ext_resource type="Script" uid="uid://kystnsg85dmi" path="res://minions/projectile.gd" id="2_765r6"]
 [ext_resource type="Texture2D" uid="uid://dvgisd26hm73n" path="res://assets/light_gd.webp" id="3_g0wer"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e41q5"]
