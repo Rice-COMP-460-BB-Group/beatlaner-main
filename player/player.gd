@@ -164,9 +164,15 @@ func _ready() -> void:
 	if team == Team.RED:
 		#print("team", team)
 		respawn_position = Vector2(651, 3379)
+		
 	else:
 		respawn_position = Vector2(3401, 600)
-
+	if team ==Team.BLUE:
+		$HUD/Stats/DeployUi/LowLeft.visible = false
+		$HUD/Stats/DeployUi/TopRight.visible = true
+	else:
+		$HUD/Stats/DeployUi/LowLeft.visible = true
+		$HUD/Stats/DeployUi/TopRight.visible = false
 	#print("respawn pos", respawn_position, team)
 	$HUD/Stats.hide()
 	$HUD.hide()
@@ -496,6 +502,11 @@ func _physics_process(delta: float) -> void:
 			$HUD/Stats/PlayerUpgradePrompt.visible = false
 		if current_score >= 30:
 			$HUD/Stats/MinionUpgradePrompt.text = "DEPLOY(30):1/2/3"
+			
+			$HUD/Stats/DeployUi/Label.add_theme_color_override("font_color",Color(0,242,243))
+			$"HUD/Stats/DeployUi/2abel".add_theme_color_override("font_color",Color(0,242,243))
+			$"HUD/Stats/DeployUi/1Label".add_theme_color_override("font_color",Color(0,242,243))
+			
 			if !has_deployed and !is_rhythm_game_open:
 				$HUD/DialogBox/Label.text = tutorialMSGs["deploy"]
 				#$HUD/DialogBox/Label.add_theme_font_size_override("font_size",13)
@@ -517,7 +528,7 @@ func _physics_process(delta: float) -> void:
 				has_deployed = true
 				minion_spawn_count += 3
 				MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "minion_spawn_count", minion_spawn_count)
-
+			
 			if Input.is_action_just_pressed("Dispatch_Low"):
 				current_score = max(current_score - 30, 0)
 				request_wave_spawn.rpc(2, 3, team, minion_level)
@@ -526,7 +537,10 @@ func _physics_process(delta: float) -> void:
 				has_deployed = true
 				minion_spawn_count += 3
 				MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "minion_spawn_count", minion_spawn_count)
-
+		else:
+			$HUD/Stats/DeployUi/Label.add_theme_color_override("font_color",Color(255,255,255))
+			$"HUD/Stats/DeployUi/2abel".add_theme_color_override("font_color",Color(255,255,255))
+			$"HUD/Stats/DeployUi/1Label".add_theme_color_override("font_color",Color(255,255,255))
 		if current_score >= 100:
 			$HUD/Stats/MinionUpgradePrompt.text = "↑(" + upgrade_minions_keyname+")"
 			$HUD/Stats/MinionUpgradePrompt.visible = true
