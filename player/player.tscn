@@ -741,15 +741,6 @@ theme_override_fonts/font = ExtResource("27_o3ol7")
 theme_override_font_sizes/font_size = 8
 text = "LVL"
 
-[node name="PlayerHUDBar" type="TextureRect" parent="HUD/Stats"]
-z_index = -50
-layout_mode = 0
-offset_left = -179.5
-offset_top = 79.0
-offset_right = 204.5
-offset_bottom = 175.0
-texture = ExtResource("5_nfi33")
-
 [node name="Metronome" type="Label" parent="HUD/Stats"]
 visible = false
 layout_mode = 0
@@ -764,14 +755,6 @@ layout_mode = 3
 anchors_preset = 0
 offset_top = -25.0
 offset_bottom = -25.0
-
-[node name="ManaBar" parent="HUD/Stats" instance=ExtResource("19_w14c3")]
-layout_mode = 0
-offset_left = -60.5
-offset_top = 127.5
-offset_right = 490.5
-offset_bottom = 261.5
-scale = Vector2(0.5, 0.5)
 
 [node name="MetronomeContainer" type="MarginContainer" parent="HUD/Stats"]
 visible = false
@@ -822,31 +805,6 @@ offset_top = -152.0
 offset_right = 99.0
 offset_bottom = -92.0
 texture = ExtResource("22_25x0m")
-
-[node name="PowerupFrame" type="Control" parent="HUD/Stats"]
-anchors_preset = 0
-offset_left = -277.5
-offset_top = 5.5
-offset_right = -237.5
-offset_bottom = 45.5
-scale = Vector2(0.3, 0.3)
-
-[node name="Frame" type="TextureRect" parent="HUD/Stats/PowerupFrame"]
-z_index = -10
-layout_mode = 0
-offset_left = 548.333
-offset_top = 318.333
-offset_right = 696.333
-offset_bottom = 689.333
-scale = Vector2(1, 0.5)
-texture = ExtResource("21_kd2wf")
-
-[node name="Powerup" type="TextureRect" parent="HUD/Stats/PowerupFrame"]
-layout_mode = 0
-offset_left = 573.333
-offset_top = 341.667
-offset_right = 671.333
-offset_bottom = 438.667
 
 [node name="UpgradeStats" type="Control" parent="HUD/Stats"]
 visible = false
@@ -956,182 +914,196 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="PlayerUI" type="TextureRect" parent="HUD/Stats"]
-layout_mode = 0
-offset_left = -61.5
-offset_top = 112.0
-offset_right = -10.5
-offset_bottom = 133.0
-texture = ExtResource("23_7eqls")
-expand_mode = 1
-
-[node name="MinionUI" type="TextureRect" parent="HUD/Stats"]
-layout_mode = 0
-offset_left = 3.0
-offset_top = 109.5
-offset_right = 55.0
-offset_bottom = 132.5
-texture = ExtResource("21_j77iq")
-expand_mode = 1
-
-[node name="MinionUI2" type="TextureRect" parent="HUD/Stats"]
-layout_mode = 0
-offset_left = -571.0
-offset_top = -101.0
-offset_right = -465.0
-offset_bottom = -57.0
-texture = ExtResource("21_j77iq")
-
-[node name="PlayerLevel3" type="Label" parent="HUD/Stats"]
-visible = false
-layout_mode = 0
-offset_left = -238.0
-offset_top = -125.0
-offset_right = -198.0
-offset_bottom = -110.0
-theme_override_fonts/font = ExtResource("27_o3ol7")
-theme_override_font_sizes/font_size = 8
-text = "1"
-
-[node name="MinionLvlLabel" type="Label" parent="HUD/Stats"]
-layout_mode = 0
-offset_left = 23.0
-offset_top = 122.5
-offset_right = 71.0
-offset_bottom = 138.5
-theme_override_fonts/font = ExtResource("27_o3ol7")
-theme_override_font_sizes/font_size = 8
-text = "LVL"
-
-[node name="MinionLvl" type="Label" parent="HUD/Stats"]
-layout_mode = 0
-offset_left = 47.0
-offset_top = 123.0
-offset_right = 87.0
-offset_bottom = 138.0
-theme_override_fonts/font = ExtResource("27_o3ol7")
-theme_override_font_sizes/font_size = 8
-text = "1"
-
-[node name="PlayerUpgradePrompt3" type="Label" parent="HUD/Stats"]
-visible = false
-self_modulate = Color(4, 4, 4, 1)
-z_index = 1000
-layout_mode = 0
-offset_left = -239.5
-offset_top = -156.5
-offset_right = -143.5
-offset_bottom = -148.5
-theme_override_colors/font_color = Color(0, 1, 4, 1)
-theme_override_fonts/font = ExtResource("27_o3ol7")
-theme_override_font_sizes/font_size = 8
-text = "UPGRADE(160):Q"
-
-[node name="MinionUpgradePrompt" type="Label" parent="HUD/Stats"]
-z_index = 1000
-layout_mode = 0
-offset_left = 23.0
-offset_top = 112.0
-offset_right = 63.0
-offset_bottom = 120.0
-theme_override_colors/font_color = Color(0, 0.94902, 0.952941, 1)
-theme_override_font_sizes/font_size = 8
-text = " ↑(E)"
-
-[node name="LevelLabel" type="Label" parent="HUD/Stats"]
-layout_mode = 0
-offset_left = -40.5
-offset_top = 122.5
-offset_right = 7.5
-offset_bottom = 138.5
-theme_override_fonts/font = ExtResource("27_o3ol7")
-theme_override_font_sizes/font_size = 8
-text = "LVL"
-
-[node name="PlayerLevel" type="Label" parent="HUD/Stats"]
-layout_mode = 0
-offset_left = -14.0
-offset_top = 123.0
-offset_right = 26.0
-offset_bottom = 138.0
-theme_override_fonts/font = ExtResource("27_o3ol7")
-theme_override_font_sizes/font_size = 8
-text = "1"
-
-[node name="PlayerUpgradePrompt" type="Label" parent="HUD/Stats"]
-layout_mode = 0
-offset_left = -41.0
-offset_top = 112.5
-offset_right = -1.0
-offset_bottom = 120.5
-theme_override_colors/font_color = Color(0, 0.94902, 0.952941, 1)
-theme_override_font_sizes/font_size = 8
-text = " ↑(Q)"
-
-[node name="PowerUpLabel" type="Label" parent="HUD/Stats"]
-layout_mode = 0
-offset_left = -106.0
-offset_top = 133.0
-offset_right = -75.0
-offset_bottom = 149.0
-theme_override_font_sizes/font_size = 8
-
-[node name="Control" type="Control" parent="HUD/Stats"]
+[node name="PowerupFrame" type="Control" parent="HUD/Stats"]
 anchors_preset = 0
-offset_left = -31.0
-offset_top = -32.0
-offset_right = 9.0
-offset_bottom = 8.0
+offset_left = -114.5
+offset_top = 101.0
+offset_right = -74.5
+offset_bottom = 141.0
+scale = Vector2(0.3, 0.3)
+
+[node name="Frame" type="TextureRect" parent="HUD/Stats/PowerupFrame"]
+z_index = -10
+layout_mode = 0
+offset_right = 148.0
+offset_bottom = 371.0
+scale = Vector2(1, 0.5)
+texture = ExtResource("21_kd2wf")
+
+[node name="Powerup" type="TextureRect" parent="HUD/Stats/PowerupFrame"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 23.0
+offset_right = 123.0
+offset_bottom = 120.0
+
+[node name="PowerUpLabel" type="Label" parent="HUD/Stats/PowerupFrame"]
+layout_mode = 0
+offset_left = 61.6666
+offset_top = 123.333
+offset_right = 92.6667
+offset_bottom = 143.333
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
 
 [node name="DeployUi" type="Control" parent="HUD/Stats"]
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 95.0
+offset_top = 101.0
+offset_right = 135.0
+offset_bottom = 141.0
 
 [node name="TopRight" type="TextureRect" parent="HUD/Stats/DeployUi"]
 layout_mode = 0
-offset_left = 92.0
-offset_top = 99.0
-offset_right = 145.0
-offset_bottom = 155.0
+offset_right = 53.0
+offset_bottom = 56.0
 texture = ExtResource("26_qsqxi")
 expand_mode = 1
 
 [node name="LowLeft" type="TextureRect" parent="HUD/Stats/DeployUi"]
 layout_mode = 0
-offset_left = 93.0
-offset_top = 101.0
-offset_right = 147.0
-offset_bottom = 158.0
+offset_right = 54.0
+offset_bottom = 57.0
 texture = ExtResource("26_wap1y")
 expand_mode = 1
 
 [node name="1Label" type="Label" parent="HUD/Stats/DeployUi"]
 layout_mode = 0
-offset_left = 103.0
-offset_top = 111.0
-offset_right = 143.0
-offset_bottom = 127.0
+offset_left = 7.5
+offset_top = 10.0
+offset_right = 47.5
+offset_bottom = 26.0
 theme_override_font_sizes/font_size = 8
 text = "1"
 
 [node name="2abel" type="Label" parent="HUD/Stats/DeployUi"]
 layout_mode = 0
-offset_left = 115.0
-offset_top = 121.5
-offset_right = 155.0
-offset_bottom = 137.5
+offset_left = 23.0
+offset_top = 21.5
+offset_right = 63.0
+offset_bottom = 37.5
 theme_override_font_sizes/font_size = 8
 text = "2"
 
 [node name="Label" type="Label" parent="HUD/Stats/DeployUi"]
 layout_mode = 0
-offset_left = 128.0
-offset_top = 137.0
-offset_right = 168.0
-offset_bottom = 153.0
+offset_left = 34.5
+offset_top = 36.0
+offset_right = 74.5
+offset_bottom = 52.0
 theme_override_font_sizes/font_size = 8
 text = "3"
+
+[node name="PlayerUi" type="Control" parent="HUD/Stats"]
+anchors_preset = 0
+offset_top = 108.0
+offset_right = 40.0
+offset_bottom = 148.0
+
+[node name="ManaBar" parent="HUD/Stats/PlayerUi" instance=ExtResource("19_w14c3")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -60.5
+offset_top = 20.0
+offset_right = 490.5
+offset_bottom = 154.0
+scale = Vector2(0.5, 0.5)
+
+[node name="PlayerHUDBar" type="TextureRect" parent="HUD/Stats/PlayerUi"]
+z_index = -50
+layout_mode = 0
+offset_left = -179.5
+offset_top = -28.5
+offset_right = 204.5
+offset_bottom = 67.5
+texture = ExtResource("5_nfi33")
+
+[node name="PlayerTexture" type="TextureRect" parent="HUD/Stats/PlayerUi"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -61.5
+offset_top = 4.5
+offset_right = -10.5
+offset_bottom = 25.5
+texture = ExtResource("23_7eqls")
+expand_mode = 1
+
+[node name="MinionTexture" type="TextureRect" parent="HUD/Stats/PlayerUi"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 18.0
+offset_top = 4.5
+offset_right = 69.0
+offset_bottom = 25.5
+texture = ExtResource("21_j77iq")
+expand_mode = 1
+
+[node name="MinionLvlLabel" type="Label" parent="HUD/Stats/PlayerUi"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 40.0
+offset_top = 15.0
+offset_right = 88.0
+offset_bottom = 31.0
+theme_override_fonts/font = ExtResource("27_o3ol7")
+theme_override_font_sizes/font_size = 8
+text = "LVL"
+
+[node name="MinionLvl" type="Label" parent="HUD/Stats/PlayerUi"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 66.0
+offset_top = 15.0
+offset_right = 106.0
+offset_bottom = 30.0
+theme_override_fonts/font = ExtResource("27_o3ol7")
+theme_override_font_sizes/font_size = 8
+text = "1"
+
+[node name="MinionUpgradePrompt" type="Label" parent="HUD/Stats/PlayerUi"]
+unique_name_in_owner = true
+z_index = 1000
+layout_mode = 0
+offset_left = 38.0
+offset_top = 4.5
+offset_right = 78.0
+offset_bottom = 12.5
+theme_override_colors/font_color = Color(0, 0.94902, 0.952941, 1)
+theme_override_font_sizes/font_size = 8
+text = " ↑(E)"
+
+[node name="LevelLabel" type="Label" parent="HUD/Stats/PlayerUi"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -40.5
+offset_top = 15.0
+offset_right = 7.5
+offset_bottom = 31.0
+theme_override_fonts/font = ExtResource("27_o3ol7")
+theme_override_font_sizes/font_size = 8
+text = "LVL"
+
+[node name="PlayerLevel" type="Label" parent="HUD/Stats/PlayerUi"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -14.0
+offset_top = 15.0
+offset_right = 26.0
+offset_bottom = 30.0
+theme_override_fonts/font = ExtResource("27_o3ol7")
+theme_override_font_sizes/font_size = 8
+text = "1"
+
+[node name="PlayerUpgradePrompt" type="Label" parent="HUD/Stats/PlayerUi"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -41.0
+offset_top = 5.0
+offset_right = -1.0
+offset_bottom = 13.0
+theme_override_colors/font_color = Color(0, 0.94902, 0.952941, 1)
+theme_override_font_sizes/font_size = 8
+text = " ↑(Q)"
 
 [node name="Minimap" type="Control" parent="HUD"]
 layout_mode = 3
