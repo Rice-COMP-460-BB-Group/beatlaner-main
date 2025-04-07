@@ -92,7 +92,7 @@ const DASH_SPEED = 5000
 var dash_timer = 0.0
 var is_dashing = false
 enum {IDLE, WALK, ATTACK}
-
+var cooldown = 0.0
 var state = IDLE
 var is_rhythm_game_open = false
 @onready var animationTree = $AnimationTree
@@ -443,8 +443,17 @@ func _physics_process(delta: float) -> void:
 	var mat = $AnimatedSprite2D.material
 	var current_time = mat.get_shader_parameter("time")
 	mat.set_shader_parameter("time", current_time + delta)
-
+	
 	if $MultiplayerSynchronizer.is_multiplayer_authority():
+		if can_use_nexus:
+			print("[player.gd]","can use nexus")
+			cooldown += delta
+			print("[pl]",cooldown)
+			if cooldown > 100.0:
+				
+				print("[player.gd]","increasing hp!!!")
+				$HealthComponent.increase_health(1)
+				cooldown = 0.0
 		if is_rhythm_game_open:
 			var combo = rhythm_game_instance.get_combo()
 			#if combo and not combo % 100 and combo > last_combo and player_powerup == null:
