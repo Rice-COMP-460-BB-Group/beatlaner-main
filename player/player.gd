@@ -132,6 +132,9 @@ func Hit(type: String):
 
 
 func _ready() -> void:
+	MatchStats.rpc("register_player_stats", multiplayer.get_unique_id())
+	print('my id', multiplayer.get_unique_id())
+	MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "mana_generated", 0)
 	$Metronome.wait_time = (60.0 / bpm)
 	cycle_duration = 2 * $Metronome.wait_time # Full cycle duration (1 second)
 	frame_duration = cycle_duration / (total_metronome_frames - 1) # 1/12 ≈ 0.0833s
@@ -846,6 +849,7 @@ func respawn() -> void:
 func _on_health_component_health_destroyed() -> void:
 	if is_multiplayer_authority():
 		death_count += 1
+		print(multiplayer.get_unique_id(), ' new death count', death_count)
 		MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "death_count", death_count)
 	respawn()
 

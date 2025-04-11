@@ -26,12 +26,15 @@ func update_stats_display():
 
 	# Get all stats from MatchStats
 	var all_stats = MatchStats.get_all_stats()
+	print(multiplayer.get_unique_id(), ' all stats', all_stats)
 	
 	var idx = 1
 	# Iterate over each player
 	for player_id in all_stats.keys():
 		var stats_label = %Player1StatsLabel if idx == 1 else %Player2StatsLabel #get_node("Player" + str(idx) + "StatsLabel")  # Use get_node() to find StatsLabel reliably
 		stats_label.text = ""  
+		
+		print('stat label', stats_label)
 		
 
 		var stats_text = "Player %d:\n" % idx  # Header for each player
@@ -65,9 +68,9 @@ func update_stats_display():
 		stats_label.text += stats_text + "\n"  # Extra line for spacing
 
 func _ready() -> void:
-	if not multiplayer.is_server():
+	#if not multiplayer.is_server():
 		#await get_tree().process_frame
-		call_deferred("update_stats_display")
+	call_deferred("update_stats_display")
 
 #
 #func _on_main_menu_pressed() -> void:
@@ -87,6 +90,7 @@ func change_to_scene(scene_path: String):
 	for child in children:
 		if child.name == "MatchStats":
 			MatchStats.reset_stats()
+			continue
 		if child.name == "GameManager" or child.name == "Signals":
 			if child.name == "GameManager":
 				child.Players = {}
