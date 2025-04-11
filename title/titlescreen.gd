@@ -59,7 +59,7 @@ func _on_start_pressed() -> void:
 func _on_exit_pressed() -> void:
 	$Confirm.play()
 	await $Confirm.finished
-	get_tree().quit()
+	get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
 
 
 func _on_button_focus_entered() -> void:
@@ -169,19 +169,10 @@ func _on_host_button_down():
 	SendPlayerInformation("", multiplayer.get_unique_id())
 	pass # Replace with function body.
 
-func _notification(what):
-	if what == NOTIFICATION_WM_CLOSE_REQUEST:
-		if GameManager.server_pid > 0:
-			OS.kill(GameManager.server_pid)
-			GameManager.server_pid = -1
-		get_tree().quit()
-
 var single_player_mode = false
 
 func _on_single_player_pressed():
-	if GameManager.server_pid > 0:
-		OS.kill(GameManager.server_pid)
-		GameManager.server_pid = -1
+	GameManager.cleanup()
 		
 	var pid = OS.create_process(OS.get_executable_path(), ["--auto", "--server", "--headless"])
 	GameManager.server_pid = pid

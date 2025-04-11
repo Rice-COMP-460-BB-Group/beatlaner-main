@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dsigatwjcg8op"]
+
+[ext_resource type="Shader" uid="uid://7mglql3qlo0h" path="res://assets/disintegrate.gdshader" id="1_mkkmu"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_mkkmu")
+shader_parameter/progress = 0.0
+shader_parameter/fall_speed = 300.0
+shader_parameter/jitter = 1.5
+shader_parameter/dissolve_noise_scale = 20.0
+shader_parameter/lock_threshold = 0.0
+shader_parameter/chunk_size = 4.0

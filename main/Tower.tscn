@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://3l0iahp12xip"]
+[gd_scene load_steps=34 format=3 uid="uid://3l0iahp12xip"]
 
 [ext_resource type="Script" uid="uid://eahindjn0aae" path="res://scripts/Tower.gd" id="1_15l20"]
 [ext_resource type="PackedScene" uid="uid://bqkl7m6s1p5ls" path="res://minions/arrow.tscn" id="2_q6p00"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ckytalr2gjoym" path="res://healthbar/health_component.tscn" id="3_sstfa"]
 [ext_resource type="AudioStream" uid="uid://d101lyttvr3i3" path="res://assets/shimmer_sound.wav" id="4_astes"]
 [ext_resource type="Texture2D" uid="uid://drv3mmdcucid7" path="res://assets/tower_anim-Sheet2.png" id="6_e3htb"]
+[ext_resource type="Material" uid="uid://dsigatwjcg8op" path="res://assets/disintegrate.tres" id="6_hpndo"]
 [ext_resource type="Texture2D" uid="uid://dnu5hdpe2sjgs" path="res://assets/tower-base.png" id="6_uqitx"]
 [ext_resource type="Texture2D" uid="uid://c6rguhqnh0eru" path="res://assets/tower-anim_red-Sheet22.png" id="7_q3y2f"]
 [ext_resource type="Shader" uid="uid://cpq3wxu22dcrw" path="res://main/Tower.gdshader" id="9_dvgts"]
@@ -159,6 +160,7 @@ shader_parameter/heightOffset = 0.031
 shader_parameter/offset = 2.0
 
 [node name="Tower" type="StaticBody2D" groups=["Towers"]]
+use_parent_material = true
 collision_layer = 15
 collision_mask = 15
 collision_priority = 2.0
@@ -230,24 +232,28 @@ spawn_path = NodePath("..")
 [node name="TowerBase" type="Sprite2D" parent="."]
 z_index = 50
 y_sort_enabled = true
+material = ExtResource("6_hpndo")
 position = Vector2(11, -82)
 texture = ExtResource("6_uqitx")
 
 [node name="Sigil" type="AnimatedSprite2D" parent="."]
 z_index = 50
 y_sort_enabled = true
+material = ExtResource("6_hpndo")
 position = Vector2(21, -95)
 sprite_frames = SubResource("SpriteFrames_3vb0v")
 animation = &"anim_blue"
 
 [node name="BannerRed" type="Sprite2D" parent="."]
+z_index = 52
 material = SubResource("ShaderMaterial_u1t2r")
 position = Vector2(1, -121)
 texture = ExtResource("10_yvgmj")
 
 [node name="BannerBlue" type="Sprite2D" parent="."]
+z_index = 52
 material = SubResource("ShaderMaterial_u1t2r")
-position = Vector2(1, -121)
+position = Vector2(1, -122)
 texture = ExtResource("10_6ylfq")
 
 [node name="LaserShooter" type="AudioStreamPlayer2D" parent="."]
