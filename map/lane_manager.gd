@@ -84,6 +84,22 @@ func wave_request(pos: int, size: int, team: bool,level:int) -> void:
 	
 	spawner.spawn_friendly_wave(config, team,level)
 
+	if len(GameManager.Players) == 1:
+		var opposite_team = not team
+		var total = 0
+		for i in range(6):  
+			total += randi() % size
+		var ai_size = int(total / 6) + 1  
+		ai_size = clamp(ai_size, 1, size)
+		var ai_config = {"top": 0, "mid": 0, "bottom": 0}
+		if pos == 0:
+			ai_config["top"] = ai_size
+		elif pos == 1:
+			ai_config["mid"] = ai_size
+		elif pos == 2:
+			ai_config["bottom"] = ai_size
+		spawner.spawn_friendly_wave(ai_config, opposite_team, level)
+
 func _on_player_wave_request(pos: int, size: int) -> void:
 	#print("wave request")
 	var spawner = $"../../Spawner"
