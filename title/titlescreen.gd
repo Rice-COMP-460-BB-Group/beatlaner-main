@@ -6,6 +6,12 @@ var dedicated_server = false
 
 	
 func _ready():
+	if peer != null:
+		peer.close()
+		multiplayer.set_multiplayer_peer(null)
+	if GameManager.server_pid > 0:
+		OS.kill(GameManager.server_pid)
+		GameManager.server_pid = -1
 	#$VBoxContainer/Start.grab_focus()
 	$VBoxContainer/Start.focus_mode = Control.FOCUS_NONE
 	$VBoxContainer/Join.focus_mode = Control.FOCUS_NONE
@@ -113,7 +119,7 @@ func SendPlayerInformation(name, id):
 @rpc("any_peer", "call_local")
 func StartGame():
 	# if cap is enabled, then only 2 players can join
-	if GameManager.Players.size() < 2 && !("--auto" in OS.get_cmdline_args()):
+	if GameManager.Players.size() < 2 && !("--auto" in OS.get_cmdline_args()) && !single_player_mode:
 		print("Not enough players to start!")
 		$ErrorDialog.dialog_text = "Not enough players to start!"
 		$ErrorDialog.popup()
@@ -125,7 +131,7 @@ func StartGame():
 	$Background.stop()
 
 	var scene
-	if "--auto" in OS.get_cmdline_args():
+	if "--auto" in OS.get_cmdline_args() or single_player_mode:
 		scene = load("res://main/Main.tscn").instantiate()
 		scene.current_difficulty = 0 # set to easy difficulty
 	else:
@@ -163,7 +169,36 @@ func _on_host_button_down():
 	SendPlayerInformation("", multiplayer.get_unique_id())
 	pass # Replace with function body.
 
+func _notification(what):
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		if GameManager.server_pid > 0:
+			OS.kill(GameManager.server_pid)
+			GameManager.server_pid = -1
+		get_tree().quit()
 
+var single_player_mode = false
+
+func _on_single_player_pressed():
+	if GameManager.server_pid > 0:
+		OS.kill(GameManager.server_pid)
+		GameManager.server_pid = -1
+		
+	var pid = OS.create_process(OS.get_executable_path(), ["--auto", "--server", "--headless"])
+	GameManager.server_pid = pid
+	get_tree().auto_accept_quit = false
+
+	single_player_mode = true
+	if peer and peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTED:
+		peer.close()
+		multiplayer.set_multiplayer_peer(null)
+		$VBoxContainer/Join.text = "Join"
+		$VBoxContainer/Start.disabled = false
+		return
+	
+	peer = ENetMultiplayerPeer.new()
+	peer.create_client("localhost", port)
+	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
+	multiplayer.set_multiplayer_peer(peer)
 func _on_join_pressed():
 	if peer and peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTED:
 		peer.close()
