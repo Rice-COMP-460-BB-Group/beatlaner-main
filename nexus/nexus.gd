@@ -84,6 +84,14 @@ func _on_detection_area_body_entered(body: Node2D) -> void:
 			#body.show_tooltip("upgrade_minions", "Upgrade minions")
 
 func _on_health_component_health_destroyed() -> void:
+	$NexusBase.material.set_shader_parameter("progress", 0.0)
+	$AnimatedSprite2D.material.set_shader_parameter("progress", 0.0)
+
+	var tween = get_tree().create_tween()
+	tween.tween_property($NexusBase, "material:shader_parameter/progress", 1.0, 1.0)
+	tween.tween_property($AnimatedSprite2D, "material:shader_parameter/progress", 1.0, 1.0)
+
+	await tween.finished
 
 	#print("nexus destroyed" + str(team))
 	queue_free()

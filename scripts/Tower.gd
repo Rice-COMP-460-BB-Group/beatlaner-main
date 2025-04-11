@@ -97,6 +97,15 @@ func _on_health_component_health_destroyed() -> void:
 		var camera = viewport.get_camera_2d()
 		if camera:
 			pass
+	$TowerBase.material.set_shader_parameter("progress", 0.0)
+	
+	var tween = get_tree().create_tween()
+	tween.tween_property($TowerBase, "material:shader_parameter/progress", 1.0, 1.0)
+	tween.tween_property($BannerRed, "modulate:a", 0, 1)
+	tween.tween_property($BannerBlue, "modulate:a", 0, 1)
+
+	await tween.finished
+
 	var surrender_instance = surrender_scene.instantiate()
 	get_parent().add_child(surrender_instance)
 	surrender_instance.global_position = global_position
