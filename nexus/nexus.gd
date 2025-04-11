@@ -86,8 +86,8 @@ func _on_detection_area_body_entered(body: Node2D) -> void:
 func _on_health_component_health_destroyed() -> void:
 
 	#print("nexus destroyed" + str(team))
-	Signals.NexusDestroyed.emit(team, global_position)
 	queue_free()
+	Signals.NexusDestroyed.emit(team, global_position)
 
 
 

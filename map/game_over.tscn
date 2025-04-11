@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://cfw4w7wyo12ha"]
+[gd_scene load_steps=6 format=3 uid="uid://cfw4w7wyo12ha"]
 
 [ext_resource type="Texture2D" uid="uid://dgmjdveas7mim" path="res://assets/surrender.png" id="1_u1d7q"]
 [ext_resource type="Script" uid="uid://dm14ugemdaxro" path="res://map/game_over.gd" id="1_v2yhc"]
 [ext_resource type="FontFile" uid="uid://cm5q756n5trre" path="res://assets/VT323-Regular.ttf" id="2_hh0ir"]
+[ext_resource type="Texture2D" uid="uid://4pr5rte4vcl6" path="res://assets/south_slash-002.png" id="4_x8a5g"]
+[ext_resource type="Texture2D" uid="uid://dcyqokoybm3hj" path="res://assets/forward_southv4-000.png" id="5_bm1yk"]
 
 [node name="GameOver" type="Control"]
 layout_mode = 3
@@ -24,12 +26,32 @@ scale = Vector2(3, 3)
 texture = ExtResource("1_u1d7q")
 stretch_mode = 3
 
+[node name="Player1StatsLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+offset_left = 136.0
+offset_top = 581.75
+offset_right = 545.0
+offset_bottom = 597.75
+text = "Shinigami"
+horizontal_alignment = 1
+
+[node name="Player2StatsLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+offset_left = 623.0
+offset_top = 583.0
+offset_right = 1032.0
+offset_bottom = 599.0
+text = "Shinigami"
+horizontal_alignment = 1
+
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
 offset_left = 294.0
-offset_top = 50.0
+offset_top = 24.0
 offset_right = 851.0
-offset_bottom = 502.0
+offset_bottom = 549.0
 theme_override_constants/separation = 40
 alignment = 1
 
@@ -47,6 +69,12 @@ theme_override_fonts/font = ExtResource("2_hh0ir")
 theme_override_font_sizes/font_size = 64
 text = "Main Menu"
 
+[node name="Results" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_hh0ir")
+theme_override_font_sizes/font_size = 64
+text = "Results"
+
 [node name="Exit" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_hh0ir")
@@ -54,6 +82,7 @@ theme_override_font_sizes/font_size = 64
 text = "Exit"
 
 [node name="MatchLength" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "500
 
@@ -61,45 +90,16 @@ text = "500
 "
 horizontal_alignment = 1
 
-[node name="Control" type="Control" parent="VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
+[node name="SouthSlash-002" type="Sprite2D" parent="."]
+position = Vector2(335, 507.75)
+scale = Vector2(1.86719, 1.80469)
+texture = ExtResource("4_x8a5g")
 
-[node name="HBox" type="HBoxContainer" parent="VBoxContainer/Control"]
-layout_mode = 2
-offset_left = -421.0
-offset_top = -78.0
-offset_right = 511.0
-offset_bottom = 128.0
-
-[node name="Player1StatsLabel" type="Label" parent="VBoxContainer/Control/HBox"]
-layout_mode = 2
-text = "\"player_kill_count\": 0,
-			\"minion_kill_count\": 0,
-			\"total_damage_dealt\": 0,
-			\"total_damage_received\": 0,
-			\"death_count\": 0,
-			\"ability_used_count\": 0,
-			\"osu_highest_combo\": 0,
-			\"osu_notes_hit_count\": 0,
-			\"osu_average_accuracy\": 0.0, 
-			\"minion_spawn_count\": 0,
-			\"match_length\": 0"
-
-[node name="Player2StatsLabel" type="Label" parent="VBoxContainer/Control/HBox"]
-layout_mode = 2
-text = "\"player_kill_count\": 0,
-			\"minion_kill_count\": 0,
-			\"total_damage_dealt\": 0,
-			\"total_damage_received\": 0,
-			\"death_count\": 0,
-			\"ability_used_count\": 0,
-			\"osu_highest_combo\": 0,
-			\"osu_notes_hit_count\": 0,
-			\"osu_average_accuracy\": 0.0, 
-			\"minion_spawn_count\": 0,
-			\"match_length\": 0"
+[node name="ForwardSouthv4-000" type="Sprite2D" parent="."]
+position = Vector2(825, 520)
+scale = Vector2(0.921875, 0.921875)
+texture = ExtResource("5_bm1yk")
 
 [connection signal="pressed" from="VBoxContainer/Main Menu" to="." method="_on_main_menu_pressed"]
+[connection signal="pressed" from="VBoxContainer/Results" to="." method="_on_results_pressed"]
 [connection signal="pressed" from="VBoxContainer/Exit" to="." method="_on_exit_pressed"]

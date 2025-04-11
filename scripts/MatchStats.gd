@@ -4,8 +4,11 @@ extends Node
 # The value will be another dictionary holding the stats for that player
 var player_stats: Dictionary = {}
 
+func _ready() -> void:
+	name = 'MatchStats'
+
 # Call this function from each player instance BEFORE changing the scene
-@rpc("any_peer", "call_local")
+@rpc("any_peer")
 func update_stat(player_id: int, stat_name: String, stat_value):
 	if player_id not in player_stats:
 		player_stats[player_id] = {
@@ -19,7 +22,8 @@ func update_stat(player_id: int, stat_name: String, stat_value):
 			"osu_notes_hit_count": 0,
 			"osu_average_accuracy": 0.0, 
 			"minion_spawn_count": 0,
-			"match_length": 0
+			"match_length": 0,
+			"mana_generated": 0
 		}
 
 	player_stats[player_id][stat_name] = stat_value
