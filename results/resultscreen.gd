@@ -77,7 +77,7 @@ func _ready() -> void:
 
 
 func _on_exit_pressed() -> void:
-	get_tree().quit()
+	get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
 
 func change_to_scene(scene_path: String):
 	var children = get_tree().get_root().get_children()
