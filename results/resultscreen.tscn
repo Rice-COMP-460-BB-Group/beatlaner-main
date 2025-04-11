@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bb4g1b1em6bsp"]
+[gd_scene load_steps=6 format=3 uid="uid://bb4g1b1em6bsp"]
 
 [ext_resource type="Script" uid="uid://cbiubhrs66cot" path="res://results/resultscreen.gd" id="1_lwqjt"]
 [ext_resource type="Texture2D" uid="uid://bgocpdpd4ikd6" path="res://assets/New_Menu5.png" id="1_rrvhx"]
 [ext_resource type="Texture2D" uid="uid://4pr5rte4vcl6" path="res://assets/south_slash-002.png" id="3_iq7io"]
 [ext_resource type="Texture2D" uid="uid://dcyqokoybm3hj" path="res://assets/forward_southv4-000.png" id="4_vadlq"]
+[ext_resource type="FontFile" uid="uid://cm5q756n5trre" path="res://assets/VT323-Regular.ttf" id="5_vadlq"]
 
 [node name="Resultscreen" type="Control"]
 layout_mode = 3
@@ -31,11 +32,13 @@ theme_override_font_sizes/font_size = 30
 text = "Match Results"
 
 [node name="Player1StatsLabel" type="Label" parent="."]
+unique_name_in_owner = true
 layout_mode = 0
-offset_left = 107.0
-offset_top = 335.0
-offset_right = 571.0
-offset_bottom = 560.0
+offset_left = 64.0
+offset_top = 339.0
+offset_right = 528.0
+offset_bottom = 751.0
+theme_override_constants/line_spacing = 20
 text = "Player 1
 			\"player_kill_count\": 0,
 			\"minion_kill_count\": 0,
@@ -48,6 +51,31 @@ text = "Player 1
 			\"osu_average_accuracy\": 0.0, 
 			\"minion_spawn_count\": 0,
 			\"match_length\": 0"
+horizontal_alignment = 1
+
+[node name="MatchLength" type="Label" parent="."]
+layout_mode = 0
+offset_left = 466.0
+offset_top = 130.0
+offset_right = 637.0
+offset_bottom = 179.0
+theme_override_constants/paragraph_spacing = 10
+theme_override_font_sizes/font_size = 18
+text = "Length:
+5:03"
+horizontal_alignment = 1
+
+[node name="Winner" type="Label" parent="."]
+layout_mode = 0
+offset_left = 469.0
+offset_top = 232.0
+offset_right = 646.0
+offset_bottom = 283.0
+theme_override_constants/line_spacing = 15
+theme_override_font_sizes/font_size = 18
+text = "Player 1 
+Wins!"
+horizontal_alignment = 1
 
 [node name="Player2Label" type="Label" parent="."]
 layout_mode = 0
@@ -80,11 +108,13 @@ scale = Vector2(0.921875, 0.921875)
 texture = ExtResource("4_vadlq")
 
 [node name="Player2StatsLabel" type="Label" parent="."]
+unique_name_in_owner = true
 layout_mode = 0
-offset_left = 615.0
-offset_top = 337.0
-offset_right = 1079.0
-offset_bottom = 562.0
+offset_left = 559.0
+offset_top = 339.0
+offset_right = 1039.0
+offset_bottom = 751.0
+theme_override_constants/line_spacing = 20
 text = "Player 1
 			\"player_kill_count\": 0,√
 			\"minion_kill_count\": 0,√
@@ -97,3 +127,23 @@ text = "Player 1
 			\"osu_notes_hit_count\": 0,
 			\"osu_average_accuracy\": 0.0, √
 			\"minion_spawn_count\": 0,√"
+horizontal_alignment = 1
+
+[node name="Main Menu" type="Button" parent="."]
+layout_mode = 0
+offset_left = 916.0
+offset_top = 3.0
+offset_right = 1154.0
+offset_bottom = 76.0
+theme_override_fonts/font = ExtResource("5_vadlq")
+theme_override_font_sizes/font_size = 64
+text = "Main Menu"
+
+[node name="Exit" type="Button" parent="."]
+layout_mode = 0
+theme_override_fonts/font = ExtResource("5_vadlq")
+theme_override_font_sizes/font_size = 64
+text = "Exit"
+
+[connection signal="pressed" from="Main Menu" to="." method="_on_main_menu_pressed"]
+[connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]

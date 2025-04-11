@@ -1,6 +1,7 @@
 extends Control
 
 @export var win: bool = false
+
 # Called when the node enters the scene tree for the first time.
 
 func update_stats_display():
@@ -10,10 +11,16 @@ func update_stats_display():
 	var all_stats = MatchStats.get_all_stats()
 	
 	var idx = 1
+	print("My own path:", get_path())
 	# Iterate over each player
 	for player_id in all_stats.keys():
-		var stats_label = get_node("Player" + str(idx) + "StatsLabel")  # Use get_node() to find StatsLabel reliably
-		stats_label.text = ""  
+		
+		var stats_label = %Player1StatsLabel if idx == 1 else %Player2StatsLabel #get_node("Player" + str(idx) + "StatsLabel")  # Use get_node() to find StatsLabel reliably
+
+		if not is_instance_valid(stats_label):
+			print('not valid stats')
+			continue
+		stats_label.text = ""
 		
 
 		var stats_text = "Player %d:\n" % idx  # Header for each player
@@ -34,7 +41,7 @@ func update_stats_display():
 		print(titles)
 		if titles.size() > 0:
 			stats_label.text += "\n".join(titles)
-		var match_length_label = get_node("VBoxContainer/MatchLength")
+		var match_length_label = %VBoxContainer/MatchLength
 		if match_length_label != null:
 			var total_seconds = all_stats[player_id]['match_length'] / 1000  # Convert ms to seconds
 			var hours = total_seconds / 3600
@@ -69,11 +76,11 @@ func update_stats_display():
 		#stats_label.text += stats_text + "\n"  # Extra line for spacing
 
 func _ready() -> void:
-	for child in get_children():
-		print("Child node:", child.name)
+
 	$"VBoxContainer/Main Menu".grab_focus()
 	if not multiplayer.is_server():
 		#await get_tree().process_frame
+		#update_stats_display()
 		call_deferred("update_stats_display")
 
 
@@ -86,11 +93,32 @@ func _on_exit_pressed() -> void:
 	get_tree().quit()
 
 
+
 func _on_main_menu_pressed() -> void:
-	self.hide()
-	get_tree().change_scene_to_file.bind("res://title/titlescreen.tscn").call_deferred()
-	#MatchStats.reset_stats()
+	MatchStats.reset_stats()
+	change_to_scene("res://title/titlescreen.tscn")
+
+
+	
+func change_to_scene(scene_path: String):
+	var children = get_tree().get_root().get_children()
+	var scene = load(scene_path).instantiate()
+	get_tree().root.add_child(scene)
+
+	for child in children:
+		if child.name == "MatchStats":
+			continue
+		if child.name == "GameManager" or child.name == "Signals":
+			if child.name == "GameManager":
+				child.Players = {}
+			
+			continue
+		if child.name == "Titlescreen":
+			child.peer = null
+		child.call_deferred("queue_free")
 	
 func _on_results_pressed() -> void:
-	self.hide()
-	get_tree().change_scene_to_file.bind("res://results/resultscreen.tscn").call_deferred()
+	#self.hide()
+	#get_tree().change_scene_to_file.bind("res://results/resultscreen.tscn").call_deferred()
+	change_to_scene("res://results/resultscreen.tscn")
+	#get_tree().change_scene_to_file("res://results/resultscreen.tscn")

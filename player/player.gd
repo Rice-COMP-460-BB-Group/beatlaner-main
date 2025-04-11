@@ -36,6 +36,7 @@ var osu_highest_combo = 0 # √√
 var osu_notes_hit_count = 0 # √√
 var osu_acc_notes_count = 0 # √√
 
+var mana_generated = 0
 var osu_acc_sum = 0 # √√
 var minion_spawn_count = 0 # √√
 var match_length = 0 # √
@@ -318,6 +319,8 @@ func change_to_scene(scene_path: String):
 	get_tree().root.add_child(scene)
 
 	for child in children:
+		if child.name == "MatchStats":
+			continue
 		if child.name == "GameManager" or child.name == "Signals":
 			if child.name == "GameManager":
 				child.Players = {}
@@ -475,6 +478,9 @@ func _physics_process(delta: float) -> void:
 			var score_delta = score - last_rhythm_score
 			last_rhythm_score = score
 			tmp_score = min(current_score + int(score_delta / 50), 300)
+			mana_generated += (tmp_score - current_score)
+			MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "mana_generated", mana_generated)
+
 			print("[player.gd] tmp score is", tmp_score)
 			current_score = tmp_score
 			update_mana(tmp_score)
@@ -595,6 +601,7 @@ func _physics_process(delta: float) -> void:
 								MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "minion_kill_count", minion_kill_count)
 
 							current_score += 5
+							
 							update_mana(current_score)
 
 			if foundAttack:
@@ -795,8 +802,13 @@ func respawn() -> void:
 	$AnimatedSprite2D.visible = false
 	$HUD/Stats/Respawning.visible = true
 	$HUD / "Damage indic".visible = false
-	death_count += 1
-	MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "death_count", death_count)
+	#var nexus_nodes = get_tree().get_nodes_in_group("Nexus")
+	#var nexus_count = 0
+	#for node in nexus_nodes:
+		#nexus_count += 1
+	#if nexus_count == 2:
+		#print('increase death count', multiplayer.get_unique_id()," ", death_count)
+
 	is_alive = false
 	escape_rhythm_game();
 	rhythm_game_instance.is_dead()
@@ -823,6 +835,9 @@ func respawn() -> void:
 	is_alive = true
 
 func _on_health_component_health_destroyed() -> void:
+	if is_multiplayer_authority():
+		death_count += 1
+		MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "death_count", death_count)
 	respawn()
 
 @rpc("any_peer", "call_local")

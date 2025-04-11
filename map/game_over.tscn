@@ -27,6 +27,7 @@ texture = ExtResource("1_u1d7q")
 stretch_mode = 3
 
 [node name="Player1StatsLabel" type="Label" parent="."]
+unique_name_in_owner = true
 layout_mode = 2
 offset_left = 136.0
 offset_top = 581.75
@@ -36,6 +37,7 @@ text = "Shinigami"
 horizontal_alignment = 1
 
 [node name="Player2StatsLabel" type="Label" parent="."]
+unique_name_in_owner = true
 layout_mode = 2
 offset_left = 623.0
 offset_top = 583.0
@@ -80,6 +82,7 @@ theme_override_font_sizes/font_size = 64
 text = "Exit"
 
 [node name="MatchLength" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "500
 
