@@ -1,0 +1,534 @@
+[gd_scene load_steps=6 format=3 uid="uid://ceipmxadbdy8q"]
+
+[ext_resource type="Script" uid="uid://bvr0tikh1q3ux" path="res://results/resultsgame.gd" id="1_u1wtv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.0627451, 0.0784314, 0.117647, 0.901961)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.976471, 0.882353, 0.607843, 0.501961)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0, 0, 0, 0.25098)
+shadow_size = 4
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_v5j8n"]
+color = Color(0.976471, 0.882353, 0.607843, 0.501961)
+thickness = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i8n3b"]
+bg_color = Color(0.164706, 0.188235, 0.235294, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.976471, 0.882353, 0.607843, 0.501961)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button"]
+bg_color = Color(0.164706, 0.188235, 0.235294, 0.901961)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.976471, 0.882353, 0.607843, 0.501961)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="ResultsScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -496.0
+offset_top = -250.0
+offset_right = 504.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_u1wtv")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_right = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="MainContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="Spacer" type="Control" parent="MainContainer"]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+
+[node name="HeaderSection" type="VBoxContainer" parent="MainContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="ResultDisplay" type="HBoxContainer" parent="MainContainer/HeaderSection"]
+layout_mode = 2
+alignment = 1
+
+[node name="LeftStructures" type="HBoxContainer" parent="MainContainer/HeaderSection/ResultDisplay"]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 2
+
+[node name="TowerContainer" type="HBoxContainer" parent="MainContainer/HeaderSection/ResultDisplay/LeftStructures"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Tower1" type="TextureRect" parent="MainContainer/HeaderSection/ResultDisplay/LeftStructures/TowerContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Tower2" type="TextureRect" parent="MainContainer/HeaderSection/ResultDisplay/LeftStructures/TowerContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Tower3" type="TextureRect" parent="MainContainer/HeaderSection/ResultDisplay/LeftStructures/TowerContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Nexus" type="TextureRect" parent="MainContainer/HeaderSection/ResultDisplay/LeftStructures"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ResultBanner" type="TextureRect" parent="MainContainer/HeaderSection/ResultDisplay"]
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ResultLabel" type="Label" parent="MainContainer/HeaderSection/ResultDisplay/ResultBanner"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.976471, 0.882353, 0.607843, 1)
+theme_override_font_sizes/font_size = 36
+text = "VICTORY"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RightStructures" type="HBoxContainer" parent="MainContainer/HeaderSection/ResultDisplay"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Nexus" type="TextureRect" parent="MainContainer/HeaderSection/ResultDisplay/RightStructures"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TowerContainer" type="HBoxContainer" parent="MainContainer/HeaderSection/ResultDisplay/RightStructures"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Tower1" type="TextureRect" parent="MainContainer/HeaderSection/ResultDisplay/RightStructures/TowerContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Tower2" type="TextureRect" parent="MainContainer/HeaderSection/ResultDisplay/RightStructures/TowerContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Tower3" type="TextureRect" parent="MainContainer/HeaderSection/ResultDisplay/RightStructures/TowerContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HeaderDivider" type="HSeparator" parent="MainContainer/HeaderSection"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+theme_override_constants/separation = 10
+theme_override_styles/separator = SubResource("StyleBoxLine_v5j8n")
+
+[node name="ContentContainer" type="MarginContainer" parent="MainContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+
+[node name="StatsGrid" type="GridContainer" parent="MainContainer/ContentContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 25
+columns = 6
+
+[node name="HeaderPlayer" type="Label" parent="MainContainer/ContentContainer/StatsGrid"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.8
+theme_override_colors/font_color = Color(0.827451, 0.827451, 0.827451, 1)
+theme_override_font_sizes/font_size = 16
+text = "PLAYER"
+vertical_alignment = 1
+
+[node name="HeaderKDA" type="Label" parent="MainContainer/ContentContainer/StatsGrid"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.827451, 0.827451, 0.827451, 1)
+theme_override_font_sizes/font_size = 16
+text = "K / D"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HeaderMana" type="Label" parent="MainContainer/ContentContainer/StatsGrid"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.827451, 0.827451, 0.827451, 1)
+theme_override_font_sizes/font_size = 16
+text = "MANA
+GENERATED"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HeaderMinions" type="Label" parent="MainContainer/ContentContainer/StatsGrid"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.827451, 0.827451, 0.827451, 1)
+theme_override_font_sizes/font_size = 16
+text = "MINION 
+KILLS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HeaderCombo" type="Label" parent="MainContainer/ContentContainer/StatsGrid"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.2
+theme_override_colors/font_color = Color(0.827451, 0.827451, 0.827451, 1)
+theme_override_font_sizes/font_size = 16
+text = "HIGHEST 
+COMBO"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HeaderSpawned" type="Label" parent="MainContainer/ContentContainer/StatsGrid"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.827451, 0.827451, 0.827451, 1)
+theme_override_font_sizes/font_size = 16
+text = "MINIONS
+SPAWNED"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Player1Info" type="HBoxContainer" parent="MainContainer/ContentContainer/StatsGrid"]
+custom_minimum_size = Vector2(180, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.8
+theme_override_constants/separation = 12
+
+[node name="Portrait" type="TextureRect" parent="MainContainer/ContentContainer/StatsGrid/Player1Info"]
+z_index = 1
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PlayerPanel" type="Panel" parent="MainContainer/ContentContainer/StatsGrid/Player1Info/Portrait"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_i8n3b")
+
+[node name="PlayerDetails" type="VBoxContainer" parent="MainContainer/ContentContainer/StatsGrid/Player1Info"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="PlayerName" type="Label" parent="MainContainer/ContentContainer/StatsGrid/Player1Info/PlayerDetails"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.976471, 0.882353, 0.607843, 1)
+theme_override_font_sizes/font_size = 18
+text = "Player 1"
+vertical_alignment = 1
+
+[node name="PlayerTitle" type="Label" parent="MainContainer/ContentContainer/StatsGrid/Player1Info/PlayerDetails"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Title"
+vertical_alignment = 1
+
+[node name="Player1KDA" type="Label" parent="MainContainer/ContentContainer/StatsGrid"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "8 / 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Player1Mana" type="Label" parent="MainContainer/ContentContainer/StatsGrid"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0.843137, 0.976471, 1)
+theme_override_font_sizes/font_size = 18
+text = "350"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Player1Minions" type="Label" parent="MainContainer/ContentContainer/StatsGrid"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.827451, 0.827451, 0.827451, 1)
+theme_override_font_sizes/font_size = 18
+text = "52"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Player1Combo" type="Label" parent="MainContainer/ContentContainer/StatsGrid"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.2
+theme_override_colors/font_color = Color(0.976471, 0.517647, 0.294118, 1)
+theme_override_font_sizes/font_size = 18
+text = "78"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Player1Spawned" type="Label" parent="MainContainer/ContentContainer/StatsGrid"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.827451, 0.827451, 0.827451, 1)
+theme_override_font_sizes/font_size = 18
+text = "25"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Player2Info" type="HBoxContainer" parent="MainContainer/ContentContainer/StatsGrid"]
+custom_minimum_size = Vector2(180, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.8
+theme_override_constants/separation = 12
+
+[node name="Portrait" type="TextureRect" parent="MainContainer/ContentContainer/StatsGrid/Player2Info"]
+z_index = 1
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PlayerPanel" type="Panel" parent="MainContainer/ContentContainer/StatsGrid/Player2Info/Portrait"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_i8n3b")
+
+[node name="PlayerDetails" type="VBoxContainer" parent="MainContainer/ContentContainer/StatsGrid/Player2Info"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="PlayerName" type="Label" parent="MainContainer/ContentContainer/StatsGrid/Player2Info/PlayerDetails"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.976471, 0.882353, 0.607843, 1)
+theme_override_font_sizes/font_size = 18
+text = "Player 2"
+vertical_alignment = 1
+
+[node name="PlayerTitle" type="Label" parent="MainContainer/ContentContainer/StatsGrid/Player2Info/PlayerDetails"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Title"
+vertical_alignment = 1
+
+[node name="Player2KDA" type="Label" parent="MainContainer/ContentContainer/StatsGrid"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "4 / 6"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Player2Mana" type="Label" parent="MainContainer/ContentContainer/StatsGrid"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0.843137, 0.976471, 1)
+theme_override_font_sizes/font_size = 18
+text = "280"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Player2Minions" type="Label" parent="MainContainer/ContentContainer/StatsGrid"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.827451, 0.827451, 0.827451, 1)
+theme_override_font_sizes/font_size = 18
+text = "38"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Player2Combo" type="Label" parent="MainContainer/ContentContainer/StatsGrid"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.2
+theme_override_colors/font_color = Color(0.976471, 0.517647, 0.294118, 1)
+theme_override_font_sizes/font_size = 18
+text = "45"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Player2Spawned" type="Label" parent="MainContainer/ContentContainer/StatsGrid"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.827451, 0.827451, 0.827451, 1)
+theme_override_font_sizes/font_size = 18
+text = "18"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MatchDetailsSection" type="VBoxContainer" parent="MainContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="MatchStats" type="HBoxContainer" parent="MainContainer/MatchDetailsSection"]
+layout_mode = 2
+alignment = 1
+
+[node name="MatchTimeLabel" type="Label" parent="MainContainer/MatchDetailsSection/MatchStats"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.827451, 0.827451, 0.827451, 1)
+theme_override_font_sizes/font_size = 16
+text = "Match Time:"
+vertical_alignment = 1
+
+[node name="MatchTimeValue" type="Label" parent="MainContainer/MatchDetailsSection/MatchStats"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.976471, 0.882353, 0.607843, 1)
+theme_override_font_sizes/font_size = 16
+text = "15:42"
+vertical_alignment = 1
+
+[node name="TimerSection" type="VBoxContainer" parent="MainContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="MainContainer/TimerSection"]
+custom_minimum_size = Vector2(400, 8)
+layout_mode = 2
+size_flags_horizontal = 4
+value = 100.0
+show_percentage = false
+
+[node name="TimerContainer" type="HBoxContainer" parent="MainContainer/TimerSection"]
+layout_mode = 2
+alignment = 1
+
+[node name="TimerLabel" type="Label" parent="MainContainer/TimerSection/TimerContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.827451, 0.827451, 0.827451, 1)
+theme_override_font_sizes/font_size = 16
+vertical_alignment = 1
+
+[node name="TimerValue" type="Label" parent="MainContainer/TimerSection/TimerContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.976471, 0.882353, 0.607843, 1)
+theme_override_font_sizes/font_size = 16
+text = "10"
+vertical_alignment = 1
+
+[node name="ButtonsContainer" type="HBoxContainer" parent="MainContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="MainMenuButton" type="Button" parent="MainContainer/ButtonsContainer"]
+custom_minimum_size = Vector2(180, 45)
+layout_mode = 2
+theme_override_colors/font_disabled_color = Color(0.439216, 0.439216, 0.439216, 0.501961)
+theme_override_colors/font_color = Color(0.827451, 0.827451, 0.827451, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/disabled = SubResource("StyleBoxFlat_button")
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+disabled = true
+text = "MAIN MENU"
+
+[node name="Spacer" type="Control" parent="MainContainer/ButtonsContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="ExitGameButton" type="Button" parent="MainContainer/ButtonsContainer"]
+custom_minimum_size = Vector2(180, 45)
+layout_mode = 2
+theme_override_colors/font_disabled_color = Color(0.439216, 0.439216, 0.439216, 0.501961)
+theme_override_colors/font_color = Color(0.827451, 0.827451, 0.827451, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/disabled = SubResource("StyleBoxFlat_button")
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+disabled = true
+text = "EXIT GAME"
+
+[node name="Spacer2" type="Control" parent="MainContainer"]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
