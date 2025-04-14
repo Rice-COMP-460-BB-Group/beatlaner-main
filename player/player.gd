@@ -267,6 +267,7 @@ var lose_banner = preload("res://assets/Defeat.png")
 # Add this near the top of your script
 func show_victory(pos: Vector2):
 	print("showing victory", team, multiplayer.get_unique_id())
+	MatchStats.declare_winner(multiplayer.get_unique_id())
 	$AnimationTree.active = false
 	disable_movement = true
 
@@ -292,6 +293,7 @@ func show_victory(pos: Vector2):
 
 func show_defeat(pos: Vector2):
 	print("showing defeat", team, multiplayer.get_unique_id())
+	MatchStats.declare_winner(0)
 	$AnimationTree.active = false
 	disable_movement = true
 	
@@ -603,18 +605,18 @@ func _physics_process(delta: float) -> void:
 						total_damage_dealt += damage_to_deal
 						MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "total_damage_dealt", total_damage_dealt)
 
-						body.get_node("HealthComponent").decrease_health.rpc(damage_to_deal)
-						if body.get_node("HealthComponent").get_current_health() <= 0:
+						if body.get_node("HealthComponent").get_current_health() <= damage_to_deal:
 							if body is Player:
 								player_kill_count += 1
 								MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "player_kill_count", player_kill_count)
 							if body is Minion:
 								minion_kill_count += 1
 								MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "minion_kill_count", minion_kill_count)
-
 							current_score += 5
-							
 							update_mana(current_score)
+						body.get_node("HealthComponent").decrease_health.rpc(damage_to_deal)
+
+							
 
 			if foundAttack:
 				var floating_text = floating_text_scene.instantiate()

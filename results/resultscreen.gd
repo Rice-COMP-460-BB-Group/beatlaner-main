@@ -23,6 +23,8 @@ var new_stat_name = {
 
 func update_stats_display():
 	# Clear the text first
+	$Winner.text = 'You won!' if multiplayer.get_unique_id() == MatchStats.get_winner() else 'You lost!'
+		
 
 	# Get all stats from MatchStats
 	var all_stats = MatchStats.get_all_stats()
@@ -30,7 +32,9 @@ func update_stats_display():
 	
 	var idx = 1
 	# Iterate over each player
-	for player_id in all_stats.keys():
+	var sorted_keys = all_stats.keys()
+	sorted_keys.sort()
+	for player_id in sorted_keys:
 		var stats_label = %Player1StatsLabel if idx == 1 else %Player2StatsLabel #get_node("Player" + str(idx) + "StatsLabel")  # Use get_node() to find StatsLabel reliably
 		stats_label.text = ""  
 		
