@@ -289,7 +289,7 @@ func show_victory(pos: Vector2):
 
 	banner.hide()
 	print("changing scene")
-	change_to_scene("res://map/game_win.tscn")
+	change_to_scene("res://results/resultsgame.tscn")
 
 func show_defeat(pos: Vector2):
 	print("showing defeat", team, multiplayer.get_unique_id())
@@ -316,7 +316,9 @@ func show_defeat(pos: Vector2):
 	banner.hide()
 	print("changing scene")
 
-	change_to_scene("res://map/game_over.tscn")
+	#change_to_scene("res://map/game_over.tscn")
+	change_to_scene("res://results/resultsgame.tscn")
+
 
 func change_to_scene(scene_path: String):
 	var children = get_tree().get_root().get_children()
@@ -605,9 +607,10 @@ func _physics_process(delta: float) -> void:
 						total_damage_dealt += damage_to_deal
 						MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "total_damage_dealt", total_damage_dealt)
 
-						if body.get_node("HealthComponent").get_current_health() <= damage_to_deal:
+						if body.get_node("HealthComponent").get_current_health() > 0 and body.get_node("HealthComponent").get_current_health() <= damage_to_deal:
 							if body is Player:
 								player_kill_count += 1
+								print( multiplayer.get_unique_id(), 'increase kill count')
 								MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "player_kill_count", player_kill_count)
 							if body is Minion:
 								minion_kill_count += 1
