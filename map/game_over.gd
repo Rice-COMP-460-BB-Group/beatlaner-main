@@ -11,7 +11,6 @@ func update_stats_display():
 	var all_stats = MatchStats.get_all_stats()
 	
 	var idx = 1
-	print("My own path:", get_path())
 	# Iterate over each player
 	for player_id in all_stats.keys():
 		

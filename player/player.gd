@@ -132,6 +132,9 @@ func Hit(type: String):
 
 
 func _ready() -> void:
+	MatchStats.rpc("register_player_stats", multiplayer.get_unique_id())
+	print('my id', multiplayer.get_unique_id())
+	MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "mana_generated", 0)
 	$Metronome.wait_time = (60.0 / bpm)
 	cycle_duration = 2 * $Metronome.wait_time # Full cycle duration (1 second)
 	frame_duration = cycle_duration / (total_metronome_frames - 1) # 1/12 ≈ 0.0833s
@@ -264,6 +267,7 @@ var lose_banner = preload("res://assets/Defeat.png")
 # Add this near the top of your script
 func show_victory(pos: Vector2):
 	print("showing victory", team, multiplayer.get_unique_id())
+	MatchStats.declare_winner(multiplayer.get_unique_id())
 	$AnimationTree.active = false
 	disable_movement = true
 
@@ -289,6 +293,7 @@ func show_victory(pos: Vector2):
 
 func show_defeat(pos: Vector2):
 	print("showing defeat", team, multiplayer.get_unique_id())
+	MatchStats.declare_winner(0)
 	$AnimationTree.active = false
 	disable_movement = true
 	
@@ -600,18 +605,18 @@ func _physics_process(delta: float) -> void:
 						total_damage_dealt += damage_to_deal
 						MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "total_damage_dealt", total_damage_dealt)
 
-						body.get_node("HealthComponent").decrease_health.rpc(damage_to_deal)
-						if body.get_node("HealthComponent").get_current_health() <= 0:
+						if body.get_node("HealthComponent").get_current_health() <= damage_to_deal:
 							if body is Player:
 								player_kill_count += 1
 								MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "player_kill_count", player_kill_count)
 							if body is Minion:
 								minion_kill_count += 1
 								MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "minion_kill_count", minion_kill_count)
-
 							current_score += 5
-							
 							update_mana(current_score)
+						body.get_node("HealthComponent").decrease_health.rpc(damage_to_deal)
+
+							
 
 			if foundAttack:
 				var floating_text = floating_text_scene.instantiate()
@@ -846,6 +851,7 @@ func respawn() -> void:
 func _on_health_component_health_destroyed() -> void:
 	if is_multiplayer_authority():
 		death_count += 1
+		print(multiplayer.get_unique_id(), ' new death count', death_count)
 		MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "death_count", death_count)
 	respawn()
 
