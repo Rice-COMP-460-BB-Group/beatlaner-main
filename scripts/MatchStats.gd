@@ -33,7 +33,9 @@ func update_stat(player_id: int, stat_name: String, stat_value):
 				"osu_acc_sum": 0,
 				"minion_spawn_count": 0,
 				"match_length": 0,
-				"mana_generated": 0
+				"mana_generated": 0,
+				"towers_destroyed": 0,
+				"nexus_destroyed": 0
 			}
 
 		# Update the stat

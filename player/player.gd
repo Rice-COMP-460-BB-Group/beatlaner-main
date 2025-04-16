@@ -35,6 +35,8 @@ var ability_used_count = 0 # √√
 var osu_highest_combo = 0 # √√
 var osu_notes_hit_count = 0 # √√
 var osu_acc_notes_count = 0 # √√
+var towers_destroyed = 0
+var nexus_destroyed = 0
 
 var mana_generated = 0
 var osu_acc_sum = 0 # √√
@@ -615,6 +617,13 @@ func _physics_process(delta: float) -> void:
 							if body is Minion:
 								minion_kill_count += 1
 								MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "minion_kill_count", minion_kill_count)
+							if body is Tower:
+								towers_destroyed += 1
+								MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "towers_destroyed", towers_destroyed)
+							if body is Nexus:
+								nexus_destroyed += 1
+								MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "nexus_destroyed", nexus_destroyed)
+
 							current_score += 5
 							update_mana(current_score)
 						body.get_node("HealthComponent").decrease_health.rpc(damage_to_deal)
