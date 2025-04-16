@@ -84,6 +84,13 @@ func update_stats_display():
 	$MainContainer/MatchDetailsSection/MatchStats/MatchTimeValue.text = "%02d:%02d:%02d" % [hours, minutes, seconds]
 
 func _ready():
+	if len(GameManager.Players) <= 1:
+		%Player2Info.hide()
+		%Player2KDA.hide()
+		%Player2Mana.hide()
+		%Player2Minions.hide()
+		%Player2Combo.hide()
+		%Player2Spawned.hide()
 	call_deferred("update_stats_display")
 
 	if !has_node("CountdownTimer"):
@@ -102,8 +109,8 @@ func _ready():
 
 
 func _process(delta: float) -> void:
-	timer_value_label.text = str(int(timer.time_left))
-	progress_bar.value = timer.time_left
+	timer_value_label.text = str(int(ceil(timer.time_left)))
+	progress_bar.value = timer.time_left / timer.wait_time * 100
 
 func _on_timer_timeout():
 	enable_buttons()
