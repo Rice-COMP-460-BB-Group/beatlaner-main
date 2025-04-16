@@ -6,6 +6,35 @@ var dedicated_server = false
 
 	
 func _ready():
+	if "--server" not in OS.get_cmdline_args():
+		if OS.get_name() == "Windows":
+			var output = []
+			OS.execute("taskkill", ["/F", "/IM", OS.get_executable_path().get_file(), "/FI", "WINDOWTITLE eq Beatlaner Server"], output)
+		elif OS.get_name() == "macOS" or OS.get_name() == "Linux":
+			var output = []
+			var executable_name = OS.get_executable_path().get_file()
+			
+			OS.execute("sh", ["-c", "ps aux | grep '" + executable_name + "' | grep -- '--server' | grep -v grep"], output)		
+			for line in output:
+				if line.strip_edges() != "":
+					var parts = line.strip_edges().split(" ", false)
+					var pid = ""
+					
+					var count = 0
+					for part in parts:
+						if part != "":
+							count += 1
+							if count == 2:
+								pid = part
+								break
+					
+					if pid != "":
+						print("Killing process: ", pid)
+						var kill_output = []
+						OS.execute("kill", ["-9", pid], kill_output)
+						print("Kill result: ", kill_output)
+						break
+	
 	if peer != null:
 		peer.close()
 		multiplayer.set_multiplayer_peer(null)
