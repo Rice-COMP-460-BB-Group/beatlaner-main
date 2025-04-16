@@ -58,6 +58,7 @@ func update_stats_display():
 	$MainContainer/ContentContainer/StatsGrid/Player1Info/PlayerDetails/PlayerTitle.text = p1title if p1title else ""
 
 	if len(sorted_keys) > 1:
+		
 		$MainContainer/ContentContainer/StatsGrid/Player2KDA.text = str(all_stats[second_id]["player_kill_count"]) + " / " + str(all_stats[second_id]["death_count"])
 		$MainContainer/ContentContainer/StatsGrid/Player2Mana.text = str(all_stats[second_id]["mana_generated"])
 		$MainContainer/ContentContainer/StatsGrid/Player2Minions.text = str(all_stats[second_id]["minion_kill_count"])
@@ -77,7 +78,10 @@ func update_stats_display():
 			p2title = "Actually Bronze in league"
 		if p2title:
 			$MainContainer/ContentContainer/StatsGrid/Player2Info/PlayerDetails/PlayerTitle.text = p2title if p2title else ""
-	var total_seconds = all_stats[1]["match_length"] / 1000  # Convert ms to seconds
+	var match_length = 0
+	for key in all_stats:
+		match_length = max(match_length, all_stats[key]['match_length'])
+	var total_seconds = match_length / 1000  # Convert ms to seconds
 	var hours = total_seconds / 3600
 	var minutes = (total_seconds % 3600) / 60
 	var seconds = total_seconds % 60
