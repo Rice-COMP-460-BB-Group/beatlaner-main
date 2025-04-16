@@ -57,8 +57,8 @@ func update_stats_display():
 		p1title = "Actually Bronze in league"
 	$MainContainer/ContentContainer/StatsGrid/Player1Info/PlayerDetails/PlayerTitle.text = p1title if p1title else ""
 
+
 	if len(sorted_keys) > 1:
-		
 		$MainContainer/ContentContainer/StatsGrid/Player2KDA.text = str(all_stats[second_id]["player_kill_count"]) + " / " + str(all_stats[second_id]["death_count"])
 		$MainContainer/ContentContainer/StatsGrid/Player2Mana.text = str(all_stats[second_id]["mana_generated"])
 		$MainContainer/ContentContainer/StatsGrid/Player2Minions.text = str(all_stats[second_id]["minion_kill_count"])
@@ -81,11 +81,64 @@ func update_stats_display():
 	var match_length = 0
 	for key in all_stats:
 		match_length = max(match_length, all_stats[key]['match_length'])
-	var total_seconds = match_length / 1000  # Convert ms to seconds
+	var total_seconds = match_length / 1000 # Convert ms to seconds
 	var hours = total_seconds / 3600
 	var minutes = (total_seconds % 3600) / 60
 	var seconds = total_seconds % 60
 	$MainContainer/MatchDetailsSection/MatchStats/MatchTimeValue.text = "%02d:%02d:%02d" % [hours, minutes, seconds]
+
+func update_structures_display():
+	var my_id = multiplayer.get_unique_id()
+	var all_stats = MatchStats.get_all_stats()
+	
+	var blue_player_id = 1 
+	var red_player_id = 0
+	print("all stats", all_stats)
+	for player_id in all_stats.keys():
+		if player_id != blue_player_id:
+			red_player_id = player_id
+			break
+	
+	var left_structures = $MainContainer/HeaderSection/ResultDisplay/LeftStructures
+	var right_structures = $MainContainer/HeaderSection/ResultDisplay/RightStructures
+	
+	var left_nexus = left_structures.get_node("Nexus")
+	var left_towers = [
+		left_structures.get_node("TowerContainer/Tower3"),
+		left_structures.get_node("TowerContainer/Tower2"),
+		left_structures.get_node("TowerContainer/Tower1")
+	]
+	
+	var right_nexus = right_structures.get_node("Nexus")
+	var right_towers = [
+		right_structures.get_node("TowerContainer/Tower1"),
+		right_structures.get_node("TowerContainer/Tower2"),
+		right_structures.get_node("TowerContainer/Tower3")
+	]
+	
+	left_nexus.hide()
+	right_nexus.hide()
+	for i in range(3):
+		left_towers[i].hide()
+		right_towers[i].hide()
+	
+	var blue_tower_kills = all_stats[blue_player_id].get("towers_destroyed", 0) if blue_player_id in all_stats else 0
+	var red_tower_kills = all_stats[red_player_id].get("towers_destroyed", 0) if red_player_id in all_stats else 0
+	
+	var blue_kills_nexus = all_stats[blue_player_id].get("nexus_destroyed", 0) if blue_player_id in all_stats else 0
+	var red_kills_nexus = all_stats[red_player_id].get("nexus_destroyed", 0) if red_player_id in all_stats else 0
+	
+	
+	for i in range(blue_tower_kills):
+		left_towers[i].show()
+	if blue_kills_nexus > 0:
+		left_nexus.show()
+	
+	for i in range(red_tower_kills):
+		right_towers[i].show()
+	if red_kills_nexus > 0:
+		right_nexus.show()
+	
 
 func _ready():
 	if len(GameManager.Players) <= 1:
@@ -96,7 +149,8 @@ func _ready():
 		%Player2Combo.hide()
 		%Player2Spawned.hide()
 	call_deferred("update_stats_display")
-
+	call_deferred("update_structures_display")
+	
 	if !has_node("CountdownTimer"):
 		timer = Timer.new()
 		timer.name = "CountdownTimer"
