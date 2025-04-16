@@ -15,8 +15,7 @@ func _ready():
 	#$VBoxContainer/Start.grab_focus()
 	$VBoxContainer/Start.focus_mode = Control.FOCUS_NONE
 	$VBoxContainer/Join.focus_mode = Control.FOCUS_NONE
-	$VBoxContainer/Exit.focus_mode = Control.FOCUS_NONE
-	$VBoxContainer/Settings.focus_mode = Control.FOCUS_NONE
+	
 	$TutorialButton.focus_mode = Control.FOCUS_NONE
 	$SelectHost.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	$SelectJoin.mouse_filter = Control.MOUSE_FILTER_IGNORE

@@ -53,60 +53,72 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="VBoxContainer" type="HBoxContainer" parent="."]
+[node name="Exit" type="Button" parent="."]
+layout_mode = 2
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 137.0
+offset_bottom = 74.0
+size_flags_horizontal = 6
+focus_next = NodePath("../VBoxContainer/Start")
+focus_previous = NodePath(".")
+theme_override_font_sizes/font_size = 32
+text = "Exit"
+flat = true
+
+[node name="Settings" type="Button" parent="."]
+layout_mode = 2
+offset_left = 888.0
+offset_right = 1152.0
+offset_bottom = 73.0
+size_flags_horizontal = 6
+focus_next = NodePath("../Exit")
+focus_previous = NodePath("../VBoxContainer/Join")
+theme_override_font_sizes/font_size = 32
+text = "Settings"
+flat = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 499.0
-offset_right = 1151.0
-offset_bottom = 637.0
+offset_left = 25.0
+offset_top = 346.0
+offset_right = 1176.0
+offset_bottom = 639.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(1155, 298.5)
 alignment = 1
 
+[node name="SinglePlayer" type="Button" parent="VBoxContainer"]
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 6
+focus_next = NodePath("../../Exit")
+focus_previous = NodePath("../../Exit")
+theme_override_font_sizes/font_size = 25
+text = "PLAY 1P"
+flat = true
+
 [node name="Start" type="Button" parent="VBoxContainer"]
 layout_direction = 2
 layout_mode = 2
 size_flags_horizontal = 6
-focus_next = NodePath("../Exit")
-focus_previous = NodePath("../Exit")
-theme_override_fonts/font = ExtResource("2_o2rih")
-theme_override_font_sizes/font_size = 64
-text = "Host"
+focus_next = NodePath("../../Exit")
+focus_previous = NodePath("../../Exit")
+theme_override_font_sizes/font_size = 25
+text = "HOST 2P"
 flat = true
-icon_alignment = 1
-vertical_icon_alignment = 0
 
 [node name="Join" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 6
-focus_next = NodePath("../Exit")
-focus_previous = NodePath("../Exit")
-theme_override_fonts/font = ExtResource("2_o2rih")
-theme_override_font_sizes/font_size = 64
-text = "Join"
-flat = true
-
-[node name="Settings" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 6
-focus_next = NodePath("../Exit")
-focus_previous = NodePath("../Join")
-theme_override_fonts/font = ExtResource("2_o2rih")
-theme_override_font_sizes/font_size = 64
-text = "Settings"
-flat = true
-
-[node name="Exit" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 6
-focus_next = NodePath("../Start")
-focus_previous = NodePath(".")
-theme_override_fonts/font = ExtResource("2_o2rih")
-theme_override_font_sizes/font_size = 64
-text = "Exit"
+focus_next = NodePath("../../Exit")
+focus_previous = NodePath("../../Exit")
+theme_override_font_sizes/font_size = 25
+text = "JOIN 2P"
 flat = true
 
 [node name="Background" type="AudioStreamPlayer2D" parent="."]
@@ -214,32 +226,16 @@ texture = ExtResource("10_stebw")
 expand_mode = 1
 script = ExtResource("12_kp6lg")
 
-[node name="SinglePlayer" type="Button" parent="."]
-layout_direction = 2
-layout_mode = 0
-offset_left = 21.0
-offset_right = 196.0
-offset_bottom = 74.0
-size_flags_horizontal = 6
-focus_next = NodePath("../Exit")
-focus_previous = NodePath("../Exit")
-theme_override_fonts/font = ExtResource("2_o2rih")
-theme_override_font_sizes/font_size = 32
-text = "Single Player"
-flat = true
-icon_alignment = 1
-vertical_icon_alignment = 0
-
 [node name="TutorialButton" type="Button" parent="."]
 layout_direction = 2
 layout_mode = 0
-offset_left = 1022.0
-offset_right = 1132.0
-offset_bottom = 74.0
+offset_left = 429.0
+offset_top = -2.0
+offset_right = 693.0
+offset_bottom = 72.0
 size_flags_horizontal = 6
 focus_next = NodePath("../Exit")
 focus_previous = NodePath("../Exit")
-theme_override_fonts/font = ExtResource("2_o2rih")
 theme_override_font_sizes/font_size = 32
 text = "Tutorial"
 flat = true
@@ -258,6 +254,17 @@ offset_right = 948.0
 offset_bottom = 358.0
 texture = ExtResource("14_4tjq8")
 
+[connection signal="focus_entered" from="Exit" to="." method="_on_button_focus_entered"]
+[connection signal="mouse_entered" from="Exit" to="." method="_on_exit_mouse_entered"]
+[connection signal="mouse_exited" from="Exit" to="." method="_on_exit_mouse_exited"]
+[connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="Exit" to="." method="_on_button_pressed"]
+[connection signal="focus_entered" from="Settings" to="." method="_on_button_focus_entered"]
+[connection signal="mouse_entered" from="Settings" to="." method="_on_settings_mouse_entered"]
+[connection signal="mouse_exited" from="Settings" to="." method="_on_settings_mouse_exited"]
+[connection signal="pressed" from="Settings" to="." method="_on_settings_pressed"]
+[connection signal="focus_entered" from="VBoxContainer/SinglePlayer" to="." method="_on_button_focus_entered"]
+[connection signal="pressed" from="VBoxContainer/SinglePlayer" to="." method="_on_single_player_pressed"]
 [connection signal="focus_entered" from="VBoxContainer/Start" to="." method="_on_button_focus_entered"]
 [connection signal="mouse_entered" from="VBoxContainer/Start" to="." method="_on_start_mouse_entered"]
 [connection signal="mouse_exited" from="VBoxContainer/Start" to="." method="_on_start_mouse_exited"]
@@ -267,18 +274,7 @@ texture = ExtResource("14_4tjq8")
 [connection signal="mouse_entered" from="VBoxContainer/Join" to="." method="_on_join_mouse_entered"]
 [connection signal="mouse_exited" from="VBoxContainer/Join" to="." method="_on_join_mouse_exited"]
 [connection signal="pressed" from="VBoxContainer/Join" to="." method="_on_join_pressed"]
-[connection signal="focus_entered" from="VBoxContainer/Settings" to="." method="_on_button_focus_entered"]
-[connection signal="mouse_entered" from="VBoxContainer/Settings" to="." method="_on_settings_mouse_entered"]
-[connection signal="mouse_exited" from="VBoxContainer/Settings" to="." method="_on_settings_mouse_exited"]
-[connection signal="pressed" from="VBoxContainer/Settings" to="." method="_on_settings_pressed"]
-[connection signal="focus_entered" from="VBoxContainer/Exit" to="." method="_on_button_focus_entered"]
-[connection signal="mouse_entered" from="VBoxContainer/Exit" to="." method="_on_exit_mouse_entered"]
-[connection signal="mouse_exited" from="VBoxContainer/Exit" to="." method="_on_exit_mouse_exited"]
-[connection signal="pressed" from="VBoxContainer/Exit" to="." method="_on_exit_pressed"]
-[connection signal="pressed" from="VBoxContainer/Exit" to="." method="_on_button_pressed"]
 [connection signal="confirmed" from="JoinIP" to="." method="_on_join_ip_confirmed"]
 [connection signal="confirmed" from="ErrorDialog" to="." method="_on_join_ip_confirmed"]
-[connection signal="focus_entered" from="SinglePlayer" to="." method="_on_button_focus_entered"]
-[connection signal="pressed" from="SinglePlayer" to="." method="_on_single_player_pressed"]
 [connection signal="focus_entered" from="TutorialButton" to="." method="_on_button_focus_entered"]
 [connection signal="pressed" from="TutorialButton" to="." method="_on_tutorial_button_pressed"]
