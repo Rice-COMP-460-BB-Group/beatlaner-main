@@ -6,6 +6,9 @@ var dedicated_server = false
 
 	
 func _ready():
+	var resultsgame = get_tree().root.get_node_or_null("ResultsScreen")
+	if resultsgame:
+		resultsgame.queue_free()
 	if "--server" not in OS.get_cmdline_args():
 		if OS.get_name() == "Windows":
 			var output = []

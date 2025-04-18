@@ -45,16 +45,56 @@ func update_stats_display():
 	$MainContainer/ContentContainer/StatsGrid/Player1Combo.text = str(all_stats[1]["osu_highest_combo"])
 	$MainContainer/ContentContainer/StatsGrid/Player1Spawned.text = str(all_stats[1]["minion_spawn_count"])
 	var p1title = ""
+	# Death-related titles
 	if all_stats[1]["death_count"] > 10:
 		p1title = "Professional Inter"
-	if all_stats[1]["death_count"] == 0:
+	elif all_stats[1]["death_count"] == 0:
 		p1title = "Can't touch this"
+	
+	# Kill/minion-related titles
 	if all_stats[1]["minion_kill_count"] > 100:
 		p1title = "The Minion Slayer"
+	elif all_stats[1]["player_kill_count"] > 5:
+		p1title = "Challenger in Training"
+	
+	# Rhythm game titles
 	if all_stats[1]["osu_highest_combo"] > 100:
 		p1title = "Missed Life, Not Notes"
+	elif all_stats[1]["osu_acc_sum"] > 0 && all_stats[1]["osu_acc_notes_count"] > 0 && (float(all_stats[1]["osu_acc_sum"]) / all_stats[1]["osu_acc_notes_count"]) > 0.9:
+		p1title = "Rhythm Game God"
+	elif all_stats[1]["osu_notes_hit_count"] > 500:
+		p1title = "Carpal Tunnel Speedrunner"
+	
+	# Damage titles
 	if all_stats[1]["total_damage_dealt"] > 10000:
-		p1title = "Actually Bronze in league"
+		p1title = "Actually Bronze in League"
+	elif all_stats[1]["total_damage_dealt"] > 5000:
+		p1title = "Damage Chart MVP"
+	
+	# Structure titles
+	if all_stats[1].get("towers_destroyed", 0) >= 3:
+		p1title = "Tower Demolisher"
+	elif all_stats[1].get("nexus_destroyed", 0) > 0:
+		p1title = "Nexus Hunter"
+	
+	# Special titles
+	if all_stats[1]["player_kill_count"] > 3 && all_stats[1]["death_count"] > 3:
+		p1title = "Worth the Int"
+	elif all_stats[1]["ability_used_count"] > 15:
+		p1title = "Button Masher Pro"
+	elif all_stats[1]["mana_generated"] > 1000:
+		p1title = "Mana Machine"
+	elif all_stats[1]["player_kill_count"] > 3 && all_stats[1]["osu_highest_combo"] > 50:
+		p1title = "Moves Like Faker"
+	elif all_stats[1]["player_kill_count"] > 0 && all_stats[1]["death_count"] == 0:
+		p1title = "KDA Player"
+	elif all_stats[1]["minion_spawn_count"] > 30:
+		p1title = "Minion Commander"
+	elif all_stats[1]["match_length"] < 300000: # Less than 5 minutes
+		p1title = "Speedrunner"
+	elif all_stats[1]["osu_highest_combo"] > 0 && all_stats[1]["player_kill_count"] > 0:
+		p1title = "Click Circles, Destroy Nexus"
+	
 	$MainContainer/ContentContainer/StatsGrid/Player1Info/PlayerDetails/PlayerTitle.text = p1title if p1title else ""
 
 
@@ -66,18 +106,57 @@ func update_stats_display():
 		$MainContainer/ContentContainer/StatsGrid/Player2Spawned.text = str(all_stats[second_id]["minion_spawn_count"])
 		
 		var p2title = ""
+		# Death-related titles
 		if all_stats[second_id]["death_count"] > 10:
 			p2title = "Professional Inter"
-		if all_stats[second_id]["death_count"] == 0:
+		elif all_stats[second_id]["death_count"] == 0:
 			p2title = "Can't touch this"
+		
+		# Kill/minion-related titles
 		if all_stats[second_id]["minion_kill_count"] > 100:
 			p2title = "The Minion Slayer"
+		elif all_stats[second_id]["player_kill_count"] > 5:
+			p2title = "Challenger in Training"
+		
+		# Rhythm game titles
 		if all_stats[second_id]["osu_highest_combo"] > 100:
 			p2title = "Missed Life, Not Notes"
+		elif all_stats[second_id]["osu_acc_sum"] > 0 && all_stats[second_id]["osu_acc_notes_count"] > 0 && (float(all_stats[second_id]["osu_acc_sum"]) / all_stats[second_id]["osu_acc_notes_count"]) > 0.9:
+			p2title = "Rhythm Game God"
+		elif all_stats[second_id]["osu_notes_hit_count"] > 500:
+			p2title = "Carpal Tunnel Speedrunner"
+		
+		# Damage titles
 		if all_stats[second_id]["total_damage_dealt"] > 10000:
-			p2title = "Actually Bronze in league"
-		if p2title:
-			$MainContainer/ContentContainer/StatsGrid/Player2Info/PlayerDetails/PlayerTitle.text = p2title if p2title else ""
+			p2title = "Actually Bronze in League"
+		elif all_stats[second_id]["total_damage_dealt"] > 5000:
+			p2title = "Damage Chart MVP"
+		
+		# Structure titles
+		if all_stats[second_id].get("towers_destroyed", 0) >= 3:
+			p2title = "Tower Demolisher"
+		elif all_stats[second_id].get("nexus_destroyed", 0) > 0:
+			p2title = "Nexus Hunter"
+		
+		# Special titles
+		if all_stats[second_id]["player_kill_count"] > 3 && all_stats[second_id]["death_count"] > 3:
+			p2title = "Worth the Int"
+		elif all_stats[second_id]["ability_used_count"] > 15:
+			p2title = "Button Masher Pro"
+		elif all_stats[second_id]["mana_generated"] > 1000:
+			p2title = "Mana Machine"
+		elif all_stats[second_id]["player_kill_count"] > 3 && all_stats[second_id]["osu_highest_combo"] > 50:
+			p2title = "Moves Like Faker"
+		elif all_stats[second_id]["player_kill_count"] > 0 && all_stats[second_id]["death_count"] == 0:
+			p2title = "KDA Player"
+		elif all_stats[second_id]["minion_spawn_count"] > 30:
+			p2title = "Minion Commander"
+		elif all_stats[second_id]["match_length"] < 300000: # Less than 5 minutes
+			p2title = "Speedrunner"
+		elif all_stats[second_id]["osu_highest_combo"] > 0 && all_stats[second_id]["player_kill_count"] > 0:
+			p2title = "Click Circles, Destroy Nexus"
+		
+		$MainContainer/ContentContainer/StatsGrid/Player2Info/PlayerDetails/PlayerTitle.text = p2title if p2title else ""
 	var match_length = 0
 	for key in all_stats:
 		match_length = max(match_length, all_stats[key]['match_length'])
@@ -91,7 +170,7 @@ func update_structures_display():
 	var my_id = multiplayer.get_unique_id()
 	var all_stats = MatchStats.get_all_stats()
 	
-	var blue_player_id = 1 
+	var blue_player_id = 1
 	var red_player_id = 0
 	print("all stats", all_stats)
 	for player_id in all_stats.keys():
