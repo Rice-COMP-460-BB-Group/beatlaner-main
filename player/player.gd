@@ -347,6 +347,8 @@ func format_time(ms: int) -> String:
 	
 func on_nexus_destroyed(nexus_destroyed_team: Team, pos: Vector2):
 	if $MultiplayerSynchronizer.is_multiplayer_authority():
+		nexus_destroyed += 1
+		MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "nexus_destroyed", nexus_destroyed)
 		var end_time = Time.get_ticks_msec()
 		match_length = end_time - start_time
 		MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "match_length", match_length)
@@ -364,6 +366,8 @@ func on_tower_destroyed(tower_team: Team, pos: Vector2):
 	var banner = $HUD/Stats/Banner
 	if tower_team == team:
 		banner.texture = destroy_friendly_banner
+		towers_destroyed += 1
+		MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "towers_destroyed", towers_destroyed)
 	else:
 		banner.texture = destroy_enemy_banner
 	
@@ -617,12 +621,6 @@ func _physics_process(delta: float) -> void:
 							if body is Minion:
 								minion_kill_count += 1
 								MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "minion_kill_count", minion_kill_count)
-							if body is Tower:
-								towers_destroyed += 1
-								MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "towers_destroyed", towers_destroyed)
-							if body is Nexus:
-								nexus_destroyed += 1
-								MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "nexus_destroyed", nexus_destroyed)
 
 							current_score += 5
 							update_mana(current_score)
