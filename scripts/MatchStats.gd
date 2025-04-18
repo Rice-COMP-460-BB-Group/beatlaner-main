@@ -3,6 +3,7 @@ extends Node
 # Store stats using player's unique multiplayer ID as the key
 var player_stats: Dictionary = {}
 var winner: int
+@export var singleplayer: bool = false
 
 func _ready() -> void:
 	name = 'MatchStats'

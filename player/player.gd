@@ -134,6 +134,7 @@ func Hit(type: String):
 
 
 func _ready() -> void:
+	MatchStats.singleplayer = GameManager.Players.size() <= 1
 	MatchStats.rpc("register_player_stats", multiplayer.get_unique_id())
 	print('my id', multiplayer.get_unique_id())
 	MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "mana_generated", 0)
@@ -348,7 +349,8 @@ func format_time(ms: int) -> String:
 func on_nexus_destroyed(nexus_destroyed_team: Team, pos: Vector2):
 	if $MultiplayerSynchronizer.is_multiplayer_authority():
 		nexus_destroyed += 1
-		MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "nexus_destroyed", nexus_destroyed)
+		if nexus_destroyed_team != team:
+			MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "nexus_destroyed", nexus_destroyed)
 		var end_time = Time.get_ticks_msec()
 		match_length = end_time - start_time
 		MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "match_length", match_length)

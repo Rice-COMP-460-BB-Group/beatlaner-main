@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://ceipmxadbdy8q"]
+[gd_scene load_steps=9 format=3 uid="uid://ceipmxadbdy8q"]
 
 [ext_resource type="Script" uid="uid://bvr0tikh1q3ux" path="res://results/resultsgame.gd" id="1_u1wtv"]
 [ext_resource type="Texture2D" uid="uid://con0o0fcwwkyl" path="res://assets/TowerMini.png" id="2_275fb"]
 [ext_resource type="Texture2D" uid="uid://dhi7fxu4yv6dg" path="res://assets/Nexusmini.png" id="3_hdlvr"]
+[ext_resource type="Texture2D" uid="uid://dqo8f4jr5thdx" path="res://assets/player-upgrade.png" id="4_s7o5p"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.0627451, 0.0784314, 0.117647, 0.901961)
@@ -278,6 +279,7 @@ theme_override_constants/separation = 12
 z_index = 1
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
+texture = ExtResource("4_s7o5p")
 expand_mode = 1
 stretch_mode = 5
 

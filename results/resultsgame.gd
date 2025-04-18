@@ -98,7 +98,10 @@ func update_structures_display():
 		if player_id != blue_player_id:
 			red_player_id = player_id
 			break
-	
+	if MatchStats.singleplayer:
+		blue_player_id = red_player_id
+		red_player_id = -1
+	print("blue player id", blue_player_id, "red player id", red_player_id)
 	var left_structures = $MainContainer/HeaderSection/ResultDisplay/LeftStructures
 	var right_structures = $MainContainer/HeaderSection/ResultDisplay/RightStructures
 	
