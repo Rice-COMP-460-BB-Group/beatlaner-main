@@ -22,7 +22,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	$Timer/Label.text = str(floor($Timer/VoteTime.time_left))
+	$Timer/Label.text = str(int(floor($Timer/VoteTime.time_left)))
 	$Timer/TextureProgressBar.value = $Timer/VoteTime.time_left
 
 @rpc("call_local", "any_peer")

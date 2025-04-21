@@ -632,7 +632,7 @@ func _physics_process(delta: float) -> void:
 
 			if foundAttack:
 				var floating_text = floating_text_scene.instantiate()
-				floating_text.text = str(round(damage + damage * falloff_curve()))
+				floating_text.text = str(int(round(damage + damage * falloff_curve())))
 				floating_text.critical = falloff_curve()
 				floating_text.rotation = deg_to_rad(randf_range(-10, 10))
 				$HUD/Stats/DamagePosition.add_child(floating_text)
