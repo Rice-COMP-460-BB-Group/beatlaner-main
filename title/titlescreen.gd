@@ -4,7 +4,6 @@ extends Control
 @export var peer = null
 var dedicated_server = false
 
-	
 func _ready():
 	var resultsgame = get_tree().root.get_node_or_null("ResultsScreen")
 	if resultsgame:
@@ -17,7 +16,7 @@ func _ready():
 			var output = []
 			var executable_name = OS.get_executable_path().get_file()
 			
-			OS.execute("sh", ["-c", "ps aux | grep '" + executable_name + "' | grep -- '--server' | grep -v grep"], output)		
+			OS.execute("sh", ["-c", "ps aux | grep '" + executable_name + "' | grep -- '--server' | grep -v grep"], output)
 			for line in output:
 				if line.strip_edges() != "":
 					var parts = line.strip_edges().split(" ", false)
@@ -38,21 +37,31 @@ func _ready():
 						print("Kill result: ", kill_output)
 						break
 	
-	if peer != null:
-		peer.close()
-		multiplayer.set_multiplayer_peer(null)
-	if GameManager.server_pid > 0:
-		OS.kill(GameManager.server_pid)
-		GameManager.server_pid = -1
-	#$VBoxContainer/Start.grab_focus()
-	$VBoxContainer/Start.focus_mode = Control.FOCUS_NONE
-	$VBoxContainer/Join.focus_mode = Control.FOCUS_NONE
+	# Animation for title screen elements
+	animate_ui_elements()
 	
-	$TutorialButton.focus_mode = Control.FOCUS_NONE
+	# Set up focus for button navigation
+	$TitleContainer/ButtonsPanel/VBoxContainer/SinglePlayer.grab_focus()
+	
+	# Initialize button states
+	$TitleContainer/TopBar/HBoxContainer/Exit.focus_mode = Control.FOCUS_NONE
+	$TitleContainer/TopBar/HBoxContainer/Settings.focus_mode = Control.FOCUS_NONE
+	$TitleContainer/TopBar/HBoxContainer/TutorialButton.focus_mode = Control.FOCUS_NONE
+	$TitleContainer/ButtonsPanel/VBoxContainer/SinglePlayer.focus_mode = Control.FOCUS_ALL
+	$TitleContainer/ButtonsPanel/VBoxContainer/Start.focus_mode = Control.FOCUS_ALL
+	$TitleContainer/ButtonsPanel/VBoxContainer/Join.focus_mode = Control.FOCUS_ALL
+	
+	# Initialize button enabled/disabled states
+	reset_button_states()
+	
+	# Hide selector elements initially
 	$SelectHost.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	$SelectJoin.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	$SelectExit.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	$SelectSettings.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	
+	$TitleContainer/ButtonsPanel/ConnectedCount.hide()
+
 	multiplayer.peer_connected.connect(peer_connected)
 	multiplayer.peer_disconnected.connect(peer_disconnected)
 	multiplayer.connected_to_server.connect(connected_to_server)
@@ -62,7 +71,7 @@ func _ready():
 		dedicated_server = true
 		DisplayServer.window_set_title("Beatlaner Server")
 		hostGame()
-		$VBoxContainer/Start.text = "Start"
+		$TitleContainer/ButtonsPanel/VBoxContainer/Start.text = "START"
 
 	if "--auto" in OS.get_cmdline_args() and !dedicated_server:
 		peer = ENetMultiplayerPeer.new()
@@ -72,6 +81,32 @@ func _ready():
 
 		print("auto connecting to server...")
 
+func animate_ui_elements():
+	# Logo animation
+	var logo = $TitleContainer/LogoContainer/Sprite2D
+	logo.modulate.a = 0
+	logo.scale = Vector2(3, 3) # Start with larger scale for better animation
+	
+	var logo_tween = create_tween().set_parallel()
+	logo_tween.tween_property(logo, "modulate:a", 1.0, 1.0).set_ease(Tween.EASE_OUT)
+	logo_tween.tween_property(logo, "scale", Vector2(2.5, 2.5), 1.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
+	
+	# Button panel animation
+	var buttons_panel = $TitleContainer/ButtonsPanel
+	buttons_panel.modulate.a = 0
+	buttons_panel.position.y += 50
+	
+	var panel_tween = create_tween()
+	panel_tween.tween_property(buttons_panel, "modulate:a", 1.0, 0.8).set_ease(Tween.EASE_OUT)
+	panel_tween.parallel().tween_property(buttons_panel, "position:y", buttons_panel.position.y - 50, 0.8).set_ease(Tween.EASE_OUT)
+	
+	# Top bar animation
+	var top_bar = $TitleContainer/TopBar
+	top_bar.modulate.a = 0
+	
+	var top_bar_tween = create_tween()
+	top_bar_tween.tween_property(top_bar, "modulate:a", 1.0, 0.8).set_ease(Tween.EASE_OUT)
+
 func _on_start_pressed() -> void:
 	print('got pressed')
 	# nobody has joined yet
@@ -79,19 +114,26 @@ func _on_start_pressed() -> void:
 		hostGame()
 		if !dedicated_server:
 			SendPlayerInformation("", multiplayer.get_unique_id())
-		$VBoxContainer/Start.text = "Start"
+		$TitleContainer/ButtonsPanel/VBoxContainer/Start.text = "START"
+		# Disable SinglePlayer when hosting - prevent conflicts
+		$TitleContainer/ButtonsPanel/VBoxContainer/SinglePlayer.disabled = true
 	else:
 		$Background.stop()
-		$VBoxContainer/Start.disabled = true
+		$TitleContainer/ButtonsPanel/VBoxContainer/Start.disabled = true
 		StartGame.rpc()
-	# StartGame.rpc()
-
 
 func _on_exit_pressed() -> void:
 	$Confirm.play()
+	
+	# Create exit animation
+	var panel_tween = create_tween().set_parallel()
+	panel_tween.tween_property($TitleContainer/ButtonsPanel, "modulate:a", 0.0, 0.5).set_ease(Tween.EASE_IN)
+	panel_tween.tween_property($TitleContainer/TopBar, "modulate:a", 0.0, 0.5).set_ease(Tween.EASE_IN)
+	panel_tween.tween_property($TitleContainer/LogoContainer/Sprite2D, "modulate:a", 0.0, 0.5).set_ease(Tween.EASE_IN)
+	
+	await panel_tween.finished
 	await $Confirm.finished
 	get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
-
 
 func _on_button_focus_entered() -> void:
 	$Focus.play()
@@ -115,20 +157,23 @@ func peer_disconnected(id):
 		if i.name == str(id):
 			i.queue_free()
 			
+	$TitleContainer/ButtonsPanel/ConnectedCount.text = "%s / 2 Players Connected" % (GameManager.Players.size())
 	
-	$ConnectedCount.text = "%s / 2 Players Connected" % (GameManager.Players.size())
 # called only from clients
 func connected_to_server():
-	$VBoxContainer/Start.disabled = true
+	$TitleContainer/ButtonsPanel/VBoxContainer/Start.disabled = true
+	# Disable SinglePlayer when connected - prevent conflicts
+	$TitleContainer/ButtonsPanel/VBoxContainer/SinglePlayer.disabled = true
 	print("connected To Sever!")
 	SendPlayerInformation.rpc_id(1, "", multiplayer.get_unique_id())
-	$VBoxContainer/Join.text = "Disconnect"
-
+	$TitleContainer/ButtonsPanel/VBoxContainer/Join.text = "Disconnect"
 
 # called only from clients
 func connection_failed():
 	print("Connection Failed!")
 	$ErrorDialog.dialog_text = "Failed to connect to server %s" % ($JoinIP/VBoxContainer/IPInput.text)
+	# Re-enable buttons on connection failure
+	reset_button_states()
 	$ErrorDialog.popup()
 
 @rpc("any_peer")
@@ -142,7 +187,8 @@ func SendPlayerInformation(name, id):
 			"score": 0
 		}
 	
-	$ConnectedCount.text = "%s / 2 Players Connected" % (GameManager.Players.size())
+	$TitleContainer/ButtonsPanel/ConnectedCount.show()
+	$TitleContainer/ButtonsPanel/ConnectedCount.text = "%s / 2 Players Connected" % (GameManager.Players.size())
 	if multiplayer.is_server():
 		for i in GameManager.Players:
 			SendPlayerInformation.rpc(GameManager.Players[i].name, i)
@@ -153,12 +199,20 @@ func StartGame():
 	if GameManager.Players.size() < 2 && !("--auto" in OS.get_cmdline_args()) && !single_player_mode:
 		print("Not enough players to start!")
 		$ErrorDialog.dialog_text = "Not enough players to start!"
+		# Re-enable Start button if there aren't enough players
+		$TitleContainer/ButtonsPanel/VBoxContainer/Start.disabled = false
 		$ErrorDialog.popup()
 		return # Stop if there are less than 2 players
 	$Confirm.play()
+	
+	# Create start game animation
+	var panel_tween = create_tween().set_parallel()
+	panel_tween.tween_property($TitleContainer/ButtonsPanel, "modulate:a", 0.0, 0.5).set_ease(Tween.EASE_IN)
+	panel_tween.tween_property($TitleContainer/TopBar, "modulate:a", 0.0, 0.5).set_ease(Tween.EASE_IN)
+	panel_tween.tween_property($BackgroundContainer / "Nature Art", "modulate:a", 0.0, 1.0).set_ease(Tween.EASE_IN)
+	
+	await panel_tween.finished
 	await $Confirm.finished
-	#get_tree().change_scene_to_file.bind("res://main/Main.tscn").call_deferred()
-	print("players, ", GameManager.Players)
 	$Background.stop()
 
 	var scene
@@ -178,17 +232,22 @@ func StartGame():
 			scene.team = 0
 	self.hide()
 	get_tree().root.add_child(scene)
-	#self.hide()
-	
 	
 func hostGame():
-	$ConnectedCount.show()
-	$ConnectedCount.text = "%s / 2 Players Connected" % (GameManager.Players.size())
-	$VBoxContainer/Join.disabled = true
+	$TitleContainer/ButtonsPanel/ConnectedCount.show()
+	$TitleContainer/ButtonsPanel/ConnectedCount.text = "%s / 2 Players Connected" % (GameManager.Players.size())
+	$TitleContainer/ButtonsPanel/VBoxContainer/Join.disabled = true
+	# Disable SinglePlayer to avoid conflicts
+	$TitleContainer/ButtonsPanel/VBoxContainer/SinglePlayer.disabled = true
+	
 	peer = ENetMultiplayerPeer.new()
 	var error = peer.create_server(port, 4)
 	if error != OK:
 		print("cannot host: " + str(error))
+		# Re-enable buttons if hosting fails
+		reset_button_states()
+		$ErrorDialog.dialog_text = "Failed to host game: Error code " + str(error)
+		$ErrorDialog.popup()
 		return
 	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
 	
@@ -213,22 +272,46 @@ func _on_single_player_pressed():
 	if peer and peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTED:
 		peer.close()
 		multiplayer.set_multiplayer_peer(null)
-		$VBoxContainer/Join.text = "Join"
-		$VBoxContainer/Start.disabled = false
+		$TitleContainer/ButtonsPanel/VBoxContainer/Join.text = "Join"
+		$TitleContainer/ButtonsPanel/VBoxContainer/Start.disabled = false
 		return
+	
+	# Add button press effect
+	button_press_effect($TitleContainer/ButtonsPanel/VBoxContainer/SinglePlayer)
+	
+	# Disable other buttons to prevent conflicts
+	$TitleContainer/ButtonsPanel/VBoxContainer/Start.disabled = true
+	$TitleContainer/ButtonsPanel/VBoxContainer/Join.disabled = true
 	
 	peer = ENetMultiplayerPeer.new()
 	peer.create_client("localhost", port)
 	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
 	multiplayer.set_multiplayer_peer(peer)
+
 func _on_join_pressed():
 	if peer and peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTED:
 		peer.close()
 		multiplayer.set_multiplayer_peer(null)
-		$VBoxContainer/Join.text = "Join"
-		$VBoxContainer/Start.disabled = false
+		$TitleContainer/ButtonsPanel/VBoxContainer/Join.text = "Join"
+		# Re-enable all buttons after disconnecting
+		reset_button_states()
 		return
+	
+	# Add button press effect
+	button_press_effect($TitleContainer/ButtonsPanel/VBoxContainer/Join)
+	
 	$JoinIP.show()
+
+func button_press_effect(button):
+	var original_scale = button.scale
+	var button_pivot = button.size / 2
+	
+	# Set the button's pivot to center for proper expansion
+	button.set_pivot_offset(button_pivot)
+	
+	var tween = create_tween()
+	tween.tween_property(button, "scale", original_scale * 0.9, 0.1)
+	tween.tween_property(button, "scale", original_scale, 0.1)
 
 func _on_join_ip_confirmed() -> void:
 	if peer and peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTED:
@@ -245,38 +328,99 @@ func _on_join_ip_confirmed() -> void:
 	
 	pass # Replace with function body.
 
-
+# Mouse hover effects for buttons
 func _on_start_mouse_entered() -> void:
-	if not $VBoxContainer/Start.disabled:
+	if not $TitleContainer/ButtonsPanel/VBoxContainer/Start.disabled:
 		$SelectHost.visible = true
+		# Better positioning with improved padding
+		$SelectHost.position = Vector2(
+			$TitleContainer/ButtonsPanel/VBoxContainer/Start.global_position.x - 45,
+			$TitleContainer/ButtonsPanel/VBoxContainer/Start.global_position.y)
+		$Focus.play()
+		pulse_button($TitleContainer/ButtonsPanel/VBoxContainer/Start)
 
 func _on_join_mouse_entered() -> void:
-	if not $VBoxContainer/Join.disabled:
+	if not $TitleContainer/ButtonsPanel/VBoxContainer/Join.disabled:
 		$SelectJoin.visible = true
+		# Better positioning with improved padding
+		$SelectJoin.position = Vector2(
+			$TitleContainer/ButtonsPanel/VBoxContainer/Join.global_position.x - 45,
+			$TitleContainer/ButtonsPanel/VBoxContainer/Join.global_position.y)
+		$Focus.play()
+		pulse_button($TitleContainer/ButtonsPanel/VBoxContainer/Join)
 
 func _on_exit_mouse_entered() -> void:
 	$SelectExit.visible = true
+	$SelectExit.position = Vector2(
+		$TitleContainer/TopBar/HBoxContainer/Exit.global_position.x - 15,
+		$TitleContainer/TopBar/HBoxContainer/Exit.global_position.y + 20)
+	$Focus.play()
+	pulse_button($TitleContainer/TopBar/HBoxContainer/Exit)
+
+func _on_single_player_mouse_entered() -> void:
+	$SelectHost.visible = true
+	# Better positioning with improved padding
+	$SelectHost.position = Vector2(
+		$TitleContainer/ButtonsPanel/VBoxContainer/SinglePlayer.global_position.x - 45,
+		$TitleContainer/ButtonsPanel/VBoxContainer/SinglePlayer.global_position.y)
+	$Focus.play()
+	pulse_button($TitleContainer/ButtonsPanel/VBoxContainer/SinglePlayer)
+
+func pulse_button(button):
+	var original_scale = button.scale
+	var button_pivot = button.size / 2
+	
+	# Set the button's pivot to center for proper expansion
+	button.set_pivot_offset(button_pivot)
+	
+	var tween = create_tween()
+	tween.tween_property(button, "scale", original_scale * 1.1, 0.15)
+	tween.tween_property(button, "scale", original_scale, 0.15)
 
 func _on_start_mouse_exited() -> void:
-	if not $VBoxContainer/Start.disabled:
+	if not $TitleContainer/ButtonsPanel/VBoxContainer/Start.disabled:
 		$SelectHost.visible = false
 
 func _on_join_mouse_exited() -> void:
-	if not $VBoxContainer/Join.disabled:
+	if not $TitleContainer/ButtonsPanel/VBoxContainer/Join.disabled:
 		$SelectJoin.visible = false
 
-func _on_exit_mouse_exited() -> void:
-	$SelectExit.visible = false
+func _on_single_player_mouse_exited() -> void:
+	$SelectHost.visible = false
 
 func _on_settings_mouse_entered():
-	$SelectSettings.visible = true
+	# No outline for settings button - just play the sound and pulse
 	$Focus.play()
+	pulse_button($TitleContainer/TopBar/HBoxContainer/Settings)
 
 func _on_settings_mouse_exited():
+	# Make sure no outline is visible
 	$SelectSettings.visible = false
 
 func _on_settings_pressed():
+	button_press_effect($TitleContainer/TopBar/HBoxContainer/Settings)
 	$KeybindingScreen.show()
 
 func _on_tutorial_button_pressed():
+	button_press_effect($TitleContainer/TopBar/HBoxContainer/TutorialButton)
 	$Tutorial.show()
+
+# Add a new function for tutorial button mouse entered
+func _on_tutorial_button_mouse_entered():
+	# No outline for tutorial button - just play the sound and pulse
+	$Focus.play()
+	pulse_button($TitleContainer/TopBar/HBoxContainer/TutorialButton)
+
+# Add a new function for tutorial button mouse exited
+func _on_tutorial_button_mouse_exited():
+	pass
+
+# Reset all buttons to their default enabled/disabled states
+func reset_button_states():
+	$TitleContainer/ButtonsPanel/VBoxContainer/SinglePlayer.disabled = false
+	$TitleContainer/ButtonsPanel/VBoxContainer/Start.disabled = false
+	$TitleContainer/ButtonsPanel/VBoxContainer/Join.disabled = false
+
+# Add error dialog close handler to ensure buttons are re-enabled
+func _on_error_dialog_close():
+	reset_button_states()

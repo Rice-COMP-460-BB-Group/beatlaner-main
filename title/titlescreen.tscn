@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://c3jsflij7fip8"]
+[gd_scene load_steps=22 format=3 uid="uid://c3jsflij7fip8"]
 
 [ext_resource type="Script" uid="uid://b74pltdmsxsoj" path="res://title/titlescreen.gd" id="1_8mkg5"]
 [ext_resource type="FontFile" uid="uid://cm5q756n5trre" path="res://assets/VT323-Regular.ttf" id="2_o2rih"]
@@ -15,9 +15,6 @@
 [ext_resource type="Script" uid="uid://mheo26r557l1" path="res://title/select_exit.gd" id="12_kp6lg"]
 [ext_resource type="Texture2D" uid="uid://t7qi5g33ltc2" path="res://assets/big keyhints.png" id="14_4tjq8"]
 
-[sub_resource type="Theme" id="Theme_cf6cc"]
-default_font = ExtResource("2_o2rih")
-
 [sub_resource type="Environment" id="Environment_qrm3v"]
 background_mode = 3
 glow_enabled = true
@@ -25,101 +22,313 @@ glow_intensity = 0.62
 glow_strength = 0.49
 glow_blend_mode = 1
 
+[sub_resource type="Gradient" id="Gradient_wvxhe"]
+offsets = PackedFloat32Array(0, 0.325269, 0.666667, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.501961, 1, 1, 1, 0.501961, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_7y256"]
+gradient = SubResource("Gradient_wvxhe")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_44pxp"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(576, 1, 1)
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 20.0
+initial_velocity_max = 40.0
+angular_velocity_min = -50.0
+angular_velocity_max = 50.0
+gravity = Vector3(0, -30, 0)
+scale_min = 0.1
+scale_max = 0.3
+color_ramp = SubResource("GradientTexture1D_7y256")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xtllw"]
+bg_color = Color(0, 0, 0, 0.592157)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0, 0, 0, 0.34902)
+shadow_size = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qfnok"]
+bg_color = Color(0.0392157, 0.0392157, 0.0392157, 0.784314)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 0.392157)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.34902)
+shadow_size = 5
+
+[sub_resource type="Theme" id="Theme_cf6cc"]
+default_font = ExtResource("2_o2rih")
+
 [node name="Titlescreen" type="Control"]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_8mkg5")
 
-[node name="Nature Art" type="TextureRect" parent="."]
-self_modulate = Color(0.444843, 0.444843, 0.444843, 1)
-layout_mode = 0
-offset_top = -3.0
-offset_right = 1920.0
-offset_bottom = 1084.0
-scale = Vector2(0.599999, 0.599989)
-texture = ExtResource("2_yd6vl")
-
-[node name="Sprite2D" type="TextureRect" parent="."]
-layout_mode = 0
-offset_left = -54.0
-offset_top = -214.0
-offset_right = 1139.0
-offset_bottom = 801.0
-texture = ExtResource("3_dxtfj")
-script = ExtResource("4_kfc28")
-
-[node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Exit" type="Button" parent="."]
-layout_mode = 2
-offset_left = 1.0
-offset_top = 1.0
-offset_right = 137.0
-offset_bottom = 74.0
-size_flags_horizontal = 6
-focus_next = NodePath("../VBoxContainer/Start")
-focus_previous = NodePath(".")
-theme_override_font_sizes/font_size = 32
-text = "Exit"
-flat = true
-
-[node name="Settings" type="Button" parent="."]
-layout_mode = 2
-offset_left = 888.0
-offset_right = 1152.0
-offset_bottom = 73.0
-size_flags_horizontal = 6
-focus_next = NodePath("../Exit")
-focus_previous = NodePath("../VBoxContainer/Join")
-theme_override_font_sizes/font_size = 32
-text = "Settings"
-flat = true
-
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="BackgroundContainer" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 25.0
-offset_top = 346.0
-offset_right = 1176.0
-offset_bottom = 639.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(1155, 298.5)
-alignment = 1
 
-[node name="SinglePlayer" type="Button" parent="VBoxContainer"]
+[node name="Nature Art" type="TextureRect" parent="BackgroundContainer"]
+self_modulate = Color(0.65, 0.65, 0.65, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_yd6vl")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="BackgroundContainer"]
+environment = SubResource("Environment_qrm3v")
+
+[node name="TitleParticles" type="GPUParticles2D" parent="BackgroundContainer"]
+position = Vector2(576, 650)
+amount = 100
+texture = ExtResource("10_stebw")
+lifetime = 8.0
+preprocess = 4.0
+visibility_rect = Rect2(-576, -650, 1152, 648)
+trail_enabled = true
+process_material = SubResource("ParticleProcessMaterial_44pxp")
+
+[node name="DarkenOverlay" type="ColorRect" parent="BackgroundContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.196078)
+
+[node name="TitleContainer" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LogoContainer" type="Control" parent="TitleContainer"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -400.0
+offset_top = 10.0
+offset_right = 400.0
+offset_bottom = 300.0
+grow_horizontal = 2
+
+[node name="Sprite2D" type="TextureRect" parent="TitleContainer/LogoContainer"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -786.0
+offset_top = -335.0
+offset_right = -186.0
+offset_bottom = -35.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("3_dxtfj")
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("4_kfc28")
+
+[node name="ButtonsPanel" type="Panel" parent="TitleContainer"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = 34.0
+offset_right = 200.0
+offset_bottom = 284.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xtllw")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TitleContainer/ButtonsPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+
+[node name="SinglePlayer" type="Button" parent="TitleContainer/ButtonsPanel/VBoxContainer"]
 layout_direction = 2
 layout_mode = 2
-size_flags_horizontal = 6
-focus_next = NodePath("../../Exit")
-focus_previous = NodePath("../../Exit")
-theme_override_font_sizes/font_size = 25
+size_flags_horizontal = 4
+size_flags_vertical = 6
+focus_next = NodePath("../Start")
+focus_previous = NodePath("../Join")
+theme_override_colors/font_hover_color = Color(0.921569, 0.921569, 0.921569, 1)
+theme_override_font_sizes/font_size = 32
 text = "PLAY 1P"
 flat = true
 
-[node name="Start" type="Button" parent="VBoxContainer"]
+[node name="Start" type="Button" parent="TitleContainer/ButtonsPanel/VBoxContainer"]
 layout_direction = 2
 layout_mode = 2
-size_flags_horizontal = 6
-focus_next = NodePath("../../Exit")
-focus_previous = NodePath("../../Exit")
-theme_override_font_sizes/font_size = 25
+size_flags_horizontal = 4
+size_flags_vertical = 6
+focus_next = NodePath("../Join")
+focus_previous = NodePath("../SinglePlayer")
+theme_override_colors/font_hover_color = Color(0.921569, 0.921569, 0.921569, 1)
+theme_override_font_sizes/font_size = 32
 text = "HOST 2P"
 flat = true
 
-[node name="Join" type="Button" parent="VBoxContainer"]
+[node name="Join" type="Button" parent="TitleContainer/ButtonsPanel/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 6
-focus_next = NodePath("../../Exit")
-focus_previous = NodePath("../../Exit")
-theme_override_font_sizes/font_size = 25
+size_flags_horizontal = 4
+size_flags_vertical = 6
+focus_next = NodePath("../SinglePlayer")
+focus_previous = NodePath("../Start")
+theme_override_colors/font_hover_color = Color(0.921569, 0.921569, 0.921569, 1)
+theme_override_font_sizes/font_size = 32
 text = "JOIN 2P"
 flat = true
+
+[node name="ConnectedCount" type="Label" parent="TitleContainer/ButtonsPanel"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 10.0
+offset_bottom = 36.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.768729, 0.768729, 0.768729, 1)
+theme_override_font_sizes/font_size = 16
+text = "0 / 0 players connected"
+horizontal_alignment = 1
+
+[node name="TopBar" type="Panel" parent="TitleContainer"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 60.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qfnok")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TitleContainer/TopBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Exit" type="Button" parent="TitleContainer/TopBar/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+focus_next = NodePath("../TutorialButton")
+focus_previous = NodePath("../Settings")
+focus_mode = 0
+theme_override_font_sizes/font_size = 24
+text = "  Exit  "
+flat = true
+
+[node name="TutorialButton" type="Button" parent="TitleContainer/TopBar/HBoxContainer"]
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 4
+focus_next = NodePath("../Settings")
+focus_previous = NodePath("../Exit")
+focus_mode = 0
+theme_override_font_sizes/font_size = 24
+text = "  Tutorial  "
+flat = true
+icon_alignment = 1
+vertical_icon_alignment = 0
+
+[node name="Settings" type="Button" parent="TitleContainer/TopBar/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+focus_next = NodePath("../Exit")
+focus_previous = NodePath("../TutorialButton")
+focus_mode = 0
+theme_override_font_sizes/font_size = 24
+text = "  Settings  "
+flat = true
+
+[node name="SelectHost" type="TextureRect" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.392157)
+layout_mode = 0
+offset_left = 327.0
+offset_top = 389.0
+offset_right = 417.0
+offset_bottom = 479.0
+expand_mode = 1
+script = ExtResource("10_hwerf")
+
+[node name="SelectJoin" type="TextureRect" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.392157)
+layout_mode = 0
+offset_left = 327.0
+offset_top = 444.0
+offset_right = 417.0
+offset_bottom = 534.0
+expand_mode = 1
+script = ExtResource("11_ays2e")
+
+[node name="SelectExit" type="TextureRect" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.392157)
+z_index = 1000
+layout_mode = 0
+offset_left = 103.0
+offset_top = 30.0
+offset_right = 133.0
+offset_bottom = 60.0
+expand_mode = 1
+script = ExtResource("12_kp6lg")
+
+[node name="SelectSettings" type="TextureRect" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.392157)
+layout_mode = 0
+offset_left = 1050.0
+offset_top = 30.0
+offset_right = 1080.0
+offset_bottom = 60.0
+expand_mode = 1
+script = ExtResource("10_hwerf")
 
 [node name="Background" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(576, 320)
@@ -136,111 +345,35 @@ stream = ExtResource("7_as5so")
 [node name="JoinIP" type="AcceptDialog" parent="."]
 title = "Join Lobby"
 initial_position = 1
-size = Vector2i(250, 100)
+size = Vector2i(350, 150)
 theme = SubResource("Theme_cf6cc")
 ok_button_text = "Join"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="JoinIP"]
 offset_left = 8.0
 offset_top = 8.0
-offset_right = 242.0
-offset_bottom = 57.0
+offset_right = 342.0
+offset_bottom = 107.0
 
 [node name="Label" type="Label" parent="JoinIP/VBoxContainer"]
 layout_mode = 2
-text = "IP address:"
+theme_override_font_sizes/font_size = 24
+text = "Enter IP address:"
 
 [node name="IPInput" type="LineEdit" parent="JoinIP/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 24
 placeholder_text = "localhost"
 
 [node name="ErrorDialog" type="AcceptDialog" parent="."]
 auto_translate_mode = 1
 title = "Failed to join server"
 initial_position = 1
-size = Vector2i(250, 100)
+size = Vector2i(400, 150)
 theme = SubResource("Theme_cf6cc")
 
 [node name="KeybindingScreen" parent="." instance=ExtResource("9_kh5ju")]
 visible = false
-
-[node name="ConnectedCount" type="Label" parent="."]
-visible = false
-layout_mode = 0
-offset_left = 401.0
-offset_top = 619.0
-offset_right = 1137.0
-offset_bottom = 651.0
-theme_override_colors/font_color = Color(0.768729, 0.768729, 0.768729, 1)
-theme_override_font_sizes/font_size = 16
-text = "0 / 0 players connected"
-horizontal_alignment = 2
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_qrm3v")
-
-[node name="Sprite2D2" type="Sprite2D" parent="."]
-
-[node name="SelectHost" type="TextureRect" parent="."]
-visible = false
-layout_mode = 0
-offset_left = 90.0
-offset_top = 466.0
-offset_right = 185.0
-offset_bottom = 560.0
-texture = ExtResource("10_stebw")
-expand_mode = 1
-script = ExtResource("10_hwerf")
-
-[node name="SelectJoin" type="TextureRect" parent="."]
-visible = false
-layout_mode = 0
-offset_left = 378.0
-offset_top = 466.0
-offset_right = 473.0
-offset_bottom = 560.0
-texture = ExtResource("10_stebw")
-expand_mode = 1
-script = ExtResource("11_ays2e")
-
-[node name="SelectSettings" type="TextureRect" parent="."]
-visible = false
-layout_mode = 0
-offset_left = 665.0
-offset_top = 467.0
-offset_right = 760.0
-offset_bottom = 561.0
-texture = ExtResource("10_stebw")
-expand_mode = 1
-script = ExtResource("10_hwerf")
-
-[node name="SelectExit" type="TextureRect" parent="."]
-visible = false
-z_index = 1000
-layout_mode = 0
-offset_left = 962.0
-offset_top = 466.0
-offset_right = 1057.0
-offset_bottom = 560.0
-texture = ExtResource("10_stebw")
-expand_mode = 1
-script = ExtResource("12_kp6lg")
-
-[node name="TutorialButton" type="Button" parent="."]
-layout_direction = 2
-layout_mode = 0
-offset_left = 429.0
-offset_top = -2.0
-offset_right = 693.0
-offset_bottom = 72.0
-size_flags_horizontal = 6
-focus_next = NodePath("../Exit")
-focus_previous = NodePath("../Exit")
-theme_override_font_sizes/font_size = 32
-text = "Tutorial"
-flat = true
-icon_alignment = 1
-vertical_icon_alignment = 0
 
 [node name="Tutorial" type="AcceptDialog" parent="."]
 title = "How-to"
@@ -254,27 +387,31 @@ offset_right = 948.0
 offset_bottom = 358.0
 texture = ExtResource("14_4tjq8")
 
-[connection signal="focus_entered" from="Exit" to="." method="_on_button_focus_entered"]
-[connection signal="mouse_entered" from="Exit" to="." method="_on_exit_mouse_entered"]
-[connection signal="mouse_exited" from="Exit" to="." method="_on_exit_mouse_exited"]
-[connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]
-[connection signal="pressed" from="Exit" to="." method="_on_button_pressed"]
-[connection signal="focus_entered" from="Settings" to="." method="_on_button_focus_entered"]
-[connection signal="mouse_entered" from="Settings" to="." method="_on_settings_mouse_entered"]
-[connection signal="mouse_exited" from="Settings" to="." method="_on_settings_mouse_exited"]
-[connection signal="pressed" from="Settings" to="." method="_on_settings_pressed"]
-[connection signal="focus_entered" from="VBoxContainer/SinglePlayer" to="." method="_on_button_focus_entered"]
-[connection signal="pressed" from="VBoxContainer/SinglePlayer" to="." method="_on_single_player_pressed"]
-[connection signal="focus_entered" from="VBoxContainer/Start" to="." method="_on_button_focus_entered"]
-[connection signal="mouse_entered" from="VBoxContainer/Start" to="." method="_on_start_mouse_entered"]
-[connection signal="mouse_exited" from="VBoxContainer/Start" to="." method="_on_start_mouse_exited"]
-[connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_start_pressed"]
-[connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_button_pressed"]
-[connection signal="focus_entered" from="VBoxContainer/Join" to="." method="_on_button_focus_entered"]
-[connection signal="mouse_entered" from="VBoxContainer/Join" to="." method="_on_join_mouse_entered"]
-[connection signal="mouse_exited" from="VBoxContainer/Join" to="." method="_on_join_mouse_exited"]
-[connection signal="pressed" from="VBoxContainer/Join" to="." method="_on_join_pressed"]
+[connection signal="focus_entered" from="TitleContainer/ButtonsPanel/VBoxContainer/SinglePlayer" to="." method="_on_button_focus_entered"]
+[connection signal="mouse_entered" from="TitleContainer/ButtonsPanel/VBoxContainer/SinglePlayer" to="." method="_on_single_player_mouse_entered"]
+[connection signal="mouse_exited" from="TitleContainer/ButtonsPanel/VBoxContainer/SinglePlayer" to="." method="_on_single_player_mouse_exited"]
+[connection signal="pressed" from="TitleContainer/ButtonsPanel/VBoxContainer/SinglePlayer" to="." method="_on_single_player_pressed"]
+[connection signal="focus_entered" from="TitleContainer/ButtonsPanel/VBoxContainer/Start" to="." method="_on_button_focus_entered"]
+[connection signal="mouse_entered" from="TitleContainer/ButtonsPanel/VBoxContainer/Start" to="." method="_on_start_mouse_entered"]
+[connection signal="mouse_exited" from="TitleContainer/ButtonsPanel/VBoxContainer/Start" to="." method="_on_start_mouse_exited"]
+[connection signal="pressed" from="TitleContainer/ButtonsPanel/VBoxContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="TitleContainer/ButtonsPanel/VBoxContainer/Start" to="." method="_on_button_pressed"]
+[connection signal="focus_entered" from="TitleContainer/ButtonsPanel/VBoxContainer/Join" to="." method="_on_button_focus_entered"]
+[connection signal="mouse_entered" from="TitleContainer/ButtonsPanel/VBoxContainer/Join" to="." method="_on_join_mouse_entered"]
+[connection signal="mouse_exited" from="TitleContainer/ButtonsPanel/VBoxContainer/Join" to="." method="_on_join_mouse_exited"]
+[connection signal="pressed" from="TitleContainer/ButtonsPanel/VBoxContainer/Join" to="." method="_on_join_pressed"]
+[connection signal="focus_entered" from="TitleContainer/TopBar/HBoxContainer/Exit" to="." method="_on_button_focus_entered"]
+[connection signal="mouse_entered" from="TitleContainer/TopBar/HBoxContainer/Exit" to="." method="_on_exit_mouse_entered"]
+[connection signal="mouse_exited" from="TitleContainer/TopBar/HBoxContainer/Exit" to="." method="_on_exit_mouse_exited"]
+[connection signal="pressed" from="TitleContainer/TopBar/HBoxContainer/Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="TitleContainer/TopBar/HBoxContainer/Exit" to="." method="_on_button_pressed"]
+[connection signal="focus_entered" from="TitleContainer/TopBar/HBoxContainer/TutorialButton" to="." method="_on_button_focus_entered"]
+[connection signal="mouse_entered" from="TitleContainer/TopBar/HBoxContainer/TutorialButton" to="." method="_on_tutorial_button_mouse_entered"]
+[connection signal="mouse_exited" from="TitleContainer/TopBar/HBoxContainer/TutorialButton" to="." method="_on_tutorial_button_mouse_exited"]
+[connection signal="pressed" from="TitleContainer/TopBar/HBoxContainer/TutorialButton" to="." method="_on_tutorial_button_pressed"]
+[connection signal="focus_entered" from="TitleContainer/TopBar/HBoxContainer/Settings" to="." method="_on_button_focus_entered"]
+[connection signal="mouse_entered" from="TitleContainer/TopBar/HBoxContainer/Settings" to="." method="_on_settings_mouse_entered"]
+[connection signal="mouse_exited" from="TitleContainer/TopBar/HBoxContainer/Settings" to="." method="_on_settings_mouse_exited"]
+[connection signal="pressed" from="TitleContainer/TopBar/HBoxContainer/Settings" to="." method="_on_settings_pressed"]
 [connection signal="confirmed" from="JoinIP" to="." method="_on_join_ip_confirmed"]
 [connection signal="confirmed" from="ErrorDialog" to="." method="_on_join_ip_confirmed"]
-[connection signal="focus_entered" from="TutorialButton" to="." method="_on_button_focus_entered"]
-[connection signal="pressed" from="TutorialButton" to="." method="_on_tutorial_button_pressed"]
