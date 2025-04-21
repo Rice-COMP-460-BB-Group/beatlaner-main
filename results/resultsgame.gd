@@ -223,6 +223,8 @@ func update_structures_display():
 	
 
 func _ready():
+	multiplayer.multiplayer_peer.close()
+
 	if len(GameManager.Players) <= 1:
 		%Player2Info.hide()
 		%Player2KDA.hide()
