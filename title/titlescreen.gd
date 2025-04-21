@@ -43,12 +43,16 @@ func _ready():
 	# Set up focus for button navigation
 	$TitleContainer/ButtonsPanel/VBoxContainer/SinglePlayer.grab_focus()
 	
+	# Initialize button states
 	$TitleContainer/TopBar/HBoxContainer/Exit.focus_mode = Control.FOCUS_NONE
 	$TitleContainer/TopBar/HBoxContainer/Settings.focus_mode = Control.FOCUS_NONE
 	$TitleContainer/TopBar/HBoxContainer/TutorialButton.focus_mode = Control.FOCUS_NONE
 	$TitleContainer/ButtonsPanel/VBoxContainer/SinglePlayer.focus_mode = Control.FOCUS_ALL
 	$TitleContainer/ButtonsPanel/VBoxContainer/Start.focus_mode = Control.FOCUS_ALL
 	$TitleContainer/ButtonsPanel/VBoxContainer/Join.focus_mode = Control.FOCUS_ALL
+	
+	# Initialize button enabled/disabled states
+	reset_button_states()
 	
 	# Hide selector elements initially
 	$SelectHost.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -67,7 +71,7 @@ func _ready():
 		dedicated_server = true
 		DisplayServer.window_set_title("Beatlaner Server")
 		hostGame()
-		$TitleContainer/ButtonsPanel/VBoxContainer/Start.text = "Start"
+		$TitleContainer/ButtonsPanel/VBoxContainer/Start.text = "START"
 
 	if "--auto" in OS.get_cmdline_args() and !dedicated_server:
 		peer = ENetMultiplayerPeer.new()
@@ -110,7 +114,9 @@ func _on_start_pressed() -> void:
 		hostGame()
 		if !dedicated_server:
 			SendPlayerInformation("", multiplayer.get_unique_id())
-		$TitleContainer/ButtonsPanel/VBoxContainer/Start.text = "Start"
+		$TitleContainer/ButtonsPanel/VBoxContainer/Start.text = "START"
+		# Disable SinglePlayer when hosting - prevent conflicts
+		$TitleContainer/ButtonsPanel/VBoxContainer/SinglePlayer.disabled = true
 	else:
 		$Background.stop()
 		$TitleContainer/ButtonsPanel/VBoxContainer/Start.disabled = true
@@ -156,6 +162,8 @@ func peer_disconnected(id):
 # called only from clients
 func connected_to_server():
 	$TitleContainer/ButtonsPanel/VBoxContainer/Start.disabled = true
+	# Disable SinglePlayer when connected - prevent conflicts
+	$TitleContainer/ButtonsPanel/VBoxContainer/SinglePlayer.disabled = true
 	print("connected To Sever!")
 	SendPlayerInformation.rpc_id(1, "", multiplayer.get_unique_id())
 	$TitleContainer/ButtonsPanel/VBoxContainer/Join.text = "Disconnect"
@@ -164,6 +172,8 @@ func connected_to_server():
 func connection_failed():
 	print("Connection Failed!")
 	$ErrorDialog.dialog_text = "Failed to connect to server %s" % ($JoinIP/VBoxContainer/IPInput.text)
+	# Re-enable buttons on connection failure
+	reset_button_states()
 	$ErrorDialog.popup()
 
 @rpc("any_peer")
@@ -189,6 +199,8 @@ func StartGame():
 	if GameManager.Players.size() < 2 && !("--auto" in OS.get_cmdline_args()) && !single_player_mode:
 		print("Not enough players to start!")
 		$ErrorDialog.dialog_text = "Not enough players to start!"
+		# Re-enable Start button if there aren't enough players
+		$TitleContainer/ButtonsPanel/VBoxContainer/Start.disabled = false
 		$ErrorDialog.popup()
 		return # Stop if there are less than 2 players
 	$Confirm.play()
@@ -197,7 +209,7 @@ func StartGame():
 	var panel_tween = create_tween().set_parallel()
 	panel_tween.tween_property($TitleContainer/ButtonsPanel, "modulate:a", 0.0, 0.5).set_ease(Tween.EASE_IN)
 	panel_tween.tween_property($TitleContainer/TopBar, "modulate:a", 0.0, 0.5).set_ease(Tween.EASE_IN)
-	panel_tween.tween_property($BackgroundContainer/"Nature Art", "modulate:a", 0.0, 1.0).set_ease(Tween.EASE_IN)
+	panel_tween.tween_property($BackgroundContainer / "Nature Art", "modulate:a", 0.0, 1.0).set_ease(Tween.EASE_IN)
 	
 	await panel_tween.finished
 	await $Confirm.finished
@@ -225,10 +237,17 @@ func hostGame():
 	$TitleContainer/ButtonsPanel/ConnectedCount.show()
 	$TitleContainer/ButtonsPanel/ConnectedCount.text = "%s / 2 Players Connected" % (GameManager.Players.size())
 	$TitleContainer/ButtonsPanel/VBoxContainer/Join.disabled = true
+	# Disable SinglePlayer to avoid conflicts
+	$TitleContainer/ButtonsPanel/VBoxContainer/SinglePlayer.disabled = true
+	
 	peer = ENetMultiplayerPeer.new()
 	var error = peer.create_server(port, 4)
 	if error != OK:
 		print("cannot host: " + str(error))
+		# Re-enable buttons if hosting fails
+		reset_button_states()
+		$ErrorDialog.dialog_text = "Failed to host game: Error code " + str(error)
+		$ErrorDialog.popup()
 		return
 	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
 	
@@ -260,6 +279,10 @@ func _on_single_player_pressed():
 	# Add button press effect
 	button_press_effect($TitleContainer/ButtonsPanel/VBoxContainer/SinglePlayer)
 	
+	# Disable other buttons to prevent conflicts
+	$TitleContainer/ButtonsPanel/VBoxContainer/Start.disabled = true
+	$TitleContainer/ButtonsPanel/VBoxContainer/Join.disabled = true
+	
 	peer = ENetMultiplayerPeer.new()
 	peer.create_client("localhost", port)
 	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
@@ -270,7 +293,8 @@ func _on_join_pressed():
 		peer.close()
 		multiplayer.set_multiplayer_peer(null)
 		$TitleContainer/ButtonsPanel/VBoxContainer/Join.text = "Join"
-		$TitleContainer/ButtonsPanel/VBoxContainer/Start.disabled = false
+		# Re-enable all buttons after disconnecting
+		reset_button_states()
 		return
 	
 	# Add button press effect
@@ -390,3 +414,13 @@ func _on_tutorial_button_mouse_entered():
 # Add a new function for tutorial button mouse exited
 func _on_tutorial_button_mouse_exited():
 	pass
+
+# Reset all buttons to their default enabled/disabled states
+func reset_button_states():
+	$TitleContainer/ButtonsPanel/VBoxContainer/SinglePlayer.disabled = false
+	$TitleContainer/ButtonsPanel/VBoxContainer/Start.disabled = false
+	$TitleContainer/ButtonsPanel/VBoxContainer/Join.disabled = false
+
+# Add error dialog close handler to ensure buttons are re-enabled
+func _on_error_dialog_close():
+	reset_button_states()
