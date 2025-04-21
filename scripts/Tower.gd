@@ -14,7 +14,7 @@ var rhythm_game_instance
 var minion_count = 0
 var last_attack = -1
 var attack_speed = .5
-
+var dead = false
 	
 func update_score(new_score: int):
 	minion_count += int(pow(new_score / 10000.0, 0.6))
@@ -67,6 +67,8 @@ func _ready():
 	Signals.WaveSpawned.connect(WaveSpawned)
 
 func _physics_process(delta: float) -> void:
+	if dead:
+		return
 	if last_attack < 0 or last_attack > attack_speed:
 		var enemy_minions = []
 		for body in $DetectionArea.get_overlapping_bodies():
@@ -92,6 +94,7 @@ func _physics_process(delta: float) -> void:
 		last_attack += delta
 
 func _on_health_component_health_destroyed() -> void:
+	dead = true
 	var viewport = get_viewport()
 	if $VisibleOnScreenNotifier2D.is_on_screen():
 		var camera = viewport.get_camera_2d()

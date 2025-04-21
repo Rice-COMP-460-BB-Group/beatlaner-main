@@ -5,6 +5,7 @@ var team = Team.BLUE
 var minion_count = 0
 var last_attack = -1
 var attack_speed = .17
+var dead = false
 @export var laser_scene: PackedScene
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -48,6 +49,8 @@ func fire(dict):
 	return laser
 
 func _physics_process(delta: float) -> void:
+	if dead:
+		return
 	if last_attack < 0 or last_attack > attack_speed:
 		var enemy_minions = []
 		for body in $EnemyDetectArea.get_overlapping_bodies():
@@ -84,6 +87,7 @@ func _on_detection_area_body_entered(body: Node2D) -> void:
 			#body.show_tooltip("upgrade_minions", "Upgrade minions")
 
 func _on_health_component_health_destroyed() -> void:
+	dead = true
 	$NexusBase.material.set_shader_parameter("progress", 0.0)
 	$AnimatedSprite2D.material.set_shader_parameter("progress", 0.0)
 

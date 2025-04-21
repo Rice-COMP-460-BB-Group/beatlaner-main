@@ -800,10 +800,10 @@ offset_bottom = 19.0
 visible = false
 z_index = 12
 layout_mode = 0
-offset_left = -101.0
-offset_top = -152.0
-offset_right = 99.0
-offset_bottom = -92.0
+offset_left = -102.5
+offset_top = -105.0
+offset_right = 97.5
+offset_bottom = -45.0
 texture = ExtResource("22_25x0m")
 
 [node name="UpgradeStats" type="Control" parent="HUD/Stats"]
