@@ -372,10 +372,12 @@ func on_tower_destroyed(tower_team: Team, pos: Vector2):
 	var banner = $HUD/Stats/Banner
 	if tower_team == team:
 		banner.texture = destroy_friendly_banner
-		towers_destroyed += 1
-		MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "towers_destroyed", towers_destroyed)
 	else:
 		banner.texture = destroy_enemy_banner
+		
+		if $MultiplayerSynchronizer.is_multiplayer_authority():
+			towers_destroyed += 1
+			MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "towers_destroyed", towers_destroyed)
 	
 	banner.modulate.a = 0
 	banner.show()
