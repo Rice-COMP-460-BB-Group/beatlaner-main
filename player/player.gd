@@ -134,6 +134,10 @@ func Hit(type: String):
 
 
 func _ready() -> void:
+	if team != Team.RED:
+		$AnimatedSprite2D.sprite_frames = load("res://assets/new_sprite_frames_purple.tres")
+	else:
+		$AnimatedSprite2D.sprite_frames = load("res://assets/purple_guy.tres")
 	MatchStats.singleplayer = GameManager.Players.size() <= 1
 	MatchStats.rpc("register_player_stats", multiplayer.get_unique_id())
 	print('my id', multiplayer.get_unique_id())

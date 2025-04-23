@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b7xgmf7yjemai" path="res://player/player.gd" id="1_h04aa"]
 [ext_resource type="Shader" uid="uid://dr7xdahy2q11u" path="res://minions/flame.gdshader" id="2_h7gj3"]
-[ext_resource type="SpriteFrames" uid="uid://cb5ybbb3n580k" path="res://assets/new_sprite_frames_purple.tres" id="3_xcnuv"]
+[ext_resource type="SpriteFrames" uid="uid://bri668ilr74a5" path="res://assets/purple_guy.tres" id="3_xcnuv"]
 [ext_resource type="Texture2D" uid="uid://d2vprod1nv81r" path="res://assets/newborder.png" id="5_nfi33"]
 [ext_resource type="Texture2D" uid="uid://wdv5b52q5u2h" path="res://assets/Metronome-000.png" id="6_0etmd"]
 [ext_resource type="Texture2D" uid="uid://3ueshbvvsixu" path="res://assets/Minimap.png" id="6_7c3j6"]
