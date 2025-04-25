@@ -27,7 +27,7 @@ var new_stat_name = {
 
 func update_stats_display():
 	# Clear the text first
-	$MainContainer/HeaderSection/ResultDisplay/ResultBanner/ResultLabel.text = 'VICTORY' if multiplayer.get_unique_id() == MatchStats.get_winner() else 'DEFEAT'
+	$MainContainer/HeaderSection/ResultDisplay/ResultBanner/ResultLabel.text = 'VICTORY' if multiplayer.get_unique_id() != MatchStats.get_winner() else 'DEFEAT'
 		
 
 	# Get all stats from MatchStats
