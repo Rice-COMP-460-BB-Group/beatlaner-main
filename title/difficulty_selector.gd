@@ -28,7 +28,7 @@ func _process(delta: float) -> void:
 @rpc("call_local", "any_peer")
 func new_vote(curTeam: Team, toggled_on: bool, difficulty: Difficulty) -> void:
 	var button = get_control_by_difficulty(difficulty).get_node("HBoxContainer")
-	if curTeam == Team.BLUE:
+	if curTeam != Team.BLUE:
 		button = button.get_node("VoteBlue")
 	else:
 		button = button.get_node("VoteRed")
