@@ -867,7 +867,7 @@ func respawn() -> void:
 	is_alive = true
 
 func _on_health_component_health_destroyed() -> void:
-	if is_multiplayer_authority():
+	if $MultiplayerSynchronizer.is_multiplayer_authority():
 		death_count += 1
 		print(multiplayer.get_unique_id(), ' new death count', death_count)
 		MatchStats.rpc("update_stat", multiplayer.get_unique_id(), "death_count", death_count)
